@@ -1,4 +1,3 @@
-module RedhatAccess
-  class ApplicationController < ApplicationController
-  end
+class RedhatAccess::ApplicationController < ApplicationController
+  helper RequirejsHelper
 end

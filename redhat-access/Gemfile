@@ -6,6 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 # jquery-rails is used by the dummy application
+gem "requirejs-rails"
 gem "jquery-rails"
 gem 'uglifier'
 gem 'therubyracer'

@@ -1,3 +1,5 @@
+require "requirejs-rails"
+
 module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess

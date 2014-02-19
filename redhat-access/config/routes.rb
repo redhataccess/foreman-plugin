@@ -6,10 +6,9 @@ RedhatAccess::Engine.routes.draw do
 
   get "articles/index"
   
-  # match 'cases/create' => 'articles#index', :via => :get
-  # match 'cases/search' => 'articles#index', :via => :get
-  # match 'articles' => 'articles#index', :via => :get
+  match 'cases/create' => 'articles#index', :via => :get
+  match 'cases/search' => 'articles#index', :via => :get
+  match 'articles' => 'articles#index', :via => :get
 
-  root :to => "articles#index"
-
+  root :to => 'angular#index' 
 end
