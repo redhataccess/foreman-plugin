@@ -1,4 +1,5 @@
-/* Copyright 2013 Red Hat, Inc.
+/**
+ * Copyright 2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public
  * License as published by the Free Software Foundation; either version
@@ -10,15 +11,11 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
 
-
-//= require "angular/angular"
-//= require "angular/angular-route"
-//= require "angular/angular-ui-router"
-//= require "angular/angular-sanitize"
-//= require "stratajs/Uri"
-//= require "stratajs/strata"
-//= require "redhat_access/redhat_access.module"
-//= require "redhat_access/search/search.module"
-//= require_tree "./search"
-//= require "redhat_access/support/support.module"
-//= require_tree "./support"
+/**
+ * 
+ */
+angular.module('RedhatAccess', [
+	'ngSanitize',
+    'RedhatAccess.search',
+    'RedhatAccess.support'
+]);

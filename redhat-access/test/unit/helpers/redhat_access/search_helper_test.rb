@@ -1,6 +1,6 @@
 require 'test_helper'
 
 module RedhatAccess
-  class ArticlesHelperTest < ActionView::TestCase
+  class SearchHelperTest < ActionView::TestCase
   end
 end

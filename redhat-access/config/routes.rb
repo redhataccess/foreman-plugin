@@ -1,14 +1,7 @@
 RedhatAccess::Engine.routes.draw do
 
-  get "cases/create"
-
-  get "cases/search"
-
-  get "articles/index"
+  get "search/index"
+  get "redhat_access/index"
   
-  match 'cases/create' => 'articles#index', :via => :get
-  match 'cases/search' => 'articles#index', :via => :get
-  match 'articles' => 'articles#index', :via => :get
-
-  root :to => 'angular#index' 
+  root :to => 'redhat_access#index' 
 end

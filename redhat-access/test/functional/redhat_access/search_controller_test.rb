@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module RedhatAccess
-  class ArticlesControllerTest < ActionController::TestCase
+  class SearchControllerTest < ActionController::TestCase
     test "should get index" do
       get :index
       assert_response :success

@@ -1,0 +1,29 @@
+<div class='container col-lg-12 well '>
+  <div id="logged-in">
+    <form role="form" id= "rh-search">
+    <div class="input-group" >
+      <input type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="Search Articles and Solutions">
+      <span class="input-group-btn">
+        <button class="btn btn-default"  type='submit' ng-click="search()">Search</button>
+      </span>
+    </div>
+  </form>
+  </div>
+  
+</div>
+<div class="row " >
+  <div class="col-lg-4">
+    
+    <div class="panel panel-default">
+      <!--div class="panel-heading">Suggested solutions</div-->
+      <div id='solutions' class="panel-body list-group">
+        <div class='list-group-item'  ng-repeat="result in results">
+     
+          <a href="" ng-click="solutionSelected($index)"> {{ result.title }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 panel-group" ng-bind-html="selectedSolution">
+  </div>
+</div>

@@ -1,4 +1,4 @@
 module RedhatAccess
-  module ArticlesHelper
+  module SearchHelper
   end
 end

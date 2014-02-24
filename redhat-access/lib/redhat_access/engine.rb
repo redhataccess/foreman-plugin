@@ -1,5 +1,3 @@
-require "requirejs-rails"
-
 module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
@@ -45,17 +43,16 @@ module RedhatAccess
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Redhat Access') do
           menu :header_menu,
             :Search,
-            :url_hash => {:controller=> :"redhat_access/articles",
-                          :action=> :index},
+            :url_hash => {:controller=> :"redhat_access/search"},
             :engine => RedhatAccess::Engine
-          sub_menu :header_menu, :support_cases, :caption=> N_('Support Cases') do
-            menu :header_menu, :view_cases, :caption=> N_('View'),
-              :url_hash => {:controller=> :"redhat_access/cases", :action=>:search},
-              :engine => RedhatAccess::Engine
-            menu :header_menu, :new_cases, :caption=> N_('New'),
-              :url_hash => {:controller=> :"redhat_access/cases", :action=>:create},
-              :engine => RedhatAccess::Engine
-          end
+          # sub_menu :header_menu, :support_cases, :caption=> N_('Support Cases') do
+          #   menu :header_menu, :view_cases, :caption=> N_('View'),
+          #     :url_hash => {:controller=> :"redhat_access/angular/views/view"},
+          #     :engine => RedhatAccess::Engine
+          #   menu :header_menu, :new_cases, :caption=> N_('New'),
+          #     :url_hash => {:controller=> :"redhat_access/angular/views/new"},
+          #     :engine => RedhatAccess::Engine
+          # end
         end
 
       end
