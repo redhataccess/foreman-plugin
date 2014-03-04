@@ -1,0 +1,19 @@
+<div class="modal-header">
+            <h3>Login Into Redhat Portal</h3>
+        </div>
+        <div class="modal-body">
+           <fieldset>
+  <legend>Login</legend>
+
+  <label>Username</label>
+  <input type="text" ng-model="user.user" placeholder="Your Username" required/>
+
+  <label>Password</label>
+  <input type="password" ng-model="user.password" placeholder="Your Password" required/>
+</fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="modalOptions.ok()">OK</button>
+            <button class="btn btn-warning" ng-click="modalOptions.close()">Cancel</button>
+        </div>
+ 

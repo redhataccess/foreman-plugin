@@ -1,0 +1,15 @@
+<div class="row " >
+  <div class="col-lg-8">
+    <accordion > 
+      <accordion-group is-open="isopen" ng-repeat="result in results">
+        <accordion-heading>
+            {{result.title}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+        </accordion-heading>
+        <div ng-bind-html="getSolutionText(result)"></div>
+      </accordion-group>
+    </accordion>
+  </div>
+</div>
+
+
+
