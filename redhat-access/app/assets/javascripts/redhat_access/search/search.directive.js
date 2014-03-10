@@ -8,18 +8,18 @@
 
 
 angular.module('RedhatAccess.search')
-	.directive('accordionSearch', function() {
+	.directive('accordionSearchResults', function() {
 		return {
 			restrict: 'AE',
 			scope: false,
-			templateUrl: '/assets/redhat_access/search/views/search_accordion.html'
+			templateUrl: '/assets/redhat_access/search/views/accordion_search_results.html'
 		};
 	})
-	.directive('listPanelSearch', function() {
+	.directive('listSearchResults', function() {
 		return {
 			restrict: 'AE',
 			scope: false,
-			templateUrl: '/assets/redhat_access/search/views/search_list_detail.html'
+			templateUrl: '/assets/redhat_access/search/views/list_search_results.html'
 		};
 	})
 	.directive('searchForm', function() {
@@ -28,4 +28,12 @@ angular.module('RedhatAccess.search')
 			scope: false ,
 			templateUrl: '/assets/redhat_access/search/views/search_form.html'
 		};
-	});
+	})
+	.directive('standardSearch', function() {
+		return {
+			restrict: 'AE',
+			scope: false ,
+			templateUrl: '/assets/redhat_access/search/views/search3.html'
+		};
+	})
+	;

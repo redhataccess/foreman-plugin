@@ -16,6 +16,21 @@
  */
 angular.module('RedhatAccess', [
 	'ngSanitize',
+	'RedhatAccess.strata',
     'RedhatAccess.search',
-    'RedhatAccess.support'
+    'RedhatAccess.support',
+    'ui.router',
+    'ui.bootstrap'
+    //'templates'
+
 ]);
+
+/*angular.module('RedhatAccess').config(['$stateProvider',
+	function($stateProvider) {
+		$stateProvider.state('search_main', {
+			url: "/redhat_access/search_main",
+			controller: 'SearchController',
+			templateUrl: '/assets/redhat_access/search/views/search.html'
+		});
+	}
+]);*/

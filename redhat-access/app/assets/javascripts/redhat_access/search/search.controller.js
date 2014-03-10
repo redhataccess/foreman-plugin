@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2014 Red Hat, Inc.
+ * Copyright 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public
  * License as published by the Free Software Foundation; either version
@@ -16,26 +16,41 @@
  * @description
  *
  */
-angular.module('RedhatAccess.search').controller('SearchController', ['$scope',
-    function($scope) {
-        $scope.results = [];
+angular.module('RedhatAccess.search').controller('SearchController', ['$scope', 'strataService',
+    'SearchResultsService',
+    function($scope, strataService, SearchResultsService) {
+        $scope.results = SearchResultsService.results;
         $scope.selectedSolution = '';
 
         onFailure = function() {
             //alert("Failed");
         };
+        clearResults = function() {
+            $scope.selectedSolution = '';
+            SearchResultsService.clear();
+
+        };
+
 
         addResult = function(result) {
             $scope.$apply(function() {
-                $scope.results.push(result);
+                SearchResultsService.add(result);
             });
 
         };
 
+
+
         $scope.solutionSelected = function(index) {
 
             var response = $scope.results[index];
+            var panel = $scope.getSolutionText(response);
+            $scope.selectedSolution = panel;
+
+        };
+        $scope.getSolutionText = function(response) {
             //yikes, view logic in controller!
+            //Need to handle both articles and solutions
             var panel = "<div class='panel' style='border:0'>";
             var environment_html = response.environment.html;
             var issue_html = response.issue.html;
@@ -46,18 +61,18 @@ angular.module('RedhatAccess.search').controller('SearchController', ['$scope',
             var solution_html = "<h3>Environment</h3>" + environment_html + "<h3>Issue</h3>" + issue_html + "<h3>Resolution</h3>" + resolution_html;
             panel = panel + solution_html;
             panel = panel + "</div></div>"
-
-            $scope.selectedSolution = panel;
+            return panel;
 
         };
 
         $scope.search = function(searchStr) {
+            clearResults();
             strata.diagnose($scope.searchStr,
                 function(response) {
                     addResult(response);
                 },
                 onFailure,
-                11
+                10
             );
 
         }
