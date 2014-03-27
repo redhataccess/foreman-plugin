@@ -9,8 +9,6 @@
  * have received a copy of GPLv2 along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
-
-
 //= require "angular/angular"
 //= require "angular/angular-route"
 //= require "angular/angular-ui-router"
@@ -18,10 +16,7 @@
 //= require "angular/ui-bootstrap-tpls"
 //= require "stratajs/Uri"
 //= require "stratajs/strata"
+//= require "stratajs/js-markdown-extra"
+//= require "redhat_access/angular.treeview"
+//= require "redhat_access/redhat_access_angular_ui"
 //= require "redhat_access/redhat_access.module"
-//= require "redhat_access/search/search.module"
-//= require_tree "./search"
-//= require "redhat_access/strata/strata.module"
-//= require_tree "./strata"
-//= require "redhat_access/support/support.module"
-//= require_tree "./support"

@@ -1,0 +1,3 @@
+USER=root
+PROGRAM=/usr/sbin/foreman-sosreport-wrapper
+SESSION=true

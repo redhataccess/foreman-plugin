@@ -6,18 +6,17 @@ module RedhatAccess
       app.routes_reloader.paths << "#{RedhatAccess::Engine.root}/config/mount_engine.rb"
     end
 
-    initializer :register_assets do |app|
-      if Rails.env.production?
-        assets = YAML.load_file("#{RedhatAccess::Engine.root}/public/assets/manifest.yml")
+    #initializer :register_assets do |app|
+      #if Rails.env.production?
+      #  assets = YAML.load_file("#{RedhatAccess::Engine.root}/public/assets/manifest.yml")
 
-        assets.each_pair do |file, digest|
-          app.config.assets.digests[file] = digest
-        end
-      end
-    end
+       # assets.each_pair do |file, digest|
+       #   app.config.assets.digests[file] = digest
+       # end
+      #d
 
-    initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
-      Foreman::Plugin.register :redhat_access do
+      initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
+        Foreman::Plugin.register :redhat_access do
         # The following optional sections can be added here:
         # require foreman version section
         # permission section
@@ -40,21 +39,26 @@ module RedhatAccess
         #   menu :header_menu, :Cases, :url_hash => {:controller=> :hosts, :action=>:index}
         # end
         requires_foreman '> 1.4'
-        sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Redhat Access') do
+        sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
           menu :header_menu,
-            :Search,
-            :url_hash => {:controller=> :"redhat_access/search"},
+          :Search,
+          :url_hash => {:controller=> :"redhat_access/search"},
+          :engine => RedhatAccess::Engine
+          menu :header_menu,
+          :LogViewer,
+          :url_hash => {:controller=> :"redhat_access/log_viewer"},
+          :engine => RedhatAccess::Engine,
+          :caption=> N_('Logs')
+          sub_menu :header_menu, :support_cases, :caption=> N_('Support Cases') do
+            menu :header_menu, :view_cases, :caption=> N_('View'),
+            :url_hash => {:controller=> :"redhat_access/cases", :action=>:list },
             :engine => RedhatAccess::Engine
-          # sub_menu :header_menu, :support_cases, :caption=> N_('Support Cases') do
-          #   menu :header_menu, :view_cases, :caption=> N_('View'),
-          #     :url_hash => {:controller=> :"redhat_access/angular/views/view"},
-          #     :engine => RedhatAccess::Engine
-          #   menu :header_menu, :new_cases, :caption=> N_('New'),
-          #     :url_hash => {:controller=> :"redhat_access/angular/views/new"},
-          #     :engine => RedhatAccess::Engine
-          # end
-        end
+            menu :header_menu, :new_cases, :caption=> N_('New'),
+            :url_hash => {:controller=> :"redhat_access/cases", :action=>:new },
+            :engine => RedhatAccess::Engine
+          end
 
+        end
       end
     end
   end

@@ -2,3 +2,343 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+th {
+    font-weight: normal;
+    color: #777;
+}
+
+.details-table > tbody > tr > th,
+.details-table > tbody > tr > td {
+    padding: 8px 0;
+    border-top: none;
+}
+
+.section-header {
+    padding: 0;
+    border-bottom: solid 1px;
+    border-color: grey;
+}
+
+.container-fluid {
+    /*padding: 0 15px;*/
+}
+
+.comment-creator {
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.create-field {
+    padding-bottom: 8px;
+}
+
+.bottom-border {
+    margin-bottom: 14px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.create-case-section {
+    padding: 10px 0;
+}
+
+.col-no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.details-table-header {
+    width: 40%;
+}
+
+.side-padding {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/*
+Log viewer stuff
+*/
+
+div[data-angular-treeview] {
+  /* prevent user selection */
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* default */
+  font-family: Tahoma;
+  font-size:13px;
+  color: #555;
+  text-decoration: none;
+}
+
+div[data-tree-model] ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  overflow: hidden;
+}
+
+div[data-tree-model] li {
+  position: relative;
+  padding: 0 0 0 20px;
+  line-height: 20px;
+}
+
+div[data-tree-model] li .expanded {
+  padding: 1px 10px;
+  background-image: url("../img/folder.png");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li .collapsed {
+  padding: 1px 10px;
+  background-image: url("../img/folder-closed.png");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li .normal {
+  padding: 1px 10px;
+  background-image: url("../img/file.png");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li i, div[data-tree-model] li span {
+  cursor: pointer;
+}
+
+div[data-tree-model] li .selected {
+  background-color: #aaddff;
+  font-weight: bold;
+  padding: 1px 5px;
+}
+
+html,body {
+    height: 100%;
+}
+
+div[data-angular-treeview] {
+  /* prevent user selection */
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* default */
+  font-family: Tahoma;
+  font-size:13px;
+  color: #555;
+  text-decoration: none;
+}
+
+div[data-tree-model] ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  overflow: hidden;
+}
+
+div[data-tree-model] li {
+  position: relative;
+  padding: 0 0 0 20px;
+  line-height: 20px;
+}
+
+div[data-tree-model] li .expanded {
+  padding: 1px 10px;
+  background-image: url("../img/folder.png");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li .collapsed {
+  padding: 1px 10px;
+  background-image: url("../img/folder-closed.png");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li .normal {
+  padding: 1px 10px;
+  background-image: url("../img/file.png");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li i, div[data-tree-model] li span {
+  cursor: pointer;
+}
+
+div[data-tree-model] li .selected {
+  background-color: #aaddff;
+  font-weight: bold;
+  padding: 1px 5px;
+}
+
+html,body {
+  height: 100%;
+}
+
+#mainyu {
+  height: 100%;
+}
+
+.nav,.pagination,.carousel,.panel-title a {
+  cursor: pointer;
+}
+
+#right-side {
+  height: 90%;
+  overflow: scroll;
+}
+
+#right {
+  height: 100%;
+  overflow: hidden
+}
+
+.left {
+  float: left;
+  width: 30px;
+  background: #eee;
+  height: 100%;
+  display: none;
+  
+}
+.left.showMe {
+  display: block;
+}
+
+.demo-left {
+  float: left;
+  width: 275px;
+  background: #eee;
+  height: 100%;
+  display: block;
+}
+
+.demo-left.showMe {
+  display: none;
+}
+
+.demo-right {
+  background: #eee;
+  
+}
+
+#ng-pageslide {
+  width: 250px;
+  background: #eee;
+}
+
+span.glyphicon-chevron-right,.glyphicon-chevron-left {
+  font-size: 30px;
+  top: 50%;
+  position: absolute;
+  margin-top: -15px;
+}
+
+.glyphicon-chevron-left {
+  text-align: right;
+  left: 245px;
+}
+
+}
+
+#height {
+  height: 100%;
+}
+
+.height {
+  height: 100%;
+}
+
+.tab-content {
+  height: 100%;
+}
+
+.tab-pane {
+  height: 90%;
+}
+
+.panel-body {
+  z-index: -1;
+}
+
+#diagnoseButton {
+  float: right;
+}
+
+.height-width {
+  width: 100%;
+  height: 100%;
+}
+
+.panel-body {
+  overflow: scroll;
+}
+
+.collapsable {
+  display: inline-block;
+  overflow: hidden;
+  height: 100%;
+  width: 100%; 
+  transition : height 1s;
+  -webkit-transition: height 1s;
+  -moz-transition: height 1s;
+  -o-transition: height 1s;
+  transition: height 1s;
+}
+
+.collapsable.showMe {
+  width: 100%;
+}
+
+.demo-right {
+  display: none;
+  
+}
+
+.demo-right.showMe {
+  display: block;
+  padding: 30px;
+}
+
+.main-right{
+  margin-right: -330px;
+  width: 97%; 
+  float: left;
+}
+
+.main-right.showMe{
+  width: 50%; 
+  float: left;
+}
+
+.controller-demo{
+  margin-left: 97%;
+}
+
+.controller-demo.showMe{
+  margin-left: 50%;
+  
+}
+
+.bigger-button {
+  font-size: 30px;
+  top: 50%;
+  position: absolute;
+  float: left;
+}

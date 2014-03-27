@@ -12,25 +12,33 @@
  */
 
 /**
- * 
+ *
  */
 angular.module('RedhatAccess', [
 	'ngSanitize',
-	'RedhatAccess.strata',
-    'RedhatAccess.search',
-    'RedhatAccess.support',
-    'ui.router',
-    'ui.bootstrap'
-    //'templates'
+	'templates.app',
+	'RedhatAccess.security',
+	'RedhatAccess.search',
+	'RedhatAccessCases',
+	'logViewer',
+	'ui.router',
+	'ui.bootstrap'
 
-]);
-
-/*angular.module('RedhatAccess').config(['$stateProvider',
-	function($stateProvider) {
-		$stateProvider.state('search_main', {
-			url: "/redhat_access/search_main",
-			controller: 'SearchController',
-			templateUrl: '/assets/redhat_access/search/views/search.html'
-		});
-	}
-]);*/
+])
+	.config(['$stateProvider',
+		function ($stateProvider) {
+			$stateProvider.state('search_main', {
+				url: "/search_main",
+				controller: 'SearchController',
+				templateUrl: 'search/views/search.html'
+			});
+		}
+	])
+	.config(['$stateProvider',
+		function ($stateProvider) {
+			$stateProvider.state('logviewer', {
+				url: "/logviewer",
+				templateUrl: 'log_viewer/views/log_viewer.html'
+			})
+		}
+	]);
