@@ -1,0 +1,8 @@
+:strata_host : api.access.redhat.com
+:proxy_host :
+:proxy_port :
+:proxy_user :
+:proxy_password :
+:attachment_max_http_size : 250
+:attachment_ftp_host : 192.168.1.1
+:attachment_ftp_dir : /incoming

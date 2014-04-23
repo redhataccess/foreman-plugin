@@ -11,34 +11,33 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
 
+
+strata.setRedhatClientID("foreman-strata-client");
+//strata.setStrataHostname("api.foreman-strata-client.com");
+
+
 /**
  *
  */
 angular.module('RedhatAccess', [
 	'ngSanitize',
-	'templates.app',
+	'RedhatAccess.header',
+	'RedhatAccess.template',
 	'RedhatAccess.security',
 	'RedhatAccess.search',
-	'RedhatAccessCases',
-	'logViewer',
+	'RedhatAccess.cases',
+	'RedhatAccess.logViewer',
 	'ui.router',
 	'ui.bootstrap'
 
-])
-	.config(['$stateProvider',
-		function ($stateProvider) {
-			$stateProvider.state('search_main', {
-				url: "/search_main",
-				controller: 'SearchController',
-				templateUrl: 'search/views/search.html'
-			});
-		}
-	])
-	.config(['$stateProvider',
-		function ($stateProvider) {
-			$stateProvider.state('logviewer', {
-				url: "/logviewer",
-				templateUrl: 'log_viewer/views/log_viewer.html'
-			})
-		}
-	]);
+]).config(function ($urlRouterProvider) {
+	$urlRouterProvider.otherwise('/search');
+});
+
+
+angular.module('RedhatAccess.header').value('HEADER_VIEW_CONFIG', {
+	show: 'true'
+});
+
+//Only view logs from main server for now.
+angular.module('RedhatAccess.logViewer').value('hideMachinesDropdown', true);

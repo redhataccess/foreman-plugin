@@ -10,3 +10,4 @@ test/dummy/.sass-cache
 public/*
 *.sw?
 .idea
+config/config.yml

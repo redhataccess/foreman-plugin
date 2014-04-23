@@ -45,8 +45,8 @@ task 'assets:precompile:engine' do
   require File.expand_path('../lib/redhat_access', __FILE__)
 
   precompile = [
-    'redhat_access/articles.js',
-    'redhat_access/articles.css'
+    'redhat_access/redhat_access.js',
+    'redhat_access/redhat_access.css'
   ]
 
   env = Sprockets::Environment.new(RedhatAccess::Engine.root)
@@ -66,11 +66,11 @@ task 'assets:precompile:engine' do
 
   target = File.join(RedhatAccess::Engine.root, 'public', 'assets')
   compiler = Sprockets::StaticCompiler.new(env,
-    target,
-    precompile,
-    :manifest_path => File.join(target),
-    :digest => true,
-    :manifest => true)
+                                           target,
+                                           precompile,
+                                           :manifest_path => File.join(target),
+                                           :digest => true,
+                                           :manifest => true)
   compiler.compile
 end
 task :default => :test

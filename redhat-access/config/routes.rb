@@ -2,18 +2,19 @@ RedhatAccess::Engine.routes.draw do
 
   get "log_viewer/index"
 
-  get "log_viewer/GetMachineList"
+  #API routes
+  get "logs" => 'logs#index'
+  get "attachments" => "attachments#index"
+  post '/cases/:case_number/attachments/' => 'cases#attachments'
 
-  get "log_viewer/GetFileList"
 
-  get "log_viewer/GetLogFile"
+  #Angular UI routes
+  get "log_viewer/index" => 'log_viewer#index'
+  get "cases/create"=> 'cases#create'
+  get "cases/index" => 'cases#index'
+  get "search/index" => 'search#index'
 
-  get "cases/new"
 
-  get "cases/list"
 
-  get "search/index"
-  get "redhat_access/index"
-  
-  root :to => 'redhat_access#index' 
+  root :to => 'redhat_access#index'
 end

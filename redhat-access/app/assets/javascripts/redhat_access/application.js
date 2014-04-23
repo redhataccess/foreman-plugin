@@ -10,13 +10,5 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
 //= require "angular/angular"
-//= require "angular/angular-route"
-//= require "angular/angular-ui-router"
-//= require "angular/angular-sanitize"
-//= require "angular/ui-bootstrap-tpls"
-//= require "stratajs/Uri"
-//= require "stratajs/strata"
-//= require "stratajs/js-markdown-extra"
-//= require "redhat_access/angular.treeview"
 //= require "redhat_access/redhat_access_angular_ui"
 //= require "redhat_access/redhat_access.module"
