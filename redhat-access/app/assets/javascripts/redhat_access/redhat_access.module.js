@@ -30,9 +30,11 @@ angular.module('RedhatAccess', [
 	'ui.router',
 	'ui.bootstrap'
 
-]).config(function ($urlRouterProvider) {
-	$urlRouterProvider.otherwise('/search');
-});
+]).config(['$urlRouterProvider',
+	function ($urlRouterProvider) {
+		$urlRouterProvider.otherwise('/search');
+	}
+]);
 
 
 angular.module('RedhatAccess.header').value('HEADER_VIEW_CONFIG', {

@@ -51,10 +51,10 @@ module RedhatAccess
             :engine => RedhatAccess::Engine,
             :caption=> N_('Logs')
           sub_menu :header_menu, :support_cases, :caption=> N_('Support ') do
-            menu :header_menu, :view_cases, :caption=> N_('View My Cases '),
+            menu :header_menu, :view_cases, :caption=> N_('My Cases '),
               :url_hash => {:controller=> :"redhat_access/cases", :action=>:index },
               :engine => RedhatAccess::Engine
-            menu :header_menu, :new_cases, :caption=> N_('Open New Case '),
+            menu :header_menu, :new_cases, :caption=> N_('New Case '),
               :url_hash => {:controller=> :"redhat_access/cases", :action=>:create },
               :engine => RedhatAccess::Engine
           end

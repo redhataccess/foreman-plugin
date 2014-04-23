@@ -1,6 +1,5 @@
 RedhatAccess::Engine.routes.draw do
 
-  get "log_viewer/index"
 
   #API routes
   get "logs" => 'logs#index'

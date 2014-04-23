@@ -1,4 +1,4 @@
-/*! redhat_access_angular_ui - v0.0.0 - 2014-04-22
+/*! redhat_access_angular_ui - v0.0.0 - 2014-04-23
  * Copyright (c) 2014 ;
  * Licensed 
  */
@@ -14001,7 +14001,7 @@ angular.module('RedhatAccess.search', [
 
   })
   .config(['$stateProvider',
-    function ($stateProvider) {
+    function($stateProvider) {
       $stateProvider.state('search', {
         url: "/search",
         controller: 'SearchController',
@@ -14016,65 +14016,65 @@ angular.module('RedhatAccess.search', [
   ])
   .controller('SearchController', ['$scope',
     'SearchResultsService', 'SEARCH_PARAMS',
-    function ($scope, SearchResultsService) {
+    function($scope, SearchResultsService) {
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
       $scope.searchResultInfo = SearchResultsService.searchResultInfo;
 
-      clearResults = function () {
+      clearResults = function() {
         SearchResultsService.clear();
       };
 
 
-      $scope.solutionSelected = function (index) {
+      $scope.solutionSelected = function(index) {
         var response = $scope.results[index];
         SearchResultsService.setSelected(response, index);
 
       };
 
-      $scope.search = function (searchStr, limit) {
+      $scope.search = function(searchStr, limit) {
 
         SearchResultsService.search(searchStr, limit);
       };
 
-      $scope.diagnose = function (data, limit) {
+      $scope.diagnose = function(data, limit) {
         SearchResultsService.diagnose(data, limit);
       };
 
 
-      $scope.$watch(function () {
+      $scope.$watch(function() {
           return SearchResultsService.currentSelection
         },
-        function (newVal) {
+        function(newVal) {
           $scope.selectedSolution = newVal;
         }
       );
 
     }
   ])
-  .directive('rhaAccordionSearchResults', function () {
+  .directive('rhaAccordionSearchResults', function() {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/accordion_search_results.html'
     };
   })
-  .directive('rhaListSearchResults', function () {
+  .directive('rhaListSearchResults', function() {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/list_search_results.html'
     };
   })
-  .directive('rhaSearchForm', function () {
+  .directive('rhaSearchForm', function() {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/search_form.html'
     };
   })
-  .directive('rhaStandardSearch', function () {
+  .directive('rhaStandardSearch', function() {
     return {
       restrict: 'AE',
       scope: false,
@@ -14082,14 +14082,14 @@ angular.module('RedhatAccess.search', [
     };
   })
   .directive('rhaResultDetailDisplay', ['RESOURCE_TYPES',
-    function (RESOURCE_TYPES) {
+    function(RESOURCE_TYPES) {
       return {
         restrict: 'AE',
         scope: {
           result: '='
         },
-        link: function (scope, element, attr) {
-          scope.isSolution = function () {
+        link: function(scope, element, attr) {
+          scope.isSolution = function() {
             if (scope.result !== undefined && scope.result.resource_type !== undefined) {
               if (scope.result.resource_type === RESOURCE_TYPES.solution) {
                 return true;
@@ -14099,7 +14099,7 @@ angular.module('RedhatAccess.search', [
             }
             return false;
           };
-          scope.isArticle = function () {
+          scope.isArticle = function() {
             if (scope.result !== undefined && scope.result.resource_type !== undefined) {
               if (scope.result.resource_type === RESOURCE_TYPES.article) {
                 return true;
@@ -14109,7 +14109,7 @@ angular.module('RedhatAccess.search', [
             }
             return false;
           };
-          scope.getSolutionResolution = function () {
+          scope.getSolutionResolution = function() {
             var resolution_html = '';
             if (scope.result.resolution !== undefined) {
               resolution_html = scope.result.resolution.html;
@@ -14117,7 +14117,7 @@ angular.module('RedhatAccess.search', [
             return resolution_html;
           };
 
-          scope.getArticleHtml = function () {
+          scope.getArticleHtml = function() {
             if (scope.result === undefined) {
               return '';
             }
@@ -14135,7 +14135,7 @@ angular.module('RedhatAccess.search', [
   ])
   .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS',
 
-    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
+    function($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
       var service = {
         results: [],
         currentSelection: {
@@ -14149,61 +14149,68 @@ angular.module('RedhatAccess.search', [
         searchResultInfo: {
           msg: null
         },
-        add: function (result) {
+        add: function(result) {
           this.results.push(result);
         },
-        clear: function () {
+        clear: function() {
           this.results.length = 0;
           this.setSelected({}, -1);
           this.searchResultInfo.msg = null;
         },
-        setSelected: function (selection, index) {
+        setSelected: function(selection, index) {
           this.currentSelection.data = selection;
           this.currentSelection.index = index;
         },
-        search: function (searchString, limit) {
+        search: function(searchString, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
           this.searchInProgress.value = true;
           var deferreds = [];
-          strata.search(
+          var sent = strata.search(
             searchString,
-            function (entries) {
+            function(entries) {
               //retrieve details for each solution
-              entries.forEach(function (entry) {
-                var deferred = $q.defer();
-                deferreds.push(deferred.promise);
-                strata.utils.getURI(
-                  entry.uri,
-                  entry.resource_type,
-                  function (type, info) {
-                    if (info !== undefined) {
-                      info.resource_type = type;
-                    }
-                    deferred.resolve(info);
-                  },
-                  function (error) {
-                    deferred.resolve();
-                  });
-              });
+              if (entries !== undefined) {
+                if (entries.length === 0) {
+                  that.searchResultInfo.msg = "No recommendations found.";
+                };
+                entries.forEach(function(entry) {
+                  var deferred = $q.defer();
+                  deferreds.push(deferred.promise);
+                  strata.utils.getURI(
+                    entry.uri,
+                    entry.resource_type,
+                    function(type, info) {
+                      if (info !== undefined) {
+                        info.resource_type = type;
+                      }
+                      deferred.resolve(info);
+                    },
+                    function(error) {
+                      deferred.resolve();
+                    });
+                });
+              } else {
+                that.searchResultInfo.msg = "No recommendations found.";
+              };
               $q.all(deferreds).then(
-                function (results) {
-                  results.forEach(function (result) {
+                function(results) {
+                  results.forEach(function(result) {
                     if (result !== undefined) {
                       that.add(result);
                     }
                   });
                   that.searchInProgress.value = false;
                 },
-                function (error) {
+                function(error) {
                   that.searchInProgress.value = false;
                 }
               );
             },
-            function (error) {
+            function(error) {
               console.log(error);
-              $rootScope.$apply(function () {
+              $rootScope.$apply(function() {
                 that.searchInProgress.value = false;
                 if (error && error.statusText) {
                   that.searchResultInfo.msg = error.statusText;
@@ -14215,6 +14222,10 @@ angular.module('RedhatAccess.search', [
             limit,
             false
           );
+          if (sent == false) {
+            this.searchInProgress.value = false;
+          };
+
         },
         // solution and article search needs reimplementation
         // searchSolutions: function (searchString, limit) {
@@ -14257,31 +14268,39 @@ angular.module('RedhatAccess.search', [
         //     true
         //   );
         // },
-        diagnose: function (data, limit) {
+        diagnose: function(data, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
           var deferreds = [];
           that.searchInProgress.value = true;
-          strata.problems(
+          var sent = strata.problems(
             data,
-            function (solutions) {
+            function(solutions) {
               //retrieve details for each solution
-              solutions.forEach(function (solution) {
-                var deferred = $q.defer();
-                deferreds.push(deferred.promise);
-                strata.solutions.get(
-                  solution.uri,
-                  function (solution) {
-                    deferred.resolve(solution);
-                  },
-                  function (error) {
-                    deferred.resolve();
-                  });
-              });
+              if (solutions !== undefined) {
+                if (solutions.length === 0) {
+                  that.searchResultInfo.msg = "No solutions found.";
+                };
+
+                solutions.forEach(function(solution) {
+                  var deferred = $q.defer();
+                  deferreds.push(deferred.promise);
+                  strata.solutions.get(
+                    solution.uri,
+                    function(solution) {
+                      deferred.resolve(solution);
+                    },
+                    function(error) {
+                      deferred.resolve();
+                    });
+                });
+              } else {
+                that.searchResultInfo.msg = "No solutions found.";
+              };
               $q.all(deferreds).then(
-                function (solutions) {
-                  solutions.forEach(function (solution) {
+                function(solutions) {
+                  solutions.forEach(function(solution) {
                     if (solution !== undefined) {
                       solution.resource_type = RESOURCE_TYPES.solution;
                       that.add(solution);
@@ -14289,13 +14308,14 @@ angular.module('RedhatAccess.search', [
                   });
                   that.searchInProgress.value = false;
                 },
-                function (error) {
+                function(error) {
                   that.searchInProgress.value = false;
                 }
               );
             },
-            function (error) {
-              $rootScope.$apply(function () {
+
+            function(error) {
+              $rootScope.$apply(function() {
                 that.searchInProgress.value = false;
                 if (error && error.statusText) {
                   that.searchResultInfo.msg = error.statusText;
@@ -14307,10 +14327,13 @@ angular.module('RedhatAccess.search', [
             },
             limit
           );
+          if (sent == false) {
+            this.searchInProgress.value = false;
+          };
         }
       };
 
-      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
         service.clear.apply(service);
       });
       return service;
@@ -16577,7 +16600,7 @@ function returnNode(splitPath, tree, fullFilePath) {
 		}
 	}
 }
-angular.module('RedhatAccess.template', ['common/views/header.html', 'common/views/treenode.html', 'common/views/treeview-selector.html', 'security/login_form.html', 'security/login_status.html', 'search/views/accordion_search.html', 'search/views/accordion_search_results.html', 'search/views/list_search_results.html', 'search/views/resultDetail.html', 'search/views/search.html', 'search/views/search_form.html', 'search/views/standard_search.html', 'cases/views/alert.html', 'cases/views/attachLocalFile.html', 'cases/views/attachProductLogs.html', 'cases/views/attachmentsSection.html', 'cases/views/commentsSection.html', 'cases/views/compact.edit.html', 'cases/views/compact.html', 'cases/views/compactCaseList.html', 'cases/views/descriptionSection.html', 'cases/views/detailsSection.html', 'cases/views/edit.html', 'cases/views/list.html', 'cases/views/listAttachments.html', 'cases/views/listFilter.html', 'cases/views/new.html', 'cases/views/pageHeader.html', 'cases/views/recommendationsSection.html', 'log_viewer/views/log_viewer.html']);
+angular.module('RedhatAccess.template', ['common/views/header.html', 'common/views/treenode.html', 'common/views/treeview-selector.html', 'security/login_form.html', 'security/login_status.html', 'search/views/accordion_search.html', 'search/views/accordion_search_results.html', 'search/views/list_search_results.html', 'search/views/resultDetail.html', 'search/views/search.html', 'search/views/search_form.html', 'search/views/standard_search.html', 'cases/views/alert.html', 'cases/views/attachLocalFile.html', 'cases/views/attachProductLogs.html', 'cases/views/attachmentsSection.html', 'cases/views/commentsSection.html', 'cases/views/compact.html', 'cases/views/compactCaseList.html', 'cases/views/descriptionSection.html', 'cases/views/detailsSection.html', 'cases/views/edit.html', 'cases/views/list.html', 'cases/views/listAttachments.html', 'cases/views/listFilter.html', 'cases/views/new.html', 'cases/views/pageHeader.html', 'cases/views/recommendationsSection.html', 'log_viewer/views/log_viewer.html']);
 
 angular.module("common/views/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("common/views/header.html",
@@ -16687,6 +16710,10 @@ angular.module("search/views/accordion_search_results.html", []).run(["$template
     "</div>\n" +
     "<div class=\"row \">\n" +
     "    <div class=\"col-xs-12\">\n" +
+    "        <div class=\"alert alert-info\" ng-show=\"searchResultInfo.msg\">\n" +
+    "            <a class=\"close\" ng-click=\"searchResultInfo.msg=null\">×</a>\n" +
+    "            {{searchResultInfo.msg}}\n" +
+    "        </div>\n" +
     "        <accordion>\n" +
     "            <accordion-group is-open=\"isopen\" ng-repeat=\"result in results\">\n" +
     "                <accordion-heading>\n" +
@@ -16761,7 +16788,7 @@ angular.module("search/views/search_form.html", []).run(["$templateCache", funct
     "            <div class=\"input-group\">\n" +
     "                <input type=\"text\" class=\"form-control\" id=\"rhSearchStr\" name=\"searchString\" ng-model=\"searchStr\" class=\"input-xxlarge\" placeholder=\"Search Articles and Solutions\">\n" +
     "                <span class=\"input-group-btn\">\n" +
-    "                    <button ng-disabled=\"searchInProgress.value === true\" class=\"btn btn-default btn-primary\" type='submit' ng-click=\"search(searchStr)\">Search</button>\n" +
+    "                    <button ng-disabled=\"(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)\" class=\"btn btn-default btn-primary\" type='submit' ng-click=\"search(searchStr)\">Search</button>\n" +
     "                </span>\n" +
     "\n" +
     "            </div>\n" +
@@ -16811,11 +16838,6 @@ angular.module("cases/views/attachmentsSection.html", []).run(["$templateCache",
 angular.module("cases/views/commentsSection.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("cases/views/commentsSection.html",
     "<h4 class=\"section-header\">Case Discussion</h4><div class=\"container-fluid side-padding\"><div class=\"row create-field\"><div class=\"col-xs-12\"><textarea ng-disabled=\"addingComment\" rows=\"5\" ng-model=\"newComment\" style=\"max-width: 100%\" class=\"form-control\"></textarea></div></div><div style=\"margin-left: 0px; margin-right: 0px;\" class=\"row create-field\"><div class=\"col-xs-12 col-no-padding\"><div style=\"float: right;\"><div ng-hide=\"!addingComment\">Adding comment...</div><button ng-hide=\"addingComment\" ng-disabled=\"false\" ng-click=\"addComment()\" style=\"float: right;\" class=\"btn btn-primary\">Add Comment</button></div></div></div><div ng-hide=\"comments.length &lt;= 0 || comments === undefined\" style=\"border-top: 1px solid #dddddd;\"><div class=\"row\"><div class=\"col-xs-12\"><pagination style=\"float: right;\" boundary-links=\"true\" total-items=\"comments.length\" on-select-page=\"selectPage(page)\" items-per-page=\"itemsPerPage\" page=\"currentPage\" rotate=\"false\" max-size=\"maxPagerSize\" previous-text=\"&lt;\" next-text=\"&gt;\" first-text=\"&lt;&lt;\" last-text=\"&gt;&gt;\" class=\"pagination-sm\"></pagination></div></div><div ng-repeat=\"comment in commentsOnScreen\"><div style=\"padding-bottom: 10px;\" class=\"row\"><div class=\"col-md-2\"><div class=\"bold\">{{comment.created_by}}</div><div>{{comment.created_date | date:'mediumDate'}}</div><div>{{comment.created_date | date:'mediumTime'}}</div></div><div class=\"col-md-10\"><pre>{{comment.text}}</pre></div></div></div></div></div>");
-}]);
-
-angular.module("cases/views/compact.edit.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("cases/views/compact.edit.html",
-    "<!DOCTYPE html><div id=\"redhat-access-case\"><div ng-show=\"caseLoading\" class=\"container-fluid\"><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><span class=\"rha-search-spinner\"></span></div></div></div><div ng-hide=\"caseLoading\" rha-resizable rha-dom-ready=\"domReady\" style=\"overflow: auto; padding-left: 15px;border-top: 1px solid #dddddd; border-left: 1px solid #dddddd;\" class=\"container-fluid\"><div style=\"margin-right: 0px; padding-top: 10px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-details compact=\"true\"></rha-case-details></div></div><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-description></rha-case-description></div></div><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-attachments></rha-case-attachments></div></div><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-comments></rha-case-comments></div></div></div></div>");
 }]);
 
 angular.module("cases/views/compact.html", []).run(["$templateCache", function($templateCache) {
