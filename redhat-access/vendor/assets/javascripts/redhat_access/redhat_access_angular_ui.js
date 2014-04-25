@@ -1,4 +1,4 @@
-/*! redhat_access_angular_ui - v0.0.0 - 2014-04-23
+/*! redhat_access_angular_ui - v0.0.0 - 2014-04-25
  * Copyright (c) 2014 ;
  * Licensed 
  */
@@ -3319,7 +3319,7 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
         fetchURI,
         fetchAccountUsers;
 
-    strata.version = "1.0.5";
+    strata.version = "1.0.7";
     redhatClientID = "stratajs-" + strata.version;
 
     if (window.portal && window.portal.host) {
@@ -3378,8 +3378,6 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
         window.open("https://access.redhat.com/logout", "rhLogoutFrame");
     };
 
-
-    //Private vars related to the connection
 
     //Private vars related to the connection
     baseAjaxParams = {
@@ -3536,7 +3534,7 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //PUBLIC METHODS
     //User provides a loginSuccess callback to handle the response
     strata.checkLogin = function (loginHandler) {
-        if (loginHandler === undefined) { return false; }
+        if (!$.isFunction(loginHandler)) { throw "loginHandler callback must be supplied"; }
 
         checkCredentials = $.extend({}, baseAjaxParams, {
             url: strataHostname.clone().setPath('/rs/users')
@@ -3580,6 +3578,7 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     //Check /rs/users?ssoUserName=sso-id
                     $.ajax(checkCredentialsNoBasic);
                 } else {
+                    strata.clearCookieAuth();
                     $.ajax(checkCredentials);
                 }
             }
@@ -3591,8 +3590,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //Sends data to the strata diagnostic toolchain
     strata.problems = function (data, onSuccess, onFailure, limit) {
-        if (data === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (data === undefined) { data = ""; }
         if (limit === undefined) { limit = 50; }
 
         var getSolutionsFromText = $.extend({}, baseAjaxParams, {
@@ -3608,10 +3608,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     var suggestedSolutions = response.source_or_link_or_problem[2].source_or_link;
                     onSuccess(suggestedSolutions);
                 } else {
-                    onFailure("Failed to retrieve solutions");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(getSolutionsFromText);
     };
@@ -3621,8 +3623,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //Retrieve a solution
     strata.solutions.get = function (solution, onSuccess, onFailure) {
-        if (solution === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (solution === undefined) { onFailure("solution must be defined"); }
 
         var url;
         if (isUrl(solution)) {
@@ -3638,15 +3641,18 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 convertDates(response);
                 onSuccess(response);
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchSolution);
     };
 
     //Search for solutions
     strata.solutions.search = function (keyword, onSuccess, onFailure, limit, chain) {
-        if (keyword === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (keyword === undefined) { keyword = ""; }
         if (limit === undefined) {limit = 50; }
         if (chain === undefined) {chain = false; }
 
@@ -3663,10 +3669,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     response.solution.forEach(convertDates);
                     onSuccess(response.solution);
                 } else {
-                    onFailure("No Solutions Found")
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(searchSolutions);
     };
@@ -3676,8 +3684,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //Retrieve an article
     strata.articles.get = function (article, onSuccess, onFailure) {
-        if (article === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (article === undefined) { onFailure("article must be defined"); }
 
         var url;
         if (isUrl(article)) {
@@ -3694,18 +3703,21 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response !== undefined && response.body !== undefined) {
                     response.body = markDownToHtml(response.body);
                 } else {
-                    onFailure("Failed to retrieve Article");
+                    onFailure("Failed to retrieve Article " + article);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchArticle);
     };
 
     //Search articles
     strata.articles.search = function (keyword, onSuccess, onFailure, limit, chain) {
-        if (keyword === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (keyword === undefined) { keyword = ""; }
         if (limit === undefined) {limit = 50; }
         if (chain === undefined) {chain = false; }
 
@@ -3724,10 +3736,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     response.article.forEach(convertDates);
                     onSuccess(response.article);
                 } else {
-                    onFailure("Failed to search Articles");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(searchArticles);
     };
@@ -3739,8 +3753,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //Retrieve a case
     strata.cases.get = function (casenum, onSuccess, onFailure) {
-        if (casenum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -3760,15 +3775,18 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     onFailure("Failed to retrieve Case: " + casenum);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchCase);
     };
 
     //Retrieve case comments
     strata.cases.comments.get = function (casenum, onSuccess, onFailure) {
-        if (casenum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -3787,7 +3805,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     onFailure("Failed to retrieve Comments for Case: " + casenum);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchCaseComments);
     };
@@ -3795,10 +3815,10 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //TODO: Support DRAFT comments? Only useful for internal
     //Create a new case comment
     strata.cases.comments.post = function (casenum, casecomment, onSuccess, onFailure) {
-        //Default parameter value
-        if (casenum === undefined) { return false; }
-        if (casecomment === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
+        if (casecomment === undefined) { onFailure("casecomment must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -3819,14 +3839,17 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 commentnum = commentnum.split("/").pop();
                 onSuccess(commentnum);
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(createComment);
     };
 
     //List cases for the given user
     strata.cases.list = function (onSuccess, onFailure, closed) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
         if (closed === undefined) { closed = 'false'; }
 
         if (!closed) {
@@ -3843,19 +3866,21 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     response.case.forEach(convertDates);
                     onSuccess(response.case);
                 } else {
-                    onFailure("Failed to list Cases");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchCases);
     };
 
     //Filter cases
     strata.cases.filter = function (casefilter, onSuccess, onFailure) {
-        //Default parameter value
-        if (casefilter === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casefilter === undefined) { onFailure("casefilter must be defined"); }
 
         var url = strataHostname.clone().setPath('/rs/cases/filter');
 
@@ -3872,10 +3897,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     response.case.forEach(convertDates);
                     onSuccess(response.case);
                 } else {
-                    onFailure("Could not filter cases");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(filterCases);
     };
@@ -3883,8 +3910,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //Create a new case
     strata.cases.post = function (casedata, onSuccess, onFailure) {
         //Default parameter value
-        if (casedata === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casedata === undefined) { onFailure("casedata must be defined"); }
 
         var url = strataHostname.clone().setPath('/rs/cases');
 
@@ -3899,7 +3927,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 casenum = casenum.split("/").pop();
                 onSuccess(casenum);
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(createAttachment);
     };
@@ -3907,9 +3937,10 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //Update a case
     strata.cases.put = function (casenum, casedata, onSuccess, onFailure) {
         //Default parameter value
-        if (casenum === undefined) { return false; }
-        if (casedata === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
+        if (casedata === undefined) { onFailure("casedata must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -3938,8 +3969,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //List case attachments
     strata.cases.attachments.list = function (casenum, onSuccess, onFailure) {
-        if (casenum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -3953,13 +3985,15 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
             url: url,
             success: function (response) {
                 if (response.attachment === undefined) {
-                    onFailure("Failed to retrieve case attachments");
+                    onSuccess([]);
                 } else {
                     response.attachment.forEach(convertDates);
                     onSuccess(response.attachment);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(listCaseAttachments);
     };
@@ -3968,9 +4002,10 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //data MUST be MULTIPART/FORM-DATA
     strata.cases.attachments.post = function (data, casenum, onSuccess, onFailure) {
         //Default parameter value
-        if (data === undefined) { return false; }
-        if (casenum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (data === undefined) { onFailure("data must be defined"); }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -3989,15 +4024,18 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
             contentType: false,
             cache: false,
             success: onSuccess,
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(createAttachment);
     };
 
     strata.cases.attachments.delete = function (attachmentId, casenum, onSuccess, onFailure) {
-        if (attachmentId === undefined) { return false; }
-        if (casenum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (attachmentId === undefined) { onFailure("attachmentId must be defined"); }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
 
         var url =
             strataHostname.clone().setPath(
@@ -4008,7 +4046,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
             type: 'DELETE',
             method: 'DELETE',
             success: onSuccess,
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(deleteAttachment);
     };
@@ -4018,8 +4058,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //Symptom Extractor
     strata.symptoms.extractor = function (data, onSuccess, onFailure) {
-        if (data === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (data === undefined) { onFailure("data must be defined"); }
 
         var url = strataHostname.clone().setPath('/rs/symptoms/extractor');
 
@@ -4033,10 +4074,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.extracted_symptom !== undefined) {
                     onSuccess(response.extracted_symptom);
                 } else {
-                    onSuccess({});
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(getSymptomsFromText);
     };
@@ -4046,7 +4089,8 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //List groups for this user
     strata.groups.list = function (onSuccess, onFailure) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
 
         var url = strataHostname.clone().setPath('/rs/groups');
 
@@ -4056,18 +4100,21 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.group !== undefined) {
                     onSuccess(response.group);
                 } else {
-                    onFailure("Failed to retrieve groups");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(listGroups);
     };
 
     //Retrieve a group
     strata.groups.get = function (groupnum, onSuccess, onFailure) {
-        if (groupnum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (groupnum === undefined) { onFailure("groupnum must be defined"); }
 
         var url;
         if (isUrl(groupnum)) {
@@ -4080,7 +4127,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
         fetchGroup = $.extend({}, baseAjaxParams, {
             url: url,
             success: onSuccess,
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchGroup);
     };
@@ -4090,7 +4139,8 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //List products for this user
     strata.products.list = function (onSuccess, onFailure) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
 
         var url = strataHostname.clone().setPath('/rs/products');
 
@@ -4100,18 +4150,21 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.product !== undefined) {
                     onSuccess(response.product);
                 } else {
-                    onFailure("Failed to retrieve Product List");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(listProducts);
     };
 
     //Retrieve a product
     strata.products.get = function (code, onSuccess, onFailure) {
-        if (code === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (code === undefined) { onFailure("code must be defined"); }
 
         var url;
         if (isUrl(code)) {
@@ -4124,15 +4177,18 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
         fetchProduct = $.extend({}, baseAjaxParams, {
             url: url,
             success: onSuccess,
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchProduct);
     };
 
     //Retrieve versions for a product
     strata.products.versions = function (code, onSuccess, onFailure) {
-        if (code === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (code === undefined) { onFailure("code must be defined"); }
 
         var url;
         if (isUrl(code)) {
@@ -4148,10 +4204,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.version !== undefined) {
                     onSuccess(response.version);
                 } else {
-                    onFailure("Could not retrieve versions for " + code);
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchProductVersions);
     };
@@ -4162,7 +4220,8 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //Retrieve the case types
     strata.values.cases.types = function (onSuccess, onFailure) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
 
         var url = strataHostname.clone().setPath('/rs/values/case/types');
 
@@ -4172,17 +4231,20 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.value !== undefined) {
                     onSuccess(response.value);
                 } else {
-                    onFailure("Could not retreive case types");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(caseTypes);
     };
 
     //Retrieve the case severities
     strata.values.cases.severity = function (onSuccess, onFailure) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
 
         var url = strataHostname.clone().setPath('/rs/values/case/severity');
 
@@ -4192,17 +4254,20 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.value !== undefined) {
                     onSuccess(response.value);
                 } else {
-                    onFailure("Could not retreive case serverities");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(caseSeverities);
     };
 
     //Retrieve the case statuses
     strata.values.cases.status = function (onSuccess, onFailure) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
 
         var url = strataHostname.clone().setPath('/rs/values/case/status');
 
@@ -4212,10 +4277,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.value !== undefined) {
                     onSuccess(response.value);
                 } else {
-                    onFailure("Could not retreive case statuses");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(caseStatus);
     };
@@ -4225,7 +4292,8 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //List system profiles
     strata.systemProfiles.list = function (onSuccess, onFailure) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
 
         var url = strataHostname.clone().setPath('/rs/system_profiles');
 
@@ -4235,10 +4303,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.system_profile !== undefined) {
                     onSuccess(response.system_profile);
                 } else {
-                    onFailure("Could not retrieve system profiles");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchSystemProfiles);
     };
@@ -4246,8 +4316,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //Get a specific system_profile, either by hash or casenum
     //Case can return an array, hash will return a single result
     strata.systemProfiles.get = function (casenum, onSuccess, onFailure) {
-        if (casenum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (casenum === undefined) { onFailure("casenum must be defined"); }
 
         var url;
         if (isUrl(casenum)) {
@@ -4266,7 +4337,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                     onSuccess(response);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchSystemProfile);
     };
@@ -4275,8 +4348,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //Create a new System Profile
     strata.systemProfiles.post = function (systemprofile, onSuccess, onFailure) {
         //Default parameter value
-        if (systemprofile === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (systemprofile === undefined) { onFailure("systemprofile must be defined"); }
 
         var url = strataHostname.clone().setPath('/rs/system_profiles');
 
@@ -4291,7 +4365,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 hash = hash.split("/").pop();
                 onSuccess(hash);
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(createSystemProfile);
     };
@@ -4300,7 +4376,8 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
     //List Accounts for the given user
     strata.accounts.list = function (onSuccess, onFailure, closed) {
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
         if (closed === undefined) { closed = false; }
 
         var url = strataHostname.clone().setPath('/rs/accounts');
@@ -4308,15 +4385,18 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
         fetchAccounts = $.extend({}, baseAjaxParams, {
             url: url,
             success:  onSuccess,
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchAccounts);
     };
 
     //Get an Account
     strata.accounts.get = function (accountnum, onSuccess, onFailure) {
-        if (accountnum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (accountnum === undefined) { onFailure("accountnum must be defined"); }
 
         var url;
         if (isUrl(accountnum)) {
@@ -4329,15 +4409,18 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
         fetchAccount = $.extend({}, baseAjaxParams, {
             url: url,
             success: onSuccess,
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchAccount);
     };
 
     //Get an Accounts Users
     strata.accounts.users = function (accountnum, onSuccess, onFailure, group) {
-        if (accountnum === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (accountnum === undefined) { onFailure("accountnum must be defined"); }
 
         var url;
         if (isUrl(accountnum)) {
@@ -4356,10 +4439,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 if (response.user !== undefined) {
                     onSuccess(response.user);
                 } else {
-                    onFailure("Could not retrieve users");
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchAccountUsers);
     };
@@ -4367,8 +4452,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     //Helper function to "diagnose" text, chains problems and solutions calls
     //This will call 'onSuccess' for each solution
     strata.diagnose = function (data, onSuccess, onFailure, limit) {
-        if (data === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (data === undefined) { onFailure("data must be defined"); }
         if (limit === undefined) { limit = 50; }
 
         //Call problems, send that list to get solutions to get each one
@@ -4380,8 +4466,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
     };
 
     strata.search = function (keyword, onSuccess, onFailure, limit, chain) {
-        if (keyword === undefined) { return false; }
-        if (onSuccess === undefined) { return false; }
+        if (!$.isFunction(onSuccess)) { throw "onSuccess callback must be a function"; }
+        if (!$.isFunction(onFailure)) { throw "onFailure callback must be a function"; }
+        if (keyword === undefined) { keyword = ""; }
         if (limit === undefined) {limit = 50; }
         if (chain === undefined) {chain = false; }
 
@@ -4397,10 +4484,12 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 } else if (response.search_result !== undefined) {
                     onSuccess(response.search_result);
                 } else {
-                    onSuccess({});
+                    onSuccess([]);
                 }
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(searchStrata);
     };
@@ -4428,7 +4517,9 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
                 convertDates(response);
                 onSuccess(resourceType, response);
             },
-            error: onFailure
+            error: function (xhr, reponse, status) {
+                onFailure("Error " + xhr.status + " " + xhr.statusText, xhr, reponse, status);
+            }
         });
         $.ajax(fetchURI);
     };
@@ -13597,22 +13688,138 @@ angular.module('ngTable').run(['$templateCache', function ($templateCache) {
     return app;
 }));
 angular.module('RedhatAccess.header', [])
-    .value('HEADER_VIEW_CONFIG', {
-        show: 'false'
-
-    }).controller('HeaderViewCtrl', ['HEADER_VIEW_CONFIG', '$scope',
-        function(HEADER_VIEW_CONFIG, $scope) {
-            $scope.showHeader = HEADER_VIEW_CONFIG.show;
+  .value('TITLE_VIEW_CONFIG', {
+    show: 'false',
+    titlePrefix: 'Red Hat Access: ',
+    searchTitle: 'Search',
+    caseListTitle: 'Support Cases',
+    caseViewTitle: 'View/Modify Case',
+    newCaseTitle: 'New Support Case',
+    logViewerTitle: 'Log'
+  })
+  .controller('TitleViewCtrl', ['TITLE_VIEW_CONFIG', '$scope',
+    function (TITLE_VIEW_CONFIG, $scope) {
+      $scope.showTitle = TITLE_VIEW_CONFIG.show;
+      $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
+      $scope.getPageTitle = function() {
+        switch ($scope.page) {
+        case 'search':
+          return TITLE_VIEW_CONFIG.searchTitle;
+        case 'caseList':
+          return TITLE_VIEW_CONFIG.caseListTitle;
+        case 'caseView':
+          return TITLE_VIEW_CONFIG.caseViewTitle;
+        case 'newCase':
+          return TITLE_VIEW_CONFIG.newCaseTitle;
+        case 'logViewer':
+          return TITLE_VIEW_CONFIG.logViewerTitle;
+        default:
+          console.log("Invalid title key" + $scope.page);
+          return '';
         }
-    ]).directive('rhaHeaderTemplate', function() {
-        return {
-            restrict: 'AE',
-            scope: {
-                pageTitle: '@title'
-            },
-            templateUrl: 'common/views/header.html',
-            controller: 'HeaderViewCtrl'
-        };
+      };
+    }
+  ])
+  .directive('rhaTitleTemplate',
+    function () {
+      return {
+        restrict: 'AE',
+        scope: {
+          page: '@'
+        },
+        templateUrl: 'common/views/title.html',
+        controller: 'TitleViewCtrl'
+      };
+    })
+  .controller('AlertController', ['$scope', 'AlertService',
+    function ($scope, AlertService) {
+      $scope.AlertService = AlertService;
+      $scope.closeable = true;
+
+      $scope.closeAlert = function (index) {
+        AlertService.alerts.splice(index, 1);
+      }
+    }
+  ])
+  .directive('rhaAlert',
+    function () {
+      return {
+        templateUrl: 'common/views/alert.html',
+        restrict: 'E',
+        controller: 'AlertController'
+      };
+    })
+  .service('AlertService', ['$filter',
+    function ($filter) {
+      var ALERT_TYPES = {
+        DANGER: 'danger',
+        SUCCESS: 'success',
+        WARNING: 'warning'
+      };
+
+      this.alerts = []; //array of {message: 'some alert', type: '<type>'} objects
+
+      this.clearAlerts = function () {
+        this.alerts = [];
+      };
+
+      this.addAlert = function (alert) {
+        this.alerts.push(alert);
+      };
+
+      this.addDangerMessage = function (message) {
+        this.addMessage(message, ALERT_TYPES.DANGER);
+      };
+
+      this.addSuccessMessage = function (message) {
+        this.addMessage(message, ALERT_TYPES.SUCCESS);
+      };
+
+      this.addWarningMessage = function (message) {
+        this.addMessage(message, ALERT_TYPES.WARNING);
+      };
+
+      this.addMessage = function (message, type) {
+        this.alerts.push({
+          message: message,
+          type: type == null ? 'warning' : type
+        })
+      };
+
+      this.getErrors = function () {
+        var errors = $filter('filter')(this.alerts, {
+          type: ALERT_TYPES.DANGER
+        });
+
+        if (errors == null) {
+          errors = [];
+        }
+
+        return errors;
+      };
+
+      this.addStrataErrorMessage = function (error) {
+        var existingMessage =
+          $filter('filter')(this.alerts, {
+            type: ALERT_TYPES.DANGER,
+            message: error.message
+          })
+
+        if (existingMessage.length < 1) {
+          this.addDangerMessage(error.message);
+        }
+      };
+    }
+  ])
+  .directive('rhaHeader',
+    function () {
+      return {
+        templateUrl: 'common/views/header.html',
+        restrict: 'E',
+        scope: {
+          page: '@'
+        }
+      };
     });
 var app = angular.module('RedhatAccess.tree-selector', []);
 
@@ -13863,7 +14070,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         strata.clearCredentials();
         setLoginStatus(false, '');
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-        location.reload(); //TODO: probably a neater way to do this with $state
+        //location.reload(); //TODO: probably a neater way to do this with $state
       };
     }
   ])
@@ -14000,8 +14207,12 @@ angular.module('RedhatAccess.search', [
     limit: 10
 
   })
+  .value('SEARCH_CONFIG', {
+    openCaseRef: null,
+    showOpenCaseBtn: true
+  })
   .config(['$stateProvider',
-    function($stateProvider) {
+    function ($stateProvider) {
       $stateProvider.state('search', {
         url: "/search",
         controller: 'SearchController',
@@ -14015,66 +14226,85 @@ angular.module('RedhatAccess.search', [
     }
   ])
   .controller('SearchController', ['$scope',
-    'SearchResultsService', 'SEARCH_PARAMS',
-    function($scope, SearchResultsService) {
+    'SearchResultsService', 'SEARCH_CONFIG',
+    function ($scope, SearchResultsService, SEARCH_CONFIG) {
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
-      $scope.searchResultInfo = SearchResultsService.searchResultInfo;
+      $scope.currentSearchData = SearchResultsService.currentSearchData;
 
-      clearResults = function() {
+      clearResults = function () {
         SearchResultsService.clear();
       };
 
+      $scope.getOpenCaseRef = function () {
+        if (SEARCH_CONFIG.openCaseRef !== null) {
+          //TODO data may be complex type - need to normalize to string in future
+          return SEARCH_CONFIG.openCaseRef + '?data=' + SearchResultsService.currentSearchData.data;
+        } else {
+          return '#/case/new?data=' + SearchResultsService.currentSearchData.data;
+        }
+      };
 
-      $scope.solutionSelected = function(index) {
+      $scope.solutionSelected = function (index) {
         var response = $scope.results[index];
         SearchResultsService.setSelected(response, index);
 
       };
 
-      $scope.search = function(searchStr, limit) {
+      $scope.search = function (searchStr, limit) {
 
         SearchResultsService.search(searchStr, limit);
       };
 
-      $scope.diagnose = function(data, limit) {
+      $scope.diagnose = function (data, limit) {
         SearchResultsService.diagnose(data, limit);
       };
 
 
-      $scope.$watch(function() {
+      $scope.$watch(function () {
           return SearchResultsService.currentSelection
         },
-        function(newVal) {
+        function (newVal) {
           $scope.selectedSolution = newVal;
         }
       );
 
     }
   ])
-  .directive('rhaAccordionSearchResults', function() {
-    return {
-      restrict: 'AE',
-      scope: false,
-      templateUrl: 'search/views/accordion_search_results.html'
-    };
-  })
-  .directive('rhaListSearchResults', function() {
+  .directive('rhaAccordionSearchResults', ['SEARCH_CONFIG',
+    function (SEARCH_CONFIG) {
+      return {
+        restrict: 'AE',
+        scope: false,
+        templateUrl: 'search/views/accordion_search_results.html',
+        link: function (scope, element, attr) {
+          scope.showOpenCaseBtn = function () {
+            if (SEARCH_CONFIG.showOpenCaseBtn && (attr && attr.opencase === 'true')) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
+      };
+    }
+  ])
+  .directive('rhaListSearchResults', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/list_search_results.html'
     };
   })
-  .directive('rhaSearchForm', function() {
+  .directive('rhaSearchForm', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/search_form.html'
     };
   })
-  .directive('rhaStandardSearch', function() {
+  .directive('rhaStandardSearch', function () {
     return {
       restrict: 'AE',
       scope: false,
@@ -14082,14 +14312,14 @@ angular.module('RedhatAccess.search', [
     };
   })
   .directive('rhaResultDetailDisplay', ['RESOURCE_TYPES',
-    function(RESOURCE_TYPES) {
+    function (RESOURCE_TYPES) {
       return {
         restrict: 'AE',
         scope: {
           result: '='
         },
-        link: function(scope, element, attr) {
-          scope.isSolution = function() {
+        link: function (scope, element, attr) {
+          scope.isSolution = function () {
             if (scope.result !== undefined && scope.result.resource_type !== undefined) {
               if (scope.result.resource_type === RESOURCE_TYPES.solution) {
                 return true;
@@ -14099,7 +14329,7 @@ angular.module('RedhatAccess.search', [
             }
             return false;
           };
-          scope.isArticle = function() {
+          scope.isArticle = function () {
             if (scope.result !== undefined && scope.result.resource_type !== undefined) {
               if (scope.result.resource_type === RESOURCE_TYPES.article) {
                 return true;
@@ -14109,7 +14339,7 @@ angular.module('RedhatAccess.search', [
             }
             return false;
           };
-          scope.getSolutionResolution = function() {
+          scope.getSolutionResolution = function () {
             var resolution_html = '';
             if (scope.result.resolution !== undefined) {
               resolution_html = scope.result.resolution.html;
@@ -14117,7 +14347,7 @@ angular.module('RedhatAccess.search', [
             return resolution_html;
           };
 
-          scope.getArticleHtml = function() {
+          scope.getArticleHtml = function () {
             if (scope.result === undefined) {
               return '';
             }
@@ -14133,9 +14363,9 @@ angular.module('RedhatAccess.search', [
       };
     }
   ])
-  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS',
+  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS', 'AlertService',
 
-    function($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
+    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS, AlertService) {
       var service = {
         results: [],
         currentSelection: {
@@ -14145,87 +14375,88 @@ angular.module('RedhatAccess.search', [
         searchInProgress: {
           value: false
         },
-
-        searchResultInfo: {
-          msg: null
+        currentSearchData: {
+          data: '',
+          method: ''
         },
-        add: function(result) {
+
+        add: function (result) {
           this.results.push(result);
         },
-        clear: function() {
+        clear: function () {
           this.results.length = 0;
           this.setSelected({}, -1);
-          this.searchResultInfo.msg = null;
+          this.setCurrentSearchData('', '');
+
         },
-        setSelected: function(selection, index) {
+        setSelected: function (selection, index) {
           this.currentSelection.data = selection;
           this.currentSelection.index = index;
         },
-        search: function(searchString, limit) {
+        setCurrentSearchData: function (data, method) {
+          this.currentSearchData.data = data;
+          this.currentSearchData.method = method;
+        },
+        search: function (searchString, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
+          AlertService.clearAlerts();
           this.searchInProgress.value = true;
+          this.setCurrentSearchData(searchString, 'search');
           var deferreds = [];
-          var sent = strata.search(
+          strata.search(
             searchString,
-            function(entries) {
+            function (entries) {
               //retrieve details for each solution
               if (entries !== undefined) {
                 if (entries.length === 0) {
-                  that.searchResultInfo.msg = "No recommendations found.";
+                  AlertService.addSuccessMessage("No recommendations found.");
                 };
-                entries.forEach(function(entry) {
+                entries.forEach(function (entry) {
                   var deferred = $q.defer();
                   deferreds.push(deferred.promise);
                   strata.utils.getURI(
                     entry.uri,
                     entry.resource_type,
-                    function(type, info) {
+                    function (type, info) {
                       if (info !== undefined) {
                         info.resource_type = type;
                       }
                       deferred.resolve(info);
                     },
-                    function(error) {
+                    function (error) {
                       deferred.resolve();
                     });
                 });
               } else {
-                that.searchResultInfo.msg = "No recommendations found.";
+                AlertService.addSuccessMessage("No recommendations found.");
               };
               $q.all(deferreds).then(
-                function(results) {
-                  results.forEach(function(result) {
+                function (results) {
+                  results.forEach(function (result) {
                     if (result !== undefined) {
                       that.add(result);
                     }
                   });
                   that.searchInProgress.value = false;
                 },
-                function(error) {
+                function (error) {
                   that.searchInProgress.value = false;
                 }
               );
             },
-            function(error) {
+            function (error) {
               console.log(error);
-              $rootScope.$apply(function() {
+              $rootScope.$apply(function () {
                 that.searchInProgress.value = false;
-                if (error && error.statusText) {
-                  that.searchResultInfo.msg = error.statusText;
-                } else {
-                  that.searchResultInfo.msg = "Error retrieving solutions";
-                }
+                console.log(error);
+                AlertService.addDangerMessage(error);
               });
             },
             limit,
             false
           );
-          if (sent == false) {
-            this.searchInProgress.value = false;
-          };
-
         },
         // solution and article search needs reimplementation
         // searchSolutions: function (searchString, limit) {
@@ -14268,39 +14499,41 @@ angular.module('RedhatAccess.search', [
         //     true
         //   );
         // },
-        diagnose: function(data, limit) {
+        diagnose: function (data, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
+          AlertService.clearAlerts();
           var deferreds = [];
           that.searchInProgress.value = true;
-          var sent = strata.problems(
+          this.setCurrentSearchData(data, 'diagnose');
+          strata.problems(
             data,
-            function(solutions) {
+            function (solutions) {
               //retrieve details for each solution
               if (solutions !== undefined) {
                 if (solutions.length === 0) {
-                  that.searchResultInfo.msg = "No solutions found.";
+                  AlertService.addSuccessMessage("No solutions found.");
                 };
 
-                solutions.forEach(function(solution) {
+                solutions.forEach(function (solution) {
                   var deferred = $q.defer();
                   deferreds.push(deferred.promise);
                   strata.solutions.get(
                     solution.uri,
-                    function(solution) {
+                    function (solution) {
                       deferred.resolve(solution);
                     },
-                    function(error) {
+                    function (error) {
                       deferred.resolve();
                     });
                 });
               } else {
-                that.searchResultInfo.msg = "No solutions found.";
+                AlertService.addSuccessMessage("No solutions found.");
               };
               $q.all(deferreds).then(
-                function(solutions) {
-                  solutions.forEach(function(solution) {
+                function (solutions) {
+                  solutions.forEach(function (solution) {
                     if (solution !== undefined) {
                       solution.resource_type = RESOURCE_TYPES.solution;
                       that.add(solution);
@@ -14308,34 +14541,31 @@ angular.module('RedhatAccess.search', [
                   });
                   that.searchInProgress.value = false;
                 },
-                function(error) {
+                function (error) {
                   that.searchInProgress.value = false;
                 }
               );
             },
 
-            function(error) {
-              $rootScope.$apply(function() {
+            function (error) {
+              $rootScope.$apply(function () {
                 that.searchInProgress.value = false;
-                if (error && error.statusText) {
-                  that.searchResultInfo.msg = error.statusText;
-                } else {
-                  that.searchResultInfo.msg = "Error retrieving solutions";
-                }
+                AlertService.addDangerMessage(error);
               });
               console.log(error);
             },
             limit
           );
-          if (sent == false) {
-            this.searchInProgress.value = false;
-          };
         }
       };
 
-      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
+      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
         service.clear.apply(service);
       });
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        AlertService.clearAlerts();
+      });
+
       return service;
     }
   ]);
@@ -14360,13 +14590,12 @@ angular.module('RedhatAccess.cases', [
 
     $stateProvider.state('compact', {
       url: '/case/compact?sessionId',
-      templateUrl: 'cases/views/compact.html',
-      controller: 'Compact'
+      templateUrl: 'cases/views/compact.html'
     });
 
     $stateProvider.state('compact.edit', {
       url: '/{id:[0-9]{1,8}}',
-      templateUrl: 'cases/views/compact.edit.html',
+      templateUrl: 'cases/views/compactEdit.html',
       controller: 'CompactEdit'
     });
 
@@ -14387,18 +14616,6 @@ angular.module('RedhatAccess.cases', [
       templateUrl: 'cases/views/list.html',
       controller: 'List'
     });
-  }
-]);
-
-'use strict';
-
-angular.module('RedhatAccess.cases')
-.controller('AlertController', [
-  '$scope',
-  'AlertService',
-  function ($scope, AlertService) {
-    $scope.AlertService = AlertService;
-
   }
 ]);
 
@@ -14511,11 +14728,13 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   'strataService',
   '$stateParams',
+  'AlertService',
   function(
       $scope,
       CaseService,
       strataService,
-      $stateParams) {
+      $stateParams,
+      AlertService) {
 
     strataService.cases.comments.get($stateParams.id).then(
         function(commentsJSON) {
@@ -14526,7 +14745,7 @@ angular.module('RedhatAccess.cases')
           }
         },
         function(error) {
-          console.log(error);
+          AlertService.addStrataErrorMessage(error);
         }
     );
 
@@ -14536,14 +14755,9 @@ angular.module('RedhatAccess.cases')
     $scope.addComment = function() {
       $scope.addingComment = true;
 
-      strata.cases.comments.post(
-          CaseService.case.case_number,
-          {'text': $scope.newComment},
+      strataService.cases.comments.post(CaseService.case.case_number, $scope.newComment).then(
           function(response) {
-
-            //refresh the comments list
-            strata.cases.comments.get(
-                CaseService.case.case_number,
+            strataService.cases.comments.get(CaseService.case.case_number).then(
                 function(comments) {
                   $scope.newComment = '';
                   $scope.comments = comments;
@@ -14552,14 +14766,13 @@ angular.module('RedhatAccess.cases')
                   $scope.$apply();
                 },
                 function(error) {
-                  console.log(error);
-                }
-            );
+                  AlertService.addStrataErrorMessage(error);
+                });
           },
           function(error) {
-            console.log(error);
-          }
-      );
+            AlertService.addStrataErrorMessage(error);
+            $scope.addingComment = false;
+          });
     };
 
     $scope.itemsPerPage = 4;
@@ -14584,30 +14797,28 @@ angular.module('RedhatAccess.cases')
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.controller('Compact', [
-  '$scope',
-  function(
-      $scope) {
-
-  }
-]);
-
-'use strict';
-
-angular.module('RedhatAccess.cases')
 .controller('CompactCaseList', [
   '$scope',
   '$stateParams',
   'strataService',
   'CaseService',
   'CaseListService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'securityService',
+  'AlertService',
   function(
       $scope,
       $stateParams,
       strataService,
       CaseService,
-      CaseListService) {
+      CaseListService,
+      $rootScope,
+      AUTH_EVENTS,
+      securityService,
+      AlertService) {
 
+    $scope.securityService = securityService;
     $scope.CaseService = CaseService;
     $scope.CaseListService = CaseListService;
     $scope.loadingCaseList = true;
@@ -14628,10 +14839,16 @@ angular.module('RedhatAccess.cases')
             $scope.domReady = true;
           },
           function(error) {
-            console.log(error);
+            AlertService.addStrataErrorMessage(error);
           }
       );
     };
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      CaseService.populateGroups();
+      $scope.filterCases();
+      AlertService.clearAlerts();
+    });
 
     /**
      * Passed to rha-list-filter as a callback after filtering
@@ -14645,7 +14862,6 @@ angular.module('RedhatAccess.cases')
     };
 
     CaseService.populateGroups();
-
     $scope.filterCases();
   }
 ]);
@@ -14659,41 +14875,60 @@ angular.module('RedhatAccess.cases')
   '$stateParams',
   'CaseService',
   'AttachmentsService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'securityService',
+  'AlertService',
   function(
       $scope,
       strataService,
       $stateParams,
       CaseService,
-      AttachmentsService) {
+      AttachmentsService,
+      $rootScope,
+      AUTH_EVENTS,
+      securityService,
+      AlertService) {
+
+    $scope.securityService = securityService;
 
     $scope.caseLoading = true;
     $scope.domReady = false;
 
-    strataService.cases.get($stateParams.id).then(
-      function(caseJSON) {
-        CaseService.defineCase(caseJSON);
-        $scope.caseLoading = false;
+    $scope.init = function() {
+      strataService.cases.get($stateParams.id).then(
+          function(caseJSON) {
+            CaseService.defineCase(caseJSON);
+            $scope.caseLoading = false;
 
-        strataService.products.versions(caseJSON.product.name).then(
-            function(versions) {
-              CaseService.versions = versions;
-            }
-        );
+            strataService.products.versions(caseJSON.product.name).then(
+                function(versions) {
+                  CaseService.versions = versions;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
+                }
+            );
 
-        $scope.domReady = true;
-      }
-    );
+            $scope.domReady = true;
+          }
+      );
 
-    strataService.cases.attachments.list($stateParams.id).then(
-        function(attachmentsJSON) {
-          AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
+      strataService.cases.attachments.list($stateParams.id).then(
+          function(attachmentsJSON) {
+            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+    }
+    $scope.init();
 
-
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.init();
+      AlertService.clearAlerts();
+    });
   }
 ]);
 
@@ -14718,48 +14953,71 @@ angular.module('RedhatAccess.cases')
   '$scope',
   'strataService',
   'CaseService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'AlertService',
   function(
       $scope,
       strataService,
-      CaseService) {
+      CaseService,
+      $rootScope,
+      AUTH_EVENTS,
+      AlertService) {
 
     $scope.CaseService = CaseService;
 
-    if (!$scope.compact) {
+    $scope.init = function() {
+      if (!$scope.compact) {
 
-      strataService.values.cases.types().then(
+        strataService.values.cases.types().then(
+            function(response) {
+              $scope.caseTypes = response;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+
+        strataService.groups.list().then(
+            function(response) {
+              $scope.groups = response;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+      }
+
+      strataService.values.cases.status().then(
           function(response) {
-            $scope.caseTypes = response;
+            $scope.statuses = response;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
           }
       );
 
-      strataService.groups.list().then(
+      strataService.values.cases.severity().then(
           function(response) {
-            $scope.groups = response;
+            $scope.severities = response;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+
+      strataService.products.list().then(
+          function(response) {
+            $scope.products = response;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
           }
       );
     }
-
-    strataService.values.cases.status().then(
-        function(response) {
-          $scope.statuses = response;
-        }
-    );
-
-    strataService.values.cases.severity().then(
-        function(response) {
-          $scope.severities = response;
-        }
-    );
-
-    strataService.products.list().then(
-        function(response) {
-          $scope.products = response;
-        }
-    );
+    $scope.init();
 
     $scope.updatingDetails = false;
-
     $scope.updateCase = function() {
       $scope.updatingDetails = true;
 
@@ -14790,16 +15048,14 @@ angular.module('RedhatAccess.cases')
           caseJSON.folderNumber = CaseService.case.group.number;
         }
 
-        strata.cases.put(
-            CaseService.case.case_number,
-            caseJSON,
+        strataService.cases.put(CaseService.case.case_number, caseJSON).then(
             function() {
               $scope.caseDetails.$setPristine();
               $scope.updatingDetails = false;
               $scope.$apply();
             },
             function(error) {
-              console.log(error);
+              AlertService.addStrataErrorMessage(error);
               $scope.updatingDetails = false;
               $scope.$apply();
             }
@@ -14813,9 +15069,17 @@ angular.module('RedhatAccess.cases')
       strataService.products.versions(CaseService.case.product.code).then(
           function(versions){
             CaseService.versions = versions;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
           }
       );
     };
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.init();
+      AlertService.clearAlerts();
+    });
   }
 ]);
 
@@ -14831,6 +15095,10 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   'strataService',
   'RecommendationsService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'AlertService',
+  'securityService',
   function(
       $scope,
       $stateParams,
@@ -14839,61 +15107,83 @@ angular.module('RedhatAccess.cases')
       AttachmentsService,
       CaseService,
       strataService,
-      RecommendationsService) {
+      RecommendationsService,
+      $rootScope,
+      AUTH_EVENTS,
+      AlertService,
+      securityService) {
 
+    $scope.securityService = securityService;
     $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
     CaseService.clearCase();
 
-    $scope.caseLoading = true;
-    $scope.recommendationsLoading = true;
+    $scope.init = function() {
+      $scope.caseLoading = true;
+      $scope.recommendationsLoading = true;
 
-    strataService.cases.get($stateParams.id).then(
-        function(caseJSON) {
-          CaseService.defineCase(caseJSON);
-          $scope.caseLoading = false;
+      strataService.cases.get($stateParams.id).then(
+          function(caseJSON) {
+            CaseService.defineCase(caseJSON);
+            $scope.caseLoading = false;
 
-          strataService.products.versions(caseJSON.product.name).then(
-              function(versions) {
-                CaseService.versions = versions;
-              }
-          );
+            strataService.products.versions(caseJSON.product.name).then(
+                function(versions) {
+                  CaseService.versions = versions;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
+                }
+            );
 
-          if (caseJSON.account_number != null) {
-            strataService.accounts.get(caseJSON.account_number).then(
-                function(account) {
-                  CaseService.defineAccount(account);
+            if (caseJSON.account_number != null) {
+              strataService.accounts.get(caseJSON.account_number).then(
+                  function(account) {
+                    CaseService.defineAccount(account);
+                  },
+                  function(error) {
+                    AlertService.addStrataErrorMessage(error);
+                  }
+              );
+            }
+
+            RecommendationsService.populateRecommendations(25).then(
+                function() {
+                  $scope.recommendationsLoading = false;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
                 }
             );
           }
+      );
 
-          RecommendationsService.populateRecommendations(25).then(
-              function() {
-                $scope.recommendationsLoading = false;
-              }
-          );
-        }
-    );
+      $scope.attachmentsLoading = true;
+      strataService.cases.attachments.list($stateParams.id).then(
+          function(attachmentsJSON) {
+            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+            $scope.attachmentsLoading = false;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
 
-    $scope.attachmentsLoading = true;
-    strataService.cases.attachments.list($stateParams.id).then(
-        function(attachmentsJSON) {
-          AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-          $scope.attachmentsLoading = false;
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
+      strataService.cases.comments.get($stateParams.id).then(
+          function(commentsJSON) {
+            $scope.comments = commentsJSON;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+    };
+    $scope.init();
 
-    strataService.cases.comments.get($stateParams.id).then(
-        function(commentsJSON) {
-          $scope.comments = commentsJSON;
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.init();
+      AlertService.clearAlerts();
+    });
   }]);
 
 
@@ -14924,6 +15214,7 @@ angular.module('RedhatAccess.cases')
     $scope.CaseListService = CaseListService;
     $scope.securityService = securityService;
     $scope.AlertService = AlertService;
+    AlertService.clearAlerts();
 
     var buildTable = function() {
       $scope.tableParams = new ngTableParams({
@@ -14962,15 +15253,27 @@ angular.module('RedhatAccess.cases')
     }
     $scope.loadCases();
 
+    /**
+     * Callback after user login. Load the cases and clear alerts
+     */
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
       $scope.loadCases();
       AlertService.clearAlerts();
     });
 
+    /**
+     * Callback from listFilter directive
+     */
     $scope.preFilter = function() {
       $scope.loadingCases = true;
     };
 
+
+    /**
+     * Callback from listFilter directive.
+     * Fired after filtering the case list via strata api call.
+     * Reload the table.
+     */
     $scope.postFilter = function() {
       $scope.tableParams.reload();
       $scope.loadingCases = false;
@@ -15105,14 +15408,24 @@ angular.module('RedhatAccess.cases')
     'strataService',
     'RecommendationsService',
     'CaseService',
+    'AlertService',
+    'securityService',
+    '$rootScope',
+    'AUTH_EVENTS',
+    '$location',
     function ($scope,
-              $state,
-              $q,
-              SearchResultsService,
-              AttachmentsService,
-              strataService,
-              RecommendationsService,
-              CaseService) {
+      $state,
+      $q,
+      SearchResultsService,
+      AttachmentsService,
+      strataService,
+      RecommendationsService,
+      CaseService,
+      AlertService,
+      securityService,
+      $rootScope,
+      AUTH_EVENTS,
+      $location) {
 
       $scope.versions = [];
       $scope.versionDisabled = true;
@@ -15123,56 +15436,110 @@ angular.module('RedhatAccess.cases')
       CaseService.clearCase();
       RecommendationsService.clear();
       SearchResultsService.clear();
+      AlertService.clearAlerts();
 
       $scope.CaseService = CaseService;
       $scope.RecommendationsService = RecommendationsService;
+      $scope.securityService = securityService;
 
-      $scope.getRecommendations = function() {
+      $scope.getRecommendations = function () {
         SearchResultsService.searchInProgress.value = true;
         RecommendationsService.populateRecommendations(5).then(
-            function() {
-              SearchResultsService.clear();
+          function () {
+            SearchResultsService.clear();
 
-              RecommendationsService.recommendations.forEach(
-                  function(recommendation) {
-                    SearchResultsService.add(recommendation);
-                  }
-              )
-              SearchResultsService.searchInProgress.value = false;
-            }
+            RecommendationsService.recommendations.forEach(
+              function (recommendation) {
+                SearchResultsService.add(recommendation);
+              }
+            )
+            SearchResultsService.searchInProgress.value = false;
+          },
+          function (error) {
+            AlertService.addStrataErrorMessage(error);
+          }
         );
       };
 
+      /**
+       * Populate the selects
+       */
+      $scope.initSelects = function () {
         $scope.productsLoading = true;
         strataService.products.list().then(
-            function(products) {
-              $scope.products = products;
-              $scope.productsLoading = false;
-            }
+          function (products) {
+            $scope.products = products;
+            $scope.productsLoading = false;
+          },
+          function (error) {
+            AlertService.addStrataErrorMessage(error);
+          }
         );
 
         $scope.severitiesLoading = true;
         strataService.values.cases.severity().then(
-            function(severities) {
-              $scope.severities = severities;
-              CaseService.case.severity = severities[severities.length - 1];
-              $scope.severitiesLoading = false;
-            }
+          function (severities) {
+            $scope.severities = severities;
+            CaseService.
+          case .severity = severities[severities.length - 1];
+          $scope.severitiesLoading = false;
+          },
+          function (error) {
+            AlertService.addStrataErrorMessage(error);
+          }
         );
 
         $scope.groupsLoading = true;
         strataService.groups.list().then(
-            function(groups) {
-              $scope.groups = groups;
-              $scope.groupsLoading = false;
-            }
+          function (groups) {
+            $scope.groups = groups;
+            $scope.groupsLoading = false;
+          },
+          function (error) {
+            AlertService.addStrataErrorMessage(error);
+          }
         );
+      };
 
+      $scope.initDescription = function () {
+        var searchObject = $location.search();
+        if (searchObject.data) {
+          CaseService.case.description = searchObject.data;
+        } else {
+          //angular does not  handle params before hashbang
+          //@see https://github.com/angular/angular.js/issues/6172
+          var queryParamsStr = window.location.search.substring(1);
+          var parameters = queryParamsStr.split('&');
+          for (var i = 0; i < parameters.length; i++) {
+            var parameterName = parameters[i].split('=');
+            if (parameterName[0] == 'data') {
+              CaseService.case.description = decodeURIComponent(parameterName[1]);
+            }
+          }
+        }
+      };
+
+      $scope.initSelects();
+      $scope.initDescription();
+
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.initSelects();
+        $scope.initDescription();
+        AlertService.clearAlerts();
+      });
+
+      /**
+       * Set $scope.incomplete to boolean based on state of form
+       */
       $scope.validateForm = function () {
-        if (CaseService.case.product == null || CaseService.case.product == "" ||
-          CaseService.case.version == null || CaseService.case.version == "" ||
-          CaseService.case.summary == null || CaseService.case.summary == "" ||
-          CaseService.case.description == null || CaseService.case.description == "") {
+        if (CaseService.case.product == null ||
+          CaseService.case.product == "" ||
+          CaseService.case.version == null ||
+          CaseService.case.version == "" ||
+          CaseService.case.summary == null ||
+          CaseService.case.summary == "" ||
+          CaseService.case.description == null ||
+          CaseService.case.description == "") {
           $scope.incomplete = true;
         } else {
           $scope.incomplete = false;
@@ -15185,22 +15552,23 @@ angular.module('RedhatAccess.cases')
        * @param product
        */
       $scope.getProductVersions = function (product) {
-        CaseService.case.version = "";
-        $scope.versionDisabled = true;
-        $scope.versionLoading = true;
+        CaseService.
+      case .version = "";
+      $scope.versionDisabled = true;
+      $scope.versionLoading = true;
 
-        strata.products.versions(
-          product.code,
-          function (response) {
-            $scope.versions = response;
-            $scope.validateForm();
-            $scope.versionDisabled = false;
-            $scope.versionLoading = false;
-            $scope.$apply();
-          },
-          function (error) {
-            console.log(error);
-          });
+      strata.products.versions(
+        product.code,
+        function (response) {
+          $scope.versions = response;
+          $scope.validateForm();
+          $scope.versionDisabled = false;
+          $scope.versionLoading = false;
+          $scope.$apply();
+        },
+        function (error) {
+          AlertService.addStrataErrorMessage(error);
+        });
       };
 
       /**
@@ -15227,47 +15595,18 @@ angular.module('RedhatAccess.cases')
         $scope.gotoPage(1);
       };
 
-      /**
-       * Return promise for a single attachment
-       */
-      var postAttachment = function (caseNumber, attachment, progressIncrement) {
-
-        var singleAttachmentSuccess = function (response) {
-          $scope.submitProgress = $scope.submitProgress + progressIncrement;
-        };
-
-        var deferred = $q.defer();
-        deferred.promise.then(singleAttachmentSuccess);
-
-        strata.cases.attachments.post(
-          attachment,
-          caseNumber,
-          function (response) {
-            deferred.resolve(response);
-          },
-          function (error, error2, error3, error4) {
-            console.log(error);
-            deferred.reject(error);
-          }
-        );
-
-        return deferred.promise;
-      };
-
       $scope.submittingCase = false;
-
       /**
        * Create the case with attachments
        */
       $scope.doSubmit = function () {
-
         var caseJSON = {
           'product': CaseService.case.product.code,
-          'version': CaseService.case.version,
-          'summary': CaseService.case.summary,
-          'description': CaseService.case.description,
-          'severity': CaseService.case.severity.name,
-          'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
+          'version':CaseService.case.version,
+          'summary':CaseService.case.summary,
+          'description':CaseService.case.description,
+          'severity':CaseService.case.severity.name,
+          'folderNumber':CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
         };
         $scope.submittingCase = true;
         strata.cases.post(
@@ -15280,15 +15619,17 @@ angular.module('RedhatAccess.cases')
                     id: caseNumber
                   });
                   $scope.submittingCase = false;
+                },
+                function (error) {
+                  AlertService.addStrataErrorMessage(error);
                 }
               );
             }
           },
           function (error) {
-            console.log(error);
+            AlertService.addStrataErrorMessage(error);
           }
         );
-
       };
 
       $scope.gotoPage(1);
@@ -15324,19 +15665,6 @@ angular.module('RedhatAccess.cases')
     RecommendationsService.setPopulateCallback(selectPageOne);
   }
 ]);
-
-'use strict';
-
-angular.module('RedhatAccess.cases')
-.directive('rhaAlert', function () {
-  return {
-    templateUrl: 'cases/views/alert.html',
-    restrict: 'E',
-    controller: 'AlertController',
-    link: function postLink(scope, element, attrs) {
-    }
-  };
-});
 
 'use strict';
 
@@ -15585,87 +15913,6 @@ angular.module('RedhatAccess.cases')
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.service('AlertService', [
-  '$filter',
-  function ($filter) {
-    var ALERT_TYPES = {
-      DANGER: 'danger',
-      SUCCESS: 'success',
-      WARNING: 'warning'
-    };
-
-    this.alerts = []; //array of {message: 'some alert', type: '<type>'} objects
-
-    this.clearAlerts = function() {
-      this.alerts = [];
-    };
-
-    this.addAlert = function(alert) {
-      this.alerts.push(alert);
-    };
-
-    this.addDangerMessage = function(message) {
-      this.addMessage(message, ALERT_TYPES.DANGER);
-    };
-
-    this.addSuccessMessage = function(message) {
-      this.addMessage(message, ALERT_TYPES.SUCCESS);
-    };
-
-    this.addWarningMessage = function(message) {
-      this.addMessage(message, ALERT_TYPES.WARNING);
-    };
-
-    this.addMessage = function(message, type) {
-      this.alerts.push({
-        message: message,
-        type: type == null ? 'warning' : type
-      })
-    };
-
-    this.getErrors = function() {
-      var errors = $filter('filter')(this.alerts, {type: ALERT_TYPES.DANGER});
-
-      if (errors == null) {
-        errors = [];
-      }
-
-      return errors;
-    };
-
-    var buildStrataErrorMessage = function(error) {
-      var message = error.status + ': ' + error.statusText;
-
-      function messageWithDetails(message, details) {
-        return message + ' - ' + details;
-      }
-
-      if (error.responseText != null && error.responseText != '') {
-        message = messageWithDetails(message, error.responseText);
-      }
-
-      if (error.status == '401') {
-        message = messageWithDetails(message, 'Please log in to continue.');
-      }
-
-      return message;
-    };
-
-    this.addStrataErrorMessage = function(error) {
-      var message = buildStrataErrorMessage(error);
-
-      var existingMessage =
-          $filter('filter')(this.alerts, {type: ALERT_TYPES.DANGER, message: message})
-
-      if (existingMessage.length < 1) {
-        this.addDangerMessage(message);
-      }
-    };
-  }]);
-
-'use strict';
-
-angular.module('RedhatAccess.cases')
   .service('AttachmentsService', [
     '$filter',
     '$q',
@@ -15756,10 +16003,14 @@ angular.module('RedhatAccess.cases')
                   updatedAttachments[i].file,
                   caseId
                 )
-                promise.then(function (uri) {
-                  updatedAttachments[i].uri = uri;
-                });
-
+                promise.then(
+                    function (uri) {
+                      updatedAttachments[i].uri = uri;
+                    },
+                    function(error) {
+                      AlertService.addStrataErrorMessage(error);
+                    }
+                );
                 promises.push(promise);
               }
             }
@@ -15771,24 +16022,29 @@ angular.module('RedhatAccess.cases')
                 });
 
               if (attachment.length == 0) {
-                promises.push(
-                  strataService.cases.attachments.delete(
+                var promise = strataService.cases.attachments.delete(
                     origAttachment.uuid,
-                    caseId
-                  )
-                );
+                    caseId)
+
+                promise.then(
+                    function() {},
+                    function(error) {
+                      AlertService.addStrataErrorMessage(error);
+                    }
+                )
+
+                promises.push(promise);
               }
             });
           }
 
           var parentPromise = $q.all(promises);
           parentPromise.then(
-            angular.bind(this, function (AttachmentsService, two, three, four) {
+            angular.bind(this, function () {
               this.defineOriginalAttachments(angular.copy(updatedAttachments));
             }),
             function (error) {
-              console.log("Problem creating attachments");
-              console.log(error);
+              AlertService.addStrataErrorMessage(error);
             }
           );
 
@@ -15951,6 +16207,16 @@ angular.module('RedhatAccess.cases')
 
 angular.module('RedhatAccess.cases')
 .factory('strataService', ['$q', function ($q) {
+
+  var errorHandler = function(message, xhr, response, status) {
+    this.reject({
+      message: message,
+      xhr: xhr,
+      response: response,
+      status: status
+    });
+  }
+
   return {
     problems: function(data, max) {
       var deferred = $q.defer();
@@ -15960,9 +16226,7 @@ angular.module('RedhatAccess.cases')
           function(solutions) {
             deferred.resolve(solutions);
           },
-          function(error) {
-            deferred.reject(error);
-          },
+          angular.bind(deferred, errorHandler),
           max
       );
 
@@ -15998,9 +16262,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -16013,9 +16275,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -16029,9 +16289,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -16046,9 +16304,7 @@ angular.module('RedhatAccess.cases')
           function(response) {
             deferred.resolve(response);
           },
-          function(error) {
-            deferred.reject(error);
-          }
+          angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -16064,9 +16320,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16080,10 +16334,7 @@ angular.module('RedhatAccess.cases')
               function(response, code, xhr) {
                 deferred.resolve(xhr.getResponseHeader('Location'));
               },
-              function(error) {
-                console.log(error);
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16098,9 +16349,7 @@ angular.module('RedhatAccess.cases')
               function(response) {
                 deferred.resolve(response);
               },
-              function(error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16115,9 +16364,21 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
+          );
+
+          return deferred.promise;
+        },
+        post: function(case_number, text) {
+          var deferred = $q.defer();
+
+          strata.cases.comments.post(
+              case_number,
+              {'text': text},
+              function(response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16131,9 +16392,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -16152,9 +16411,21 @@ angular.module('RedhatAccess.cases')
             function(allCases) {
               deferred.resolve(allCases);
             },
-            function(error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
+        );
+
+        return deferred.promise;
+      },
+      put: function(case_number, caseJSON) {
+        var deferred = $q.defer();
+
+        strata.cases.put(
+            case_number,
+            caseJSON,
+            function(response) {
+              deferred.resolve(response);
+            },
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -16169,9 +16440,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16183,9 +16452,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16197,9 +16464,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -16214,13 +16479,14 @@ angular.module('RedhatAccess.cases')
 angular.module('RedhatAccess.logViewer',
 	[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search', 'RedhatAccess.header'])
 
-.config(["$urlRouterProvider", function($urlRouterProvider) {
-}]).config([ '$stateProvider', function($stateProvider) {
+.config([ '$stateProvider', function($stateProvider) {
 	$stateProvider.state('logviewer', {
 		url : "/logviewer",
 		templateUrl : 'log_viewer/views/log_viewer.html'
 	})
-} ]).value('hideMachinesDropdown', false)
+} ])
+
+.value('hideMachinesDropdown', false)
 
 .factory('files', function() {
 	var fileList = '';
@@ -16291,6 +16557,34 @@ angular.module('RedhatAccess.logViewer',
 		}
 	};
 })
+.controller('logViewerController', ['$scope', 'SearchResultsService', function($scope, SearchResultsService) {
+		$scope.isDisabled = true;
+		$scope.textSelected = false;
+		$scope.enableDiagnoseButton = function(){
+			//Gotta wait for text to "unselect"
+			$scope.sleep(1, $scope.checkTextSelection);
+		};
+		$scope.checkTextSelection = function(){
+			if(strata.utils.getSelectedText()){
+				$scope.textSelected = true;
+				if(SearchResultsService.searchInProgress.value){
+					$scope.isDisabled = true;
+				} else {
+					$scope.isDisabled = false;
+				}
+			} else{
+				$scope.textSelected = false;
+				$scope.isDisabled = true;
+			}
+			$scope.$apply();
+		};
+
+		$scope.sleep = function(millis, callback) {
+			setTimeout(function()
+        		{ callback(); }
+			, millis);
+		};
+}])
 .controller('fileController', ['$scope', 'files', function($scope, files) {
 	$scope.roleList = '';
 
@@ -16399,8 +16693,6 @@ angular.module('RedhatAccess.logViewer',
 			longTitle : "Long Log File",
 			content : "Sample Log Text"
 		} ];
-		$scope.isDisabled = true;
-		$scope.textSelected = false;
 		$scope.isLoading = false;
 		$scope.$watch(function() {
 			return files.getFileClicked().check;
@@ -16442,9 +16734,9 @@ angular.module('RedhatAccess.logViewer',
 			return SearchResultsService.searchInProgress.value;
 		}, function() {
 			if (SearchResultsService.searchInProgress.value == true) {
-				$scope.isDisabled = true;
-			} else if(SearchResultsService.searchInProgress.value == false && $scope.textSelected == true){
-				$scope.isDisabled = false;
+				$scope.$parent.isDisabled = true;
+			} else if(SearchResultsService.searchInProgress.value == false && $scope.$parent.textSelected == true){
+				$scope.$parent.isDisabled = false;
 			}
 		});
 		$scope.removeTab = function(index) {
@@ -16492,31 +16784,7 @@ angular.module('RedhatAccess.logViewer',
 		// or server returns response with an error status.
 			});
 		};
-		$scope.enableDiagnoseButton = function(){
-			//Gotta wait for text to "unselect"
-			$scope.sleep(1, $scope.checkTextSelection);
-		};
-		$scope.checkTextSelection = function(){
-			if(strata.utils.getSelectedText()){
-				$scope.textSelected = true;
-				if(SearchResultsService.searchInProgress.value){
-					$scope.isDisabled = true;
-				} else {
-					$scope.isDisabled = false;
-				}
-			} else{
-				$scope.textSelected = false;
-				$scope.isDisabled = true;
-			}
-			$scope.$apply();
-		};
-
-		$scope.sleep = function(millis, callback) {
-			setTimeout(function()
-        		{ callback(); }
-			, millis);
-		};
-		}])
+}])
 
 .controller('AccordionDemoCtrl', ['$scope', 'accordian', function($scope, accordian) {
 	$scope.oneAtATime = true;
@@ -16600,15 +16868,43 @@ function returnNode(splitPath, tree, fullFilePath) {
 		}
 	}
 }
-angular.module('RedhatAccess.template', ['common/views/header.html', 'common/views/treenode.html', 'common/views/treeview-selector.html', 'security/login_form.html', 'security/login_status.html', 'search/views/accordion_search.html', 'search/views/accordion_search_results.html', 'search/views/list_search_results.html', 'search/views/resultDetail.html', 'search/views/search.html', 'search/views/search_form.html', 'search/views/standard_search.html', 'cases/views/alert.html', 'cases/views/attachLocalFile.html', 'cases/views/attachProductLogs.html', 'cases/views/attachmentsSection.html', 'cases/views/commentsSection.html', 'cases/views/compact.html', 'cases/views/compactCaseList.html', 'cases/views/descriptionSection.html', 'cases/views/detailsSection.html', 'cases/views/edit.html', 'cases/views/list.html', 'cases/views/listAttachments.html', 'cases/views/listFilter.html', 'cases/views/new.html', 'cases/views/pageHeader.html', 'cases/views/recommendationsSection.html', 'log_viewer/views/log_viewer.html']);
+angular.module('RedhatAccess.template', ['common/views/alert.html', 'common/views/header.html', 'common/views/title.html', 'common/views/treenode.html', 'common/views/treeview-selector.html', 'security/login_form.html', 'security/login_status.html', 'search/views/accordion_search.html', 'search/views/accordion_search_results.html', 'search/views/list_search_results.html', 'search/views/resultDetail.html', 'search/views/search.html', 'search/views/search_form.html', 'search/views/standard_search.html', 'cases/views/alert.html', 'cases/views/attachLocalFile.html', 'cases/views/attachProductLogs.html', 'cases/views/attachmentsSection.html', 'cases/views/commentsSection.html', 'cases/views/compact.html', 'cases/views/compactCaseList.html', 'cases/views/compactEdit.html', 'cases/views/descriptionSection.html', 'cases/views/detailsSection.html', 'cases/views/edit.html', 'cases/views/list.html', 'cases/views/listAttachments.html', 'cases/views/listFilter.html', 'cases/views/new.html', 'cases/views/pageHeader.html', 'cases/views/recommendationsSection.html', 'log_viewer/views/log_viewer.html']);
+
+angular.module("common/views/alert.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("common/views/alert.html",
+    "<alert ng-repeat='alert in AlertService.alerts' type='alert.type' close='closeAlert($index)'>{{alert.message}}</alert>\n" +
+    "");
+}]);
 
 angular.module("common/views/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("common/views/header.html",
-    "<div class=\"row\" ng-show='showHeader'>\n" +
-    "    <div class=\"col-xs-12\">\n" +
-    "        <h3>Red Hat Access: {{pageTitle}}</h3>\n" +
+    "<div class=\"container-fluid\">\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-xs-12\">\n" +
+    "            <x-rha-title-template page=\"{{page}}\"/>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "</div>");
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-xs-12\">\n" +
+    "            <x-rha-login-status />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "<div class=\"bottom-border\" />\n" +
+    "<div class=\"container-fluid\">\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-xs-12\">\n" +
+    "            <x-rha-alert />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("common/views/title.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("common/views/title.html",
+    "<h1 ng-show='showTitle'>{{titlePrefix}}{{getPageTitle()}}</h1>\n" +
+    "");
 }]);
 
 angular.module("common/views/treenode.html", []).run(["$templateCache", function($templateCache) {
@@ -16684,8 +16980,7 @@ angular.module("security/login_status.html", []).run(["$templateCache", function
 angular.module("search/views/accordion_search.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/views/accordion_search.html",
     "<div class=\"container-fluid side-padding\">\n" +
-    "    <div x-rha-login-status style=\"padding: 10px;\" />\n" +
-    "    <div class=\"bottom-border\" style=\"padding-top: 10px;\"></div>\n" +
+    "    <x-rha-header title=\"Search\"></x-rha-header>\n" +
     "    <div class=\"row\" x-rha-search-form ng-controller='SearchController'></div>\n" +
     "    <div style=\"padding-top: 10px;\"></div>\n" +
     "    <div class='row'>\n" +
@@ -16696,9 +16991,9 @@ angular.module("search/views/accordion_search.html", []).run(["$templateCache", 
 
 angular.module("search/views/accordion_search_results.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/views/accordion_search_results.html",
-    "<div class=\"row\">\n" +
-    "    <div class=\"col-xs-12\">\n" +
-    "        <div style=\"padding-bottom: 0\" class=\"bottom-border\">\n" +
+    "<div class=\"row bottom-border\">\n" +
+    "    <div class=\"col-xs-6\">\n" +
+    "        <div style=\"padding-bottom: 0\">\n" +
     "            <span>\n" +
     "                <h4 style=\"padding-left: 10px; display: inline-block;\">Recommendations</h4>\n" +
     "            </span>\n" +
@@ -16707,13 +17002,12 @@ angular.module("search/views/accordion_search_results.html", []).run(["$template
     "            </span>\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "    <div style=\"padding-bottom: 14px;\" class=\"col-xs-6\" ng-show=\"showOpenCaseBtn()\">\n" +
+    "        <a href={{getOpenCaseRef()}} class=\"btn btn-primary pull-right \">Open a New Support Case</a>\n" +
+    "    </div>\n" +
     "</div>\n" +
     "<div class=\"row \">\n" +
     "    <div class=\"col-xs-12\">\n" +
-    "        <div class=\"alert alert-info\" ng-show=\"searchResultInfo.msg\">\n" +
-    "            <a class=\"close\" ng-click=\"searchResultInfo.msg=null\">×</a>\n" +
-    "            {{searchResultInfo.msg}}\n" +
-    "        </div>\n" +
     "        <accordion>\n" +
     "            <accordion-group is-open=\"isopen\" ng-repeat=\"result in results\">\n" +
     "                <accordion-heading>\n" +
@@ -16730,10 +17024,6 @@ angular.module("search/views/accordion_search_results.html", []).run(["$template
 angular.module("search/views/list_search_results.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/views/list_search_results.html",
     "<div class=\"col-sm-4\">\n" +
-    "    <div class=\"alert alert-info\" ng-show=\"searchResultInfo.msg\">\n" +
-    "        <a class=\"close\" ng-click=\"searchResultInfo.msg=null\">×</a>\n" +
-    "        {{searchResultInfo.msg}}\n" +
-    "    </div>\n" +
     "    <div class=\"panel panel-default\" ng-show='results.length > 0'>\n" +
     "        <!--pagination on-select-page=\"pageChanged(page)\" total-items=\"totalItems\" page=\"currentPage\" max-size=\"maxSize\"></pagination-->\n" +
     "\n" +
@@ -16788,7 +17078,9 @@ angular.module("search/views/search_form.html", []).run(["$templateCache", funct
     "            <div class=\"input-group\">\n" +
     "                <input type=\"text\" class=\"form-control\" id=\"rhSearchStr\" name=\"searchString\" ng-model=\"searchStr\" class=\"input-xxlarge\" placeholder=\"Search Articles and Solutions\">\n" +
     "                <span class=\"input-group-btn\">\n" +
-    "                    <button ng-disabled=\"(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)\" class=\"btn btn-default btn-primary\" type='submit' ng-click=\"search(searchStr)\">Search</button>\n" +
+    "                    <button ng-disabled=\"(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)\" class=\"btn btn-default btn-primary\" type='submit' ng-click=\"search(searchStr)\">\n" +
+    "                        <i class=\"glyphicon glyphicon-search \"></i>\n" +
+    "                        Search</button>\n" +
     "                </span>\n" +
     "\n" +
     "            </div>\n" +
@@ -16806,9 +17098,7 @@ angular.module("search/views/search_form.html", []).run(["$templateCache", funct
 angular.module("search/views/standard_search.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/views/standard_search.html",
     "<div class=\"container-fluid side-padding\" ng-controller='SearchController'>\n" +
-    "    <x-rha-header-template title='Search'></x-rha-header-template>\n" +
-    "    <div x-rha-login-status style=\"padding: 10px;\" />\n" +
-    "    <div class=\"bottom-border\" style=\"padding-top: 10px;\"></div>\n" +
+    "    <x-rha-header page=\"search\"></x-rha-header>\n" +
     "    <div class=\"row\" x-rha-search-form></div>\n" +
     "    <div style=\"padding-top: 10px;\"></div>\n" +
     "    <div class='row' x-rha-list-search-results='' ng-controller='SearchController' />\n" +
@@ -16846,13 +17136,12 @@ angular.module("cases/views/compact.html", []).run(["$templateCache", function($
     "    <div class=\"container-fluid\">\n" +
     "        <div class=\"row\">\n" +
     "            <div class=\"col-xs-12\">\n" +
-    "                <x-rha-header-template title='My Cases'/>\n" +
-    "                <rha-page-header/>\n" +
+    "                <x-rha-header page=\"caseList\"/>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"row\">\n" +
     "            <div class=\"col-xs-4\" style=\"height: 100%;\">\n" +
-    "                <rha-compact-case-list></rha-compact-case-list>\n" +
+    "                <x-rha-compact-case-list></x-rha-compact-case-list>\n" +
     "            </div>\n" +
     "            <div class=\"col-xs-8\" style=\"padding: 0px; \">\n" +
     "                <!-- Jade can't create the ui-view attribute in the form\n" +
@@ -16867,7 +17156,12 @@ angular.module("cases/views/compact.html", []).run(["$templateCache", function($
 
 angular.module("cases/views/compactCaseList.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("cases/views/compactCaseList.html",
-    "<div id=\"redhat-access-case\"><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-12 col-no-padding\"><rha-list-filter postfilter=\"filterCallback\" prefilter=\"onFilter\"></rha-list-filter></div></div><div class=\"row\"><div class=\"col-xs-12\"><div ng-show=\"CaseListService.cases.length == 0 &amp;&amp; !loadingCaseList\">No cases found with given filters.</div><span ng-show=\"loadingCaseList\" class=\"rha-search-spinner\"></span></div></div><div ng-hide=\"CaseListService.cases.length ==0 || loadingCaseList\" style=\"border-top: 1px solid #dddddd;\" class=\"row\"><div style=\"overflow: auto;\" rha-resizable=\"rha-resizable\" rha-dom-ready=\"domReady\" class=\"col-xs-12 col-no-padding\"><div style=\"margin-bottom: 0px; overflow: auto;\"><ul style=\"margin-bottom: 0px;\" class=\"list-group\"><a ng-repeat=\"case in CaseListService.cases\" ui-sref=\".edit({id: &quot;{{case.case_number}}&quot;})\" ng-class=\"{&quot;active&quot;: $index == selectedCaseIndex}\" ng-click=\"selectCase($index)\" class=\"list-group-item\">{{case.case_number}} {{case.summary}}</a></ul></div></div></div></div></div>");
+    "<div id=\"redhat-access-case\"><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-12 col-no-padding\"><rha-list-filter postfilter=\"filterCallback\" prefilter=\"onFilter\"></rha-list-filter></div></div><div class=\"row\"><div class=\"col-xs-12\"><div ng-show=\"CaseListService.cases.length == 0 &amp;&amp; !loadingCaseList\">No cases found with given filters.</div><span ng-show=\"loadingCaseList &amp;&amp; securityService.isLoggedIn\" class=\"rha-search-spinner\"></span></div></div><div ng-hide=\"CaseListService.cases.length ==0 || loadingCaseList\" style=\"border-top: 1px solid #dddddd;\" class=\"row\"><div style=\"overflow: auto;\" rha-resizable=\"rha-resizable\" rha-dom-ready=\"domReady\" class=\"col-xs-12 col-no-padding\"><div style=\"margin-bottom: 0px; overflow: auto;\"><ul style=\"margin-bottom: 0px;\" class=\"list-group\"><a ng-repeat=\"case in CaseListService.cases\" ui-sref=\".edit({id: &quot;{{case.case_number}}&quot;})\" ng-class=\"{&quot;active&quot;: $index == selectedCaseIndex}\" ng-click=\"selectCase($index)\" class=\"list-group-item\">{{case.case_number}} {{case.summary}}</a></ul></div></div></div></div></div>");
+}]);
+
+angular.module("cases/views/compactEdit.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("cases/views/compactEdit.html",
+    "<!DOCTYPE html><div id=\"redhat-access-case\"><div ng-show=\"caseLoading &amp;&amp; securityService.isLoggedIn\" class=\"container-fluid\"><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><span class=\"rha-search-spinner\"></span></div></div></div><div ng-hide=\"caseLoading\" rha-resizable rha-dom-ready=\"domReady\" style=\"overflow: auto; padding-left: 15px;border-top: 1px solid #dddddd; border-left: 1px solid #dddddd;\" class=\"container-fluid\"><div style=\"margin-right: 0px; padding-top: 10px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-details compact=\"true\"></rha-case-details></div></div><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-description></rha-case-description></div></div><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-attachments></rha-case-attachments></div></div><div style=\"margin-right: 0px;\" class=\"row\"><div class=\"col-xs-12\"><rha-case-comments></rha-case-comments></div></div></div></div>");
 }]);
 
 angular.module("cases/views/descriptionSection.html", []).run(["$templateCache", function($templateCache) {
@@ -16882,12 +17176,12 @@ angular.module("cases/views/detailsSection.html", []).run(["$templateCache", fun
 
 angular.module("cases/views/edit.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("cases/views/edit.html",
-    "<!DOCTYPE html><div id=\"redhat-access-case\" class=\"container-offset\"><x-rha-header-template title=\"Edit Case\"></x-rha-header-template><rha-page-header></rha-page-header><div class=\"container-fluid side-padding\"><div class=\"row\"><div ng-hide=\"caseLoading\" class=\"col-xs-12\"><rha-case-details compact=\"false\"></rha-case-details></div><div ng-show=\"caseLoading\" class=\"col-xs-12\"><div>Loading Details...</div></div></div><div class=\"row\"><div ng-hide=\"caseLoading\" class=\"col-xs-12\"><rha-case-description></rha-case-description></div></div><div class=\"row\"><div ng-hide=\"attachmentsLoading\" class=\"col-xs-12\"><rha-case-attachments></rha-case-attachments></div><div ng-show=\"attachmentsLoading\" class=\"col-xs-12\"><div>Loading Attachments...</div></div></div><div class=\"row\"><div ng-hide=\"recommendationsLoading\" class=\"col-xs-12\"><rha-case-recommendations></rha-case-recommendations></div><div ng-show=\"recommendationsLoading\" class=\"col-xs-12\"><div>Loading Recommendations...</div></div></div><div class=\"row\"><div class=\"col-xs-12\"><rha-case-comments></rha-case-comments></div></div></div></div>");
+    "<!DOCTYPE html><div id=\"redhat-access-case\" class=\"container-offset\"><x-rha-header page=\"caseView\"></x-rha-header><div ng-show=\"securityService.isLoggedIn\" class=\"container-fluid side-padding\"><div class=\"row\"><div ng-hide=\"caseLoading\" class=\"col-xs-12\"><rha-case-details compact=\"false\"></rha-case-details></div><div ng-show=\"caseLoading\" class=\"col-xs-12\"><div>Loading Details...</div></div></div><div class=\"row\"><div ng-hide=\"caseLoading\" class=\"col-xs-12\"><rha-case-description></rha-case-description></div></div><div class=\"row\"><div ng-hide=\"attachmentsLoading\" class=\"col-xs-12\"><rha-case-attachments></rha-case-attachments></div><div ng-show=\"attachmentsLoading\" class=\"col-xs-12\"><div>Loading Attachments...</div></div></div><div class=\"row\"><div ng-hide=\"recommendationsLoading\" class=\"col-xs-12\"><rha-case-recommendations></rha-case-recommendations></div><div ng-show=\"recommendationsLoading\" class=\"col-xs-12\"><div>Loading Recommendations...</div></div></div><div class=\"row\"><div class=\"col-xs-12\"><rha-case-comments></rha-case-comments></div></div></div></div>");
 }]);
 
 angular.module("cases/views/list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("cases/views/list.html",
-    "<div id=\"redhat-access-case\" class=\"container-offset\"><x-rha-header-template title=\"My Cases\"></x-rha-header-template><rha-page-header></rha-page-header><div class=\"container-fluid side-padding\"><div class=\"row\"><div style=\"padding-bottom: 14px;\" class=\"col-xs-12\"><button ui-sref=\"new\" class=\"btn btn-primary pull-right\">Open a New Support Case</button></div></div></div><rha-list-filter prefilter=\"preFilter\" postfilter=\"postFilter\"></rha-list-filter><div style=\"margin-left: 10px; margin-right: 10px;\" class=\"bottom-border\"></div><div class=\"container-fluid side-padding\"><div class=\"row\"><div class=\"col-xs-12\"><div ng-show=\"AlertService.getErrors().length &gt; 0\">An error occurred while loading the case list.</div><div ng-show=\"securityService.isLoggedIn\"><div ng-show=\"loadingCases\">Loading...</div><div ng-show=\"CaseListService.cases.length == 0 &amp;&amp; !loadingCases\">No cases found with given filters.</div><div ng-hide=\"CaseListService.cases.length == 0 || loadingCases\"><table ng-table=\"tableParams\" style=\"text-align: center\" class=\"table table-bordered table-striped\"><tr ng-repeat=\"case in $data\"><td data-title=\"&quot;Case ID&quot;\" sortable=\"&quot;case_number&quot;\" style=\"width: 10%\"><a href=\"#/case/{{case.case_number}}\">{{case.case_number}}</a></td><td data-title=\"&quot;Summary&quot;\" sortable=\"&quot;summary&quot;\" style=\"width: 15%\">{{case.summary}}</td><td data-title=\"&quot;Product/Version&quot;\" sortable=\"&quot;product&quot;\">{{case.product}} / {{case.version}}</td><td data-title=\"&quot;Status&quot;\" sortable=\"&quot;status&quot;\">{{case.status}}</td><td data-title=\"&quot;Severity&quot;\" sortable=\"&quot;severity&quot;\">{{case.severity}}</td><td data-title=\"&quot;Owner&quot;\" sortable=\"&quot;owner&quot;\">{{case.owner}}</td><td data-title=\"&quot;Opened&quot;\" sortable=\"&quot;created_date&quot;\" style=\"width: 10%\">{{case.created_date | date:'medium'}}</td><td data-title=\"&quot;Updated&quot;\" sortable=\"&quot;last_modified_date&quot;\" style=\"width: 10%\">{{case.last_modified_date | date:'medium'}}</td></tr></table></div></div></div></div></div></div>");
+    "<div id=\"redhat-access-case\" class=\"container-offset\"><x-rha-header page=\"caseList\"></x-rha-header><div class=\"container-fluid side-padding\"><div class=\"row\"><div style=\"padding-bottom: 14px;\" class=\"col-xs-12\"><button ui-sref=\"new\" class=\"btn btn-primary pull-right\">Open a New Support Case</button></div></div></div><rha-list-filter prefilter=\"preFilter\" postfilter=\"postFilter\"></rha-list-filter><div style=\"margin-left: 10px; margin-right: 10px;\" class=\"bottom-border\"></div><div class=\"container-fluid side-padding\"><div class=\"row\"><div class=\"col-xs-12\"><div ng-show=\"securityService.isLoggedIn\"><span ng-show=\"loadingCases\" class=\"rha-search-spinner\"></span><div ng-show=\"CaseListService.cases.length == 0 &amp;&amp; !loadingCases\">No cases found with given filters.</div><div ng-hide=\"CaseListService.cases.length == 0 || loadingCases\"><table ng-table=\"tableParams\" style=\"text-align: center\" class=\"table table-bordered table-striped\"><tr ng-repeat=\"case in $data\"><td data-title=\"&quot;Case ID&quot;\" sortable=\"&quot;case_number&quot;\" style=\"width: 10%\"><a href=\"#/case/{{case.case_number}}\">{{case.case_number}}</a></td><td data-title=\"&quot;Summary&quot;\" sortable=\"&quot;summary&quot;\" style=\"width: 15%\">{{case.summary}}</td><td data-title=\"&quot;Product/Version&quot;\" sortable=\"&quot;product&quot;\">{{case.product}} / {{case.version}}</td><td data-title=\"&quot;Status&quot;\" sortable=\"&quot;status&quot;\">{{case.status}}</td><td data-title=\"&quot;Severity&quot;\" sortable=\"&quot;severity&quot;\">{{case.severity}}</td><td data-title=\"&quot;Owner&quot;\" sortable=\"&quot;owner&quot;\">{{case.owner}}</td><td data-title=\"&quot;Opened&quot;\" sortable=\"&quot;created_date&quot;\" style=\"width: 10%\">{{case.created_date | date:'medium'}}</td><td data-title=\"&quot;Updated&quot;\" sortable=\"&quot;last_modified_date&quot;\" style=\"width: 10%\">{{case.last_modified_date | date:'medium'}}</td></tr></table></div></div></div></div></div></div>");
 }]);
 
 angular.module("cases/views/listAttachments.html", []).run(["$templateCache", function($templateCache) {
@@ -16902,7 +17196,7 @@ angular.module("cases/views/listFilter.html", []).run(["$templateCache", functio
 
 angular.module("cases/views/new.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("cases/views/new.html",
-    "<!DOCTYPE html><div class=\"container-offset\"><div id=\"redhat-access-case\" class=\"container-fluid\"><x-rha-header-template title=\"New Case\"></x-rha-header-template><rha-page-header></rha-page-header><div class=\"row\"><div style=\"border-right: 1px solid; border-color: #cccccc;\" class=\"col-xs-6\"><div class=\"container-fluid side-padding\"><div ng-class=\"{&quot;hidden&quot;: isPage2}\" id=\"rha-case-wizard-page-1\" class=\"create-case-section\"><div class=\"row create-field\"><div class=\"col-md-4\"><div>Product:</div></div><div class=\"col-md-8\"><progressbar ng-hide=\"!productsLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select ng-hide=\"productsLoading\" style=\"width: 100%;\" ng-model=\"CaseService.case.product\" ng-change=\"getProductVersions(CaseService.case.product)\" ng-options=\"p.name for p in products track by p.code\" ng-blur=\"getRecommendations()\" class=\"form-control\"></select></div></div><div class=\"row create-field\"><div class=\"col-md-4\"><div>Product Version:</div></div><div class=\"col-md-8\"><div><progressbar ng-hide=\"!versionLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select style=\"width: 100%;\" ng-model=\"CaseService.case.version\" ng-options=\"v for v in versions\" ng-change=\"validateForm()\" ng-disabled=\"versionDisabled\" ng-hide=\"versionLoading\" ng-blur=\"getRecommendations()\" class=\"form-control\"></select></div></div></div><div class=\"row create-field\"><div class=\"col-md-4\"><div>Summary:</div></div><div class=\"col-md-8\"><input id=\"rha-case-summary\" style=\"width: 100%;\" ng-change=\"validateForm()\" ng-model=\"CaseService.case.summary\" ng-blur=\"getRecommendations()\" class=\"form-control\"></div></div><div class=\"row create-field\"><div class=\"col-md-4\"><div>Description:</div></div><div class=\"col-md-8\"><textarea style=\"width: 100%; height: 200px;\" ng-model=\"CaseService.case.description\" ng-change=\"validateForm()\" ng-blur=\"getRecommendations()\" class=\"form-control\"></textarea></div></div><div class=\"row\"><div ng-class=\"{&quot;hidden&quot;: isPage2}\" class=\"col-xs-12\"><button style=\"float: right\" ng-click=\"doNext()\" ng-disabled=\"incomplete\" class=\"btn btn-primary\">Next</button></div></div></div><div ng-class=\"{&quot;hidden&quot;: isPage1}\" id=\"rha-case-wizard-page-1\" class=\"create-case-section\"><div class=\"bottom-border\"><div class=\"row\"><div class=\"col-xs-12\"><div style=\"margin-bottom: 10px;\" class=\"bold\">{{CaseService.case.product.name}} {{CaseService.case.version}}</div></div></div><div class=\"row\"><div class=\"col-xs-12\"><div style=\"font-size: 90%; margin-bottom: 4px;\" class=\"bold\">{{CaseService.case.summary}}</div></div></div><div class=\"row\"><div class=\"col-xs-12\"><div style=\"font-size: 85%\">{{CaseService.case.description}}</div></div></div></div><div class=\"row create-field\"><div class=\"col-md-4\">Severity:</div><div class=\"col-md-8\"><progressbar ng-hide=\"!severitiesLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select ng-hide=\"severitiesLoading\" style=\"width: 100%;\" ng-model=\"CaseService.case.severity\" ng-change=\"validatePage2()\" ng-options=\"s.name for s in severities track by s.name\" class=\"form-control\"></select></div></div><div class=\"row create-field\"><div class=\"col-md-4\">Case Group:</div><div class=\"col-md-8\"><progressbar ng-hide=\"!groupsLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select ng-hide=\"groupsLoading\" style=\"width: 100%;\" ng-model=\"CaseService.case.group\" ng-change=\"validatePage2()\" ng-options=\"g.name for g in groups track by g.number\" class=\"form-control\"></select></div></div><div class=\"row create-field\"><div class=\"col-xs-12\"><div>Attachments:</div></div></div><div class=\"bottom-border\"><div style=\"overflow: auto\" class=\"row create-field\"><div class=\"col-xs-12\"><rha-list-attachments></rha-list-attachments></div></div><div class=\"row create-field\"><div class=\"col-xs-12\"><rha-attach-local-file></rha-attach-local-file></div></div><div class=\"row create-field\"><div class=\"col-xs-12\"><div class=\"server-attach-header\">Server File(s) To Attach:<rha-choice-tree ng-model=\"attachmentTree\" ng-controller=\"BackEndAttachmentsCtrl\"></rha-choice-tree></div></div></div></div><div style=\"margin-top: 20px;\" class=\"row\"><div class=\"col-xs-6\"><button style=\"float: left\" ng-click=\"doPrevious()\" class=\"btn btn-primary\">Previous</button></div><div class=\"col-xs-6\"><button style=\"float: right\" ng-disabled=\"submittingCase\" ng-click=\"doSubmit()\" class=\"btn btn-primary\">Submit</button></div></div></div></div></div><div class=\"col-xs-6\"><div x-rha-accordion-search-results ng-controller=\"SearchController\" style=\"padding: 0 15px;\"></div></div></div></div></div>");
+    "<!DOCTYPE html><div class=\"container-offset\"><div id=\"redhat-access-case\" class=\"container-fluid\"><x-rha-header page=\"newCase\"></x-rha-header><div class=\"row\"><div style=\"border-right: 1px solid; border-color: #cccccc;\" class=\"col-xs-6\"><div class=\"container-fluid side-padding\"><div ng-class=\"{&quot;hidden&quot;: isPage2}\" id=\"rha-case-wizard-page-1\" class=\"create-case-section\"><div class=\"row create-field\"><div class=\"col-md-4\"><div>Product:</div></div><div class=\"col-md-8\"><progressbar ng-hide=\"!productsLoading || !securityService.isLoggedIn\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select ng-disabled=\"!securityService.isLoggedIn\" ng-hide=\"productsLoading &amp;&amp; securityService.isLoggedIn\" style=\"width: 100%;\" ng-model=\"CaseService.case.product\" ng-change=\"getProductVersions(CaseService.case.product)\" ng-options=\"p.name for p in products track by p.code\" ng-blur=\"getRecommendations()\" class=\"form-control\"></select></div></div><div class=\"row create-field\"><div class=\"col-md-4\"><div>Product Version:</div></div><div class=\"col-md-8\"><div><progressbar ng-hide=\"!versionLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select style=\"width: 100%;\" ng-model=\"CaseService.case.version\" ng-options=\"v for v in versions\" ng-change=\"validateForm()\" ng-disabled=\"versionDisabled || !securityService.isLoggedIn\" ng-hide=\"versionLoading\" ng-blur=\"getRecommendations()\" class=\"form-control\"></select></div></div></div><div class=\"row create-field\"><div class=\"col-md-4\"><div>Summary:</div></div><div class=\"col-md-8\"><input id=\"rha-case-summary\" style=\"width: 100%;\" ng-disabled=\"!securityService.isLoggedIn\" ng-change=\"validateForm()\" ng-model=\"CaseService.case.summary\" ng-blur=\"getRecommendations()\" class=\"form-control\"></div></div><div class=\"row create-field\"><div class=\"col-md-4\"><div>Description:</div></div><div class=\"col-md-8\"><textarea style=\"width: 100%; height: 200px; max-width: 100%;\" ng-model=\"CaseService.case.description\" ng-change=\"validateForm()\" ng-disabled=\"!securityService.isLoggedIn\" ng-blur=\"getRecommendations()\" class=\"form-control\"></textarea></div></div><div class=\"row\"><div ng-class=\"{&quot;hidden&quot;: isPage2}\" class=\"col-xs-12\"><button style=\"float: right\" ng-click=\"doNext()\" ng-disabled=\"incomplete\" class=\"btn btn-primary\">Next</button></div></div></div><div ng-class=\"{&quot;hidden&quot;: isPage1}\" id=\"rha-case-wizard-page-1\" class=\"create-case-section\"><div class=\"bottom-border\"><div class=\"row\"><div class=\"col-xs-12\"><div style=\"margin-bottom: 10px;\" class=\"bold\">{{CaseService.case.product.name}} {{CaseService.case.version}}</div></div></div><div class=\"row\"><div class=\"col-xs-12\"><div style=\"font-size: 90%; margin-bottom: 4px;\" class=\"bold\">{{CaseService.case.summary}}</div></div></div><div class=\"row\"><div class=\"col-xs-12\"><div style=\"font-size: 85%\">{{CaseService.case.description}}</div></div></div></div><div class=\"row create-field\"><div class=\"col-md-4\">Severity:</div><div class=\"col-md-8\"><progressbar ng-hide=\"!severitiesLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select ng-hide=\"severitiesLoading\" style=\"width: 100%;\" ng-model=\"CaseService.case.severity\" ng-change=\"validatePage2()\" ng-options=\"s.name for s in severities track by s.name\" class=\"form-control\"></select></div></div><div class=\"row create-field\"><div class=\"col-md-4\">Case Group:</div><div class=\"col-md-8\"><progressbar ng-hide=\"!groupsLoading\" max=\"1\" value=\"1\" animate=\"false\" style=\"height: 34px; margin-bottom: 0px;\" class=\"progress-striped active\"></progressbar><select ng-hide=\"groupsLoading\" style=\"width: 100%;\" ng-model=\"CaseService.case.group\" ng-change=\"validatePage2()\" ng-options=\"g.name for g in groups track by g.number\" class=\"form-control\"></select></div></div><div class=\"row create-field\"><div class=\"col-xs-12\"><div>Attachments:</div></div></div><div class=\"bottom-border\"><div style=\"overflow: auto\" class=\"row create-field\"><div class=\"col-xs-12\"><rha-list-attachments></rha-list-attachments></div></div><div class=\"row create-field\"><div class=\"col-xs-12\"><rha-attach-local-file></rha-attach-local-file></div></div><div class=\"row create-field\"><div class=\"col-xs-12\"><div class=\"server-attach-header\">Server File(s) To Attach:<rha-choice-tree ng-model=\"attachmentTree\" ng-controller=\"BackEndAttachmentsCtrl\"></rha-choice-tree></div></div></div></div><div style=\"margin-top: 20px;\" class=\"row\"><div class=\"col-xs-6\"><button style=\"float: left\" ng-click=\"doPrevious()\" class=\"btn btn-primary\">Previous</button></div><div class=\"col-xs-6\"><button style=\"float: right\" ng-disabled=\"submittingCase\" ng-click=\"doSubmit()\" class=\"btn btn-primary\">Submit</button></div></div></div></div></div><div class=\"col-xs-6\"><div x-rha-accordion-search-results ng-controller=\"SearchController\" style=\"padding: 0 15px;\"></div></div></div></div></div>");
 }]);
 
 angular.module("cases/views/pageHeader.html", []).run(["$templateCache", function($templateCache) {
@@ -16918,10 +17212,10 @@ angular.module("cases/views/recommendationsSection.html", []).run(["$templateCac
 angular.module("log_viewer/views/log_viewer.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("log_viewer/views/log_viewer.html",
     "<div id=\"log_view_main\" style=\"max-height: 500px;\" >\n" +
-    "	<x-rha-header-template title='Diagnose Logs'></x-rha-header-template>\n" +
-    "	<div x-rha-login-status style=\"padding: 10px;\"></div>\n" +
-    "	<div class=\"bottom-border\" style=\"padding-top: 10px;\"></div>\n" +
-    "	<div class=\"row-fluid\">\n" +
+    "  <div class=\"container-offset\">\n" +
+    "    <x-rha-header page=\"logViewer\"></x-rha-header>\n" +
+    "  </div>\n" +
+    "	<div class=\"row-fluid\" ng-controller=\"logViewerController\" ng-mouseup=\"enableDiagnoseButton()\" >\n" +
     "		<div class=\"nav-side-bar col-xs-3\" ng-class=\"{ showMe: sidePaneToggle }\" fill-down ng-style=\"{height: windowHeight }\">\n" +
     "			<div class=\"hideable-side-bar\" ng-class=\"{ showMe: sidePaneToggle }\">\n" +
     "				<div class=\"btn-group\" ng-class=\"{ hideMe: hideDropdown}\" ng-controller=\"DropdownCtrl\" ng-init=\"init()\">\n" +
@@ -16951,7 +17245,7 @@ angular.module("log_viewer/views/log_viewer.html", []).run(["$templateCache", fu
     "		<div class=col-fluid> \n" +
     "			<div class=\"col-xs-6 pull-right solutions\" fill-down ng-style=\"{height: windowHeight }\" ng-class=\"{ showMe: solutionsToggle }\">\n" +
     "				<div id=\"resizeable-solution-view\" fill-down class=\"resizeable-solution-view\" ng-class=\"{ showMe: solutionsToggle }\" ng-style=\"{height: windowHeight }\" \n" +
-    "					x-rha-accordion-search-results='' ng-controller='SearchController' >\n" +
+    "					x-rha-accordion-search-results='' opencase='true' ng-controller='SearchController' >\n" +
     "				</div>\n" +
     "				<a ng-click=\"solutionsToggle = !solutionsToggle\"><span ng-class=\"{ showMe: solutionsToggle }\"\n" +
     "							class=\"glyphicon glyphicon-chevron-left right-side-glyphicon\"></span></a>\n" +
@@ -16967,7 +17261,6 @@ angular.module("log_viewer/views/log_viewer.html", []).run(["$templateCache", fu
     "							</tab-heading>\n" +
     "							<div class=\"panel panel-default\" >\n" +
     "								<div class=\"panel-heading\">\n" +
-    "									<a class=\"tabs-spinner\"  ng-class=\"{ showMe: isLoading }\"><span class=\"rha-search-spinner\"></span></a>\n" +
     "									<a popover=\"Click to refresh log file.\" popover-trigger=\"mouseenter\" popover-placement=\"right\" ng-click=\"refreshTab($index)\">\n" +
     "										<span class=\"glyphicon glyphicon-refresh\"></span>\n" +
     "									</a>\n" +
@@ -16975,10 +17268,12 @@ angular.module("log_viewer/views/log_viewer.html", []).run(["$templateCache", fu
     "									<div class=\"pull-right\" id=\"overlay\" popover=\"Select text and click to perform Red Hat Diagnose\" popover-trigger=\"mouseenter\" popover-placement=\"left\" > \n" +
     "										<button ng-disabled=\"isDisabled\" id=\"diagnoseButton\" type=\"button\" class=\"btn btn-sm btn-primary diagnoseButton\" ng-click=\"diagnoseText()\">Red Hat Diagnose</button>\n" +
     "									</div>\n" +
+    "									<a class=\"tabs-spinner\"  ng-class=\"{ showMe: isLoading }\"><span class=\"rha-search-spinner\"></span></a>\n" +
+    "									\n" +
     "									<br> \n" +
     "									<br>\n" +
     "								</div>\n" +
-    "								<div class=\"panel-body\" ng-mouseup=\"enableDiagnoseButton()\" fill-down ng-style=\"{ height: windowHeight }\">\n" +
+    "								<div class=\"panel-body\" fill-down ng-style=\"{ height: windowHeight }\">\n" +
     "\n" +
     "									<pre id=\"resizeable-file-view\" class=\"no-line-wrap\">{{tab.content}}</pre>\n" +
     "								</div>\n" +

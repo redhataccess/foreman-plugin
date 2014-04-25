@@ -1,10 +1,10 @@
 RedhatAccess::Engine.routes.draw do
 
-
   #API routes
+  get "configuration" => "configuration#index"
   get "logs" => 'logs#index'
   get "attachments" => "attachments#index"
-  post '/cases/:case_number/attachments/' => 'cases#attachments'
+  post "attachments" => "attachments#create"
 
 
   #Angular UI routes

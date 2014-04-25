@@ -1,17 +1,22 @@
 require_dependency "redhat_access/application_controller"
+require_dependency "redhat_access/strata/client"
+require_dependency "redhat_access/sos_reports/generator"
 
 module RedhatAccess
   class AttachmentsController < ApplicationController
+
+    wrap_parameters :attach_payload, format: :json
     def index
       render :text => "SOS Report",
         :layout => false
     end
 
-    def post
+    def create
+      data = params[:attach_payload]
       begin
-        case_number = params[:case_number]
+        case_number = data[:caseNum]
         sos_file = RedhatAccess::SosReports::Generator.create_report case_number
-        strata = RedhatAccess::Strata::Client.new(nil)
+        strata = RedhatAccess::Strata::Client.new(data[:authToken])
         strata.api.attachment_broker.add(case_number,
                                          false,
                                          sos_file,
@@ -19,7 +24,7 @@ module RedhatAccess
         render :nothing => true, :status => 201
       rescue => e
         puts e.backtrace
-        render :text => "Error attaching sos file" + e.message
+        render :text => "Error attaching sos file " + e.message
       end
     end
   end

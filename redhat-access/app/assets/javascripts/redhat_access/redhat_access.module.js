@@ -12,10 +12,6 @@
  */
 
 
-strata.setRedhatClientID("foreman-strata-client");
-//strata.setStrataHostname("api.foreman-strata-client.com");
-
-
 /**
  *
  */
@@ -31,15 +27,44 @@ angular.module('RedhatAccess', [
 	'ui.bootstrap'
 
 ]).config(['$urlRouterProvider',
-	function ($urlRouterProvider) {
+	'$httpProvider',
+	function ($urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/search');
+		$httpProvider.defaults.headers.common = {
+			'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+		};
+
+	}
+]).run(['TITLE_VIEW_CONFIG',
+	'$http',
+	function (TITLE_VIEW_CONFIG, $http) {
+		TITLE_VIEW_CONFIG.show = true;
+		$http({
+			method: 'GET',
+			url: 'redhat_access/configuration'
+		}).
+		success(function (data, status, headers, config) {
+			if (data) {
+				if (data.strataHostName) {
+					strata.setStrataHostname(data.strataHostName);
+				} else {
+					console.log("Invalid configuration object " + data);
+				}
+				if (data.strataClientId) {
+					strata.setRedhatClientID(data.strataClientId);
+				} else {
+					strata.setRedhatClientID("foreman-strata-client");
+					console.log("Invalid configuration object " + data);
+				}
+			}
+		}).
+		error(function (data, status, headers, config) {
+			console.log("Failed to read app configuration");
+			strata.setRedhatClientID("foreman-strata-client");
+		});
+
+
 	}
 ]);
 
-
-angular.module('RedhatAccess.header').value('HEADER_VIEW_CONFIG', {
-	show: 'true'
-});
-
-//Only view logs from main server for now.
 angular.module('RedhatAccess.logViewer').value('hideMachinesDropdown', true);

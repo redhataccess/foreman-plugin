@@ -36,7 +36,9 @@ module RedhatAccess::SosReports
         else
           #puts "sos report failed"
         end
-        report_location.strip
+        sos_file_name = report_location.strip
+        puts "SOS file created : " + sos_file_name
+        sos_file_name
       end
     end
 
