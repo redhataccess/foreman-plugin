@@ -9,8 +9,15 @@ module RedhatAccess
       # This REST hack of using index for both list and specific resource get
       # is being forced by the current UI design
       #
-      render :text => "/home/lindani/production.log",
-        :layout => false
+      path = params[:path]
+      if path.nil?
+        render :text => "/var/log/foreman/production.log\n/var/log/foreman/delayed_job.log\n/var/log/foreman/jobs-startup.log",
+          :layout => false
+      else
+        # TEMPORARY implementation for demo - needs sanatizing to make secure!
+        render :file => path,
+          :layout => false
+      end
     end
   end
 end

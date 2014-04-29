@@ -41,7 +41,7 @@ angular.module('RedhatAccess', [
 		TITLE_VIEW_CONFIG.show = true;
 		$http({
 			method: 'GET',
-			url: 'redhat_access/configuration'
+			url: 'configuration'
 		}).
 		success(function (data, status, headers, config) {
 			if (data) {

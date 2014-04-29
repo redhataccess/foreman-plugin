@@ -4,9 +4,9 @@ require_dependency "redhat_access/sos_reports/generator"
 
 module RedhatAccess
   class AttachmentsController < ApplicationController
-
     wrap_parameters :attach_payload, format: :json
     def index
+      logger.error "Failed to import"
       render :text => "SOS Report",
         :layout => false
     end
@@ -24,6 +24,7 @@ module RedhatAccess
         render :nothing => true, :status => 201
       rescue => e
         puts e.backtrace
+        #logger.error "Failed to import facts for Host::Discovered: #{e}"
         render :text => "Error attaching sos file " + e.message
       end
     end

@@ -73,4 +73,10 @@ task 'assets:precompile:engine' do
                                            :manifest => true)
   compiler.compile
 end
+
+# task 'build' do
+#   Rake::Task['assets:precompile:engine'].invoke
+#   gem build 'redhat_access.gemspec'
+# end
+
 task :default => :test

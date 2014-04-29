@@ -1,4 +1,5 @@
 require_dependency "redhat_access/application_controller"
+require_dependency "redhat_access/version"
 
 module RedhatAccess
   class ConfigurationController < ApplicationController

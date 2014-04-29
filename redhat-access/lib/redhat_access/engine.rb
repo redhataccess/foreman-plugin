@@ -16,30 +16,30 @@ module RedhatAccess
       end
     end
 
+    initializer :security_initialization do |app|
+      app.config.filter_parameters << :authToken
+    end
+
     initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
       Foreman::Plugin.register :redhat_access do
-        # The following optional sections can be added here:
-        # require foreman version section
-        # permission section
-        # roles section
-        # menu section
-        #sub_menu :header_menu, :access, :url_hash => {:controller=> :hosts, :action=>:new},
-        #  :caption=> N_('Redhat Access'),
-        #  :after =>:user_menu
-        #end
-        # end
-        # menu :top_menu, :new_host, :url_hash => {:controller=> :hosts, :action=>:new},
-        #   :caption=> N_('Redhat Access')
-        # sub_menu :header_menu, :another_menu, :caption=> N_('Another Menu') do
-        #   menu :header_menu, :Search, :url_hash => {:controller=> :hosts, :action=>:index}
-        #   menu :header_menu, :Cases, :url_hash => {:controller=> :hosts, :action=>:index}
-        # end
-
-        # sub_menu :header_menu, :another_menu2, :caption=> N_('Another Menu2') do
-        #   menu :header_menu, :Search, :url_hash => {:controller=> :hosts, :action=>:index}
-        #   menu :header_menu, :Cases, :url_hash => {:controller=> :hosts, :action=>:index}
-        # end
         requires_foreman '> 1.4'
+
+        # permission section
+        security_block :redhat_access_security do
+          permission :view_search, {:"redhat_access/search" => [:index] }
+          permission :view_cases, {:"redhat_access/cases" => [:index, :create] }
+          permission :log_viewer, {:"redhat_access/log_viewer" => [:index] }
+          permission :attachments, {:"redhat_access/attachments" => [:index, :create] }
+          permission :configuration, {:"redhat_access/configuration" => [:index] }
+
+          permission :logs, {:"redhat_access/logs" => [:index] }
+        end
+
+        #roles section
+        role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
+        role "Red Hat Access Logs", [:logs,:log_viewer]
+
+        #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
           menu :header_menu,
             :Search,
