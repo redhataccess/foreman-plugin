@@ -13,11 +13,11 @@ Gem::Specification.new do |s|
   s.summary     = "Plugin to add Redhat Access to Foreman"
   s.description = "Plugin adds knowledge base search, case management and diagnostics to Foreman"
 
-  s.files = Dir["{app,config,db,lib,vendor,public,script}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib,vendor,public,script}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2"
-  s.add_dependency "redhat_support_lib" 
+  #s.add_dependency "redhat_support_lib" 
   #s.add_dependency "haml-rails"
   #s.add_dependency "requirejs-rails"
   #-------------s.add_dependency "bootstrap-sass", "~> 3.0.3.0"
