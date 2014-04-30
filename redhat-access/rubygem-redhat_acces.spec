@@ -31,7 +31,6 @@ BuildRequires: %{?scl_prefix}rubygems-devel
 BuildRequires: %{?scl_prefix}rubygem(rake)
 BuildRequires: %{?scl_prefix}rubygem(sass-rails)
 BuildRequires: %{?scl_prefix}rubygem(sqlite3)
-BuildRequires: %{?scl_prefix}rubygem(angular-rails-templates)
 BuildRequires: %{?scl_prefix}rubygem(jquery-rails)
 BuildRequires: %{?scl_prefix}rubygem(uglifier)
 BuildRequires: %{?scl_prefix}rubygem(haml-rails)
@@ -45,7 +44,9 @@ Provides: %{?scl_prefix}rubygem(%{gem_name}) = %{version}
 Foreman engine to access Red Hat knowledge base search
 
 %prep
-%{?scl:scl enable %{scl} "gem unpack %{SOURCE0}"}
+%{?scl:scl enable %{scl} "}
+gem unpack %{SOURCE0}
+%{?scl:"}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 
@@ -53,13 +54,19 @@ Foreman engine to access Red Hat knowledge base search
 mkdir -p .%{gem_dir}
 
 # precompile JavaScript assets...
-%{?scl:scl enable %{scl} "rake assets:precompile:engine --trace"}
+%{?scl:scl enable %{scl} "}
+rake assets:precompile:engine --trace
+%{?scl:"}
 
 # Create our gem
-%{?scl:scl enable %{scl} "gem build %{gem_name}.gemspec"}
+%{?scl:scl enable %{scl} "}
+gem build %{gem_name}.gemspec
+%{?scl:"}
 
 # install our gem locally, to be move into buildroot in %%install
-%{?scl:scl enable %{scl} "gem install --local --no-wrappers --install-dir .%{gem_dir} --force --no-rdoc --no-ri %{gem_name}-%{version}.gem"}
+%{?scl:scl enable %{scl} "}
+gem install --local --no-wrappers --install-dir .%{gem_dir} --force --no-rdoc --no-ri %{gem_name}-%{version}.gem
+%{?scl:"}
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -85,7 +92,7 @@ cp -pa .%{rubygem_redhat_access_dir}/script/sos_reports/foreman_sosreport.pam %{
 cp -pa .%{rubygem_redhat_access_dir}/script/sos_reports/foreman_sosreport_console.apps %{buildroot}/etc/security/console.apps/foreman-sosreport
 cp -pa .%{rubygem_redhat_access_dir}/script/sos_reports/foreman_sosreport_wrapper.py %{buildroot}/usr/sbin/foreman-sosreport-wrapper
 chmod 755 %{buildroot}/usr/sbin/foreman-sosreport-wrapper
-ln -s %{buildroot}/usr/bin/consolehelper %{buildroot}/usr/bin/foreman-sosreport
+ln -s /usr/bin/consolehelper %{buildroot}/usr/bin/foreman-sosreport
 cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/redhat_access/config.yml
 
 %files
