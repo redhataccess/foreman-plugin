@@ -1,5 +1,5 @@
 /**
- * Copyright 2013 Red Hat, Inc.
+ * Copyright 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public
  * License as published by the Free Software Foundation; either version
@@ -10,7 +10,6 @@
  * have received a copy of GPLv2 along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
-
 
 /**
  *
@@ -36,9 +35,10 @@ angular.module('RedhatAccess', [
 
 	}
 ]).run(['TITLE_VIEW_CONFIG',
-	'$http',
-	function (TITLE_VIEW_CONFIG, $http) {
+	'$http', 'securityService', 'hideMachinesDropdown',
+	function (TITLE_VIEW_CONFIG, $http, securityService, hideMachinesDropdown) {
 		TITLE_VIEW_CONFIG.show = true;
+		hideMachinesDropdown.value = true;
 		$http({
 			method: 'GET',
 			url: 'configuration'
@@ -57,14 +57,27 @@ angular.module('RedhatAccess', [
 					console.log("Invalid configuration object " + data);
 				}
 			}
+			securityService.validateLogin(false).then(
+				function (authedUser) {
+					console.log("logged in user is " + authedUser)
+				},
+				function (error) {
+					console.log("Unable to get user credentials");
+				});
 		}).
 		error(function (data, status, headers, config) {
 			console.log("Failed to read app configuration");
 			strata.setRedhatClientID("foreman-strata-client");
+			securityService.validateLogin(false).then(
+				function (authedUser) {
+					console.log("logged in user is " + authedUser)
+				},
+				function (error) {
+					console.log("Unable to get user credentials");
+				});
 		});
-
 
 	}
 ]);
 
-angular.module('RedhatAccess.logViewer').value('hideMachinesDropdown', true);
+//angular.module('RedhatAccess.logViewer').value('hideMachinesDropdown.value);

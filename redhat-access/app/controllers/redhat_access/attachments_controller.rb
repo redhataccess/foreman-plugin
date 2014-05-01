@@ -6,8 +6,7 @@ module RedhatAccess
   class AttachmentsController < ApplicationController
     wrap_parameters :attach_payload, format: :json
     def index
-      logger.error "Failed to import"
-      render :text => "SOS Report",
+      render :text => "SOS Report?checked=true",
         :layout => false
     end
 

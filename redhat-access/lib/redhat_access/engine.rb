@@ -26,28 +26,31 @@ module RedhatAccess
 
         # permission section
         security_block :redhat_access_security do
-          permission :view_search, {:"redhat_access/search" => [:index] }
-          permission :view_cases, {:"redhat_access/cases" => [:index, :create] }
-          permission :log_viewer, {:"redhat_access/log_viewer" => [:index] }
-          permission :attachments, {:"redhat_access/attachments" => [:index, :create] }
-          permission :configuration, {:"redhat_access/configuration" => [:index] }
+          #Everything except logs should be available to all users
+          permission :view_search, {:"redhat_access/search" => [:index] } ,  :public => true
+          permission :view_cases, {:"redhat_access/cases" => [:index, :create] } ,  :public => true
+          permission :attachments, {:"redhat_access/attachments" => [:index, :create] } ,  :public => true
+          permission :configuration, {:"redhat_access/configuration" => [:index] } ,  :public => true
+          permission :app_root, {:"redhat_access/redhat_access" => [:index] },  :public => true
 
+          #Logs require special permissions
+          permission :view_log_viewer, {:"redhat_access/log_viewer" => [:index] }
           permission :logs, {:"redhat_access/logs" => [:index] }
         end
 
         #roles section
-        role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
-        role "Red Hat Access Logs", [:logs,:log_viewer]
+        #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
+        role "Red Hat Access Logs", [:logs,:view_log_viewer]
 
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
           menu :header_menu,
             :Search,
-            :url_hash => {:controller=> :"redhat_access/search"},
+            :url_hash => {:controller=> :"redhat_access/search" , :action=>:index},
             :engine => RedhatAccess::Engine
           menu :header_menu,
             :LogViewer,
-            :url_hash => {:controller=> :"redhat_access/log_viewer"},
+            :url_hash => {:controller=> :"redhat_access/log_viewer" , :action=>:index},
             :engine => RedhatAccess::Engine,
             :caption=> N_('Logs')
           sub_menu :header_menu, :support_cases, :caption=> N_('Support ') do
