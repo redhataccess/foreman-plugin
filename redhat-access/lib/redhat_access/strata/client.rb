@@ -1,4 +1,4 @@
-require 'redhat_support_lib'
+require 'redhat_access_lib'
 require 'base64'
 module RedhatAccess::Strata
   class Client

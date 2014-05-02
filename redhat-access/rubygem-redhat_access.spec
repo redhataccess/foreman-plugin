@@ -17,7 +17,7 @@ License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
 Source0: %{gem_name}-%{version}.gem
 
-Requires: %{?scl_prefix}rubygem(redhat_support_lib)
+Requires: %{?scl_prefix}rubygem(redhat_access_lib)
 
 Requires: foreman => 1.3.0
 
