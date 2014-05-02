@@ -9,7 +9,7 @@
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.0.1
+Version: 0.0.2
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
 Group: Development/Languages
