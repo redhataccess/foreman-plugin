@@ -3,6 +3,10 @@ require_dependency "redhat_access/application_controller"
 module RedhatAccess
   class LogsController < ApplicationController
 
+    # Use temporary implementation to show proof of ooncept in beta release
+    # In GA a more robust implementation will be used
+    #@@log_files = ['/var/log/foreman/production.log','/var/log/foreman/delayed_job.log','/var/log/foreman/jobs-startup.log']
+    @@log_files = REDHAT_ACCESS_CONFIG[:diagnostic_logs]
 
     def index
       #
@@ -11,13 +15,25 @@ module RedhatAccess
       #
       path = params[:path]
       if path.nil?
-        render :text => "/var/log/foreman/production.log\n/var/log/foreman/delayed_job.log\n/var/log/foreman/jobs-startup.log",
-          :layout => false
+        render :text => get_available_logs, :layout => false
       else
-        # TEMPORARY implementation for demo - needs sanatizing to make secure!
-        render :file => path,
-          :layout => false
+        if is_valid_file? path
+          render :file => path, :layout => false
+        else
+          render :text => ''
+        end
       end
+    end
+
+    def get_available_logs
+      files = @@log_files.select do |file|
+        File.exist?(file) && File.readable?(file) && File.size(file) > 0
+      end
+      files.join("\n")
+    end
+
+    def is_valid_file?  file
+      @@log_files.include?(file) && File.exist?(file) && File.readable?(file) && File.size(file) > 0
     end
   end
 end

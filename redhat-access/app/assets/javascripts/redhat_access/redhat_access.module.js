@@ -35,10 +35,12 @@ angular.module('RedhatAccess', [
 
 	}
 ]).run(['TITLE_VIEW_CONFIG',
-	'$http', 'securityService', 'hideMachinesDropdown',
-	function (TITLE_VIEW_CONFIG, $http, securityService, hideMachinesDropdown) {
+	'$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS',
+	function (TITLE_VIEW_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS) {
 		TITLE_VIEW_CONFIG.show = true;
 		hideMachinesDropdown.value = true;
+		NEW_DEFAULTS.product = "Red Hat Satellite or Proxy"; //TODO read from server config
+		NEW_DEFAULTS.version = "6.0 Beta"; //TODO read from server config
 		$http({
 			method: 'GET',
 			url: 'configuration'

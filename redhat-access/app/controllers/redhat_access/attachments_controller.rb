@@ -20,11 +20,14 @@ module RedhatAccess
                                          false,
                                          sos_file,
                                          "Attachment for case #{case_number}")
-        render :nothing => true, :status => 201
+        render :nothing => true,
+          :status => 201
       rescue => e
-        puts e.backtrace
+        logger.error e.backtrace
         #logger.error "Failed to import facts for Host::Discovered: #{e}"
-        render :text => "Error attaching sos file " + e.message
+        render :text => "Error attaching sos file " + e.message,
+          :layout => false ,
+          :status => 500
       end
     end
   end

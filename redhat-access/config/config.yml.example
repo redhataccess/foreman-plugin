@@ -7,3 +7,8 @@
 :attachment_ftp_host : dropbox.redhat.com
 :attachment_ftp_dir : /incoming
 :deployment : satellite
+
+:diagnostic_logs :
+  - /var/log/foreman/production.log
+  - /var/log/foreman/delayed_job.log
+  - /var/log/foreman/jobs-startup.log

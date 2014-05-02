@@ -3,3 +3,5 @@
 This plugin extends the Foreman UI ( https://github.com/theforeman/foreman ) with with features that allow subscribed users to  interact with the Red Hat Customer Portal.
 This includes ability to search the Red Hat Knowledge Base, Support Case Management 
 and Log Diagnostics.
+
+This plugin depends on the Red Hat Access Angular library https://github.com/redhataccess/redhat_access_angular_ui/tree/v1.0-beta.1
