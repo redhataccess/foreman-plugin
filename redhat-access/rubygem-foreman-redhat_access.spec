@@ -8,7 +8,7 @@
 %global foreman_assets_dir %foreman_dir/public/assets
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
-Name: %{?scl_prefix}rubygem-%{gem_name}
+Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 0.0.1
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
@@ -38,7 +38,7 @@ BuildRequires: %{?scl_prefix}rubygem(therubyracer)
 
 BuildArch: noarch
 
-Provides: %{?scl_prefix}rubygem(%{gem_name}) = %{version}
+Provides: %{?scl_prefix}rubygem(foreman-%{gem_name}) = %{version}
 
 %description
 Foreman engine to access Red Hat knowledge base search
