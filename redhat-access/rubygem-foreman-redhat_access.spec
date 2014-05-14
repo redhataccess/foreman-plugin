@@ -8,8 +8,14 @@
 %global foreman_assets_dir %foreman_dir/public/assets
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
+%if "%{?scl}" == "ruby193"
+    %global scl_rake /usr/bin/ruby193-rake
+%else
+    %global scl_rake /usr/bin/rake
+%endif
+
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.0.2
+Version: 0.0.3
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
 Group: Development/Languages
@@ -54,9 +60,7 @@ gem unpack %{SOURCE0}
 mkdir -p .%{gem_dir}
 
 # precompile JavaScript assets...
-%{?scl:scl enable %{scl} "}
-rake assets:precompile:engine --trace
-%{?scl:"}
+%{scl_rake} assets:precompile:engine --trace
 
 # Create our gem
 %{?scl:scl enable %{scl} "}
