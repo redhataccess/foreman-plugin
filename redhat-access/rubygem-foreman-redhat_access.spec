@@ -111,10 +111,14 @@ cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/
 /usr/bin
 
 %changelog
-* Wed Apr 30 2014 Rex White <rexwhite@redhat.com> - 0.0.1-1
+* Wed May 14 2014 Rex White <rexwhite@redhat.com> - 0.0.3-1
 - Resolves: bz1084590
 
-* Tue Apr 29 2014 Rex White <rexwhite@redha.com>
+* Wed May 14 2014 Rex White <rexwhite@redhat.com> - 0.0.3-1
+- Version: 0.0.3-1
+- Fixed rake asset precompilation to work on RHEL 7
+
+* Tue Apr 29 2014 Rex White <rexwhite@redhat.com>
 - Renamed spec file
 - Added SOS report files
 
