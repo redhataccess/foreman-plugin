@@ -15,7 +15,7 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.0.3
+Version: 0.0.4
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
 Group: Development/Languages
@@ -111,6 +111,10 @@ cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/
 /usr/bin
 
 %changelog
+* Wed May 14 2014 Rex White <rexwhite@redhat.com> - 0.0.4-1
+- Resolves: bz1084590
+- Updated for UX comments
+
 * Wed May 14 2014 Rex White <rexwhite@redhat.com> - 0.0.3-1
 - Resolves: bz1084590
 

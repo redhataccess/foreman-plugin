@@ -32,7 +32,22 @@ angular.module('RedhatAccess', [
 		$httpProvider.defaults.headers.common = {
 			'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
 		};
-
+		var authInteceptor = ['$q',
+			function ($q) {
+				return {
+					'response': function (response) {
+						return response;
+					},
+					'responseError': function (rejection) {
+						if (rejection.status === 401) {
+							location.reload();
+						}
+						return $q.reject(rejection);
+					}
+				};
+			}
+		];
+		$httpProvider.interceptors.push(authInteceptor);
 	}
 ]).run(['TITLE_VIEW_CONFIG',
 	'$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS',
@@ -41,44 +56,43 @@ angular.module('RedhatAccess', [
 		hideMachinesDropdown.value = true;
 		NEW_DEFAULTS.product = "Red Hat Satellite or Proxy"; //TODO read from server config
 		NEW_DEFAULTS.version = "6.0 Beta"; //TODO read from server config
-		$http({
-			method: 'GET',
-			url: 'configuration'
-		}).
-		success(function (data, status, headers, config) {
-			if (data) {
-				if (data.strataHostName) {
-					strata.setStrataHostname(data.strataHostName);
-				} else {
-					console.log("Invalid configuration object " + data);
-				}
-				if (data.strataClientId) {
-					strata.setRedhatClientID(data.strataClientId);
-				} else {
-					strata.setRedhatClientID("foreman-strata-client");
-					console.log("Invalid configuration object " + data);
-				}
-			}
-			securityService.validateLogin(false).then(
-				function (authedUser) {
-					console.log("logged in user is " + authedUser)
-				},
-				function (error) {
-					console.log("Unable to get user credentials");
-				});
-		}).
-		error(function (data, status, headers, config) {
-			console.log("Failed to read app configuration");
-			strata.setRedhatClientID("foreman-strata-client");
-			securityService.validateLogin(false).then(
-				function (authedUser) {
-					console.log("logged in user is " + authedUser)
-				},
-				function (error) {
-					console.log("Unable to get user credentials");
-				});
-		});
-
+		// $http({
+		// 	method: 'GET',
+		// 	url: 'configuration'
+		// }).
+		// success(function (data, status, headers, config) {
+		// 	if (data) {
+		// 		if (data.strataHostName) {
+		// 			strata.setStrataHostname(data.strataHostName);
+		// 		} else {
+		// 			console.log("Invalid configuration object " + data);
+		// 		}
+		// 		if (data.strataClientId) {
+		// 			strata.setRedhatClientID(data.strataClientId);
+		// 		} else {
+		// 			strata.setRedhatClientID("foreman-strata-client");
+		// 			console.log("Invalid configuration object " + data);
+		// 		}
+		// 	}
+		// 	securityService.validateLogin(false).then(
+		// 		function (authedUser) {
+		// 			console.log("logged in user is " + authedUser)
+		// 		},
+		// 		function (error) {
+		// 			console.log("Unable to get user credentials");
+		// 		});
+		// }).
+		// error(function (data, status, headers, config) {
+		// 	console.log("Failed to read app configuration");
+		// 	strata.setRedhatClientID("foreman-strata-client");
+		// 	securityService.validateLogin(false).then(
+		// 		function (authedUser) {
+		// 			console.log("logged in user is " + authedUser)
+		// 		},
+		// 		function (error) {
+		// 			console.log("Unable to get user credentials");
+		// 		});
+		// });
 	}
 ]);
 

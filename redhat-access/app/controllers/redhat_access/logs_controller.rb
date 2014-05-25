@@ -35,5 +35,9 @@ module RedhatAccess
     def is_valid_file?  file
       @@log_files.include?(file) && File.exist?(file) && File.readable?(file) && File.size(file) > 0
     end
+
+    def api_request?
+      true
+    end
   end
 end

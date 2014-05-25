@@ -12,5 +12,10 @@ module RedhatAccess
       render :json => { :strataHostName => strata_host,:strataClientId => client_id }.to_json,
         :layout => false
     end
+
+    def api_request?
+      true
+    end
+
   end
 end

@@ -30,5 +30,9 @@ module RedhatAccess
           :status => 500
       end
     end
+
+    def api_request?
+      true
+    end
   end
 end
