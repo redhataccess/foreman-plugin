@@ -50,12 +50,14 @@ angular.module('RedhatAccess', [
 		$httpProvider.interceptors.push(authInteceptor);
 	}
 ]).run(['TITLE_VIEW_CONFIG',
-	'$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS',
-	function (TITLE_VIEW_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS) {
+	'$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS', 'currentLocale', 'gettextCatalog',
+	function (TITLE_VIEW_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS, currentLocale, gettextCatalog) {
 		TITLE_VIEW_CONFIG.show = true;
 		hideMachinesDropdown.value = true;
 		NEW_DEFAULTS.product = "Red Hat Satellite or Proxy"; //TODO read from server config
 		NEW_DEFAULTS.version = "6.0 Beta"; //TODO read from server config
+		gettextCatalog.currentLanguage = currentLocale;
+		console.log('Setting language to ' + currentLocale);
 		// $http({
 		// 	method: 'GET',
 		// 	url: 'configuration'

@@ -42,7 +42,7 @@ task 'assets:precompile:engine' do
   require 'sprockets/railtie'
   require 'uglifier'
   require 'sass/rails/compressor'
-  require File.expand_path('../lib/redhat_access', __FILE__)
+  #require File.expand_path('../lib/redhat_access', __FILE__)
 
   precompile = [
     'redhat_access/application.js',

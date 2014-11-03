@@ -1,0 +1,395 @@
+# Sam Friedmann <sfriedma@redhat.com>, 2014. #zanata
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-30 12:15-0400\n"
+"PO-Revision-Date: 2014-10-14 08:53-0400\n"
+"Last-Translator: Sam Friedmann <sfriedma@redhat.com>\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"X-Generator: Zanata 3.5.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+msgid "Diagnose"
+msgstr "Diagnostiquer"
+
+msgid "My Cases"
+msgstr ""
+
+#, fuzzy
+msgid "Open New Case"
+msgstr "Ouvrir un nouveau dossier d'assistance"
+
+#, fuzzy
+msgid "Red Hat Access"
+msgstr "Propriéraire Red Hat :"
+
+#, fuzzy
+msgid "Support"
+msgstr "Assistance 24h/24 et 7j/7 :"
+
+#~ msgid "24x7 Contact:"
+#~ msgstr "Contact 24h/24 et 7j/7 :"
+
+#~ msgid "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support Case"
+#~ msgstr "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Ouvrir un nouveau dossier d'assistance"
+
+#~ msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
+#~ msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Sélectionner un journal"
+
+#~ msgid "Account Name:"
+#~ msgstr "Nom du compte :"
+
+#~ msgid "Account Number:"
+#~ msgstr "Numéro de compte :"
+
+#~ msgid "Account:"
+#~ msgstr "Compte :"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
+
+#~ msgid "Add Comment"
+#~ msgstr "Ajouter un commentaire"
+
+#~ msgid "Advanced Mission Critical"
+#~ msgstr "Fonctions avancées essentielles"
+
+#~ msgid "Alternate Case ID:"
+#~ msgstr "ID alternative du dossier :"
+
+#~ msgid "Attach Foreman logs:"
+#~ msgstr "Joindre des journaux Foreman :"
+
+#~ msgid "Attach local file"
+#~ msgstr "Joindre un fichier local"
+
+#~ msgid "Attached"
+#~ msgstr "Joint"
+
+#~ msgid "Attached By"
+#~ msgstr "Pièce jointe par :"
+
+#~ msgid "Attached Files"
+#~ msgstr "Fichiers joints"
+
+#~ msgid "Attachments"
+#~ msgstr "Pièces jointes"
+
+#~ msgid "Attachments:"
+#~ msgstr "Pièces jointes :"
+
+#~ msgid "Available Log Files"
+#~ msgstr "Fichiers journaux disponibles"
+
+#~ msgid "Bugzilla Number"
+#~ msgstr "Numéro sur Bugzilla"
+
+#~ msgid "Bugzilla Tickets"
+#~ msgstr "Tickets sur Bugzilla"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Case Discussion"
+#~ msgstr "Discussion du dossier"
+
+#~ msgid "Case Group:"
+#~ msgstr "Groupe du dossier :"
+
+#~ msgid "Case Type:"
+#~ msgstr "Type de dossier :"
+
+#~ msgid "Chat offline"
+#~ msgstr "Discuter hors-ligne"
+
+#~ msgid "Chat with support"
+#~ msgstr "Discuter avec le support technique"
+
+#~ msgid "Choose File(s) To Attach:"
+#~ msgstr "Choisir le(s) fichier(s) à joindre :"
+
+#~ msgid "Close messages"
+#~ msgstr "Fermer les messages"
+
+#~ msgid "Comment:"
+#~ msgstr "Commentaire :"
+
+#~ msgid "Create Case Group"
+#~ msgstr "Créer un groupe de dossiers"
+
+#~ msgid "Create New Case Group"
+#~ msgstr "Créer un nouveau groupe de dossiers"
+
+#~ msgid "Delete"
+#~ msgstr "Supprimer"
+
+#~ msgid "Delete Group"
+#~ msgstr "Supprimer le groupe"
+
+#~ msgid "Deleting attachment:"
+#~ msgstr "Supprimer la pièce jointe :"
+
+#~ msgid "Description"
+#~ msgstr "Description"
+
+#~ msgid "Description:"
+#~ msgstr "Description :"
+
+#~ msgid "Details"
+#~ msgstr "Détails"
+
+#~ msgid "Draft saved"
+#~ msgstr "Brouillon enregistré"
+
+#~ msgid "Email Notification Recipients"
+#~ msgstr "Envoyer un courrier électronique aux destinataires des notifications"
+
+#~ msgid "Environment"
+#~ msgstr "Environnement"
+
+#~ msgid "Export All as CSV"
+#~ msgstr "Tout exporter en CSV"
+
+#~ msgid "Exporting CSV..."
+#~ msgstr "Export CRV en cours..."
+
+#~ msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com."
+#~ msgstr "Les noms de fichiers sont limités à 80 caractères. La taille de fichier maximale pour les pièces jointes téléversées par le web est de 250 Mo. Pour les fichiers plus importants, veuillez utiliser FTP (dropbox.redhat.com)."
+
+#~ msgid "Filename"
+#~ msgstr "Nom du fichier"
+
+#~ msgid "Files to Attach"
+#~ msgstr "Fichiers à joindre"
+
+#~ msgid "First Name"
+#~ msgstr "Prénom"
+
+#~ msgid "Group"
+#~ msgstr "Groupe"
+
+#~ msgid "Group:"
+#~ msgstr "Groupe :"
+
+#~ msgid "If you feel the issue has become more severe or the case should be a higher priority, please provide a detailed comment, and the case will be reviewed by a support manager."
+#~ msgstr "Si vous estimez que votre problème s'est aggravé ou qu'il devrait bénéficier d'un niveau de priorité plus élevé, saisissez un commentaire détaillé afin qu'un responsable d'assistance se charge de votre dossier."
+
+#~ msgid "In the event that you would still like to open a support case, select 'Open a New Support Case'. The case will be pre-populated with the portion of the log previously selected."
+#~ msgstr "Si vous souhaitez tout de même ouvrir un nouveau dossier d'assistance, veuillez sélectionner « Ouvrir un nouveau dossier d'assistance ». Le dossier sera pré-rempli avec la portion du journal précédemment sélectionnée."
+
+#~ msgid "Is Public:"
+#~ msgstr "Publique :"
+
+#~ msgid "Last Name"
+#~ msgstr "Nom de famille"
+
+#~ msgid "Last Updated:"
+#~ msgstr "Dernière mise à jour :"
+
+#~ msgid "Learn more"
+#~ msgstr "En savoir plus"
+
+#~ msgid "Log File Viewer"
+#~ msgstr "Visionneur de fichiers journaux"
+
+#~ msgid "Log In"
+#~ msgstr "Connexion"
+
+#~ msgid "Log Out"
+#~ msgstr "Déconnexion"
+
+#~ msgid "Logged into the Red Hat Customer Portal as"
+#~ msgstr "Connecté sur le Portail Client Red Hat en tant que"
+
+#~ msgid "My Account"
+#~ msgstr "Mon compte"
+
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#~ msgid "Next"
+#~ msgstr "Suivant"
+
+#~ msgid "No attachments added"
+#~ msgstr "Aucune pièce jointe nécessaire"
+
+#~ msgid "No cases found with given filters."
+#~ msgstr "Aucun dossier trouvé avec les filtres donnés."
+
+#~ msgid "No cases found with given search criteria."
+#~ msgstr "Aucun dossier trouvé avec les critères de recherche donnés."
+
+#~ msgid "No groups found."
+#~ msgstr "Aucun groupe trouvé."
+
+#~ msgid "No linked bugzillas"
+#~ msgstr "Aucun bugzilla lié"
+
+#~ msgid "Not Logged into the Red Hat Customer Portal"
+#~ msgstr "Non connecté sur le Portail Client Red Hat"
+
+#~ msgid "Note:"
+#~ msgstr "Remarque :"
+
+#~ msgid "Notes:"
+#~ msgstr "Remarques :"
+
+#~ msgid "Once you have selected your log file then you may diagnose any part of the log file and clicking the 'Red Hat Diagnose' button. This will then display relevant articles and solutons from our Red Hat Knowledge base."
+#~ msgstr "Une fois le fichier journal sélectionné, vous pourrez diagnostiquer n'importe quelle partie de celui-ci et cliquer sur le bouton « Diagnostique Red Hat ». Ceci affichera les articles et les solutions correspondants de la base de connaissances Red Hat."
+
+#~ msgid "Opened:"
+#~ msgstr "Ouvert  :"
+
+#~ msgid "Owner"
+#~ msgstr "Propriétaire"
+
+#~ msgid "Owner:"
+#~ msgstr "Propriétaire :"
+
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+
+#~ msgid "Previous"
+#~ msgstr "Précédent"
+
+#~ msgid "Product"
+#~ msgstr "Produit"
+
+#~ msgid "Product Version:"
+#~ msgstr "Version du produit :"
+
+#~ msgid "Product:"
+#~ msgstr "Produit :"
+
+#~ msgid "Recommendations"
+#~ msgstr "Recommandations"
+
+#~ msgid "Red Hat Access makes it easy for you to self-solve issues, diagnose problems, and engage with us via the Red Hat Customer Portal. To access Red Hat Customer Portal resources, you must enter valid portal credentials."
+#~ msgstr "Red Hat Access vous permet de  résoudre vos problèmes vous-même, de diagnostiquer les problèmes, et de nous contacter plus facilement, le tout via le Portail Client. Pour accéder aux ressources du Portail Client, vous devrez saisir des informations d'identification valides sur le portail."
+
+#~ msgid "Red Hat Customer Portal credentials differ from the credentials used to log into this product."
+#~ msgstr "Les informations d'identification du Portail Client Red Hat diffèrent des informations d'identifications utilisées pour se connecter à ce produit."
+
+#~ msgid "Red Hat Diagnose"
+#~ msgstr "Diagnostique Red Hat"
+
+#~ msgid "Red Hat Login"
+#~ msgstr "Connexion Red Hat"
+
+#~ msgid "Request Management Escalation"
+#~ msgstr "Demander la remontée d'un problème"
+
+#~ msgid "Resolution"
+#~ msgstr "Résolution"
+
+#~ msgid "Save"
+#~ msgstr "Enregistrer"
+
+#~ msgid "Save Group"
+#~ msgstr "Enregistrer le groupe"
+
+#~ msgid "Saving draft..."
+#~ msgstr "Enregistrement du brouillon..."
+
+#~ msgid "Search"
+#~ msgstr "Rechercher"
+
+#~ msgid "Searching..."
+#~ msgstr "Recherche en cours..."
+
+#~ msgid "Select File"
+#~ msgstr "Sélectionner le fichier"
+
+#~ msgid "Server File(s) To Attach:"
+#~ msgstr "Fichier(s) du serveur à joindre :"
+
+#~ msgid "Severity"
+#~ msgstr "Sévérité"
+
+#~ msgid "Severity:"
+#~ msgstr "Sévérité :"
+
+#~ msgid "Sign in"
+#~ msgstr "Connexion"
+
+#~ msgid "Sign into the Red Hat Customer Portal"
+#~ msgstr "Connexion au Portail Client Red Hat"
+
+#~ msgid "Simply navigate to and select a log file from the list on the left and click the 'Select File' button."
+#~ msgstr "Veuillez simplement vous rendre sur la liste à gauche, puis sélectionnez un fichier journal et cliquez sur le bouton « Sélectionner le fichier »."
+
+#~ msgid "Size"
+#~ msgstr "Taille"
+
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#~ msgid "Status:"
+#~ msgstr "Statut :"
+
+#~ msgid "Submit"
+#~ msgstr "Valider"
+
+#~ msgid "Submit Request"
+#~ msgstr "Valider la requête"
+
+#~ msgid "Successfully deleted attachment:"
+#~ msgstr "Suppression de la pièce jointe réussie :"
+
+#~ msgid "Successfully uploaded attachment"
+#~ msgstr "Pièce jointe attachée"
+
+#~ msgid "Summary of Request"
+#~ msgstr "Résumé de la requête"
+
+#~ msgid "Summary:"
+#~ msgstr "Résumé :"
+
+#~ msgid "Support Level:"
+#~ msgstr "Niveau d'assistance :"
+
+#~ msgid "The log file viewer gives the ability to diagnose application logs as well as file a support case with Red Hat Global Support Services."
+#~ msgstr "Le visionneur de  fichiers journaux offre la possibilité de diagnostiquer les journaux d'applications ainsi que d'ouvrir un dossier d'assistance avec le service de support technique de Red Hat, «  Red Hat Global Support Services » (Red Hat GSS)."
+
+#~ msgid "This release is now retired, please refer to the recommended FAQ prior to filing a case"
+#~ msgstr "Cette version est désormais obsolète, veuillez consulter la FAQ recommandée avant d'ouvrir un dossier."
+
+#~ msgid "To view a recommendation, click on it."
+#~ msgstr "Pour afficher une recommandation, veuillez cliquer dessus."
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Unauthorized."
+#~ msgstr "Non autorisé."
+
+#~ msgid "Update Details"
+#~ msgstr "Mise à jour des détails"
+
+#~ msgid "Updated:"
+#~ msgstr "Mis à jour :"
+
+#~ msgid "Upload Attachments"
+#~ msgstr "Téléverser les pièces jointes"
+
+#~ msgid "User Name"
+#~ msgstr "Nom d'utilisateur"
+
+#~ msgid "View full article in new window"
+#~ msgstr "Afficher l'article complet dans une nouvelle fenêtre"
+
+#~ msgid "Would you like a Red Hat support manager to contact you regarding this case?"
+#~ msgstr "Souhaitez-vous qu'un responsable d'assistance Red Hat vous contacte au sujet de votre dossier ?"
+
+#~ msgid "You have used 0% of the 32KB maximum description size."
+#~ msgstr "Vous avez utilisé 0% des 32 Ko correspondants à la taille maximale de la description."
+
+#~ msgid "handpicked"
+#~ msgstr "sélection personnelle"
+
+#~ msgid "to case"
+#~ msgstr "pour le dossier"

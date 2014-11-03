@@ -9,5 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require redhat_access/redhat_access_angular_ui-deps.css
  *= require redhat_access/redhat_access_angular_ui.css
  */

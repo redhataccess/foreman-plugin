@@ -15,7 +15,7 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.0.4
+Version: 0.0.7
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
 Group: Development/Languages
@@ -25,7 +25,7 @@ Source0: %{gem_name}-%{version}.gem
 
 Requires: %{?scl_prefix}rubygem(redhat_access_lib)
 
-Requires: foreman => 1.3.0
+Requires: foreman => 1.5.0
 
 Requires: %{?scl_prefix}ruby(abi)
 Requires: %{?scl_prefix}rubygems
