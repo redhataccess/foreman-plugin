@@ -11,8 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["lphiri@redhat.com"]
   s.homepage    = "http://www.lphiri.redhat.com"
   s.summary     = "Plugin to add Redhat Access to Foreman"
-  s.description = "Plugin adds knowledge base search, case management and diagnostics to Foreman"
-
+  s.description = "This plugin adds Red Hat Access knowledge base search, case management and diagnostics to Foreman"
 
   s.files = Dir["{app,config,db,lib,vendor,public,script,locale}/**/*"] + ["LICENSE.txt", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
   s.test_files = Dir["test/**/*"]

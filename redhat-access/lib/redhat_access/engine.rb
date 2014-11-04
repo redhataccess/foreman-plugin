@@ -1,3 +1,6 @@
+# require 'fast_gettext'
+# require 'gettext_i18n_rails'
+
 module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
@@ -18,6 +21,12 @@ module RedhatAccess
 
     initializer :security_initialization do |app|
       app.config.filter_parameters << :authToken
+    end
+
+    initializer 'redhat_access.register_gettext', :after => :load_config_initializers do |app|
+      locale_dir = File.join(File.expand_path('../../..', __FILE__), 'locale')
+      locale_domain = 'redhat_access'
+      Foreman::Gettext::Support.add_text_domain locale_domain, locale_dir
     end
 
     initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
