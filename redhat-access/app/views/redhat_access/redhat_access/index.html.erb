@@ -4,7 +4,7 @@
 <%= stylesheet_link_tag 'redhat_access/application'%>
 <%= javascript_include_tag 'redhat_access/application' %>
 <%= javascript_tag do %>
-  angular.module('RedhatAccess').value('currentLocale', '<%= I18n.locale %>');
+  angular.module('RedhatAccess').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
   strata.setPortalHostname('<%=  REDHAT_ACCESS_CONFIG[:strata_host] %>');
   strata.setRedhatClientID('<%=  "foreman_plugin_#{REDHAT_ACCESS_CONFIG[:deployment]}_#{RedhatAccess::VERSION}" %>');
 <% end %>

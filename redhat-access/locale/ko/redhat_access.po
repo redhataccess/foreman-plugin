@@ -1,0 +1,570 @@
+# eukim <eukim@redhat.com>, 2014. #zanata
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2014-10-14 06:39-0400\n"
+"Last-Translator: eukim <eukim@redhat.com>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"X-Generator: Zanata 3.5.1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "24x7 Contact:"
+msgstr "24x7 연락처:"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "24x7 Support:"
+msgstr "24x7 지원:"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
+"Case"
+msgstr "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;새 기술 문의 생성 "
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
+msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;로그 선택 "
+
+#: app/cases/views/detailsSection.html
+msgid "Account Name:"
+msgstr "계정 이름:"
+
+#: app/cases/views/detailsSection.html
+msgid "Account Number:"
+msgstr "계정 번호:"
+
+#: app/cases/views/new.html
+msgid "Account:"
+msgstr "계정:"
+
+#: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachProductLogs.html
+msgid "Add"
+msgstr "추가 "
+
+#: app/cases/views/addCommentSection.html
+msgid "Add Comment"
+msgstr "코멘트 추가"
+
+#: app/cases/views/detailsSection.html
+msgid "Advanced Mission Critical"
+msgstr "고급 미션 크리티컬"
+
+#: app/cases/views/detailsSection.html
+msgid "Alternate Case ID:"
+msgstr "대체 기술 문의 ID:"
+
+#: app/cases/views/attachProductLogs.html
+msgid "Attach Foreman logs:"
+msgstr "Foreman 로그 첨부:"
+
+#: app/cases/views/attachLocalFile.html
+msgid "Attach local file"
+msgstr "로컬 파일 첨부 "
+
+#: app/cases/views/listAttachments.html
+msgid "Attached"
+msgstr "첨부됨  "
+
+#: app/cases/views/listAttachments.html
+msgid "Attached By"
+msgstr "첨부자"
+
+#: app/cases/views/listAttachments.html
+msgid "Attached Files"
+msgstr "첨부된 파일 "
+
+#: app/cases/views/attachmentsSection.html
+msgid "Attachments"
+msgstr "첨부 파일"
+
+#: app/cases/views/new.html
+msgid "Attachments:"
+msgstr "첨부 파일: "
+
+#: app/log_viewer/views/navSideBar.html
+msgid "Available Log Files"
+msgstr "사용 가능한 로그 파일 "
+
+#: app/cases/views/listBugzillas.html
+msgid "Bugzilla Number"
+msgstr "Bugzilla 번호 "
+
+#: app/cases/views/listBugzillas.html
+msgid "Bugzilla Tickets"
+msgstr "Bugzilla 티켓 "
+
+#: app/security/views/login_form.html
+#: app/cases/views/createGroupModal.html
+#: app/cases/views/editGroup.html
+msgid "Cancel"
+msgstr "취소 "
+
+#: app/cases/views/commentsSection.html
+msgid "Case Discussion"
+msgstr "기술 문의 토론 "
+
+#: app/cases/views/createGroupModal.html
+#: app/cases/views/new.html
+msgid "Case Group:"
+msgstr "기술문의 그룹:"
+
+#: app/cases/views/detailsSection.html
+msgid "Case Type:"
+msgstr "기술문의 유형: "
+
+#: app/cases/views/chatButton.html
+msgid "Chat offline"
+msgstr "오프라인 채팅 "
+
+#: app/cases/views/chatButton.html
+msgid "Chat with support"
+msgstr "지원 담당자와 채팅"
+
+#: app/common/views/treeview-selector.html
+msgid "Choose File(s) To Attach:"
+msgstr "첨부할 파일 선택:"
+
+#: app/common/views/alert.html
+msgid "Close messages"
+msgstr "메세지 종료 "
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Comment:"
+msgstr "코멘트: "
+
+#: app/cases/views/createGroupModal.html
+msgid "Create Case Group"
+msgstr "기술문의 그룹 생성"
+
+#: app/cases/views/createGroupButton.html
+msgid "Create New Case Group"
+msgstr "새 기술문의 그룹 생성"
+
+#: app/cases/views/listAttachments.html
+msgid "Delete"
+msgstr "삭제 "
+
+#: app/cases/views/deleteGroupButton.html
+msgid "Delete Group"
+msgstr "그룹 삭제"
+
+#: app/cases/services/attachmentsService.js
+msgid "Deleting attachment:"
+msgstr "첨부 파일 삭제 중: "
+
+#: app/cases/views/descriptionSection.html
+#: app/cases/views/listAttachments.html
+msgid "Description"
+msgstr "설명 "
+
+#: app/cases/views/new.html
+msgid "Description:"
+msgstr "설명: "
+
+#: app/cases/views/detailsSection.html
+msgid "Details"
+msgstr "상세 정보 "
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "Diagnose"
+msgstr "진단 "
+
+#: app/cases/views/addCommentSection.html
+msgid "Draft saved"
+msgstr "초안 저장됨"
+
+#: app/cases/views/emailNotifySelect.html
+msgid "Email Notification Recipients"
+msgstr "이메일 알림 수신자 "
+
+#: app/search/views/resultDetail.html
+msgid "Environment"
+msgstr "환경 "
+
+#: app/cases/views/exportCSVButton.html
+msgid "Export All as CSV"
+msgstr "CSV로 모두 내보내기 "
+
+#: app/cases/views/exportCSVButton.html
+msgid "Exporting CSV..."
+msgstr "CSV 내보내기..."
+
+#: app/cases/views/attachLocalFile.html
+msgid ""
+"File names must be less than 80 characters. Maximum file size for web-"
+"uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat."
+"com."
+msgstr ""
+"파일명은 80자 미만이어야 합니다. 웹에 업로드될 최대 첨부 파일크기는 250 MB입니다. 더 큰 파일은 FTP를(dropbox."
+"redhat.com) 이용해 주시기 바랍니다. "
+
+#: app/cases/views/listAttachments.html
+msgid "Filename"
+msgstr "파일명"
+
+#: app/cases/views/listNewAttachments.html
+msgid "Files to Attach"
+msgstr "첨부할 파일 "
+
+#: app/cases/views/editGroup.html
+msgid "First Name"
+msgstr "이름"
+
+#: app/cases/views/search.html
+msgid "Group"
+msgstr "그룹"
+
+#: app/cases/views/detailsSection.html
+msgid "Group:"
+msgstr "그룹:"
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid ""
+"If you feel the issue has become more severe or the case should be a higher "
+"priority, please provide a detailed comment, and the case will be reviewed "
+"by a support manager."
+msgstr ""
+"문제가 더 심각해지거나 기술 문의 사항의 우선 순위가 더 높아야 한다고 생각되는 경우, 자세한 설명을 제공하면 지원 관리자가 검토할 "
+"것입니다."
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"In the event that you would still like to open a support case, select 'Open "
+"a New Support Case'. The case will be pre-populated with the portion of the "
+"log previously selected."
+msgstr ""
+"기술 문의 사항을 아직 열어 두어야 할 경우 '새 기술 문의 생성'을 선택합니다. 기술 문의는 이전에 선택한 로그의 일부로 사전 "
+"작성됩니다. "
+
+#: app/cases/views/addCommentSection.html
+msgid "Is Public:"
+msgstr "공개:"
+
+#: app/cases/views/editGroup.html
+msgid "Last Name"
+msgstr "성"
+
+#: app/cases/views/detailsSection.html
+msgid "Last Updated:"
+msgstr "마지막 업데이트:"
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Learn more"
+msgstr "자세한 정보"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "Log File Viewer"
+msgstr "로그 파일 뷰어 "
+
+#: app/security/views/login_status.html
+msgid "Log In"
+msgstr "로그인"
+
+#: app/security/views/login_status.html
+msgid "Log Out"
+msgstr "로그 아웃 "
+
+#: app/security/views/login_status.html
+msgid "Logged into the Red Hat Customer Portal as"
+msgstr "Red Hat 고객 포털로 로그인 "
+
+#: app/cases/views/accountSelect.html
+msgid "My Account"
+msgstr "내 계정"
+
+#: app/cases/views/groupList.html
+msgid "Name"
+msgstr "이름 "
+
+#: app/cases/views/new.html
+msgid "Next"
+msgstr "다음"
+
+#: app/cases/views/listAttachments.html
+msgid "No attachments added"
+msgstr "추가된 첨부 파일이 없습니다 "
+
+#: app/cases/views/compactCaseList.html
+#: app/cases/views/list.html
+msgid "No cases found with given filters."
+msgstr "지정된 필터에 맞는 기술 문의 사항이 없습니다."
+
+#: app/cases/views/search.html
+msgid "No cases found with given search criteria."
+msgstr "지정된 검색 조건에 맞는 기술 문의 사항이 없습니다. "
+
+#: app/cases/views/groupList.html
+msgid "No groups found."
+msgstr "그룹을 찾을 수 없습니다."
+
+#: app/cases/views/listBugzillas.html
+msgid "No linked bugzillas"
+msgstr "링크된 Bugzilla가 없습니다 "
+
+#: app/security/views/login_status.html
+msgid "Not Logged into the Red Hat Customer Portal"
+msgstr "Red Hat 고객 포털에 로그인되어 있지 않습니다 "
+
+#: app/security/views/login_form.html
+msgid "Note:"
+msgstr "알림: "
+
+#: app/cases/views/detailsSection.html
+msgid "Notes:"
+msgstr "알림: "
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"Once you have selected your log file then you may diagnose any part of the "
+"log file and clicking the 'Red Hat Diagnose' button. This will then display "
+"relevant articles and solutons from our Red Hat Knowledge base."
+msgstr ""
+"로그 파일을 선택하면 로그 파일의 모든 부분을 진단할 수 있으므로 'Red Hat 진단' 버튼을 클릭합니다. 그러면 Red Hat 지식 "
+"기반에서 관련 기사 및 솔루션이 표시됩니다. "
+
+#: app/search/views/accordion_search_results.html
+#: app/cases/views/list.html
+#: app/cases/views/search.html
+msgid "Open a New Support Case"
+msgstr "새 기술문의 생성"
+
+#: app/cases/views/detailsSection.html
+msgid "Opened:"
+msgstr "생성일: "
+
+#: app/cases/views/search.html
+msgid "Owner"
+msgstr "소유자 "
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "Owner:"
+msgstr "소유자:"
+
+#: app/security/views/login_form.html
+msgid "Password"
+msgstr "암호 "
+
+#: app/cases/views/new.html
+msgid "Previous"
+msgstr "이전"
+
+#: app/cases/views/search.html
+msgid "Product"
+msgstr "제품"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "Product Version:"
+msgstr "제품 버전:"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "Product:"
+msgstr "제품:"
+
+#: app/search/views/accordion_search_results.html
+#: app/search/views/list_search_results.html
+#: app/cases/views/recommendationsSection.html
+msgid "Recommendations"
+msgstr "권장 사항 "
+
+#: app/security/views/login_form.html
+msgid ""
+"Red Hat Access makes it easy for you to self-solve issues, diagnose "
+"problems, and engage with us via the Red Hat Customer Portal. To access Red "
+"Hat Customer Portal resources, you must enter valid portal credentials."
+msgstr ""
+"Red Hat Access를 사용하여 문제를 직접 해결하고, 문제를 진단하거나 Red Hat  고객 포털을 통해 보다 쉽게 지원 문의할 "
+"수 있습니다. Red Hat 고객 포털 리소스에 액세스하려면 유효한 포털 인증을 입력해야 합니다. "
+
+#: app/security/views/login_form.html
+msgid ""
+"Red Hat Customer Portal credentials differ from the credentials used to log "
+"into this product."
+msgstr "Red Hat 고객 포털 인증은 제품에 로그인하는데 사용되는 인증과 다릅니다."
+
+#: app/log_viewer/views/logTabs.html
+msgid "Red Hat Diagnose"
+msgstr "Red Hat 진단"
+
+#: app/security/views/login_form.html
+msgid "Red Hat Login"
+msgstr "Red Hat 로그인"
+
+#: app/cases/views/detailsSection.html
+msgid "Red Hat Owner:"
+msgstr "Red Hat 소유자:"
+
+#: app/cases/views/commentsSection.html
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Request Management Escalation"
+msgstr "관리 에스컬레이션 요청"
+
+#: app/search/views/resultDetail.html
+msgid "Resolution"
+msgstr "해결 방법 "
+
+#: app/cases/views/createGroupModal.html
+msgid "Save"
+msgstr "저장"
+
+#: app/cases/views/editGroup.html
+msgid "Save Group"
+msgstr "그룹 저장"
+
+#: app/cases/views/addCommentSection.html
+msgid "Saving draft..."
+msgstr "초안 저장 중..."
+
+#: app/search/views/search_form.html
+msgid "Search"
+msgstr "검색 "
+
+#: app/cases/views/search.html
+msgid "Searching..."
+msgstr "검색 중.. "
+
+#: app/log_viewer/views/navSideBar.html
+msgid "Select File"
+msgstr "파일 선택 "
+
+#: app/cases/views/attachmentsSection.html
+msgid "Server File(s) To Attach:"
+msgstr "첨부할 서버 파일: "
+
+#: app/cases/views/search.html
+msgid "Severity"
+msgstr "심각성 "
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+#: app/cases/views/searchResult.html
+msgid "Severity:"
+msgstr "심각성:"
+
+#: app/security/views/login_form.html
+msgid "Sign in"
+msgstr "로그인 "
+
+#: app/security/views/login_form.html
+msgid "Sign into the Red Hat Customer Portal"
+msgstr "Red Hat 고객 포털로 로그인 "
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"Simply navigate to and select a log file from the list on the left and click "
+"the 'Select File' button."
+msgstr "왼쪽에 있는 목록으로 이동하여 로그 파일을 선택한 후 '파일 선택' 버튼을 클릭합니다."
+
+#: app/cases/views/listAttachments.html
+msgid "Size"
+msgstr "크기 "
+
+#: app/cases/views/search.html
+msgid "Status"
+msgstr "상태"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/searchResult.html
+msgid "Status:"
+msgstr "상태: "
+
+#: app/cases/views/new.html
+msgid "Submit"
+msgstr "제출"
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Submit Request"
+msgstr "요청 제출"
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully deleted attachment:"
+msgstr "첨부 파일을 성공적으로 삭제했습니다:"
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully uploaded attachment"
+msgstr "첨부 파일을 성공적으로 업로드했습니다 "
+
+#: app/cases/views/listBugzillas.html
+msgid "Summary of Request"
+msgstr "요청 요약 "
+
+#: app/cases/views/new.html
+msgid "Summary:"
+msgstr "요약: "
+
+#: app/cases/views/detailsSection.html
+msgid "Support Level:"
+msgstr "지원 수준: "
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"The log file viewer gives the ability to diagnose application logs as well "
+"as file a support case with Red Hat Global Support Services."
+msgstr ""
+"로그 파일 뷰어는 Red Hat  글로벌 지원 서비스 (GSS)를 통해 기술 지원 사항을 저장할 수 있는 기능과 함께 애플리케이션을 "
+"진단할 수 있는 기능을 제공합니다."
+
+#: app/cases/views/new.html
+msgid ""
+"This release is now retired, please refer to the recommended FAQ prior to "
+"filing a case"
+msgstr "이 릴리즈는 현재 만료되었습니다. 기술 문의를 작성하기 전 FAQ를 참조하십시오."
+
+#: app/search/views/list_search_results.html
+msgid "To view a recommendation, click on it."
+msgstr "권장 사항을 확인하려면 해당 항목을 클릭합니다."
+
+#: app/cases/views/search.html
+msgid "Type"
+msgstr "유형 "
+
+#: app/common/services/strataService.js
+msgid "Unauthorized."
+msgstr "인증되지 않았습니다."
+
+#: app/cases/views/detailsSection.html
+msgid "Update Details"
+msgstr "업데이트 상세 정보 "
+
+#: app/cases/views/searchResult.html
+msgid "Updated:"
+msgstr "업데이트된 날짜:"
+
+#: app/cases/views/attachmentsSection.html
+msgid "Upload Attachments"
+msgstr "첨부 파일 업로드 "
+
+#: app/cases/views/editGroup.html
+msgid "User Name"
+msgstr "사용자 이름"
+
+#: app/cases/views/recommendationsSection.html
+msgid "View full article in new window"
+msgstr "새 창에서 전체 기사 보기"
+
+#: app/cases/views/commentsSection.html
+msgid ""
+"Would you like a Red Hat support manager to contact you regarding this case?"
+msgstr "이 기술 문의와 관련하여 Red Hat 지원 관리자가 귀하에게 연락하도록 하시겠습니까?"
+
+#: app/cases/views/addCommentSection.html
+msgid "You have used 0% of the 32KB maximum description size."
+msgstr "최대 설명 크기인 32KB 중 0%가 사용되었습니다. "
+
+#: app/cases/views/recommendationsSection.html
+msgid "handpicked"
+msgstr "엄선"
+
+#: app/cases/services/attachmentsService.js
+msgid "to case"
+msgstr "기술 문의 사항 "
+

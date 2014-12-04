@@ -65,6 +65,7 @@ task 'assets:precompile:engine' do
   end
 
   target = File.join(RedhatAccess::Engine.root, 'public', 'assets')
+  rm_rf target
   compiler = Sprockets::StaticCompiler.new(env,
                                            target,
                                            precompile,

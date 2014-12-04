@@ -1,204 +1,203 @@
-# Sam Friedmann <sfriedma@redhat.com>, 2014. #zanata
+# gcintra <gcintra@redhat.com>, 2014. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2014-10-14 08:53-0400\n"
-"Last-Translator: Sam Friedmann <sfriedma@redhat.com>\n"
-"Language-Team: French\n"
-"Language: fr\n"
+"PO-Revision-Date: 2014-10-15 11:02-0400\n"
+"Last-Translator: gcintra <gcintra@redhat.com>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt-BR\n"
 "X-Generator: Zanata 3.5.1\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
-msgstr "Contact 24h/24 et 7j/7 :"
+msgstr "Contato 24x7:"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Support:"
-msgstr "Assistance 24h/24 et 7j/7 :"
+msgstr "Suporte 24x7:"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
 "Case"
 msgstr ""
-"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Ouvrir un nouveau "
-"dossier d'assistance"
+"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Abra um Novo Caso de "
+"Suporte"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
 msgstr ""
-"<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Sélectionner un "
-"journal"
+"<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Selecione o Log"
 
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
-msgstr "Nom du compte :"
+msgstr "Nome da Conta:"
 
 #: app/cases/views/detailsSection.html
 msgid "Account Number:"
-msgstr "Numéro de compte :"
+msgstr "Número da Conta:"
 
 #: app/cases/views/new.html
 msgid "Account:"
-msgstr "Compte :"
+msgstr "Conta:"
 
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
-msgstr "Ajouter"
+msgstr "Adicionar"
 
 #: app/cases/views/addCommentSection.html
 msgid "Add Comment"
-msgstr "Ajouter un commentaire"
+msgstr "Adicionar Comentário"
 
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
-msgstr "Fonctions avancées essentielles"
+msgstr "Missão Crítica Avançada"
 
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
-msgstr "ID alternative du dossier :"
+msgstr "Alternar ID de Caso:"
 
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
-msgstr "Joindre des journaux Foreman :"
+msgstr "Anexar logs do Foreman:"
 
 #: app/cases/views/attachLocalFile.html
 msgid "Attach local file"
-msgstr "Joindre un fichier local"
+msgstr "Anexar arquivo local:"
 
 #: app/cases/views/listAttachments.html
 msgid "Attached"
-msgstr "Joint"
+msgstr "Anexado"
 
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
-msgstr "Pièce jointe par :"
+msgstr "Anexado por"
 
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
-msgstr "Fichiers joints"
+msgstr "Arquivos anexados"
 
 #: app/cases/views/attachmentsSection.html
 msgid "Attachments"
-msgstr "Pièces jointes"
+msgstr "Anexos"
 
 #: app/cases/views/new.html
 msgid "Attachments:"
-msgstr "Pièces jointes :"
+msgstr "Anexos:"
 
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
-msgstr "Fichiers journaux disponibles"
+msgstr "Arquivos de Log Disponíveis:"
 
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
-msgstr "Numéro sur Bugzilla"
+msgstr "Número do Bugzilla"
 
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Tickets"
-msgstr "Tickets sur Bugzilla"
+msgstr "Tiquetes do Bugzilla"
 
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Cancelar"
 
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
-msgstr "Discussion du dossier"
+msgstr "Discussão do Caso"
 
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/new.html
 msgid "Case Group:"
-msgstr "Groupe du dossier :"
+msgstr "Grupo do Caso:"
 
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
-msgstr "Type de dossier :"
+msgstr "Tipo do Caso:"
 
 #: app/cases/views/chatButton.html
 msgid "Chat offline"
-msgstr "Discuter hors-ligne"
+msgstr "Bate papo offline"
 
 #: app/cases/views/chatButton.html
 msgid "Chat with support"
-msgstr "Discuter avec le support technique"
+msgstr "Bate-papo com o suporte"
 
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
-msgstr "Choisir le(s) fichier(s) à joindre :"
+msgstr "Escolha Arquivo(s) para Anexar:"
 
 #: app/common/views/alert.html
 msgid "Close messages"
-msgstr "Fermer les messages"
+msgstr "Fechar Mensagens"
 
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
-msgstr "Commentaire :"
+msgstr "Comentário:"
 
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
-msgstr "Créer un groupe de dossiers"
+msgstr "Criar Grupo de Caso"
 
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
-msgstr "Créer un nouveau groupe de dossiers"
+msgstr "Criar novo Grupo de Caso"
 
 #: app/cases/views/listAttachments.html
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Remover"
 
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
-msgstr "Supprimer le groupe"
+msgstr "Excluir Grupo"
 
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
-msgstr "Supprimer la pièce jointe :"
+msgstr "remover Anexo:"
 
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/listAttachments.html
 msgid "Description"
-msgstr "Description"
+msgstr "Descrição"
 
 #: app/cases/views/new.html
 msgid "Description:"
-msgstr "Description :"
+msgstr "Descrição:"
 
 #: app/cases/views/detailsSection.html
 msgid "Details"
-msgstr "Détails"
+msgstr "Detalhes"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
-msgstr "Diagnostiquer"
+msgstr "Diagnóstico"
 
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
-msgstr "Brouillon enregistré"
+msgstr "Rascunho Salvo "
 
 #: app/cases/views/emailNotifySelect.html
 msgid "Email Notification Recipients"
-msgstr "Envoyer un courrier électronique aux destinataires des notifications"
+msgstr "Destinatários de notificação por e-mail"
 
 #: app/search/views/resultDetail.html
 msgid "Environment"
-msgstr "Environnement"
+msgstr "Ambiente"
 
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
-msgstr "Tout exporter en CSV"
+msgstr "Exportar todos os CSV"
 
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
-msgstr "Export CRV en cours..."
+msgstr "Exportando CSV..."
 
 #: app/cases/views/attachLocalFile.html
 msgid ""
@@ -206,29 +205,29 @@ msgid ""
 "uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat."
 "com."
 msgstr ""
-"Les noms de fichiers sont limités à 80 caractères. La taille de fichier "
-"maximale pour les pièces jointes téléversées par le web est de 250 Mo. Pour "
-"les fichiers plus importants, veuillez utiliser FTP (dropbox.redhat.com)."
+"O nome dos arquivos são limitados a 80 caracteres. Tamanho máximo de arquivo "
+"é 250 Mb. Para arquivos maiores que 250Mb por favor utilize o FTP (dropbox."
+"redhat.com). "
 
 #: app/cases/views/listAttachments.html
 msgid "Filename"
-msgstr "Nom du fichier"
+msgstr "Nome do Arquivo"
 
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
-msgstr "Fichiers à joindre"
+msgstr "Anexar Arquivos à"
 
 #: app/cases/views/editGroup.html
 msgid "First Name"
-msgstr "Prénom"
+msgstr "Primeiro Nome"
 
 #: app/cases/views/search.html
 msgid "Group"
-msgstr "Groupe"
+msgstr "Grupo"
 
 #: app/cases/views/detailsSection.html
 msgid "Group:"
-msgstr "Groupe :"
+msgstr "Grupo:"
 
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
@@ -236,9 +235,9 @@ msgid ""
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"Si vous estimez que votre problème s'est aggravé ou qu'il devrait bénéficier "
-"d'un niveau de priorité plus élevé, saisissez un commentaire détaillé afin "
-"qu'un responsable d'assistance se charge de votre dossier."
+"Caso sinta que o problema ficou mais grave ou que o caso deveria ter maior "
+"prioridade, forneça um comentário detalhado, e o caso será analisado por um "
+"gerente de suporte."
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
@@ -246,86 +245,86 @@ msgid ""
 "a New Support Case'. The case will be pre-populated with the portion of the "
 "log previously selected."
 msgstr ""
-"Si vous souhaitez tout de même ouvrir un nouveau dossier d'assistance, "
-"veuillez sélectionner « Ouvrir un nouveau dossier d'assistance ». Le dossier "
-"sera pré-rempli avec la portion du journal précédemment sélectionnée."
+"Caso você ainda deseje abrir um caso de suporte, selecione 'Abrir um Novo "
+"Caso de Suporte'. O caso será pré-populado com a porção do log anteriormente "
+"selecionada."
 
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
-msgstr "Publique :"
+msgstr "É Público:"
 
 #: app/cases/views/editGroup.html
 msgid "Last Name"
-msgstr "Nom de famille"
+msgstr "Sobrenome"
 
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
-msgstr "Dernière mise à jour :"
+msgstr "Úlltima Atualização:"
 
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
-msgstr "En savoir plus"
+msgstr "Saiba mais"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
-msgstr "Visionneur de fichiers journaux"
+msgstr "Visualizador de Arquivos de Log"
 
 #: app/security/views/login_status.html
 msgid "Log In"
-msgstr "Connexion"
+msgstr "Logon"
 
 #: app/security/views/login_status.html
 msgid "Log Out"
-msgstr "Déconnexion"
+msgstr "Sair"
 
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
-msgstr "Connecté sur le Portail Client Red Hat en tant que"
+msgstr "Autenticado no Red Hat Customer Portal como"
 
 #: app/cases/views/accountSelect.html
 msgid "My Account"
-msgstr "Mon compte"
+msgstr "Minha conta"
 
 #: app/cases/views/groupList.html
 msgid "Name"
-msgstr "Nom"
+msgstr "Nome"
 
 #: app/cases/views/new.html
 msgid "Next"
-msgstr "Suivant"
+msgstr "Próximo"
 
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
-msgstr "Aucune pièce jointe nécessaire"
+msgstr "Não foi adicionado nenhum anexo"
 
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
-msgstr "Aucun dossier trouvé avec les filtres donnés."
+msgstr "Nenhum caso foi encontrado com os filtros especificados"
 
 #: app/cases/views/search.html
 msgid "No cases found with given search criteria."
-msgstr "Aucun dossier trouvé avec les critères de recherche donnés."
+msgstr "Nenhum caso encontrado com critério de busca especificado"
 
 #: app/cases/views/groupList.html
 msgid "No groups found."
-msgstr "Aucun groupe trouvé."
+msgstr "Nenhum grupo encontrado"
 
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
-msgstr "Aucun bugzilla lié"
+msgstr "Nenhum bugzilla conectado"
 
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
-msgstr "Non connecté sur le Portail Client Red Hat"
+msgstr "Não foi autenticado no Red Hat Customer Portal"
 
 #: app/security/views/login_form.html
 msgid "Note:"
-msgstr "Remarque :"
+msgstr "Nota:"
 
 #: app/cases/views/detailsSection.html
 msgid "Notes:"
-msgstr "Remarques :"
+msgstr "Notas:"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
@@ -333,57 +332,56 @@ msgid ""
 "log file and clicking the 'Red Hat Diagnose' button. This will then display "
 "relevant articles and solutons from our Red Hat Knowledge base."
 msgstr ""
-"Une fois le fichier journal sélectionné, vous pourrez diagnostiquer "
-"n'importe quelle partie de celui-ci et cliquer sur le bouton « Diagnostique "
-"Red Hat ». Ceci affichera les articles et les solutions correspondants de la "
-"base de connaissances Red Hat."
+"Depois que você selecionou o arquivo de log, você poderá diagnosticar "
+"qualquer parte do arquivo de log e clicar no botão 'Red Hat Diagnose'. Isto "
+"irá exibir artigos relevantes e soluções de nossa base do Red Hat Knowledge."
 
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Open a New Support Case"
-msgstr "Ouvrir un nouveau dossier d'assistance"
+msgstr "Abrir um novo Caso de Suporte"
 
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
-msgstr "Ouvert  :"
+msgstr "Aberto: "
 
 #: app/cases/views/search.html
 msgid "Owner"
-msgstr "Propriétaire"
+msgstr "Proprietário"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Owner:"
-msgstr "Propriétaire :"
+msgstr "Proprietário:"
 
 #: app/security/views/login_form.html
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Senha"
 
 #: app/cases/views/new.html
 msgid "Previous"
-msgstr "Précédent"
+msgstr "Anterior"
 
 #: app/cases/views/search.html
 msgid "Product"
-msgstr "Produit"
+msgstr "Produto"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
-msgstr "Version du produit :"
+msgstr "Versão do Produto:"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
-msgstr "Produit :"
+msgstr "Produto:"
 
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
-msgstr "Recommandations"
+msgstr "Recomendações"
 
 #: app/security/views/login_form.html
 msgid ""
@@ -391,203 +389,200 @@ msgid ""
 "problems, and engage with us via the Red Hat Customer Portal. To access Red "
 "Hat Customer Portal resources, you must enter valid portal credentials."
 msgstr ""
-"Red Hat Access vous permet de  résoudre vos problèmes vous-même, de "
-"diagnostiquer les problèmes, et de nous contacter plus facilement, le tout "
-"via le Portail Client. Pour accéder aux ressources du Portail Client, vous "
-"devrez saisir des informations d'identification valides sur le portail."
+"O Red Hat Access facilita a solução de problemas, diagnóstico de problemas "
+"pra você e nos une via Red Hat Customer Portal. Para acessar os recursos do "
+"Portal do Consumidor Red Hat, você precisa inserir as credenciais do portal "
+"válidas."
 
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
 "into this product."
 msgstr ""
-"Les informations d'identification du Portail Client Red Hat diffèrent des "
-"informations d'identifications utilisées pour se connecter à ce produit."
+"As credenciais do Portal do Consumidor, diferem das credenciais usadas para "
+"se autenticar neste produto."
 
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
-msgstr "Diagnostique Red Hat"
+msgstr "Diagnóstico da Red Hat"
 
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
-msgstr "Connexion Red Hat"
+msgstr "Red Hat Login"
 
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
-msgstr "Propriéraire Red Hat :"
+msgstr "Proprietário da Red Hat:"
 
 #: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
-msgstr "Demander la remontée d'un problème"
+msgstr "Requisita a escalação de gerenciamento"
 
 #: app/search/views/resultDetail.html
 msgid "Resolution"
-msgstr "Résolution"
+msgstr "Resolução"
 
 #: app/cases/views/createGroupModal.html
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Salvar"
 
 #: app/cases/views/editGroup.html
 msgid "Save Group"
-msgstr "Enregistrer le groupe"
+msgstr "Salvar Grupo"
 
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
-msgstr "Enregistrement du brouillon..."
+msgstr "Salvar Rascunho..."
 
 #: app/search/views/search_form.html
 msgid "Search"
-msgstr "Rechercher"
+msgstr "Buscar"
 
 #: app/cases/views/search.html
 msgid "Searching..."
-msgstr "Recherche en cours..."
+msgstr "Buscando... "
 
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
-msgstr "Sélectionner le fichier"
+msgstr "Selecionar Arquivo"
 
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
-msgstr "Fichier(s) du serveur à joindre :"
+msgstr "Arquivo(s) do Servidor para Anexar:"
 
 #: app/cases/views/search.html
 msgid "Severity"
-msgstr "Sévérité"
+msgstr "Gravidade"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 #: app/cases/views/searchResult.html
 msgid "Severity:"
-msgstr "Sévérité :"
+msgstr "Gravidade:"
 
 #: app/security/views/login_form.html
 msgid "Sign in"
-msgstr "Connexion"
+msgstr "Entrar"
 
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
-msgstr "Connexion au Portail Client Red Hat"
+msgstr "Entrar no Red Hat Portal do Cliente"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
 "the 'Select File' button."
 msgstr ""
-"Veuillez simplement vous rendre sur la liste à gauche, puis sélectionnez un "
-"fichier journal et cliquez sur le bouton « Sélectionner le fichier »."
+"Simplesmente navegue até lá e selecione um arquivo de log a partir da lista "
+"à esquerda e clique no botão 'Selecionar Arquivo'."
 
 #: app/cases/views/listAttachments.html
 msgid "Size"
-msgstr "Taille"
+msgstr "Tamanho"
 
 #: app/cases/views/search.html
 msgid "Status"
-msgstr "Statut"
+msgstr "Estado"
 
 #: app/cases/views/detailsSection.html
 #: app/cases/views/searchResult.html
 msgid "Status:"
-msgstr "Statut :"
+msgstr "Estado:"
 
 #: app/cases/views/new.html
 msgid "Submit"
-msgstr "Valider"
+msgstr "Enviar"
 
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
-msgstr "Valider la requête"
+msgstr "Enviar Solicitação"
 
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
-msgstr "Suppression de la pièce jointe réussie :"
+msgstr "Anexos removidos com sucesso:"
 
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
-msgstr "Pièce jointe attachée"
+msgstr "Anexo atualizado com sucesso"
 
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
-msgstr "Résumé de la requête"
+msgstr "Sumário de Solicitações"
 
 #: app/cases/views/new.html
 msgid "Summary:"
-msgstr "Résumé :"
+msgstr "Sumário"
 
 #: app/cases/views/detailsSection.html
 msgid "Support Level:"
-msgstr "Niveau d'assistance :"
+msgstr "Nível de Suporte"
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
 "as file a support case with Red Hat Global Support Services."
 msgstr ""
-"Le visionneur de  fichiers journaux offre la possibilité de diagnostiquer "
-"les journaux d'applications ainsi que d'ouvrir un dossier d'assistance avec "
-"le service de support technique de Red Hat, «  Red Hat Global Support "
-"Services » (Red Hat GSS)."
+"O visualizador de arquivo de log fornece a habilidade para diagnosticar logs "
+"de aplicativo assim como arquivar caso de suporte com os Serviços da Red Hat "
+"Global Support."
 
 #: app/cases/views/new.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
 msgstr ""
-"Cette version est désormais obsolète, veuillez consulter la FAQ recommandée "
-"avant d'ouvrir un dossier."
+"Este lançamento está obsoleto, por favor consulte o FAQ recomendado antes de "
+"arquivar um caso"
 
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
-msgstr "Pour afficher une recommandation, veuillez cliquer dessus."
+msgstr "Para visualizar recomendação, clique nela;"
 
 #: app/cases/views/search.html
 msgid "Type"
-msgstr "Type"
+msgstr "Tipo"
 
 #: app/common/services/strataService.js
 msgid "Unauthorized."
-msgstr "Non autorisé."
+msgstr "Desautorizado."
 
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
-msgstr "Mise à jour des détails"
+msgstr "Atualizar Detalhes"
 
 #: app/cases/views/searchResult.html
 msgid "Updated:"
-msgstr "Mis à jour :"
+msgstr "Atualizado:"
 
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
-msgstr "Téléverser les pièces jointes"
+msgstr "Atualizar Anexos"
 
 #: app/cases/views/editGroup.html
 msgid "User Name"
-msgstr "Nom d'utilisateur"
+msgstr "Nome de Usuário"
 
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
-msgstr "Afficher l'article complet dans une nouvelle fenêtre"
+msgstr "Visualizar artigo completo na nova janela"
 
 #: app/cases/views/commentsSection.html
 msgid ""
 "Would you like a Red Hat support manager to contact you regarding this case?"
 msgstr ""
-"Souhaitez-vous qu'un responsable d'assistance Red Hat vous contacte au sujet "
-"de votre dossier ?"
+"Você deseja  que o gerente de suporte da Red Hat entre em contato para "
+"discutir sobre este caso?"
 
 #: app/cases/views/addCommentSection.html
 msgid "You have used 0% of the 32KB maximum description size."
-msgstr ""
-"Vous avez utilisé 0% des 32 Ko correspondants à la taille maximale de la "
-"description."
+msgstr "Você já usou 0% do tamanho da descrição máximo de 32 KB."
 
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
-msgstr "sélection personnelle"
+msgstr "escolhido manualmente"
 
 #: app/cases/services/attachmentsService.js
 msgid "to case"
-msgstr "pour le dossier"
+msgstr "para o caso"
 

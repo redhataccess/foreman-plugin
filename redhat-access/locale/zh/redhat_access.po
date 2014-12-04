@@ -1,0 +1,561 @@
+# tfu <tfu@redhat.com>, 2014. #zanata
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2014-10-14 01:55-0400\n"
+"Last-Translator: tfu <tfu@redhat.com>\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh-Hans\n"
+"X-Generator: Zanata 3.5.1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "24x7 Contact:"
+msgstr "24x7 联系方法："
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "24x7 Support:"
+msgstr "24x7 支持："
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
+"Case"
+msgstr "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;创建一个新支持案例"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
+msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;选择日志"
+
+#: app/cases/views/detailsSection.html
+msgid "Account Name:"
+msgstr "帐户名称："
+
+#: app/cases/views/detailsSection.html
+msgid "Account Number:"
+msgstr "帐户号："
+
+#: app/cases/views/new.html
+msgid "Account:"
+msgstr "账户："
+
+#: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachProductLogs.html
+msgid "Add"
+msgstr "添加"
+
+#: app/cases/views/addCommentSection.html
+msgid "Add Comment"
+msgstr "添加评论"
+
+#: app/cases/views/detailsSection.html
+msgid "Advanced Mission Critical"
+msgstr "高级关键任务"
+
+#: app/cases/views/detailsSection.html
+msgid "Alternate Case ID:"
+msgstr "备用案例 ID："
+
+#: app/cases/views/attachProductLogs.html
+msgid "Attach Foreman logs:"
+msgstr "附加 Foreman 日志："
+
+#: app/cases/views/attachLocalFile.html
+msgid "Attach local file"
+msgstr "附加本地文件"
+
+#: app/cases/views/listAttachments.html
+msgid "Attached"
+msgstr "附加"
+
+#: app/cases/views/listAttachments.html
+msgid "Attached By"
+msgstr "附件上传者"
+
+#: app/cases/views/listAttachments.html
+msgid "Attached Files"
+msgstr "附加的文件"
+
+#: app/cases/views/attachmentsSection.html
+msgid "Attachments"
+msgstr "附件"
+
+#: app/cases/views/new.html
+msgid "Attachments:"
+msgstr "附件："
+
+#: app/log_viewer/views/navSideBar.html
+msgid "Available Log Files"
+msgstr "有效的日志文件"
+
+#: app/cases/views/listBugzillas.html
+msgid "Bugzilla Number"
+msgstr "Bugzilla 号"
+
+#: app/cases/views/listBugzillas.html
+msgid "Bugzilla Tickets"
+msgstr "Bugzilla 报告"
+
+#: app/security/views/login_form.html
+#: app/cases/views/createGroupModal.html
+#: app/cases/views/editGroup.html
+msgid "Cancel"
+msgstr "取消"
+
+#: app/cases/views/commentsSection.html
+msgid "Case Discussion"
+msgstr "支持案例讨论"
+
+#: app/cases/views/createGroupModal.html
+#: app/cases/views/new.html
+msgid "Case Group:"
+msgstr "支持案例组："
+
+#: app/cases/views/detailsSection.html
+msgid "Case Type:"
+msgstr "支持案例类别："
+
+#: app/cases/views/chatButton.html
+msgid "Chat offline"
+msgstr "离线互动咨询"
+
+#: app/cases/views/chatButton.html
+msgid "Chat with support"
+msgstr "互动咨询支持"
+
+#: app/common/views/treeview-selector.html
+msgid "Choose File(s) To Attach:"
+msgstr "选择要被附加的文件："
+
+#: app/common/views/alert.html
+msgid "Close messages"
+msgstr "关闭信息"
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Comment:"
+msgstr "评论："
+
+#: app/cases/views/createGroupModal.html
+msgid "Create Case Group"
+msgstr "创建案例组"
+
+#: app/cases/views/createGroupButton.html
+msgid "Create New Case Group"
+msgstr "创建新的案例组"
+
+#: app/cases/views/listAttachments.html
+msgid "Delete"
+msgstr "删除"
+
+#: app/cases/views/deleteGroupButton.html
+msgid "Delete Group"
+msgstr "删除组"
+
+#: app/cases/services/attachmentsService.js
+msgid "Deleting attachment:"
+msgstr "删除附件："
+
+#: app/cases/views/descriptionSection.html
+#: app/cases/views/listAttachments.html
+msgid "Description"
+msgstr "描述"
+
+#: app/cases/views/new.html
+msgid "Description:"
+msgstr "描述："
+
+#: app/cases/views/detailsSection.html
+msgid "Details"
+msgstr "详细信息"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "Diagnose"
+msgstr "诊断"
+
+#: app/cases/views/addCommentSection.html
+msgid "Draft saved"
+msgstr "保存草稿"
+
+#: app/cases/views/emailNotifySelect.html
+msgid "Email Notification Recipients"
+msgstr "电子邮件通知接收者"
+
+#: app/search/views/resultDetail.html
+msgid "Environment"
+msgstr "环境"
+
+#: app/cases/views/exportCSVButton.html
+msgid "Export All as CSV"
+msgstr "将所有导出为 CSV"
+
+#: app/cases/views/exportCSVButton.html
+msgid "Exporting CSV..."
+msgstr "导出 CSV..."
+
+#: app/cases/views/attachLocalFile.html
+msgid ""
+"File names must be less than 80 characters. Maximum file size for web-"
+"uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat."
+"com."
+msgstr ""
+"文件名不能超过 80 个字符，网页上传文件大小不能超过 250 MB。请使用 FTP 将大文件上传到 dropbox.redhat.com。"
+
+#: app/cases/views/listAttachments.html
+msgid "Filename"
+msgstr "文件名"
+
+#: app/cases/views/listNewAttachments.html
+msgid "Files to Attach"
+msgstr "要附加的文件"
+
+#: app/cases/views/editGroup.html
+msgid "First Name"
+msgstr "名"
+
+#: app/cases/views/search.html
+msgid "Group"
+msgstr "组"
+
+#: app/cases/views/detailsSection.html
+msgid "Group:"
+msgstr "组："
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid ""
+"If you feel the issue has become more severe or the case should be a higher "
+"priority, please provide a detailed comment, and the case will be reviewed "
+"by a support manager."
+msgstr "如果您的问题愈发严重或案例应具有更高优先级，请提供详细信息，支持经理将会复核该案例。"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"In the event that you would still like to open a support case, select 'Open "
+"a New Support Case'. The case will be pre-populated with the portion of the "
+"log previously selected."
+msgstr "如果您仍然希望创建一个新的支持案例，请选择“创建新支持案例”。系统将会根据您所选择的日志自动生成案例中的部分内容。"
+
+#: app/cases/views/addCommentSection.html
+msgid "Is Public:"
+msgstr "是否公开："
+
+#: app/cases/views/editGroup.html
+msgid "Last Name"
+msgstr "姓"
+
+#: app/cases/views/detailsSection.html
+msgid "Last Updated:"
+msgstr "最新更新："
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Learn more"
+msgstr "了解更多信息"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "Log File Viewer"
+msgstr "日志文件查看器"
+
+#: app/security/views/login_status.html
+msgid "Log In"
+msgstr "登录"
+
+#: app/security/views/login_status.html
+msgid "Log Out"
+msgstr "登出"
+
+#: app/security/views/login_status.html
+msgid "Logged into the Red Hat Customer Portal as"
+msgstr "以以下身份登录到红帽客户门户网站"
+
+#: app/cases/views/accountSelect.html
+msgid "My Account"
+msgstr "我的帐号"
+
+#: app/cases/views/groupList.html
+msgid "Name"
+msgstr "名称"
+
+#: app/cases/views/new.html
+msgid "Next"
+msgstr "下一步"
+
+#: app/cases/views/listAttachments.html
+msgid "No attachments added"
+msgstr "无添加的附件"
+
+#: app/cases/views/compactCaseList.html
+#: app/cases/views/list.html
+msgid "No cases found with given filters."
+msgstr "无匹配的支持案例。"
+
+#: app/cases/views/search.html
+msgid "No cases found with given search criteria."
+msgstr "无匹配的支持案例。"
+
+#: app/cases/views/groupList.html
+msgid "No groups found."
+msgstr "没有找到组。"
+
+#: app/cases/views/listBugzillas.html
+msgid "No linked bugzillas"
+msgstr "没有相关的 bugzilla 报告"
+
+#: app/security/views/login_status.html
+msgid "Not Logged into the Red Hat Customer Portal"
+msgstr "没有登录到红帽用户门户网站"
+
+#: app/security/views/login_form.html
+msgid "Note:"
+msgstr "备注："
+
+#: app/cases/views/detailsSection.html
+msgid "Notes:"
+msgstr "备注："
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"Once you have selected your log file then you may diagnose any part of the "
+"log file and clicking the 'Red Hat Diagnose' button. This will then display "
+"relevant articles and solutons from our Red Hat Knowledge base."
+msgstr "在选择了您的日志文件后，点“红帽诊断”按钮可以根据您的日志文件对系统进行诊断，红帽知识库中的相应条目将会被显示。"
+
+#: app/search/views/accordion_search_results.html
+#: app/cases/views/list.html
+#: app/cases/views/search.html
+msgid "Open a New Support Case"
+msgstr "创建一个新的支持案例"
+
+#: app/cases/views/detailsSection.html
+msgid "Opened:"
+msgstr "创建："
+
+#: app/cases/views/search.html
+msgid "Owner"
+msgstr "所有者"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "Owner:"
+msgstr "所有者："
+
+#: app/security/views/login_form.html
+msgid "Password"
+msgstr "密码"
+
+#: app/cases/views/new.html
+msgid "Previous"
+msgstr "上一步"
+
+#: app/cases/views/search.html
+msgid "Product"
+msgstr "产品"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "Product Version:"
+msgstr "产品版本："
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "Product:"
+msgstr "产品："
+
+#: app/search/views/accordion_search_results.html
+#: app/search/views/list_search_results.html
+#: app/cases/views/recommendationsSection.html
+msgid "Recommendations"
+msgstr "建议"
+
+#: app/security/views/login_form.html
+msgid ""
+"Red Hat Access makes it easy for you to self-solve issues, diagnose "
+"problems, and engage with us via the Red Hat Customer Portal. To access Red "
+"Hat Customer Portal resources, you must enter valid portal credentials."
+msgstr ""
+"通过使用 Red Hat "
+"Access，您可以方便地通过红帽用户门户网站来自助解决问题、诊断问题并和红帽进行联系。您需要有效的账户来访问红帽用户门户网站的资源。"
+
+#: app/security/views/login_form.html
+msgid ""
+"Red Hat Customer Portal credentials differ from the credentials used to log "
+"into this product."
+msgstr "红帽用户门户网站的用户帐号和登录到其它产品的用户帐号不同。"
+
+#: app/log_viewer/views/logTabs.html
+msgid "Red Hat Diagnose"
+msgstr "红帽诊断"
+
+#: app/security/views/login_form.html
+msgid "Red Hat Login"
+msgstr "红帽登录"
+
+#: app/cases/views/detailsSection.html
+msgid "Red Hat Owner:"
+msgstr "红帽负责人："
+
+#: app/cases/views/commentsSection.html
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Request Management Escalation"
+msgstr "请求管理升级"
+
+#: app/search/views/resultDetail.html
+msgid "Resolution"
+msgstr "解决方案"
+
+#: app/cases/views/createGroupModal.html
+msgid "Save"
+msgstr "保存"
+
+#: app/cases/views/editGroup.html
+msgid "Save Group"
+msgstr "保存组"
+
+#: app/cases/views/addCommentSection.html
+msgid "Saving draft..."
+msgstr "保存草稿..."
+
+#: app/search/views/search_form.html
+msgid "Search"
+msgstr "搜索"
+
+#: app/cases/views/search.html
+msgid "Searching..."
+msgstr "搜索..."
+
+#: app/log_viewer/views/navSideBar.html
+msgid "Select File"
+msgstr "选择文件"
+
+#: app/cases/views/attachmentsSection.html
+msgid "Server File(s) To Attach:"
+msgstr "附加的服务器文件："
+
+#: app/cases/views/search.html
+msgid "Severity"
+msgstr "严重性"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+#: app/cases/views/searchResult.html
+msgid "Severity:"
+msgstr "严重性："
+
+#: app/security/views/login_form.html
+msgid "Sign in"
+msgstr "登录"
+
+#: app/security/views/login_form.html
+msgid "Sign into the Red Hat Customer Portal"
+msgstr "登录到红帽用户门户网站"
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"Simply navigate to and select a log file from the list on the left and click "
+"the 'Select File' button."
+msgstr "从左面的列表中查找并选择一个日志文件，点“选择文件”按钮。"
+
+#: app/cases/views/listAttachments.html
+msgid "Size"
+msgstr "大小"
+
+#: app/cases/views/search.html
+msgid "Status"
+msgstr "状态"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/searchResult.html
+msgid "Status:"
+msgstr "状态："
+
+#: app/cases/views/new.html
+msgid "Submit"
+msgstr "提交"
+
+#: app/cases/views/requestManagementEscalationModal.html
+msgid "Submit Request"
+msgstr "提交请求"
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully deleted attachment:"
+msgstr "成功删除的附件："
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully uploaded attachment"
+msgstr "成功上传的附件"
+
+#: app/cases/views/listBugzillas.html
+msgid "Summary of Request"
+msgstr "请求概述"
+
+#: app/cases/views/new.html
+msgid "Summary:"
+msgstr "概述："
+
+#: app/cases/views/detailsSection.html
+msgid "Support Level:"
+msgstr "支持级别："
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid ""
+"The log file viewer gives the ability to diagnose application logs as well "
+"as file a support case with Red Hat Global Support Services."
+msgstr "日志文件查看器可以对应用程序的日志文件进行诊断，并可以在红帽全球支持服务系统中创建一个支持案例。"
+
+#: app/cases/views/new.html
+msgid ""
+"This release is now retired, please refer to the recommended FAQ prior to "
+"filing a case"
+msgstr "这个版本已经不被支持，请在创建案例前参考我们推荐的 FAQ。"
+
+#: app/search/views/list_search_results.html
+msgid "To view a recommendation, click on it."
+msgstr "点一个建议项来查看它的内容。"
+
+#: app/cases/views/search.html
+msgid "Type"
+msgstr "类型"
+
+#: app/common/services/strataService.js
+msgid "Unauthorized."
+msgstr "未授权。"
+
+#: app/cases/views/detailsSection.html
+msgid "Update Details"
+msgstr "更新详情"
+
+#: app/cases/views/searchResult.html
+msgid "Updated:"
+msgstr "更新："
+
+#: app/cases/views/attachmentsSection.html
+msgid "Upload Attachments"
+msgstr "上传附件"
+
+#: app/cases/views/editGroup.html
+msgid "User Name"
+msgstr "用户名"
+
+#: app/cases/views/recommendationsSection.html
+msgid "View full article in new window"
+msgstr "在新窗口中查看全文"
+
+#: app/cases/views/commentsSection.html
+msgid ""
+"Would you like a Red Hat support manager to contact you regarding this case?"
+msgstr "您是否希望红帽支持经理就此支持案例与您联系？"
+
+#: app/cases/views/addCommentSection.html
+msgid "You have used 0% of the 32KB maximum description size."
+msgstr "您已经使用了最大描述大小限制（32 KB）中的 0%。"
+
+#: app/cases/views/recommendationsSection.html
+msgid "handpicked"
+msgstr "精选"
+
+#: app/cases/services/attachmentsService.js
+msgid "to case"
+msgstr "案例"
+
