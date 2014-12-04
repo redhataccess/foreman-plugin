@@ -11,3 +11,6 @@ public/*
 *.sw?
 .idea
 config/config.yml
+*~
+*#
+
