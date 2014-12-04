@@ -1,7 +1,7 @@
 require_dependency "redhat_access/application_controller"
 
 module RedhatAccess
-  class TelemetryController < ApplicationController
+  class TelemetryApiController < ApplicationController
     skip_before_filter :authorize, :require_login, :session_expiry, :verify_authenticity_token
     before_filter :telemetry_auth
 
@@ -14,12 +14,9 @@ module RedhatAccess
     UPLOAD_URL="#{STRATA_URL}/rs/telemetry"
 
     def telemetry_auth
+      # TODO client cert auth goes here
       puts "TELEMETRY AUTH"
       return true
-    end
-
-    def index
-      puts "FOOBAR"
     end
 
     def upload_sosreport
