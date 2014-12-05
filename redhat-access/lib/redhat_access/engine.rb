@@ -5,6 +5,10 @@ module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
 
+    initializer "foreman_chef.load_app_instance_data" do |app|
+      app.config.paths['db/migrate'] += RedhatAccess::Engine.paths['db/migrate'].existent
+    end
+
     initializer 'redhat_access.mount_engine', :after => :build_middleware_stack do |app|
       app.routes_reloader.paths << "#{RedhatAccess::Engine.root}/config/mount_engine.rb"
       app.reload_routes!
