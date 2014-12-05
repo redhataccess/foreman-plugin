@@ -10,9 +10,9 @@ module RedhatAccess
     before_filter :telemetry_auth
 
     # TODO change this to be set from config
-    USERNAME=""
-    PASSWORD=""
-    STRATA_URL=""
+    USERNAME="rhn-support-ihands"
+    PASSWORD="redhat"
+    STRATA_URL="http://gss-services02.web.devgssfte.devlab.redhat.com:8080"
 
     YAML_URL="#{STRATA_URL}/rs/telemetry/api/static/uploader.yml"
     UPLOAD_URL="#{STRATA_URL}/rs/telemetry"
