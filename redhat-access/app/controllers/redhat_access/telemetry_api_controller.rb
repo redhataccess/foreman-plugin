@@ -1,7 +1,11 @@
 require_dependency "redhat_access/application_controller"
+require File.expand_path('../../../services/redhat_access/authentication/client_authentication.rb', __FILE__)
+
 
 module RedhatAccess
   class TelemetryApiController < ApplicationController
+
+    include RedhatAccess::Authentication::ClientAuthentication
     skip_before_filter :authorize, :require_login, :session_expiry, :verify_authenticity_token
     before_filter :telemetry_auth
 
@@ -14,9 +18,15 @@ module RedhatAccess
     UPLOAD_URL="#{STRATA_URL}/rs/telemetry"
 
     def telemetry_auth
-      # TODO client cert auth goes here
-      puts "TELEMETRY AUTH"
-      return true
+      authorize_client
+    end
+
+    def api_request?
+      true
+    end
+
+    def index
+      render :text => "Telemetry API"
     end
 
     def upload_sosreport
@@ -78,4 +88,3 @@ module RedhatAccess
     end
   end
 end
-

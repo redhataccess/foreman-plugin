@@ -45,11 +45,15 @@ module RedhatAccess
           #Logs require special permissions
           permission :view_log_viewer, {:"redhat_access/log_viewer" => [:index] }
           permission :logs, {:"redhat_access/logs" => [:index] }
+
+          #Proactive Diagnostics permissions
+          permission :rh_telemetry, {:"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf] }
         end
 
         #roles section
         #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]
+        role "Red Hat Telemetry" , [:rh_telemetry]
 
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
