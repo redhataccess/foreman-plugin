@@ -1,6 +1,6 @@
 RedhatAccess::Engine.routes.draw do
 
-  get  'proactive_support', to: 'telemetry#index'
+  get  'proactive_support', to: 'telemetry_api#index'
 
   get  'proactive_support/rs/telemetry/api/static/uploader.yml', to: 'telemetry_api#get_ph_conf'
   post 'proactive_support/rs/telemetry', to: 'telemetry_api#upload_sosreport'
