@@ -10,12 +10,14 @@ module RedhatAccess
     before_filter :telemetry_auth
 
     # TODO change this to be set from config
-    USERNAME="rhn-support-ihands"
-    PASSWORD="redhat"
-    STRATA_URL="http://gss-services02.web.devgssfte.devlab.redhat.com:8080"
+    STRATA_URL="https://#{REDHAT_ACCESS_CONFIG[:strata_host]}"
 
-    YAML_URL="#{STRATA_URL}/rs/telemetry/api/static/uploader.yml"
+    YAML_URL="#{STRATA_URL}/rs/telemetry/api/static/uploader.yaml"
     UPLOAD_URL="#{STRATA_URL}/rs/telemetry"
+
+    def get_creds
+      return TelemetryProxyCredentials.limit(1)[0]
+    end
 
     def telemetry_auth
       authorize_client
@@ -32,11 +34,12 @@ module RedhatAccess
     def upload_sosreport
       require 'rest_client'
       begin
+        creds = get_creds
         request = RestClient::Request.new(
           :method => :post,
           :url => UPLOAD_URL,
-          :user => USERNAME,
-          :password => PASSWORD,
+          :user => creds.username,
+          :password => creds.password,
           :payload => {
             :file => params[:file],
             :filename => params[:file].original_filename
@@ -69,7 +72,8 @@ module RedhatAccess
       require 'rest_client'
 
       begin
-        resource = RestClient::Resource.new YAML_URL, :user => USERNAME, :password => PASSWORD
+        creds = get_creds
+        resource = RestClient::Resource.new YAML_URL, :user => creds.username, :password => creds.password
         response = resource.get
       rescue Exception => e
         message = "Unknown error downloading uploader.yml from #{YAML_URL}: #{e.message}"
