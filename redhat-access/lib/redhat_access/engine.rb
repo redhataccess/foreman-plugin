@@ -5,7 +5,7 @@ module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
 
-    initializer "foreman_chef.load_app_instance_data" do |app|
+    initializer 'redhat_access.load_app_instance_data' do |app|
       app.config.paths['db/migrate'] += RedhatAccess::Engine.paths['db/migrate'].existent
     end
 
