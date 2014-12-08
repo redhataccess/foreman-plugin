@@ -46,7 +46,8 @@ task 'assets:precompile:engine' do
 
   precompile = [
     'redhat_access/application.js',
-    'redhat_access/application.css'
+    'redhat_access/application.css',
+    'proactive_support/application.js'
   ]
 
   env = Sprockets::Environment.new(RedhatAccess::Engine.root)
