@@ -70,6 +70,11 @@ module RedhatAccess
             :url_hash => {:controller=> :"redhat_access/log_viewer" , :action=>:index},
             :engine => RedhatAccess::Engine,
             :caption=> N_('Diagnose')
+          menu :header_menu,
+            :Telemetry,
+            :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
+            :caption=> N_('Proactive Support'),
+            :engine => RedhatAccess::Engine
           divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
           menu :header_menu,
             :mycases,
