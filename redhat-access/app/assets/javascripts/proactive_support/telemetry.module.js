@@ -14,38 +14,4 @@
 /**
  *
  */
-angular.module('Telemetry', [
-	'ngSanitize',
-	'RedhatAccess.header',
-	'RedhatAccess.template',
-	'RedhatAccess.security',
-	'RedhatAccess.search',
-	'RedhatAccess.cases',
-	'RedhatAccess.logViewer',
-	'ui.router',
-	'ui.bootstrap'
-]).config(['$urlRouterProvider',
-	'$httpProvider',
-	function ($urlRouterProvider, $httpProvider) {
-		$urlRouterProvider.otherwise('/search');
-		$httpProvider.defaults.headers.common = {
-			'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-		};
-		var authInteceptor = ['$q',
-			function ($q) {
-				return {
-					'response': function (response) {
-						return response;
-					},
-					'responseError': function (rejection) {
-						if (rejection.status === 401) {
-							location.reload();
-						}
-						return $q.reject(rejection);
-					}
-				};
-			}
-		];
-		$httpProvider.interceptors.push(authInteceptor);
-	}
-]).run();
+angular.module('Telemetry', []).run();
