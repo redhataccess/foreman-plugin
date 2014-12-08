@@ -51,13 +51,16 @@ module RedhatAccess
           permission :logs, {:"redhat_access/logs" => [:index] }
 
           #Proactive Diagnostics permissions
-          permission :rh_telemetry, {:"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf] }
+          permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf] }
+          permission :rh_telemetry_view, { :"redhat_access/telemetry" => [:index] }
+          permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
+
         end
 
         #roles section
         #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]
-        role "Red Hat Telemetry" , [:rh_telemetry]
+        role "Red Hat Proactive Support" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
 
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
