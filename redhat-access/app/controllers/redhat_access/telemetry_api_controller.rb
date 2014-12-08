@@ -21,6 +21,9 @@ module RedhatAccess
 
     def telemetry_auth
       authorize_client
+      unless  User.current.is_a? RedhatAccess::Authentication::CertUser
+        authorize
+      end
     end
 
     def api_request?

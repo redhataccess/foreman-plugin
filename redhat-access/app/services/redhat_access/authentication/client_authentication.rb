@@ -16,24 +16,20 @@ module RedhatAccess
       def authorize_client
         authenticate_client
         require_login unless User.current
-        unless  User.current.is_a? CertUser
-          authorize
-        end
       end
 
 
 
       def deny_access
-        render :text => 'Forbidden', :status => 403
+        render json: { :message => "Permission Denied." }, :status => 403
       end
 
       def set_client_user
         if cert_present?
-          client_cert = RedhatAccess::ClientAuthentication::Cert.new(cert_from_request)
+          client_cert = RedhatAccess::Authentication::Cert.new(cert_from_request)
           uuid = client_cert.uuid
           User.current =  CertUser.new(:login => uuid)
         end
-        #User.current =  CertUser.new(:login => 'uuid')
       end
 
       def cert_present?
