@@ -3,14 +3,14 @@ RedhatAccess::Engine.routes.draw do
   scope '/proactive_support' do
     resources :strata_credentials
   end
-  
+
   #API routes
   get "configuration" => "configuration#index"
   get "logs" => "logs#index"
   get "attachments" => "attachments#index"
   post "attachments" => "attachments#create"
 
-  get  "proactive_support/rs/telemetry/api/static/uploader.yml", to: "telemetry_api#get_ph_conf"
+  get  "proactive_support/rs/telemetry/api/static/uploader.yaml", to: "telemetry_api#get_ph_conf"
   post "proactive_support/rs/telemetry", to: "telemetry_api#upload_sosreport"
 
   #Angular UI routes
