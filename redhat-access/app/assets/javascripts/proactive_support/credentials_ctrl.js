@@ -1,11 +1,11 @@
-/*global angular $scope */
+/*global angular, $scope */
 
 (function () {
     'use strict';
 
     var creds_url = '/redhat_access/proactive_support/strata_credentials';
 
-    angular.module('Telemetry').controller('CredentialsCtrl', function ($scope, $http) {
+    angular.module('Telemetry').controller('CredentialsCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.stored = false;
         $scope.creds = {};
 
@@ -29,5 +29,6 @@
         };
 
         $scope.index();
-    });
+    }]);
 }());
+
