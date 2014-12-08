@@ -10,7 +10,5 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
 //= require "angular/angular"
-//= require "redhat_access/redhat_access_angular_ui-deps"
-//= require "redhat_access/redhat_access_angular_ui"
 //= require "proactive_support/telemetry.module"
 //= require "proactive_support/credentials_ctrl"
