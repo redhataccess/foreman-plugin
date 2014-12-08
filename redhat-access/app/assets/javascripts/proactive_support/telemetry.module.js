@@ -14,4 +14,26 @@
 /**
  *
  */
-angular.module('Telemetry', []).run();
+angular.module('Telemetry', []).config(['$httpProvider',
+	function ($httpProvider) {
+		$httpProvider.defaults.headers.common = {
+			'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+		};
+		var authInteceptor = ['$q',
+			function ($q) {
+				return {
+					'response': function (response) {
+						return response;
+					},
+					'responseError': function (rejection) {
+						if (rejection.status === 401) {
+							location.reload();
+						}
+						return $q.reject(rejection);
+					}
+				};
+			}
+		];
+		$httpProvider.interceptors.push(authInteceptor);
+	}
+]).run();

@@ -110,7 +110,12 @@ cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/
 /usr/sbin
 /usr/bin
 
+%posttrans
+/usr/sbin/foreman-rake db:migrate >/dev/null 2>&1
+
 %changelog
+* Mon Dec 12 2014 Lindani Phiri <lindani@redhat.com> - 0.0.7-1
+- Add proactive support
 * Wed May 14 2014 Rex White <rexwhite@redhat.com> - 0.0.4-1
 - Resolves: bz1084590
 - Updated for UX comments
