@@ -1,10 +1,10 @@
 <div ng-app="Telemetry">
-  <h1>Proactive Support</h1>
-  <h2>Credentials</h2>
+  <h1><%= _('Proactive Support') %></h1>
+  <h2><%= _('Credentials') %></h2>
   <div class="row" ng-controller="CredentialsCtrl" ng-cloak>
 	<div ng-if="creds.stored" class="col-md-12">
-	  <div class="alert alert-success">Yay credentials stored</div>
-	  <label class="col-md-2 control-label" for="username">Username</label>
+	  <div class="alert alert-success"><%= _('Proactive Support credentials stored.') %></div>
+	  <label class="col-md-2 control-label" for="username"><%= _('Username') %></label>
 	  <div class="col-md-10">
 		<input disabled="disabled" class="form-control" id="username" type="text" ng-model="creds.username" />
 		<span class="help-block"></span>
@@ -12,21 +12,21 @@
 	  <div class="form-group">
 		<div class="col-md-10"></div>
 		<div class="col-md-2">
-		  <button class="btn pull-right" ng-click="clear_store()">Remove Credentials</button>
+		  <button class="btn pull-right" ng-click="clear_store()"><%= _('Remove Credentials') %></button>
 		</div>
 	  </div>
 	</div>
 	<div ng-if="!creds.stored" class="col-md-12">
-	  <div class="alert alert-danger">Credentials missing for Proactive Support uploader</div>
+	  <div class="alert alert-danger"><%= _('Credentials missing for Proactive Support uploader') %></div>
 	  <div class="form-group">
-		<label class="col-md-2 control-label" for="username">Username</label>
+		<label class="col-md-2 control-label" for="username"><%= _('Username') %></label>
 		<div class="col-md-10">
 		  <input class="form-control" id="username" type="text" ng-model="creds.username">
 		  <span class="help-block"></span>
 		</div>
 	  </div>
 	  <div class="form-group">
-		<label class="col-md-2 control-label" for="password">Password</label>
+		<label class="col-md-2 control-label" for="password"><%= _('Password') %></label>
 		<div class="col-md-10">
 		  <input class="form-control" id="password" type="password" ng-model="creds.password" />
 		  <span class="help-block"></span>
@@ -35,7 +35,7 @@
 	  <div class="form-group">
 		<div class="col-md-10"></div>
 		<div class="col-md-2">
-		  <button class="btn pull-right" ng-click="create()">Submit</button>
+		  <button class="btn pull-right" ng-click="create()"><%= _('Submit') %></button>
 		</div>
 	  </div>
 	</div>
