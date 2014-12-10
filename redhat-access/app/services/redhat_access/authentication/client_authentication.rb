@@ -8,17 +8,12 @@ require 'base64'
 module RedhatAccess
   module Authentication
     module ClientAuthentication
+
       def authenticate_client
         set_client_user
+        require_login unless User.current
         User.current.present?
       end
-
-      def authorize_client
-        authenticate_client
-        require_login unless User.current
-      end
-
-
 
       def deny_access
         render json: { :message => "Permission Denied." }, :status => 403

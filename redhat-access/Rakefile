@@ -37,6 +37,12 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Compile stand alone engine assets'
+
+task 'a:c' do
+  #Alias for commandline execution
+  Rake::Task['assets:precompile:engine'].invoke
+end
+
 task 'assets:precompile:engine' do
   require 'sprockets'
   require 'sprockets/railtie'

@@ -9,7 +9,6 @@ module RedhatAccess
     skip_before_filter :authorize, :require_login, :session_expiry, :verify_authenticity_token
     before_filter :telemetry_auth
 
-    # TODO change this to be set from config
     STRATA_URL="https://#{REDHAT_ACCESS_CONFIG[:strata_host]}"
 
     YAML_URL="#{STRATA_URL}/rs/telemetry/api/static/uploader.yaml"
@@ -20,7 +19,7 @@ module RedhatAccess
     end
 
     def telemetry_auth
-      authorize_client
+      authenticate_client
       unless  User.current.is_a? RedhatAccess::Authentication::CertUser
         authorize
       end

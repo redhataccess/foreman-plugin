@@ -116,6 +116,9 @@ cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/
 %changelog
 * Mon Dec 12 2014 Lindani Phiri <lindani@redhat.com> - 0.0.7-1
 - Add proactive support
+- Resolves: bz1131538
+- Resolves: bz1145742
+
 * Wed May 14 2014 Rex White <rexwhite@redhat.com> - 0.0.4-1
 - Resolves: bz1084590
 - Updated for UX comments
