@@ -12,7 +12,6 @@ module RedhatAccess
     require 'rest_client'
 
     STRATA_URL = "https://#{REDHAT_ACCESS_CONFIG[:strata_host]}"
-    # SUBSET_URL = "http://localhost:5000"
     YAML_URL   = "#{STRATA_URL}/rs/telemetry/api/static/uploader.yaml"
     UPLOAD_URL = "#{STRATA_URL}/rs/telemetry"
     API_URL    = "#{UPLOAD_URL}/api/v1"
@@ -51,28 +50,30 @@ module RedhatAccess
       original_parms = request.query_parameters
       resource = params[:path].split("/")[0]
 
-      if SUBSETTED_RESOURCES.has_key?(resource)
-        begin
+      begin
+        if SUBSETTED_RESOURCES.has_key?(resource)
           response = do_subset_call params, original_parms
           render json: response
           return
-        rescue RestClient::ExceptionWithResponse => e
-          render status: e.response.code, json: {
-                   error: e,
-                   response: e.response,
-                   code:  e.response.code
-                 }
-        rescue Exception => e
-          render status: 500, json: {
-                   error: e.to_s,
-                   code:  500
-                 }
+        else
+          url = "#{API_URL}/#{params[:path]}"
+          ldebug "Doing non subset call to #{url}"
+          client = default_rest_client url, { params: original_parms }
+          response = client.execute
+          render json: response
+          return
         end
-      else
-        client = default_rest_client "#{API_URL}/#{params[:path]}", { params: original_parms }
-        response = client.execute
-        render json: response
-        return
+      rescue RestClient::ExceptionWithResponse => e
+        render status: e.response.code, json: {
+                 error: e,
+                 code:  e.response.code
+               }
+      rescue Exception => e
+        lerror "Caught unexcpected error when proxying call to tapi"
+        render status: 500, json: {
+                 code:  500,
+                 error: e.to_s
+               }
       end
     end
 
@@ -137,6 +138,10 @@ module RedhatAccess
 
     private
 
+    def lerror message
+        logger.error "#{self.class.name}: #{message}"
+    end
+
     def ldebug message
       logger.debug "#{self.class.name}: #{message}"
     end
@@ -152,7 +157,8 @@ module RedhatAccess
       ldebug "Doing subset call"
       # Try subset
       begin
-        client = default_rest_client build_subset_url("#{params[:path]}"), { params: original_parms }
+        url = build_subset_url("#{params[:path]}")
+        client = default_rest_client url, { params: original_parms }
         response = client.execute
         ldebug "First subset call passed, CACHE_HIT"
         return response
@@ -172,7 +178,9 @@ module RedhatAccess
 
     # Transforms the URL that the user requested into the subsetted URL
     def build_subset_url url
-      return "#{SUBSET_URL}/#{get_hash get_machines}/#{url}"
+      url = "#{SUBSET_URL}/#{get_hash get_machines}/#{url}"
+      ldebug "build_subset_url #{url}"
+      return url
     end
 
     # Returns an array of the machine IDs that this user has access to
@@ -186,7 +194,7 @@ module RedhatAccess
     end
 
     # Returns a client with auth already setup
-    def default_rest_client url, options = { method: :get, payload: nil, zomg: nil }
+    def default_rest_client url, options = { method: :get, payload: nil }
       options = { :method => :get, payload: nil, params: nil }.merge(options)
 
       creds = get_creds
