@@ -12,10 +12,16 @@ module RedhatAccess
     require 'rest_client'
 
     STRATA_URL = "https://#{REDHAT_ACCESS_CONFIG[:strata_host]}"
+    # SUBSET_URL = "http://localhost:5000"
     YAML_URL   = "#{STRATA_URL}/rs/telemetry/api/static/uploader.yaml"
     UPLOAD_URL = "#{STRATA_URL}/rs/telemetry"
     API_URL    = "#{UPLOAD_URL}/api/v1"
     SUBSET_URL = "#{API_URL}/subsets"
+
+    SUBSETTED_RESOURCES = {
+      "reports" => true,
+      "systems" => true
+    }
 
     def api_request?
       true
@@ -43,38 +49,31 @@ module RedhatAccess
     # The method that "proxies" tapi requests over to Strata
     def proxy
       original_parms = request.query_parameters
+      resource = params[:path].split("/")[0]
 
-      # Try subset
-      begin
-        client = default_rest_client build_subset_url("#{params[:path]}"), { params: original_parms }
+      if SUBSETTED_RESOURCES.has_key?(resource)
+        begin
+          response = do_subset_call params, original_parms
+          render json: response
+          return
+        rescue RestClient::ExceptionWithResponse => e
+          render status: e.response.code, json: {
+                   error: e,
+                   response: e.response,
+                   code:  e.response.code
+                 }
+        rescue Exception => e
+          render status: 500, json: {
+                   error: e.to_s,
+                   code:  500
+                 }
+        end
+      else
+        client = default_rest_client "#{API_URL}/#{params[:path]}", { params: original_parms }
         response = client.execute
         render json: response
         return
-      rescue => e
-
-        if e.response.code == 412
-          subset_client = default_rest_client SUBSET_URL, { :method => :post, payload: { hash: get_hash(get_machines()), leaf_ids: get_machines }.to_json }
-          begin
-            response = subset_client.execute
-          rescue => e
-            render json: e.response
-            return
-          end
-
-          # retry the original request
-          begin
-            client = default_rest_client build_subset_url("#{params[:path]}"), { params: original_parms }
-            response = client.execute
-            render json: response
-            return
-          rescue => e
-            render json: e.repsonse
-            return
-          end
-        end
       end
-
-      render json: {}
     end
 
     # Handle uploading dvargas report to strata
@@ -138,6 +137,39 @@ module RedhatAccess
 
     private
 
+    def ldebug message
+      logger.debug "#{self.class.name}: #{message}"
+    end
+
+    def create_subset
+      ldebug "First subset call failed, CACHE_MISS"
+      subset_client = default_rest_client SUBSET_URL, { :method => :post, payload: { hash: get_hash(get_machines()), leaf_ids: get_machines }.to_json }
+      response = subset_client.execute
+    end
+
+    # Makes at least one call to tapi, at most 3 when a subset needs to be created
+    def do_subset_call params, original_parms
+      ldebug "Doing subset call"
+      # Try subset
+      begin
+        client = default_rest_client build_subset_url("#{params[:path]}"), { params: original_parms }
+        response = client.execute
+        ldebug "First subset call passed, CACHE_HIT"
+        return response
+      rescue RestClient::ExceptionWithResponse => e
+        if e.response.code == 412
+          create_subset
+
+          # retry the original request
+          ldebug "Subset creation passed calling newly created subset"
+          response = client.execute
+          return response
+        else
+          raise e
+        end
+      end
+    end
+
     # Transforms the URL that the user requested into the subsetted URL
     def build_subset_url url
       return "#{SUBSET_URL}/#{get_hash get_machines}/#{url}"
@@ -174,7 +206,7 @@ module RedhatAccess
         opts[:headers] = { 'content-type' => 'application/json' }
         opts[:payload] = options[:payload]
       end
-      
+
       return RestClient::Request.new(opts)
     end
   end
