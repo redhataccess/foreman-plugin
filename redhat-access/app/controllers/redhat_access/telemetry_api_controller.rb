@@ -47,18 +47,22 @@ module RedhatAccess
 
     # The method that "proxies" tapi requests over to Strata
     def proxy
-      original_parms = request.query_parameters
+      original_method   =  request.method
+      original_parms    = request.query_parameters
+      original_payload  = request.request_parameters[:telemetry_api]
+
       resource = params[:path].split("/")[0]
 
       begin
         if SUBSETTED_RESOURCES.has_key?(resource)
-          response = do_subset_call params, original_parms
+          response = do_subset_call(params, { params: original_parms, method: original_method, payload: original_payload })
           render json: response
           return
         else
           url = "#{API_URL}/#{params[:path]}"
           ldebug "Doing non subset call to #{url}"
-          client = default_rest_client url, { params: original_parms }
+          client = default_rest_client(url, { params: original_parms, method: original_method, payload: original_payload })
+          puts "TEST2"
           response = client.execute
           render json: response
           return
@@ -68,12 +72,12 @@ module RedhatAccess
                  error: e,
                  code:  e.response.code
                }
-      rescue Exception => e
-        lerror "Caught unexcpected error when proxying call to tapi"
-        render status: 500, json: {
-                 code:  500,
-                 error: e.to_s
-               }
+      # rescue Exception => e
+      #   lerror "Caught unexcpected error when proxying call to tapi"
+      #   render status: 500, json: {
+      #            code:  500,
+      #            error: e.to_s
+      #          }
       end
     end
 
@@ -153,12 +157,12 @@ module RedhatAccess
     end
 
     # Makes at least one call to tapi, at most 3 when a subset needs to be created
-    def do_subset_call params, original_parms
+    def do_subset_call params, conf
       ldebug "Doing subset call"
       # Try subset
       begin
         url = build_subset_url("#{params[:path]}")
-        client = default_rest_client url, { params: original_parms }
+        client = default_rest_client url, conf
         response = client.execute
         ldebug "First subset call passed, CACHE_HIT"
         return response
@@ -194,25 +198,25 @@ module RedhatAccess
     end
 
     # Returns a client with auth already setup
-    def default_rest_client url, options = { method: :get, payload: nil }
-      options = { :method => :get, payload: nil, params: nil }.merge(options)
-
+    def default_rest_client url, override_options
       creds = get_creds
 
-      if options[:params]
-        url = "#{url}?#{options[:params].to_query}"
-      end
-
       opts = {
-        :method   => options[:method],
+        :method   => :get,
         :url      => url,
         :user     => creds.username,
         :password => creds.password,
       }
 
-      if options[:method] == :post and options[:payload]
+      opts = opts.merge(override_options)
+
+      if override_options[:params]
+        url = "#{url}?#{override_options[:params].to_query}"
+      end
+
+      if override_options[:method] == :post and override_options[:payload]
         opts[:headers] = { 'content-type' => 'application/json' }
-        opts[:payload] = options[:payload]
+        opts[:payload] = override_options[:payload]
       end
 
       return RestClient::Request.new(opts)

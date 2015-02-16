@@ -13,7 +13,7 @@ RedhatAccess::Engine.routes.draw do
   scope "proactive_support/rs/telemetry" do
     get "/api/static/uploader.yaml", to: "telemetry_api#get_ph_conf"
     post "/", to: "telemetry_api#upload_sosreport"
-    match '/api/*path', to: "telemetry_api#proxy", via: :get
+    match '/api/*path', to: "telemetry_api#proxy"
   end
 
   #Angular UI routes
