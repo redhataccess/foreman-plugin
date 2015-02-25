@@ -192,9 +192,17 @@ module RedhatAccess
       return [ 'foo', 'bar', 'baz', 'bangz' ].sort
     end
 
+    # Returns the branch id of "this" Sat
+    def get_branch_id
+      // TODO
+      return "ASDF"
+    end
+
     # Returns the machines hash used for /subset/$hash/
     def get_hash machines
-      return Digest::SHA1.hexdigest machines.join
+      branvh = get_branch_id()
+      hash   = Digest::SHA1.hexdigest machines.join
+      return "#{branch}__#{hash}"
     end
 
     # Returns a client with auth already setup
