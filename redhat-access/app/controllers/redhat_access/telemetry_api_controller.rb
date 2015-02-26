@@ -69,15 +69,15 @@ module RedhatAccess
         end
       rescue RestClient::ExceptionWithResponse => e
         render status: e.response.code, json: {
-                 error: e,
-                 code:  e.response.code
-               }
-      # rescue Exception => e
-      #   lerror "Caught unexcpected error when proxying call to tapi"
-      #   render status: 500, json: {
-      #            code:  500,
-      #            error: e.to_s
-      #          }
+          error: e,
+          code:  e.response.code
+        }
+        # rescue Exception => e
+        #   lerror "Caught unexcpected error when proxying call to tapi"
+        #   render status: 500, json: {
+        #            code:  500,
+        #            error: e.to_s
+        #          }
       end
     end
 
@@ -140,15 +140,85 @@ module RedhatAccess
       render text: response.to_str
     end
 
+    # Get the branch and leaf ID for a client system
+    def get_client_id
+
+    end
+
     private
 
     def lerror message
-        logger.error "#{self.class.name}: #{message}"
+      logger.error "#{self.class.name}: #{message}"
     end
 
     def ldebug message
       logger.debug "#{self.class.name}: #{message}"
     end
+
+    def get_ssl_options_for_uuid uuid
+      org = get_organization uuid
+      get_ssl_options_for_org org
+    end
+
+    def get_ssl_options_for_org org
+      if org
+        upstream = org.owner_details['upstreamConsumer']
+        if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
+          #fail
+        else
+          opts = {
+            :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
+            :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
+            #:ssl_ca_file => ca_file,
+            #:verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
+          }
+        end
+
+      else
+        #fail here
+      end
+    end
+
+    def get_content_host_by_fqdn name
+      Katello::System.first(:conditions => { :name => name})
+    end
+
+    def get_content_host uuid
+      system = Katello::System.first(:conditions => { :uuid => uuid })
+    end
+
+    def get_organization  uuid
+      system = self.get_content_host uuid
+      system.nil? ? nil : Organization.find(system.environment.organization_id)
+    end
+
+    def get_branch_id uuid
+      org = get_organization uuid
+      if org
+        if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
+          #fail here
+        else
+          branch_id =  org.owner_details['upstreamConsumer']['uuid']
+        end
+      else
+        #fail here
+      end
+    end
+
+    def get_leaf_id uuid
+      system = self.get_content_host uuid
+      if system.nil?
+        #fail here
+      end
+      uuid
+    end
+
+
+    def resource_base
+      @resource_base ||= Host.authorized(current_permission, Host)
+    end
+
+
 
     def create_subset
       ldebug "First subset call failed, CACHE_MISS"
@@ -189,7 +259,13 @@ module RedhatAccess
 
     # Returns an array of the machine IDs that this user has access to
     def get_machines
-      return [ 'foo', 'bar', 'baz', 'bangz' ].sort
+      hosts = resource_base.search_for('').map(&:name)
+      #hopefully we can refactor later to optimize
+      hosts = hosts.map  do |i|
+        host = get_content_host_by_fqdn(i)
+        host.nil? ? nil : host.uuid
+      end
+      hosts.compact
     end
 
     # Returns the branch id of "this" Sat
