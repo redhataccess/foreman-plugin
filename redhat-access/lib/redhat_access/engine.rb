@@ -1,9 +1,12 @@
 # require 'fast_gettext'
 # require 'gettext_i18n_rails'
+require 'deface'
 
 module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
+
+    config.autoload_paths += Dir["#{config.root}/app/overrides"]
 
     initializer 'redhat_access.load_app_instance_data' do |app|
       app.config.paths['db/migrate'] += RedhatAccess::Engine.paths['db/migrate'].existent

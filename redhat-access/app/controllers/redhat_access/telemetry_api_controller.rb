@@ -142,7 +142,11 @@ module RedhatAccess
 
     # Get the branch and leaf ID for a client system
     def get_client_id
-
+      #TODO check for non cert user
+      uuid = User.current.login
+      client_id = { :remote_leaf => uuid ,
+                    :remote_branch => get_branch_id_for_uuid(uuid)}
+      render :json => client_id.to_json
     end
 
     private
@@ -188,7 +192,7 @@ module RedhatAccess
     end
 
     def get_organization  uuid
-      system = self.get_content_host uuid
+      system = get_content_host uuid
       system.nil? ? nil : Organization.find(system.environment.organization_id)
     end
 
@@ -210,7 +214,7 @@ module RedhatAccess
     end
 
     def get_leaf_id uuid
-      system = self.get_content_host uuid
+      system = get_content_host uuid
       if system.nil?
         #fail here
       end

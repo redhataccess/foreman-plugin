@@ -14,6 +14,7 @@ RedhatAccess::Engine.routes.draw do
 
   scope "proactive_support/rs/telemetry" do
     get "/api/static/uploader.yaml", to: "telemetry_api#get_ph_conf"
+    get  "/api/client_id", to: "telemetry_api#get_client_id"
     post "/", to: "telemetry_api#upload_sosreport"
     match '/api/*path', to: "telemetry_api#proxy"
   end
