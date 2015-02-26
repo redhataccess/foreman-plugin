@@ -1,5 +1,7 @@
 RedhatAccess::Engine.routes.draw do
 
+
+
   scope '/proactive_support' do
     resources :strata_credentials
   end
@@ -22,6 +24,7 @@ RedhatAccess::Engine.routes.draw do
   get "cases/index" => "cases#index"
   get "search/index" => "search#index"
   get "proactive_support", to: "telemetry#index"
+  get "analytics_dashboard", to: "analytics_dashboard#index"
 
   root :to => "redhat_access#index"
 

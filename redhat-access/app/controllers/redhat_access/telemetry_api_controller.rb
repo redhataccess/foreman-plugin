@@ -192,8 +192,12 @@ module RedhatAccess
       system.nil? ? nil : Organization.find(system.environment.organization_id)
     end
 
-    def get_branch_id uuid
+    def get_branch_id_for_uuid uuid
       org = get_organization uuid
+      get_branch_id_for_org org
+    end
+
+    def get_branch_id_for_org org
       if org
         if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
           #fail here
@@ -222,7 +226,7 @@ module RedhatAccess
 
     def create_subset
       ldebug "First subset call failed, CACHE_MISS"
-      subset_client = default_rest_client SUBSET_URL, { :method => :post, payload: { hash: get_hash(get_machines()), leaf_ids: get_machines }.to_json }
+      subset_client = default_rest_client SUBSET_URL, { :method => :post, payload: { hash: get_hash(get_machines()), branch_id: get_branch_id, leaf_ids: get_machines }.to_json }
       response = subset_client.execute
     end
 
@@ -268,15 +272,14 @@ module RedhatAccess
       hosts.compact
     end
 
-    # Returns the branch id of "this" Sat
+    # Returns the branch id of the current org/account
     def get_branch_id
-      // TODO
-      return "ASDF"
+      return get_branch_id_for_org Organization.current
     end
 
     # Returns the machines hash used for /subset/$hash/
     def get_hash machines
-      branvh = get_branch_id()
+      branch = get_branch_id Organization.current
       hash   = Digest::SHA1.hexdigest machines.join
       return "#{branch}__#{hash}"
     end

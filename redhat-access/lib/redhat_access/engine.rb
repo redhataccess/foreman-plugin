@@ -88,6 +88,13 @@ module RedhatAccess
             :url_hash => {:controller=> :"redhat_access/cases", :action=>:create },
             :engine => RedhatAccess::Engine
         end
+        sub_menu :top_menu, :redhat_access_top_menu, :caption=> N_('Analytics') do
+          menu :top_menu,
+            :dashboard,
+            :caption=> N_('Dashboard'),
+            :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
+            :engine => RedhatAccess::Engine
+        end
       end
     end
   end
