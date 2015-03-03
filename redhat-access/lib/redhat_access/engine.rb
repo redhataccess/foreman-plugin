@@ -36,6 +36,25 @@ module RedhatAccess
       Foreman::Gettext::Support.add_text_domain locale_domain, locale_dir
     end
 
+    initializer :config_csp_headers do |app|
+      ::SecureHeaders::Configuration.configure do |config|
+        if config && config.csp
+          if config.csp[:frame_src]
+            config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
+          end
+          if config.csp[:connect_src]
+            config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
+          end
+          if config.csp[:script_src]
+            config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
+          end
+          if config.csp[:img_src]
+            config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
+          end
+        end
+      end
+    end
+
     initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
       Foreman::Plugin.register :redhat_access do
         requires_foreman '> 1.4'
@@ -54,12 +73,11 @@ module RedhatAccess
           permission :logs, {:"redhat_access/logs" => [:index] }
 
           #Proactive Diagnostics permissions
-          permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf] }
+          permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf,:proxy] }
           permission :rh_telemetry_view, { :"redhat_access/telemetry" => [:index] }
           permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
 
         end
-
         #roles section
         #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]

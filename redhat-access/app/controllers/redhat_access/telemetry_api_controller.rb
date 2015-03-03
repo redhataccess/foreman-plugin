@@ -6,7 +6,11 @@ module RedhatAccess
   class TelemetryApiController < ApplicationController
 
     include RedhatAccess::Authentication::ClientAuthentication
-    skip_before_filter :authorize, :require_login, :session_expiry, :verify_authenticity_token
+    #TODO clean up filters once the API is split up
+    skip_before_filter :authorize,  :except => [:proxy]
+    skip_before_filter :require_login, :except => [:proxy]
+    skip_before_filter :session_expiry, :except => [:proxy]
+    skip_before_filter :verify_authenticity_token, :except => [:proxy]
     before_filter :telemetry_auth
 
     require 'rest_client'
@@ -46,7 +50,9 @@ module RedhatAccess
     end
 
     # The method that "proxies" tapi requests over to Strata
+    # TODO - separate UI api?
     def proxy
+      #TODO err out if org is not selected
       original_method   =  request.method
       original_parms    = request.query_parameters
       original_payload  = request.request_parameters[:telemetry_api]
@@ -81,16 +87,35 @@ module RedhatAccess
       end
     end
 
+    def action_permission
+      case params[:action]
+      when 'proxy'
+        :proxy
+      else
+        super
+      end
+    end
+
     # Handle uploading dvargas report to strata
+    # TODO - separate client machine api?
     def upload_sosreport
       begin
         creds = get_creds
-        request = default_rest_client :post, UPLOAD_URL
+        request = RestClient::Request.new(
+          :method => :post,
+          :url => UPLOAD_URL,
+          :user => creds.username,
+          :password => creds.password,
+          :payload => {
+            :file => params[:file],
+            :filename => params[:file].original_filename
+          }
+        )
 
-        request[:payload] = {
-          :file => params[:file],
-          :filename => params[:file].original_filename
-        }
+        # request[:payload] = {
+        #   :file => params[:file],
+        #   :filename => params[:file].original_filename
+        # }
 
         response = request.execute
       rescue Exception => e
@@ -117,6 +142,7 @@ module RedhatAccess
 
 
     # Grabs the PhoneHome YAML conf file
+    # TODO - separate client machine api?
     def get_ph_conf
       require 'rest_client'
 
@@ -141,15 +167,26 @@ module RedhatAccess
     end
 
     # Get the branch and leaf ID for a client system
+    # TODO - separate client machine api?
     def get_client_id
       #TODO check for non cert user
       uuid = User.current.login
-      client_id = { :remote_leaf => uuid ,
-                    :remote_branch => get_branch_id_for_uuid(uuid)}
-      render :json => client_id.to_json
+      begin
+        client_id = { :remote_leaf => uuid ,
+                      :remote_branch => get_branch_id_for_uuid(uuid)}
+        render :json => client_id.to_json
+      rescue RecordNotFound => e
+        http_error_response(e.message, 400)
+      end
     end
 
     private
+    class  RecordNotFound < StandardError
+    end
+
+    def http_error_response(msg,status)
+      render json: { :message => msg }, :status => status
+    end
 
     def lerror message
       logger.error "#{self.class.name}: #{message}"
@@ -159,64 +196,66 @@ module RedhatAccess
       logger.debug "#{self.class.name}: #{message}"
     end
 
-    def get_ssl_options_for_uuid uuid
-      org = get_organization uuid
+    def get_ssl_options_for_uuid(uuid)
+      org = get_organization(uuid)
       get_ssl_options_for_org org
     end
 
-    def get_ssl_options_for_org org
+    def get_ssl_options_for_org(org ,ca_file)
       if org
         upstream = org.owner_details['upstreamConsumer']
         if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
-          #fail
+          raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
         else
           opts = {
             :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
             :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
-            #:ssl_ca_file => ca_file,
-            #:verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
+            :ssl_ca_file => ca_file,
+            :verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
           }
         end
-
       else
-        #fail here
+        raise(RecordNotFound,'Organization not found or invalid')
       end
     end
 
-    def get_content_host_by_fqdn name
+    def get_content_host_by_fqdn(name)
       Katello::System.first(:conditions => { :name => name})
     end
 
-    def get_content_host uuid
+    def get_content_host(uuid)
       system = Katello::System.first(:conditions => { :uuid => uuid })
     end
 
-    def get_organization  uuid
-      system = get_content_host uuid
+    def get_organization(uuid)
+      system = get_content_host(uuid)
       system.nil? ? nil : Organization.find(system.environment.organization_id)
     end
 
-    def get_branch_id_for_uuid uuid
-      org = get_organization uuid
+    def get_branch_id_for_uuid(uuid)
+      org = get_organization(uuid)
       get_branch_id_for_org org
     end
 
-    def get_branch_id_for_org org
+    def get_branch_id_for_org(org)
       if org
         if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
-          #fail here
+          ldebug('Org manifest not found or invalid in get_branch_id')
+          raise(RecordNotFound,'Branch ID not found for organization')
         else
           branch_id =  org.owner_details['upstreamConsumer']['uuid']
         end
       else
-        #fail here
+        ldebug('Org not found or invalid in get_branch_id')
+        raise(RecordNotFound,'Organization not found or invalid')
       end
     end
 
-    def get_leaf_id uuid
-      system = get_content_host uuid
+    def get_leaf_id(uuid)
+      system = get_content_host(uuid)
       if system.nil?
-        #fail here
+        ldebug('Host not found or invalid')
+        raise(RecordNotFound,'Host not found or invalid')
       end
       uuid
     end
@@ -273,36 +312,52 @@ module RedhatAccess
         host = get_content_host_by_fqdn(i)
         host.nil? ? nil : host.uuid
       end
-      hosts.compact
+      hosts.compact.sort
     end
 
     # Returns the branch id of the current org/account
     def get_branch_id
+      #TODO err out if org is not selected
       return get_branch_id_for_org Organization.current
     end
 
     # Returns the machines hash used for /subset/$hash/
     def get_hash machines
-      branch = get_branch_id Organization.current
+      branch = get_branch_id
       hash   = Digest::SHA1.hexdigest machines.join
       return "#{branch}__#{hash}"
     end
 
     # Returns a client with auth already setup
     def default_rest_client url, override_options
+      #If we are keeping basic auth, will need to have Org specific
+      #credentials
       creds = get_creds
-
+      # enable this once cert auth is fixed:
+      # if User.current.is_a? RedhatAccess::Authentication::CertUser
+      #   opts = {
+      #     :method => :get,
+      #     :url => url,
+      #   }.merge(get_ssl_options_for_uuid(User.current.login))
+      # else
+      #   opts = {
+      #     :method   => :get,
+      #     :url      => url,
+      #     :user     => creds.username,
+      #     :password => creds.password,
+      #   }
+      # end
       opts = {
         :method   => :get,
         :url      => url,
         :user     => creds.username,
         :password => creds.password,
       }
-
       opts = opts.merge(override_options)
 
       if override_options[:params]
-        url = "#{url}?#{override_options[:params].to_query}"
+        opts[:url] = "#{url}?#{override_options[:params].to_query}"
+        override_options.delete(:params)
       end
 
       if override_options[:method] == :post and override_options[:payload]
