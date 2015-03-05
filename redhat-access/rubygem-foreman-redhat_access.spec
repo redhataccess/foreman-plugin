@@ -15,7 +15,7 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.0.7
+Version: 0.0.9
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
 Group: Development/Languages
@@ -105,15 +105,23 @@ cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/
 %{foreman_bundlerd_dir}/%{gem_name}.rb
 %{foreman_assets_dir}/redhat_access
 /etc/redhat_access
-/etc/pam.d
+/etc/pam.d/foreman-sosreport
 /etc/security/console.apps
-/usr/sbin
-/usr/bin
+/usr/sbin/foreman-sosreport-wrapper
+/usr/bin/foreman-sosreport
 
-%posttrans
-/usr/sbin/foreman-rake db:migrate >/dev/null 2>&1
 
 %changelog
+* Wed Mar 4 2015 Lindani Phiri <lindani@redhat.com> - 0.0.9-1
+- Resolves : bz1197764
+
+* Fri Feb 19 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-2
+- Resolves : bz1193672
+
+* Fri Feb 12 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-1
+- Removed proactive support
+- Resolves : bz1191406
+
 * Mon Dec 12 2014 Lindani Phiri <lindani@redhat.com> - 0.0.7-1
 - Add proactive support
 - Resolves: bz1131538

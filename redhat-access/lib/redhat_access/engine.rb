@@ -27,6 +27,26 @@ module RedhatAccess
       app.config.filter_parameters << :authToken
     end
 
+    initializer :config_csp_headers do |app|
+      ::SecureHeaders::Configuration.configure do |config|
+        Rails.logger.info "init config for #{config}"
+        if config && config.csp
+          if config.csp[:frame_src]
+            config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
+          end
+          if config.csp[:connect_src]
+            config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
+          end
+          if config.csp[:script_src]
+            config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
+          end
+          if config.csp[:img_src]
+            config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
+          end
+        end
+      end
+    end
+
     initializer 'redhat_access.register_gettext', :after => :load_config_initializers do |app|
       locale_dir = File.join(File.expand_path('../../..', __FILE__), 'locale')
       locale_domain = 'redhat_access'
@@ -51,16 +71,16 @@ module RedhatAccess
           permission :logs, {:"redhat_access/logs" => [:index] }
 
           #Proactive Diagnostics permissions
-          permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf] }
-          permission :rh_telemetry_view, { :"redhat_access/telemetry" => [:index] }
-          permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
+          # permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf] }
+          # permission :rh_telemetry_view, { :"redhat_access/telemetry" => [:index] }
+          # permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
 
         end
 
         #roles section
         #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]
-        role "Red Hat Proactive Support" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
+        #role "Red Hat Proactive Support" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
 
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
@@ -72,12 +92,12 @@ module RedhatAccess
             :LogViewer,
             :url_hash => {:controller=> :"redhat_access/log_viewer" , :action=>:index},
             :engine => RedhatAccess::Engine,
-            :caption=> N_('Diagnose')
-          menu :header_menu,
-            :Telemetry,
-            :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
-            :caption=> N_('Proactive Support'),
-            :engine => RedhatAccess::Engine
+            :caption=> N_('Logs')
+          # menu :header_menu,
+          #   :Telemetry,
+          #   :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
+          #   :caption=> N_('Proactive Support'),
+          #   :engine => RedhatAccess::Engine
           divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
           menu :header_menu,
             :mycases,
