@@ -1,6 +1,6 @@
 # require 'fast_gettext'
 # require 'gettext_i18n_rails'
-require 'deface'
+# require 'deface'
 
 module RedhatAccess
   class Engine < ::Rails::Engine
