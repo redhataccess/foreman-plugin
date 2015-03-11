@@ -63,9 +63,6 @@ module RedhatAccess
 
   end
 
-
-
-
   class TelemetryApiController < ApplicationController
 
     include RedhatAccess::Authentication::ClientAuthentication
@@ -83,8 +80,8 @@ module RedhatAccess
     # This is BASIC auth for now, but should use cert auth for GA
     def get_creds
       # enable this once cert auth is fixed:
-      return User
-      # return { user: "rhn-support-ihands", password: "redhat" }
+      # return User
+      return TelemetryProxyCredentials.limit(1)[0]
     end
 
     # The auth method for this controller
