@@ -66,35 +66,25 @@ module RedhatAccess
 
 
 
-
-
-
-
   class TelemetryApiController < ApplicationController
 
     include RedhatAccess::Authentication::ClientAuthentication
 
     #TODO clean up filters once the API is split up
-    skip_before_filter :authorize,  :except => [:proxy]
-    skip_before_filter :require_login, :except => [:proxy]
+    skip_before_filter :authorize,      :except => [:proxy]
+    skip_before_filter :require_login,  :except => [:proxy]
     skip_before_filter :session_expiry, :except => [:proxy]
-    skip_before_filter :verify_authenticity_token, :except => [:proxy]
+    skip_before_filter :verify_authenticity_token
     before_filter :telemetry_auth
 
-
     STRATA_URL = "https://#{REDHAT_ACCESS_CONFIG[:strata_host]}"
-
-    def api_request?
-      true
-    end
 
     # Get the credentials to access Strata
     # This is BASIC auth for now, but should use cert auth for GA
     def get_creds
       # enable this once cert auth is fixed:
-      # return User
-
-      return TelemetryProxyCredentials.limit(1)[0]
+      return User
+      # return { user: "rhn-support-ihands", password: "redhat" }
     end
 
     # The auth method for this controller
@@ -112,15 +102,20 @@ module RedhatAccess
     # The method that "proxies" tapi requests over to Strata
     # TODO - separate UI api?
     def proxy
+
       #TODO err out if org is not selected
-      original_method   =  request.method
-      original_parms    = request.query_parameters
-      original_payload  = request.request_parameters[:telemetry_api]
-      resource = params[:path].split("/")[0]
+      original_method  = request.method
+      original_params  = request.query_parameters
+      original_payload = request.request_parameters[:telemetry_api]
+      resource         = params[:path] == nil ?  "/" : params[:path]
+
+      if params[:filedata]
+        original_payload = get_file_data(params)
+      end
 
       client = Client.new STRATA_URL, get_creds, {:logger => logger}
 
-      res = client.call_tapi(original_method, resource, original_parms, original_payload)
+      res = client.call_tapi(original_method, resource, original_params, original_payload)
 
       render status: res[:code], json: res[:data]
     end
@@ -136,7 +131,7 @@ module RedhatAccess
 
     # Get the branch and leaf ID for a client system
     # TODO - separate client machine api?
-    def get_client_id
+    def get_branch_info
       #TODO check for non cert user
       uuid = User.current.login
       begin
@@ -155,76 +150,6 @@ module RedhatAccess
       else
         super
       end
-    end
-
-    # Handle uploading dvargas report to strata
-    # TODO - separate client machine api?
-    def upload_sosreport
-      begin
-        creds = get_creds
-        request = RestClient::Request.new(
-          :method => :post,
-          :url => UPLOAD_URL,
-          :user => creds.username,
-          :password => creds.password,
-          :payload => {
-            :file => params[:file],
-            :filename => params[:file].original_filename
-          }
-        )
-
-        # request[:payload] = {
-        #   :file => params[:file],
-        #   :filename => params[:file].original_filename
-        # }
-
-        response = request.execute
-      rescue Exception => e
-        message = "Unknown error uploading #{params[:file].original_filename} to #{UPLOAD_URL}: #{e.message}"
-        e.backtrace.inspect
-        status = 500
-        if response
-          status = response.code || 500
-        end
-        render json: { :status => "error", :message => message }, :status => status
-        return
-      end
-
-      if response.code != 201
-        message = "Error uploading #{params[:file].original_filename} to #{UPLOAD_URL}: #{response.description}"
-        logger.error message
-        status = response.code || 500
-        render json: { :status => "error", :message => message }, :status => status
-        return
-      end
-
-      render json: { :status => "success" }
-    end
-
-
-    # Grabs the PhoneHome YAML conf file
-    # TODO - separate client machine api?
-    def get_ph_conf
-      require 'rest_client'
-
-      begin
-        creds = get_creds
-        resource = RestClient::Resource.new YAML_URL, :user => creds.username, :password => creds.password
-        response = resource.get
-      rescue Exception => e
-        message = "Unknown error downloading uploader.yml from #{YAML_URL}: #{e.message}"
-        e.backtrace.inspect
-        render text: message
-        return
-      end
-
-      if response.code != 200
-        message = "Error downloading uploader.yaml from #{YAML_URL}: #{response.description}"
-        logger.error message
-        render text: message
-      end
-
-      render text: response.to_str
     end
 
     private
@@ -271,6 +196,13 @@ module RedhatAccess
 
     def get_content_host(uuid)
       system = Katello::System.first(:conditions => { :uuid => uuid })
+    end
+
+    def get_file_data params
+      return {
+        :file => params[:filedata],
+        :filename => params[:filedata].original_filename
+      }
     end
 
   end
