@@ -24,7 +24,6 @@ module RedhatAccess
       render :text => "Telemetry API"
     end
 
-
     # Returns an array of the machine IDs that this user has access to
     def get_machines
       hosts = resource_base.search_for('').map(&:name)

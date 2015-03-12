@@ -28,6 +28,7 @@ module RedhatAccess
           opts = {
             :user     => creds.username,
             :password => creds.password
+
           }
         end
         return opts

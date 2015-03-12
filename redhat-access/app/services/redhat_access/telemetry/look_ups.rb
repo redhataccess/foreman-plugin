@@ -5,7 +5,6 @@ module RedhatAccess
       class  RecordNotFound < StandardError
       end
 
-
       def get_content_host_by_fqdn(name)
         Katello::System.first(:conditions => { :name => name})
       end
