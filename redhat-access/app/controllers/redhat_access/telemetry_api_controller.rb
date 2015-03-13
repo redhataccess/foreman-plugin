@@ -26,6 +26,7 @@ module RedhatAccess
 
     # Returns an array of the machine IDs that this user has access to
     def get_machines
+      #TODO err out if org is not selected
       hosts = resource_base.search_for('').map(&:name)
       #hopefully we can refactor later to optimize
       hosts = hosts.map  do |i|
@@ -42,28 +43,19 @@ module RedhatAccess
 
     # The method that "proxies" tapi requests over to Strata
     def proxy
+      original_method  = request.method
+      original_params  = request.query_parameters
+      original_payload = request.request_parameters[:telemetry_api]
+      resource         = params[:path] == nil ?  "/" : params[:path]
 
-      begin
-        #TODO err out if org is not selected
-        #TODO improve error handling
-        original_method  = request.method
-        original_params  = request.query_parameters
-        original_payload = request.request_parameters[:telemetry_api]
-        resource         = params[:path] == nil ?  "/" : params[:path]
-
-        if params[:filedata]
-          original_payload = get_file_data(params)
-        end
-
-        client = RedhatAccess::Telemetry::PortalClient.new(STRATA_URL, get_creds, self, {:logger => logger})
-        res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
-        render status: res.code, json: res
-
-      rescue Exception => e
-        Rails.logger.error(e.backtrace)
-        http_error_response("Failed: #{e}", 500)
+      if params[:filedata]
+        original_payload = get_file_data(params)
       end
 
+      client = RedhatAccess::Telemetry::PortalClient.new(STRATA_URL, get_creds, self, {:logger => logger})
+      res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
+      Rails.logger.error(res)
+      render status: res[:code] , json: res[:data]
     end
 
     private
