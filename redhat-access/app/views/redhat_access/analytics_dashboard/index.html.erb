@@ -1,2 +1,8 @@
-<h1>AnalyticsDashboard#index</h1>
-<p>Find me in app/views/redhat_access/analytics_dashboard/index.html.erb</p>
+<div class="row form-group">
+  <h1><%= 'Red Hat Access Insights' %></h1>
+</div>
+<div ng-app="RedhatAccessInsights">
+  <div ui-view="" class="wrapper ng-cloak"></div>
+</div>
+<%= javascript_include_tag 'insights/application' %>
+<%= stylesheet_link_tag "insights/application" %>

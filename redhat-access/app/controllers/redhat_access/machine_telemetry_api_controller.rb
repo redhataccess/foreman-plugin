@@ -15,19 +15,18 @@ module RedhatAccess
 
     def telemetry_auth
       authenticate_client
-      unless  User.current.is_a? RedhatAccess::Authentication::CertUser
+      unless valid_machine_user?
         deny_access
       end
     end
 
-    # Get the credentials to access Strata
-    # This is BASIC auth for now, but should use cert auth for GA
-    def get_creds
-      # enable this once cert auth is fixed:
-      # return User
-      return TelemetryProxyCredentials.limit(1)[0]
+    def get_auth_opts(creds)
+      if valid_machine_user?
+        get_ssl_options_for_uuid(User.current.uuid, nil)
+      else
+        raise(RedhatAccess::Telemetry::LookUps::RecordNotFound,'Invalid User')
+      end
     end
-
 
     def get_branch_info
       #TODO check for non cert user
@@ -38,6 +37,16 @@ module RedhatAccess
         render :json => client_id.to_json
       rescue RedhatAccess::Telemetry::LookUps::RecordNotFound => e
         http_error_response(e.message, 400)
+      end
+    end
+
+    def valid_machine_user?
+      if User.current && User.current.is_a?(RedhatAccess::Authentication::CertUser)
+        unless get_content_host(User.current.login).nil?
+          return true
+        end
+      else
+        return false
       end
     end
   end

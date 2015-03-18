@@ -53,7 +53,9 @@ task 'assets:precompile:engine' do
   precompile = [
     'redhat_access/application.js',
     'redhat_access/application.css',
-    'proactive_support/application.js'
+    'proactive_support/application.js',
+    'insights/application.js',
+    'insights/application.css'
   ]
 
   env = Sprockets::Environment.new(RedhatAccess::Engine.root)
@@ -64,7 +66,7 @@ task 'assets:precompile:engine' do
     'app/assets/stylesheets',
     'app/assets/javascripts',
     'vendor/assets/javascripts',
-    'vendor/assets/stylesheets',
+    'vendor/assets/stylesheets'
   ]
 
   paths.each do |path|
@@ -79,6 +81,7 @@ task 'assets:precompile:engine' do
                                            :manifest_path => File.join(target),
                                            :digest => true,
                                            :manifest => true)
+  puts 'Compiling assets'
   compiler.compile
 end
 

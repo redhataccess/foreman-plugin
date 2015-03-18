@@ -9,6 +9,7 @@ module RedhatAccess
         Katello::System.first(:conditions => { :name => name})
       end
 
+
       def get_leaf_id(uuid)
         system = get_content_host(uuid)
         if system.nil?
@@ -21,20 +22,20 @@ module RedhatAccess
       def get_branch_id_for_org(org)
         if org
           if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
-            ldebug('Org manifest not found or invalid in get_branch_id')
+            #ldebug('Org manifest not found or invalid in get_branch_id')
             raise(RecordNotFound,'Branch ID not found for organization')
           else
             branch_id =  org.owner_details['upstreamConsumer']['uuid']
           end
         else
-          ldebug('Org not found or invalid in get_branch_id')
+          #ldebug('Org not found or invalid in get_branch_id')
           raise(RecordNotFound,'Organization not found or invalid')
         end
       end
 
-      def get_ssl_options_for_uuid(uuid)
+      def get_ssl_options_for_uuid(uuid, ca_file)
         org = get_organization(uuid)
-        get_ssl_options_for_org org
+        get_ssl_options_for_org(org,ca_file)
       end
 
       def get_ssl_options_for_org(org ,ca_file)
@@ -46,13 +47,27 @@ module RedhatAccess
             opts = {
               :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
               :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
-              :ssl_ca_file => ca_file,
+              :ssl_ca_file => ca_file ? ca_file : get_default_ssl_ca_file ,
               :verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
             }
+            return opts
           end
         else
           raise(RecordNotFound,'Organization not found or invalid')
         end
+      end
+
+      def get_default_ssl_ca_file
+        #TODO implementing default pinning
+        nil
+      end
+
+      def basic_auth_options_for_uuid(uuid)
+
+      end
+
+      def basic_auth_options_for_org(org)
+
       end
 
       def get_branch_id_for_uuid(uuid)
@@ -67,6 +82,16 @@ module RedhatAccess
 
       def get_content_host(uuid)
         system = Katello::System.first(:conditions => { :uuid => uuid })
+      end
+
+      def get_content_hosts(org)
+        if org
+          org_id = org.id
+          environment_ids = Organization.find(org_id).kt_environments.pluck(:id)
+          hosts =  Katello::System.where("environment_id = ?", environment_ids).pluck(:uuid).compact.sort
+        else
+          raise(RecordNotFound,'Organization not found or invalid')
+        end
       end
 
     end
