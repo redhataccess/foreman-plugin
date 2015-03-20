@@ -32,7 +32,7 @@ module RedhatAccess
         end
         #end temp implementation######################
         #TODO enable below for cert based auth
-        #return @context.get_auth_opts(creds)
+        #return @context.get_auth_opts()
       end
     end
   end

@@ -6,8 +6,6 @@ module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
 
-    config.autoload_paths += Dir["#{config.root}/app/overrides"]
-
     initializer 'redhat_access.load_app_instance_data' do |app|
       app.config.paths['db/migrate'] += RedhatAccess::Engine.paths['db/migrate'].existent
     end
@@ -74,14 +72,17 @@ module RedhatAccess
 
           #Proactive Diagnostics permissions
           permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf,:proxy] }
-          permission :rh_telemetry_view, { :"redhat_access/telemetry" => [:index] }
+          permission :rh_telemetry_view, { :"redhat_access/analytics_dashboard" => [:index] }
           permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
+          permission :rh_telemetry_configuration, { :"redhat_access/telemetry" => [:index] }
+
 
         end
         #roles section
         #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]
-        role "Red Hat Proactive Support" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
+        role "Access Insights" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
+        role "Access Insights Admin" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds, :rh_telemetry_configuration]
 
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
@@ -94,11 +95,11 @@ module RedhatAccess
             :url_hash => {:controller=> :"redhat_access/log_viewer" , :action=>:index},
             :engine => RedhatAccess::Engine,
             :caption=> N_('Diagnose')
-          menu :header_menu,
-            :Telemetry,
-            :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
-            :caption=> N_('Proactive Support'),
-            :engine => RedhatAccess::Engine
+          # menu :header_menu,
+          #   :Telemetry,
+          #   :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
+          #   :caption=> N_('Proactive Support'),
+          #   :engine => RedhatAccess::Engine
           divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
           menu :header_menu,
             :mycases,
@@ -109,14 +110,26 @@ module RedhatAccess
             :url_hash => {:controller=> :"redhat_access/cases", :action=>:create },
             :engine => RedhatAccess::Engine
         end
-        sub_menu :top_menu, :redhat_access_top_menu, :caption=> N_('Analytics') do
+        sub_menu :top_menu, :redhat_access_top_menu, :caption=> N_('Access Insights') do
+          menu :top_menu,
+            :configuration,
+            :caption=> N_('Configuration'),
+            :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
+            :engine => RedhatAccess::Engine
           menu :top_menu,
             :dashboard,
             :caption=> N_('Dashboard'),
             :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
             :engine => RedhatAccess::Engine
+
         end
       end
     end
+
+    config.to_prepare do
+
+      ::Organization.send :include, RedhatAccess::Concerns::OrganizationExtensions
+    end
+
   end
 end

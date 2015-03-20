@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  portal_user: MyString
+  portal_password: MyString
+  enable_telemetry: false
+
+two:
+  portal_user: MyString
+  portal_password: MyString
+  enable_telemetry: false

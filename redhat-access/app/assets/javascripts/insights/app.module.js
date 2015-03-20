@@ -38,6 +38,10 @@
                        rule: null
                     }
                 });
+                $stateProvider.state('systems', {
+                    url: '/systems',
+                    template: '<div><system-summary-table do-fetch="true", systems="[]"></system-summary-table></div>'
+                });
                 $urlRouterProvider.otherwise('/');
             }
         ]).value('CONFIG', {
@@ -45,15 +49,5 @@
             authenticate: false,
             API_ROOT: '/redhat_access/proactive_support/rs/telemetry/api/',
             ACCT_KEY: 'telemetry:account_number'
-        })
-        .run([
-            'CONFIG', 'RhaTelemetryOverviewService',
-            function(CONFIG, RhaTelemetryOverviewService) {
-                //CONFIG.API_ROOT = '/redhat_access/proactive_support/rs/telemetry/api/';
-                //CONFIG.authenticate = false;
-                //CONFIG.preloadData = true;
-                //RhaTelemetryOverviewService.getData()
-                RhaTelemetryOverviewService.populateData(true);
-            }
-        ]);
+        });
 })();

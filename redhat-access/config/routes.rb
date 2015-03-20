@@ -6,6 +6,8 @@ RedhatAccess::Engine.routes.draw do
     resources :strata_credentials
   end
 
+
+
   #API routes
   get 'configuration' => 'configuration#index'
   get 'logs' => 'logs#index'
@@ -27,6 +29,7 @@ RedhatAccess::Engine.routes.draw do
   get 'search/index' => 'search#index'
   get 'proactive_support', to: 'telemetry#index'
   get 'analytics_dashboard', to: 'analytics_dashboard#index'
+  get 'analytics_configuration', to: 'telemetry#index'
 
   root :to => 'redhat_access#index'
 

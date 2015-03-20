@@ -11,7 +11,7 @@ module RedhatAccess
     include RedhatAccess::Telemetry::LookUps
 
     STRATA_URL = "https://#{REDHAT_ACCESS_CONFIG[:strata_host]}"
-
+    #STRATA_URL = "https://cert-api.access.redhat.com"
     # Get the credentials to access Strata
     # This is BASIC auth for now, but should use cert auth for GA
     def get_creds
@@ -20,7 +20,7 @@ module RedhatAccess
       return TelemetryProxyCredentials.limit(1)[0]
     end
 
-    def get_auth_opts(creds)
+    def get_auth_opts()
       return get_ssl_options_for_org(Organization.current ,nil)
     end
 

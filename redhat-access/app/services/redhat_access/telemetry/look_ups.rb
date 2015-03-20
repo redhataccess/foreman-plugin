@@ -9,6 +9,13 @@ module RedhatAccess
         Katello::System.first(:conditions => { :name => name})
       end
 
+      def disconnected_org?(org)
+        if org
+          org.redhat_repository_url != 'https://cdn.redhat.com'
+        else
+          raise(RecordNotFound,'Organization not found or invalid')
+        end
+      end
 
       def get_leaf_id(uuid)
         system = get_content_host(uuid)
@@ -63,11 +70,11 @@ module RedhatAccess
       end
 
       def basic_auth_options_for_uuid(uuid)
-
+        #TODO
       end
 
       def basic_auth_options_for_org(org)
-
+        #TODO
       end
 
       def get_branch_id_for_uuid(uuid)

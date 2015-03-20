@@ -9,6 +9,22 @@ module RedhatAccess
         return
       end
 
+      # conf = Organization.current.telemetry_configuration
+      # if conf.nil?
+      #   Rails.logger.error("building a conf object")
+      #   conf = Organization.current.build_telemetry_configuration({:portal_password=>"",
+      #                                                              :portal_user=>"",
+      #                                                              :enable_telemetry=> false})
+      #   #    t.string :portal_user
+      #   # t.string :portal_password
+      #   # t.boolean :enable_telemetry
+      #   # t.integer :organization_id
+
+      #   conf.save
+      # end
+      # Rails.logger.error("hello dolly! #{conf.enable_telemetry}")
+      # conf.enable_telemetry = true
+      # conf.save
       creds = TelemetryProxyCredentials.limit(1)[0]
       render json: { :status => 'success', :username => creds.username }
     end

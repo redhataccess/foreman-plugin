@@ -1630,7 +1630,7 @@ angular.module("telemetryApp").directive("sideNav", function() {
 
 (function() {
     "use strict";
-    angular.module("telemetryApp").controller("SystemModalCtrl", [ "$scope", "$location", "$modalInstance", "System", "Rule", "system", "rule", function($scope, $location, $modalInstance, System, Rule, system, rule) {
+    angular.module("telemetryWidgets").controller("SystemModalCtrl", [ "$scope", "$location", "$modalInstance", "System", "Rule", "system", "rule", function($scope, $location, $modalInstance, System, Rule, system, rule) {
         $scope.system = system;
         $scope.rule = rule;
         $scope.ruleFilter = false;

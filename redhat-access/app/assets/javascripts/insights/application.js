@@ -10,7 +10,7 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  *
  */
-//= require "insights/insights_vendor"
-//= require "insights/insights"
+//= require "insights/vendor"
+//= require "insights/app"
 //= require "insights/app.module"
 

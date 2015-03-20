@@ -20,9 +20,9 @@ module RedhatAccess
       end
     end
 
-    def get_auth_opts(creds)
+    def get_auth_opts()
       if valid_machine_user?
-        get_ssl_options_for_uuid(User.current.uuid, nil)
+        get_ssl_options_for_uuid(User.current.login, nil)
       else
         raise(RedhatAccess::Telemetry::LookUps::RecordNotFound,'Invalid User')
       end
