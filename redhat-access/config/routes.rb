@@ -13,10 +13,11 @@ RedhatAccess::Engine.routes.draw do
   post 'attachments' => 'attachments#create'
 
   scope 'proactive_support/rs/telemetry' do
-    get   '/api/branch_info', to: 'machine_telemetry_api#get_branch_info'
-    post  '/',                to: 'machine_telemetry_api#proxy'
-    match '/client_api',      to: 'machine_telemetry_api#proxy'
-    match '/api/:path',       to: 'telemetry_api#proxy', :constraints => {:path => /.*/}
+    get   '/api/branch_info',    to: 'machine_telemetry_api#get_branch_info'
+    get   '/api/v1/branch_info', to: 'machine_telemetry_api#get_branch_info'
+    post  '/',                   to: 'machine_telemetry_api#proxy'
+    match '/client_api',         to: 'machine_telemetry_api#proxy'
+    match '/api/:path',          to: 'telemetry_api#proxy', :constraints => {:path => /.*/}
   end
 
   #Angular UI routes
