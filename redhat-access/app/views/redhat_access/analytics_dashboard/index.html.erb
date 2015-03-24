@@ -1,8 +1,32 @@
-<div class="form-group">
-  <h1><%= 'Red Hat Access Insights' %></h1>
-</div>
-<div ng-app="RedhatAccessInsights">
-  <div ui-view="" class="wrapper ng-cloak"></div>
-</div>
-<%= javascript_include_tag 'insights/application' %>
-<%= stylesheet_link_tag "insights/application" %>
+<% if !is_org_selected? || !is_susbcribed_to_redhat?(Organization.current) %>
+  <article id='content'>
+    <%if !is_org_selected? %>
+      <section>
+        <h1>
+          <%= _("403 - Permission Denied") %>
+        </h1>
+        <p>
+          <%= _("Please choose an organization using the selector located at the far left of the menu.") %>
+        </p>
+      </section>
+    <%else%>
+      <section>
+        <h1>
+          <%= _("No Red Hat Subscriptions found!") %>
+        </h1>
+        <p>
+          <%= (_("A Red Hat Subscription is required to access this service, please import a manifest <a href='/subscriptions'>here</a>.")).html_safe %>
+        </p>
+      </section>
+    <%end%>
+  </article>
+<%else%>
+  <div class="form-group">
+    <h1><%= 'Access Insights' %></h1>
+  </div>
+  <div ng-app="RedhatAccessInsights">
+    <div ui-view="" class="wrapper ng-cloak"></div>
+  </div>
+  <%= javascript_include_tag 'insights/application' %>
+  <%= stylesheet_link_tag "insights/application" %>
+<%end%>

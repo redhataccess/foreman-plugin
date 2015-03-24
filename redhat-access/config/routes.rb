@@ -6,6 +6,10 @@ RedhatAccess::Engine.routes.draw do
     resources :strata_credentials
   end
 
+  scope '/' do
+    resources :telemetry_configuration
+  end
+
 
 
   #API routes

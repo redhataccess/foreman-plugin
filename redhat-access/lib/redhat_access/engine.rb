@@ -116,12 +116,12 @@ module RedhatAccess
             :caption=> N_('Configuration'),
             :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
             :engine => RedhatAccess::Engine
+
           menu :top_menu,
             :dashboard,
             :caption=> N_('Dashboard'),
             :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
             :engine => RedhatAccess::Engine
-
         end
       end
     end
