@@ -15,7 +15,7 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.0.9
+Version: 0.1.0
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base
 Group: Development/Languages
@@ -112,6 +112,9 @@ cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/
 
 
 %changelog
+* Mon Mar 23 2015 Lindani Phiri <lindani@redhat.com> - 0.1.0-1
+- Database prep for z stream for RHAI (BZ 1197764)
+
 * Wed Mar 4 2015 Lindani Phiri <lindani@redhat.com> - 0.0.9-1
 - Resolves : bz1197764
 

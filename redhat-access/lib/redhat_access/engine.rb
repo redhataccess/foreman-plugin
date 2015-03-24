@@ -110,5 +110,10 @@ module RedhatAccess
         end
       end
     end
+
+    config.to_prepare do
+
+      ::Organization.send :include, RedhatAccess::Concerns::OrganizationExtensions
+    end
   end
 end
