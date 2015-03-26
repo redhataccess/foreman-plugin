@@ -47,7 +47,7 @@
         ]).value('CONFIG', {
             preloadData: false,
             authenticate: false,
-            API_ROOT: '/redhat_access/proactive_support/rs/telemetry/api/',
+            API_ROOT: '/redhat_access/rs/telemetry/view/api/',
             ACCT_KEY: 'telemetry:account_number'
         });
 })();
