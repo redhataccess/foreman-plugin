@@ -14,6 +14,9 @@ module RedhatAccess
     #STRATA_URL = "https://cert-api.access.redhat.com"
     # Get the credentials to access Strata
     # This is BASIC auth for now, but should use cert auth for GA
+    UPLOAD_URL = "#{STRATA_URL}/rs/telemetry"
+    STRATA_URL = "#{STRATA_URL}/rs/telemetry/api"
+
     def get_creds
       # enable this once cert auth is fixed:
       # return User
@@ -43,18 +46,22 @@ module RedhatAccess
       if params[:file]
         original_payload = get_file_data(params)
       end
-      client = RedhatAccess::Telemetry::PortalClient.new(STRATA_URL, get_creds, self, {:logger => logger})
+      client = get_api_client
       res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
       render status: res[:code] , json: res[:data]
     end
 
-    private
+    protected
 
     def get_file_data params
       return {
         :file => params[:file],
         :filename => params[:file].original_filename
       }
+    end
+
+    def get_api_client
+      return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL, get_creds, self, {:logger => logger})
     end
 
   end

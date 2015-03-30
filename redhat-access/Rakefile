@@ -29,6 +29,41 @@ Bundler::GemHelper.install_tasks
 
 require 'rake/testtask'
 
+#----Temp lifted from https://github.com/ejholmes/sprockets-gem-paths ....#
+def self.rubygems_latest_specs
+  # If newer Rubygems
+  if ::Gem::Specification.respond_to? :latest_specs
+    ::Gem::Specification.latest_specs
+  else
+    ::Gem.source_index.latest_specs
+  end
+end
+
+def append_gem_paths env
+  try_paths = [
+    %w{ assets },
+    %w{ app },
+    %w{ app assets },
+    %w{ vendor },
+    %w{ vendor assets },
+    %w{ lib },
+    %w{ lib assets }
+  ].inject([]) do |sum, v|
+    sum + [
+      File.join(v, 'javascripts'),
+      File.join(v, 'stylesheets'),
+      File.join(v, 'images'),
+      File.join(v, 'fonts')
+    ]
+  end
+  (rubygems_latest_specs.map(&:full_gem_path)).each do |root_path|
+    try_paths.map {|p| File.join(root_path, p) }.
+      select {|p| File.directory?(p) }.
+      each {|path| env.append_path(path) }
+  end
+end
+#-----end lift
+
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'
@@ -48,7 +83,7 @@ task 'assets:precompile:engine' do
   require 'sprockets/railtie'
   require 'uglifier'
   require 'sass/rails/compressor'
-  #require File.expand_path('../lib/redhat_access', __FILE__)
+
 
   precompile = [
     'redhat_access/application.js',
@@ -72,6 +107,7 @@ task 'assets:precompile:engine' do
   paths.each do |path|
     env.append_path(path)
   end
+  append_gem_paths(env)
 
   target = File.join(RedhatAccess::Engine.root, 'public', 'assets')
   rm_rf target

@@ -19,9 +19,8 @@ RedhatAccess::Engine.routes.draw do
   post 'attachments' => 'attachments#create'
 
   scope '/rs/telemetry' do
-    get   '/api/branch_info',     to: 'machine_telemetry_api#get_branch_info'
     get   '/api/v1/branch_info',  to: 'machine_telemetry_api#get_branch_info'
-    post  '/',                    to: 'machine_telemetry_api#proxy'
+    post  '/',                    to: 'machine_telemetry_api#proxy_upload'
     match '/api/:path',           to: 'machine_telemetry_api#proxy', :constraints => {:path => /.*/}
     match '/view/api/:path',      to: 'telemetry_api#proxy', :constraints => {:path => /.*/}
   end
@@ -33,7 +32,7 @@ RedhatAccess::Engine.routes.draw do
   get 'search/index' => 'search#index'
   get 'proactive_support', to: 'telemetry#index'
   get 'analytics_dashboard', to: 'analytics_dashboard#index'
-  get 'analytics_configuration', to: 'telemetry#index'
+  get 'analytics_configuration', to: 'telemetry_configuration#index'
 
   root :to => 'redhat_access#index'
 

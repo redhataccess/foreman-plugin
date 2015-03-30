@@ -74,7 +74,7 @@ module RedhatAccess
           permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf,:proxy] }
           permission :rh_telemetry_view, { :"redhat_access/analytics_dashboard" => [:index] }
           permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
-          permission :rh_telemetry_configuration, { :"redhat_access/telemetry" => [:index] }
+          permission :rh_telemetry_configuration, { :"redhat_access/telemetry_configuration" => [:index] }
 
 
         end
@@ -114,7 +114,7 @@ module RedhatAccess
           menu :top_menu,
             :configuration,
             :caption=> N_('Configuration'),
-            :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
+            :url_hash => {:controller=> :"redhat_access/telemetry_configuration" , :action=>:index},
             :engine => RedhatAccess::Engine
 
           menu :top_menu,

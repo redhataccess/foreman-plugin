@@ -28,6 +28,18 @@ module RedhatAccess
       end
     end
 
+    def proxy_upload
+      original_method  = request.method
+      original_params  = request.query_parameters
+      original_payload = request.request_parameters[:telemetry_api]
+      if params[:file]
+        original_payload = get_file_data(params)
+      end
+      client = get_api_client
+      res = client.post_upload(original_params, original_payload)
+      render status: res[:code] , json: res[:data]
+    end
+
     def get_branch_info
       #TODO check for non cert user
       uuid = User.current.login

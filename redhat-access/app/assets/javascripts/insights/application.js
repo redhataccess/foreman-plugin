@@ -12,5 +12,6 @@
  */
 //= require "insights/vendor"
 //= require "insights/app"
+//= require "angular-rails-templates"
 //= require "insights/app.module"
 

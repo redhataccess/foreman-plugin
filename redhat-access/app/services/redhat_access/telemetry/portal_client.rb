@@ -6,8 +6,8 @@ module RedhatAccess
 
       include RedhatAccess::Telemetry::LookUps
 
-      def initialize(strata_url, creds, context, optional)
-        super(strata_url, creds, optional)
+      def initialize(upload_url,api_url, creds, context, optional)
+        super(upload_url,api_url, creds, optional)
         @context = context
       end
 

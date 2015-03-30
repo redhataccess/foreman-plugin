@@ -11,7 +11,7 @@ gem 'haml-rails'
 gem 'uglifier'
 gem 'therubyracer'
 gem 'sass-rails'
-
+gem 'angular-rails-templates'
 gem 'redhat_access_lib', ">=0.0.6"
 
 
