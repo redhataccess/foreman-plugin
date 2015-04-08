@@ -21,12 +21,19 @@
     <%end%>
   </article>
 <%else%>
+  <% content_for(:head) do %>
+    <base href="/redhat_access/analytics_dashboard/"/>
+  <% end %>
   <div class="form-group">
-    <h1><%= 'Access Insights Dashboard' %></h1>
+    <h1><%= 'Access Insights' %></h1>
   </div>
   <div ng-app="RedhatAccessInsights">
     <div ui-view="" class="wrapper ng-cloak"></div>
   </div>
   <%= javascript_include_tag 'insights/application' %>
   <%= stylesheet_link_tag "insights/application" %>
+  <%= javascript_tag do %>
+  angular.module('RedhatAccessInsights').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
+  angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: false});
+  <%end%>
 <%end%>

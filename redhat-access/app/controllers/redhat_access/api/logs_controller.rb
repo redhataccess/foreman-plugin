@@ -40,6 +40,10 @@ module RedhatAccess
       def api_request?
         true
       end
+
+      def permission_denied
+        render :template => "katello/common/403"
+      end
     end
   end
 end

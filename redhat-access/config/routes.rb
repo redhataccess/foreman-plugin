@@ -7,7 +7,7 @@ RedhatAccess::Engine.routes.draw do
   end
 
   scope '/' do
-    resources :telemetry_configuration
+    resource :telemetry_configuration, only: [:show, :update]
   end
 
 
@@ -26,13 +26,15 @@ RedhatAccess::Engine.routes.draw do
   end
 
   #Angular UI routes
-  get 'log_viewer/index' => 'log_viewer#index'
-  get 'cases/create'=> 'cases#create'
-  get 'cases/index' => 'cases#index'
-  get 'search/index' => 'search#index'
+  get 'logviewer', to: 'redhat_access#index'
+  get 'case/new', to: 'redhat_access#index'
+  get 'case/list', to: 'redhat_access#index'
+  get 'search', to: 'redhat_access#index'
+
   get 'proactive_support', to: 'telemetry#index'
   get 'analytics_dashboard', to: 'analytics_dashboard#index'
   get 'analytics_configuration', to: 'telemetry_configuration#index'
+  match '/analytics_dashboard/*path', to: 'analytics_dashboard#index'
 
   root :to => 'redhat_access#index'
 

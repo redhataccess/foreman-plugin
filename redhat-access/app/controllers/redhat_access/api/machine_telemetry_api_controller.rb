@@ -40,7 +40,6 @@ module RedhatAccess
       end
 
       def get_branch_info
-        #TODO check for non cert user
         uuid = User.current.login
         begin
           client_id = { :remote_leaf => uuid ,
@@ -53,7 +52,9 @@ module RedhatAccess
 
       def valid_machine_user?
         if User.current && User.current.is_a?(RedhatAccess::Authentication::CertUser)
-          unless get_content_host(User.current.login).nil?
+          if get_content_host(User.current.login).nil?
+            return false
+          else
             return true
           end
         else

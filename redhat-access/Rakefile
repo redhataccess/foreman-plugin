@@ -83,7 +83,9 @@ task 'assets:precompile:engine' do
   require 'sprockets/railtie'
   require 'uglifier'
   require 'sass/rails/compressor'
-
+  require 'angular-rails-templates'
+  Sprockets::Engines #force autoloading
+  Sprockets.register_engine '.html', AngularRailsTemplates::Template
 
   precompile = [
     'redhat_access/application.js',

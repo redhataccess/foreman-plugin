@@ -67,34 +67,36 @@ module RedhatAccess
           permission :app_root, {:"redhat_access/redhat_access" => [:index] },  :public => true
 
           #Logs require special permissions
-          permission :view_log_viewer, {:"redhat_access/log_viewer" => [:index] }
+          permission :view_log_viewer, {:"redhat_access/logviewer" => [:index] }
           permission :logs, {:"redhat_access/logs" => [:index] }
 
           #Proactive Diagnostics permissions
           permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf,:proxy] }
           permission :rh_telemetry_view, { :"redhat_access/analytics_dashboard" => [:index] }
           permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
-          permission :rh_telemetry_configuration, { :"redhat_access/telemetry_configuration" => [:index] }
+          permission :rh_telemetry_configurations, { :"redhat_access/telemetry_configurations" => [:show,:update] }
 
 
         end
         #roles section
         #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]
-        role "Access Insights" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
-        role "Access Insights Admin" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds, :rh_telemetry_configuration]
+        role "Access Insights Viewer" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
+        role "Access Insights Admin" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds, :rh_telemetry_configurations]
 
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
           menu :header_menu,
             :Search,
+            :url => '/redhat_access/search',
             :url_hash => {:controller=> :"redhat_access/search" , :action=>:index},
             :engine => RedhatAccess::Engine
           menu :header_menu,
             :LogViewer,
-            :url_hash => {:controller=> :"redhat_access/log_viewer" , :action=>:index},
+            :url => '/redhat_access/logviewer',
+            :url_hash => {:controller=> :"redhat_access/logs" , :action=>:index},
             :engine => RedhatAccess::Engine,
-            :caption=> N_('Diagnose')
+            :caption=> N_('Logs')
           # menu :header_menu,
           #   :Telemetry,
           #   :url_hash => {:controller=> :"redhat_access/telemetry" , :action=>:index},
@@ -103,10 +105,12 @@ module RedhatAccess
           divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
           menu :header_menu,
             :mycases,
+            :url => '/redhat_access/case/list',
             :url_hash => {:controller=> :"redhat_access/cases" , :action=>:index},
             :engine => RedhatAccess::Engine,
             :caption=> N_('My Cases')
           menu :header_menu, :new_cases, :caption=> N_('Open New Case'),
+            :url => '/redhat_access/case/new',
             :url_hash => {:controller=> :"redhat_access/cases", :action=>:create },
             :engine => RedhatAccess::Engine
         end
@@ -114,12 +118,19 @@ module RedhatAccess
           menu :top_menu,
             :configuration,
             :caption=> N_('Configuration'),
-            :url_hash => {:controller=> :"redhat_access/telemetry_configuration" , :action=>:index},
+            :url => '/redhat_access/analytics_dashboard/manage',
+            :url_hash => {:controller=> :"redhat_access/telemetry_configurations" , :action=>:show},
             :engine => RedhatAccess::Engine
-
           menu :top_menu,
             :dashboard,
             :caption=> N_('Dashboard'),
+            :url => '/redhat_access/analytics_dashboard',
+            :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
+            :engine => RedhatAccess::Engine
+           menu :top_menu,
+            :systems,
+            :caption=> N_('Systems'),
+            :url => '/redhat_access/analytics_dashboard/systems',
             :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
             :engine => RedhatAccess::Engine
         end
