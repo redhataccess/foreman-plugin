@@ -10,13 +10,19 @@ module RedhatAccess
       skip_before_filter :require_login
       skip_before_filter :session_expiry
       skip_before_filter :verify_authenticity_token
+      skip_before_filter :check_telemetry_enabled
       before_filter :telemetry_auth
+      before_filter :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload, :get_branch_info]
 
       def telemetry_auth
         authenticate_client
         unless valid_machine_user?
           deny_access
         end
+      end
+
+      def ensure_telemetry_enabled
+         render_telemetry_off unless telemetry_enabled_for_uuid?(User.current.login) 
       end
 
       def get_auth_opts()

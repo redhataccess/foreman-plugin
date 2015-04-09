@@ -17,6 +17,7 @@
                         //$scope.index();
                         $scope.loading = false;
                         $scope.config = data;
+                        $scope.original = angular.copy(data);
                         console.log("Loaded...");
                     });
                 };
@@ -25,11 +26,12 @@
                     ConfigurationService.postConfig($scope.config).success(function() {
                         //$scope.index();
                         $scope.loading = false;
+                        $scope.original = angular.copy($scope.config);
                         console.log("Saved...");
                     });
                 };
                 $scope.disableUpdateButton = function() {
-                    return $scope.loading;
+                    return $scope.loading || angular.equals($scope.config, $scope.original);
                 };
                 $scope.load();
             }

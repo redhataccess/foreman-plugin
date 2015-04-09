@@ -12,7 +12,7 @@ module RedhatAccess
                                                                    :enable_telemetry=> false})
         conf.save
       end
-      render json:  conf.to_json(:except => [ :id, :created_at, :portal_password ])
+      render json:  conf.to_json(:except => [ :id, :created_at, :portal_password ,:updated_at])
     end
 
     def update

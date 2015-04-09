@@ -5,6 +5,19 @@ module RedhatAccess
       class  RecordNotFound < StandardError
       end
 
+      def telemetry_enabled?(org)
+        if org
+          conf = org.telemetry_configuration
+          return conf.nil? ? false : conf.enable_telemetry
+        else
+          raise(RecordNotFound,'Host not found or invalid')
+        end
+      end
+
+      def telemetry_enabled_for_uuid?(uuid)
+          telemetry_enabled?(get_organization(uuid))
+      end
+
       def get_content_host_by_fqdn(name)
         Katello::System.first(:conditions => { :name => name})
       end
@@ -36,7 +49,7 @@ module RedhatAccess
           end
         else
           #ldebug('Org not found or invalid in get_branch_id')
-          raise(RecordNotFound,'Organization not found or invalid')
+          get_organization(uuid)
         end
       end
 

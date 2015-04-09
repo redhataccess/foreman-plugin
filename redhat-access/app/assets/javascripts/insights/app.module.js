@@ -54,7 +54,7 @@
                 $locationProvider.html5Mode(true);
             }
         ]).value('CONFIG', {
-            preloadData: true,
+            preloadData: false,
             authenticate: false,
             API_ROOT: '/redhat_access/rs/telemetry/view/api/',
             ACCT_KEY: 'telemetry:account_number'
@@ -63,7 +63,7 @@
         }).run([
             'RhaTelemetryOverviewService',
             function(RhaTelemetryOverviewService, enableBasicAuth) {
-                RhaTelemetryOverviewService.populateData(true);
+                //RhaTelemetryOverviewService.populateData(true);
             }
         ]);
 })();

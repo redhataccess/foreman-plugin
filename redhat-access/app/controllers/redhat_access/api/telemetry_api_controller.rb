@@ -8,13 +8,20 @@ module RedhatAccess
       include RedhatAccess::Authentication::ClientAuthentication
       include RedhatAccess::Telemetry::LookUps
 
+      before_filter :check_telemetry_enabled, :only => [:proxy]
+
       UPLOAD_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_upload_host]}"
       API_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_api_host]}"
-      #STRATA_URL = "https://cert-api.access.redhat.com"
-      # Get the credentials to access Strata
-      # This is BASIC auth for now, but should use cert auth for GA
       UPLOAD_URL = "#{UPLOAD_HOST}/rs/telemetry"
       STRATA_URL = "#{API_HOST}/rs/telemetry/api"
+
+      def check_telemetry_enabled
+        render_telemetry_off unless telemetry_enabled?(Organization.current)
+      end
+
+      def render_telemetry_off
+         http_error_response("Telemetry is not enabled for your organization",403)
+      end
 
       def get_creds
         # enable this once cert auth is fixed:
