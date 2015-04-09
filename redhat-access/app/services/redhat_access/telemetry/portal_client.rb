@@ -21,18 +21,18 @@ module RedhatAccess
       end
 
       def get_auth_opts(creds)
-        #temp implementation##########################
-        if creds.is_a?(User) and  User.current.is_a? RedhatAccess::Authentication::CertUser
-          opts = get_ssl_options_for_uuid(User.current.login)
-        elsif creds.is_a?(TelemetryProxyCredentials)
-          opts = {
-            :user     => creds.username,
-            :password => creds.password
-          }
-        end
+        # #temp implementation##########################
+        # if creds.is_a?(User) and  User.current.is_a? RedhatAccess::Authentication::CertUser
+        #   opts = get_ssl_options_for_uuid(User.current.login)
+        # elsif creds.is_a?(TelemetryProxyCredentials)
+        #   opts = {
+        #     :user     => creds.username,
+        #     :password => creds.password
+        #   }
+        # end
         #end temp implementation######################
         #TODO enable below for cert based auth
-        #return @context.get_auth_opts()
+        return @context.get_auth_opts()
       end
     end
   end

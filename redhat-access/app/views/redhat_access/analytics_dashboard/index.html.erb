@@ -33,7 +33,8 @@
   <%= javascript_include_tag 'insights/application' %>
   <%= stylesheet_link_tag "insights/application" %>
   <%= javascript_tag do %>
+  var allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %>
   angular.module('RedhatAccessInsights').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
-  angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: false});
+  angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: allowBasicAuth});
   <%end%>
 <%end%>
