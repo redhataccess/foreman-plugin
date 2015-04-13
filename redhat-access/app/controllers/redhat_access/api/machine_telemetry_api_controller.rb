@@ -48,8 +48,17 @@ module RedhatAccess
       def get_branch_info
         uuid = User.current.login
         begin
+          org = get_organization(uuid)
           client_id = { :remote_leaf => uuid ,
-                        :remote_branch => get_branch_id_for_uuid(uuid)}
+                        :remote_branch => get_branch_id_for_uuid(uuid),
+                        :display_name => org.name,
+                        :hostname => request.host,
+                        :product => {
+                            :type => "Satellite",
+                            :major_version => 6,
+                            :minor_version => 1
+                          }
+                        }
           render :json => client_id.to_json
         rescue RedhatAccess::Telemetry::LookUps::RecordNotFound => e
           http_error_response(e.message, 400)
@@ -58,11 +67,8 @@ module RedhatAccess
 
       def valid_machine_user?
         if User.current && User.current.is_a?(RedhatAccess::Authentication::CertUser)
-          if get_content_host(User.current.login).nil?
-            return false
-          else
-            return true
-          end
+          return true unless get_content_host(User.current.login).nil?
+          return false
         else
           return false
         end
