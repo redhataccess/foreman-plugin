@@ -127,12 +127,12 @@ module RedhatAccess
             :url => '/redhat_access/analytics_dashboard',
             :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
             :engine => RedhatAccess::Engine
-           menu :top_menu,
-            :systems,
-            :caption=> N_('Systems'),
-            :url => '/redhat_access/analytics_dashboard/systems',
-            :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-            :engine => RedhatAccess::Engine
+           # menu :top_menu,
+           #  :systems,
+           #  :caption=> N_('Systems'),
+           #  :url => '/redhat_access/analytics_dashboard/systems',
+           #  :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
+           #  :engine => RedhatAccess::Engine
         end
       end
     end
