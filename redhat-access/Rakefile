@@ -96,7 +96,7 @@ task 'assets:precompile:engine' do
   ]
 
   env = Sprockets::Environment.new(RedhatAccess::Engine.root)
-  env.js_compressor = Uglifier.new
+  env.js_compressor = Uglifier.new(:mangle=>false)
   env.css_compressor = Sass::Rails::CssCompressor.new
 
   paths = [

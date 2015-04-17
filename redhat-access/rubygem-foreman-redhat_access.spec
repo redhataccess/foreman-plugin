@@ -23,7 +23,6 @@ License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
 Source0: %{gem_name}-%{version}.gem
 
-Requires: %{?scl_prefix}rubygem(redhat_access_lib)
 
 Requires: foreman => 1.5.0
 
@@ -31,6 +30,7 @@ Requires: %{?scl_prefix}ruby(abi)
 Requires: %{?scl_prefix}rubygems
 Requires: %{?scl_prefix}rubygem(rails)
 Requires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.2
 
 BuildRequires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
 BuildRequires: %{?scl_prefix}ruby(abi)
@@ -43,6 +43,7 @@ BuildRequires: %{?scl_prefix}rubygem(jquery-rails)
 BuildRequires: %{?scl_prefix}rubygem(uglifier)
 BuildRequires: %{?scl_prefix}rubygem(haml-rails)
 BuildRequires: %{?scl_prefix}rubygem(therubyracer)
+
 
 BuildArch: noarch
 

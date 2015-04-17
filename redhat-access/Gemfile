@@ -11,8 +11,8 @@ gem 'haml-rails'
 gem 'uglifier'
 gem 'therubyracer'
 gem 'sass-rails'
-gem 'angular-rails-templates'
-gem 'redhat_access_lib', ">=0.0.2"
+gem 'angular-rails-templates', ">=0.0.4", '<0.1.4'
+#gem 'redhat_access_lib'
 
 
 # Declare any dependencies that are still in development here instead of in
