@@ -35,7 +35,7 @@ module RedhatAccess
 
       def proxy_upload
         original_method  = request.method
-        original_params  = request.query_parameters
+        original_params  = add_branch_to_params(request.query_parameters)
         original_payload = request.request_parameters[:telemetry_api]
         if params[:file]
           original_payload = get_file_data(params)
@@ -64,6 +64,8 @@ module RedhatAccess
           http_error_response(e.message, 400)
         end
       end
+      
+      protected
 
       def valid_machine_user?
         if User.current && User.current.is_a?(RedhatAccess::Authentication::CertUser)
@@ -72,6 +74,11 @@ module RedhatAccess
         else
           return false
         end
+      end
+
+
+      def get_branch_id
+        get_branch_id_for_uuid(User.current.login)
       end
     end
   end
