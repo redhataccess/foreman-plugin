@@ -26,7 +26,7 @@ module RedhatAccess
       def get_creds
         # enable this once cert auth is fixed:
         # return User
-        return TelemetryProxyCredentials.limit(1)[0]
+        #return TelemetryProxyCredentials.limit(1)[0]
       end
 
       def get_auth_opts()
@@ -37,6 +37,7 @@ module RedhatAccess
         render :text => "Telemetry API"
       end
 
+
       # # Returns an array of the machine IDs that this user has access to
       def get_machines
         #TODO err out if org is not selected
@@ -46,7 +47,7 @@ module RedhatAccess
       # The method that "proxies" tapi requests over to Strata
       def proxy
         original_method  = request.method
-        original_params  = request.query_parameters
+        original_params  = add_branch_to_params(request.query_parameters)
         original_payload = request.request_parameters[:telemetry_api]
         resource         = params[:path] == nil ?  "/" : params[:path]
         if params[:file]
@@ -64,6 +65,19 @@ module RedhatAccess
           :file => params[:file],
           :filename => params[:file].original_filename
         }
+      end
+
+      def add_branch_to_params(params)
+        if params.nil? 
+          params = {}
+        end
+        params[:branch_id] = get_branch_id
+        Rails.logger.debug{"Request parameters for telemetry request #{params}"}
+        params
+      end
+
+      def get_branch_id
+        get_branch_id_for_org(Organization.current)
       end
 
       def get_api_client
