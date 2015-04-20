@@ -34,24 +34,6 @@ module RedhatAccess
       Foreman::Gettext::Support.add_text_domain locale_domain, locale_dir
     end
 
-    initializer :config_csp_headers do |app|
-      ::SecureHeaders::Configuration.configure do |config|
-        if config && config.csp
-          if config.csp[:frame_src]
-            config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
-          end
-          if config.csp[:connect_src]
-            config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
-          end
-          if config.csp[:script_src]
-            config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
-          end
-          if config.csp[:img_src]
-            config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
-          end
-        end
-      end
-    end
 
     initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
       Foreman::Plugin.register :redhat_access do

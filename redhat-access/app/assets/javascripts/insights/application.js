@@ -12,8 +12,6 @@
  */
 //= require "insights/vendor"
 //= require "insights/app"
-//= require "angular-rails-templates"
-//= require_tree ./views
 //= require "insights/app.module"
 //= require "insights/configuration.service"
 //= require "insights/configuration.controller"

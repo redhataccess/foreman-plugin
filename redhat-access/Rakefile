@@ -80,6 +80,7 @@ end
 
 task 'assets:precompile:engine' do
   require 'sprockets'
+  require 'sprockets/static_compiler'
   require 'sprockets/railtie'
   require 'uglifier'
   require 'sass/rails/compressor'

@@ -12,6 +12,7 @@ gem 'uglifier'
 gem 'therubyracer'
 gem 'sass-rails'
 gem 'angular-rails-templates', ">=0.0.4", '<0.1.4'
+#gem 'angular-rails-templates', "=0.0.4"
 #gem 'redhat_access_lib'
 
 

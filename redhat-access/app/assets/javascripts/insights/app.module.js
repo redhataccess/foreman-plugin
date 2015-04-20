@@ -3,9 +3,9 @@
     angular.module('RedhatAccessInsights', [
             'ui.router',
             'telemetryWidgets',
-            'telemetryConfig',
+            'telemetryConfig'
             //'ui.bootstrap',
-            'templates'
+            //'templates'
         ])
         .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide',
             function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide) {
@@ -33,21 +33,9 @@
                     }
                 ]);
                 $httpProvider.interceptors.push('AuthInterceptor');
-                $stateProvider.state('dashboard', {
-                    url: '/?category?rule',
-                    templateUrl: 'insights/views/overview.html',
-                    params: {
-                        category: null,
-                        rule: null
-                    }
-                });
-                $stateProvider.state('systems', {
-                    url: '/systems',
-                    templateUrl: 'insights/views/systems.html'
-                });
                 $stateProvider.state('manage', {
                     url: '/manage',
-                    templateUrl: 'insights/views/configuration.html',
+                    template: '<div class="panel panel-default">\n  <div class="panel-heading">\n    <h4>\n      General Configuration&nbsp;&nbsp;<i ng-show="loading" class="fa fa-spinner fa-spin fa-1-5x"></i>\n    </h4>\n  </div>\n  <div class="panel-body">\n    <form class="form-horizontal">\n      <div class="form-group">\n        <label for="rha-insights-enabled" class="col-lg-3 control-label">Enable Insights Service</label>\n        <div class="col-lg-6">\n          <div class="checkbox">\n            <input id="rha-insights-enabled" type="checkbox" ng-model="config.enable_telemetry" ng-disabled="loading"/>\n          </div>\n        </div>\n      </div>\n      <div class="form-group" ng-show="env.enableBasicAuth">\n        <label for="rha-insights-password" class="col-lg-3 control-label">Customer Portal Username</label>\n        <div class="col-lg-6">\n          <input id="rha-insights-password" type="text" size="32" ng-model="config.portal_user" ng-disabled="loading" class="form-control"/>\n        </div>\n      </div>\n      <div class="form-group" ng-show="env.enableBasicAuth">\n        <label for="rha-insights-password" class="col-lg-3 control-label">Customer Portal Password</label>\n        <div class="col-lg-6">\n          <input id="rha-insights-password" type="password" size="32" ng-model="config.portal_password" ng-disabled="loading" class="form-control"/>\n        </div>\n      </div>\n      <div class="form-group">\n        <div class="col-lg-offset-3 col-lg-6">\n          <input type="submit" value="Save" ng-click="update()" ng-disabled="disableUpdateButton()" class="btn btn-success"/>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n',
                     controller: 'ConfigurationCtrl'
                 });
                 $urlRouterProvider.otherwise('/');
