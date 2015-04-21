@@ -36,7 +36,7 @@ module RedhatAccess
       def proxy_upload
         original_method  = request.method
         original_params  = add_branch_to_params(request.query_parameters)
-        original_payload = request.request_parameters[:machine_telemetry_api]
+        original_payload = request.request_parameters[controller_name]
         if params[:file]
           original_payload = get_file_data(params)
         end

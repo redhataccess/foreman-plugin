@@ -20,7 +20,7 @@ module RedhatAccess
       end
 
       def render_telemetry_off
-         http_error_response("Telemetry is not enabled for your organization",403)
+        http_error_response("Telemetry is not enabled for your organization",403)
       end
 
       def get_creds
@@ -48,7 +48,7 @@ module RedhatAccess
       def proxy
         original_method  = request.method
         original_params  = add_branch_to_params(request.query_parameters)
-        original_payload = request.request_parameters[:telemetry_api]
+        original_payload = request.request_parameters[controller_name]
         resource         = params[:path] == nil ?  "/" : params[:path]
         if params[:file]
           original_payload = get_file_data(params)
@@ -68,7 +68,7 @@ module RedhatAccess
       end
 
       def add_branch_to_params(params)
-        if params.nil? 
+        if params.nil?
           params = {}
         end
         params[:branch_id] = get_branch_id
@@ -81,7 +81,11 @@ module RedhatAccess
       end
 
       def get_api_client
-        return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL, get_creds, self, {:logger => Rails.logger})
+        return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL,
+                                                         get_creds,
+                                                         self,
+                                                         {:logger => Rails.logger,
+                                                          :http_proxy => get_portal_http_proxy})
       end
 
     end
