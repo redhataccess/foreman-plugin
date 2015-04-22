@@ -41,20 +41,11 @@ module RedhatAccess
 
       def get_branch_id_for_org(org)
         if org
-          # This madness of unsetting proxy is caused by the fact that RestClient.proxy is static
-          # If proxy is set, then we will attempt to use it even for localhost connections
-          # It just happens that org.owner_details call also RestClient.....
-          rest_proxy = RestClient.proxy
-          begin
-            RestClient.proxy = ""
-            if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
-              #ldebug('Org manifest not found or invalid in get_branch_id')
-              raise(RecordNotFound,'Branch ID not found for organization')
-            else
-              branch_id =  org.owner_details['upstreamConsumer']['uuid']
-            end
-          ensure
-            RestClient.proxy = rest_proxy
+          if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
+            #ldebug('Org manifest not found or invalid in get_branch_id')
+            raise(RecordNotFound,'Branch ID not found for organization')
+          else
+            branch_id =  org.owner_details['upstreamConsumer']['uuid']
           end
         else
           #ldebug('Org not found or invalid in get_branch_id')
@@ -69,26 +60,17 @@ module RedhatAccess
 
       def get_ssl_options_for_org(org ,ca_file)
         if org
-          # This madness of unsetting proxy is caused by the fact that RestClient.proxy is static
-          # If proxy is set, then we will attempt to use it even for localhost connections
-          # It just happens that org.owner_details call also RestClient.....
-          rest_proxy = RestClient.proxy
-          begin
-            RestClient.proxy = ""
-            upstream = org.owner_details['upstreamConsumer']
-            if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
-              raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
-            else
-              opts = {
-                :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
-                :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
-                :ssl_ca_file => ca_file ? ca_file : get_default_ssl_ca_file ,
-                :verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
-              }
-              return opts
-            end
-          ensure
-            RestClient.proxy = rest_proxy
+          upstream = org.owner_details['upstreamConsumer']
+          if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
+            raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
+          else
+            opts = {
+              :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
+              :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
+              :ssl_ca_file => ca_file ? ca_file : get_default_ssl_ca_file ,
+              :verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
+            }
+            return opts
           end
         else
           raise(RecordNotFound,'Organization not found or invalid')
@@ -134,7 +116,7 @@ module RedhatAccess
       end
 
       def get_portal_http_proxy
-        proxy = ""
+        proxy = nil
         if Katello.config.cdn_proxy && Katello.config.cdn_proxy.host
           proxy_config = Katello.config.cdn_proxy
           uri = URI('')
