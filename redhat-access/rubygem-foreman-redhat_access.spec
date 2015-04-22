@@ -17,7 +17,7 @@
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 0.2.0
 Release: 1%{?dist}
-Summary: Foreman engine to access Red Hat knowledge base
+Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
