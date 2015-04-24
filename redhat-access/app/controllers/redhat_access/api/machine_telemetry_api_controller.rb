@@ -41,6 +41,7 @@ module RedhatAccess
           original_payload = get_file_data(params)
         end
         client = get_api_client
+        Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
         res = client.post_upload(original_params, original_payload)
         render status: res[:code] , json: res[:data]
       end

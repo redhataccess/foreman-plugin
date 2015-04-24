@@ -4,7 +4,7 @@
             'ui.router',
             'telemetryWidgets',
             'telemetryConfig',
-            //'ui.bootstrap',
+            'telemetryRoutes',
             'templates'
         ])
         .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide',
@@ -33,18 +33,6 @@
                     }
                 ]);
                 $httpProvider.interceptors.push('AuthInterceptor');
-                $stateProvider.state('dashboard', {
-                    url: '/?category?rule',
-                    templateUrl: 'insights/views/overview.html',
-                    params: {
-                        category: null,
-                        rule: null
-                    }
-                });
-                $stateProvider.state('systems', {
-                    url: '/systems',
-                    templateUrl: 'insights/views/systems.html'
-                });
                 $stateProvider.state('manage', {
                     url: '/manage',
                     templateUrl: 'insights/views/configuration.html',
