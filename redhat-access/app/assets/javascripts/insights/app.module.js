@@ -38,7 +38,7 @@
                     templateUrl: 'insights/views/configuration.html',
                     controller: 'ConfigurationCtrl'
                 });
-                $urlRouterProvider.otherwise('/');
+                $urlRouterProvider.otherwise('/overview');
                 $locationProvider.html5Mode(true);
             }
         ]).value('CONFIG', {
