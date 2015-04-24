@@ -64,12 +64,14 @@ module RedhatAccess
           if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
             raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
           else
+            ca_file = ca_file ? ca_file : get_default_ssl_ca_file 
             opts = {
               :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
               :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
-              :ssl_ca_file => ca_file ? ca_file : get_default_ssl_ca_file ,
-              :verify_ssl => ca_file ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE,
+              :ssl_ca_file => ca_file,
+              :verify_ssl => OpenSSL::SSL::VERIFY_PEER 
             }
+            Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
             return opts
           end
         else
@@ -78,7 +80,7 @@ module RedhatAccess
       end
 
       def get_default_ssl_ca_file
-        #TODO implementing default pinning
+        #{}"#{RedhatAccess::Engine.root}/ca/rh_cert-api_chain.pem"
         nil
       end
 

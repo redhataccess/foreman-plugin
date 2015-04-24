@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Plugin to add Redhat Access to Foreman"
   s.description = "This plugin adds Red Hat Access knowledge base search, case management and diagnostics to Foreman"
 
-  s.files = Dir["{app,config,db,lib,vendor,public,script,locale}/**/*"] + ["LICENSE.txt", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
+  s.files = Dir["{app,config,db,lib,vendor,public,script,ca,locale}/**/*"] + ["LICENSE.txt", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2"
