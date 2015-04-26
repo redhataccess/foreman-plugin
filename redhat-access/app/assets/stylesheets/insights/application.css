@@ -9,6 +9,5 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require insights/vendor.css
- *= require insights/app.css
+ *= require telemetry/insights.in-prod.css
  */

@@ -1,0 +1,26 @@
+{
+  "name": "sat6-insights",
+  "version": "0.1.0",
+  "dependencies": {
+    "telemetry": "git@labs-git.usersys.redhat.com:labs/insights.git",
+    "c3": "~0.4.8"
+  },
+  "exportsOverride": {
+    "telemetry": {
+      "javascripts": [
+        "release/insights.app.js",
+        "release/insights.vendor.js"
+      ],
+      "stylesheets": "release/insights.in-prod.css"
+    },
+    "c3": {
+      "javascripts/c3": "c3"
+    },
+    "d3": {
+      "javascripts/d3": "d3"
+    }
+  },
+  "resolutions": {
+    "angular": "1.3.15"
+  }
+}
