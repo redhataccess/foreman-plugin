@@ -13,4 +13,20 @@ public/*
 config/config.yml
 *~
 *#
+.tmp/*
+node_modules/*
+vendor/assets/angular-bootstrap/*
+vendor/assets/angular-loading-bar/*
+vendor/assets/angular-resource/*
+vendor/assets/angular-sweetalert/*
+vendor/assets/angular-timeago/*
+vendor/assets/angular-ui-router/*
+vendor/assets/angular/*
+vendor/assets/bootstrap-sass-official/*
+vendor/assets/jquery/*
+vendor/assets/ng-table/*
+vendor/assets/selectize-ng/*
+vendor/assets/sweetalert/*
+
+
 

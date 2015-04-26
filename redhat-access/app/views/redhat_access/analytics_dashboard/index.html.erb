@@ -24,11 +24,13 @@
   <% content_for(:head) do %>
     <base href="/redhat_access/analytics_dashboard/"/>
   <% end %>
+  <div class="container main-content insights-main-content">
   <div class="form-group">
     <h1><%= 'Access Insights' %></h1>
   </div>
   <div ng-app="RedhatAccessInsights">
     <div ui-view="" class="wrapper ng-cloak"></div>
+  </div>
   </div>
   <%= javascript_include_tag 'insights/application' %>
   <%= stylesheet_link_tag "insights/application" %>

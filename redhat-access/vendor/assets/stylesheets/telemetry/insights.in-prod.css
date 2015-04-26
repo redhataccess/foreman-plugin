@@ -1,0 +1,5079 @@
+/*-- Chart --*/
+/* line 2, ../../client/styles/_c3.scss */
+.c3 svg {
+  font: 10px sans-serif; }
+
+/* line 5, ../../client/styles/_c3.scss */
+.c3 path, .c3 line {
+  fill: none;
+  stroke: #000; }
+
+/* line 9, ../../client/styles/_c3.scss */
+.c3 text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; }
+
+/* line 14, ../../client/styles/_c3.scss */
+.c3-legend-item-tile, .c3-xgrid-focus, .c3-ygrid, .c3-event-rect, .c3-bars path {
+  shape-rendering: crispEdges; }
+
+/* line 17, ../../client/styles/_c3.scss */
+.c3-chart-arc path {
+  stroke: #fff; }
+
+/* line 20, ../../client/styles/_c3.scss */
+.c3-chart-arc text {
+  fill: #fff;
+  font-size: 13px; }
+
+/*-- Axis --*/
+/*-- Grid --*/
+/* line 26, ../../client/styles/_c3.scss */
+.c3-grid line {
+  stroke: #aaa; }
+
+/* line 29, ../../client/styles/_c3.scss */
+.c3-grid text {
+  fill: #aaa; }
+
+/* line 32, ../../client/styles/_c3.scss */
+.c3-xgrid, .c3-ygrid {
+  stroke-dasharray: 3 3; }
+
+/*-- Text on Chart --*/
+/* line 36, ../../client/styles/_c3.scss */
+.c3-text.c3-empty {
+  fill: #808080;
+  font-size: 2em; }
+
+/*-- Line --*/
+/* line 41, ../../client/styles/_c3.scss */
+.c3-line {
+  stroke-width: 1px; }
+
+/*-- Point --*/
+/* line 45, ../../client/styles/_c3.scss */
+.c3-circle._expanded_ {
+  stroke-width: 1px;
+  stroke: white; }
+
+/* line 49, ../../client/styles/_c3.scss */
+.c3-selected-circle {
+  fill: white;
+  stroke-width: 2px; }
+
+/*-- Bar --*/
+/* line 54, ../../client/styles/_c3.scss */
+.c3-bar {
+  stroke-width: 0; }
+
+/* line 57, ../../client/styles/_c3.scss */
+.c3-bar._expanded_ {
+  fill-opacity: 0.75; }
+
+/*-- Focus --*/
+/* line 61, ../../client/styles/_c3.scss */
+.c3-target.c3-focused {
+  opacity: 1; }
+
+/* line 64, ../../client/styles/_c3.scss */
+.c3-target.c3-focused path.c3-line, .c3-target.c3-focused path.c3-step {
+  stroke-width: 2px; }
+
+/* line 67, ../../client/styles/_c3.scss */
+.c3-target.c3-defocused {
+  opacity: 0.3 !important; }
+
+/*-- Region --*/
+/* line 71, ../../client/styles/_c3.scss */
+.c3-region {
+  fill: steelblue;
+  fill-opacity: 0.1; }
+
+/*-- Brush --*/
+/* line 76, ../../client/styles/_c3.scss */
+.c3-brush .extent {
+  fill-opacity: 0.1; }
+
+/*-- Select - Drag --*/
+/*-- Legend --*/
+/* line 81, ../../client/styles/_c3.scss */
+.c3-legend-item {
+  font-size: 12px; }
+
+/* line 84, ../../client/styles/_c3.scss */
+.c3-legend-item-hidden {
+  opacity: 0.15; }
+
+/* line 87, ../../client/styles/_c3.scss */
+.c3-legend-background {
+  opacity: 0.75;
+  fill: white;
+  stroke: lightgray;
+  stroke-width: 1; }
+
+/*-- Tooltip --*/
+/* line 94, ../../client/styles/_c3.scss */
+.c3-tooltip-container {
+  z-index: 10; }
+
+/* line 97, ../../client/styles/_c3.scss */
+.c3-tooltip {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  empty-cells: show;
+  -webkit-box-shadow: 7px 7px 12px -9px #777777;
+  -moz-box-shadow: 7px 7px 12px -9px #777777;
+  box-shadow: 7px 7px 12px -9px #777777;
+  opacity: 0.9; }
+
+/* line 107, ../../client/styles/_c3.scss */
+.c3-tooltip tr {
+  border: 1px solid #CCC; }
+
+/* line 110, ../../client/styles/_c3.scss */
+.c3-tooltip th {
+  background-color: #aaa;
+  font-size: 14px;
+  padding: 2px 5px;
+  text-align: left;
+  color: #FFF; }
+
+/* line 117, ../../client/styles/_c3.scss */
+.c3-tooltip td {
+  font-size: 13px;
+  padding: 3px 6px;
+  background-color: #fff;
+  border-left: 1px dotted #999; }
+
+/* line 123, ../../client/styles/_c3.scss */
+.c3-tooltip td > span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px; }
+
+/* line 129, ../../client/styles/_c3.scss */
+.c3-tooltip td.value {
+  text-align: right; }
+
+/*-- Area --*/
+/* line 133, ../../client/styles/_c3.scss */
+.c3-area {
+  stroke-width: 0;
+  opacity: 0.2; }
+
+/*-- Arc --*/
+/* line 138, ../../client/styles/_c3.scss */
+.c3-chart-arcs-title {
+  dominant-baseline: middle;
+  font-size: 1.3em; }
+
+/* line 142, ../../client/styles/_c3.scss */
+.c3-chart-arcs .c3-chart-arcs-background {
+  fill: #e0e0e0;
+  stroke: none; }
+
+/* line 146, ../../client/styles/_c3.scss */
+.c3-chart-arcs .c3-chart-arcs-gauge-unit {
+  fill: #000;
+  font-size: 16px; }
+
+/* line 150, ../../client/styles/_c3.scss */
+.c3-chart-arcs .c3-chart-arcs-gauge-max {
+  fill: #777; }
+
+/* line 153, ../../client/styles/_c3.scss */
+.c3-chart-arcs .c3-chart-arcs-gauge-min {
+  fill: #777; }
+
+/* line 156, ../../client/styles/_c3.scss */
+.c3-chart-arc .c3-gauge-value {
+  fill: #000;
+  /*  font-size: 28px !important;*/ }
+
+/* line 3, ../../client/styles/includes/_vars.scss */
+html {
+  font-size: 100%; }
+
+/* line 1, ../../client/styles/includes/_mixins.scss */
+.top-bar:before, .profile-info:before, menu.nav ul:before,
+.top-bar:after,
+.profile-info:after,
+menu.nav ul:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+/* line 7, ../../client/styles/includes/_mixins.scss */
+.top-bar:after, .profile-info:after, menu.nav ul:after {
+  clear: both; }
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+/* line 15, ../../client/styles/includes/_mixins.scss */
+.top-bar, .profile-info, menu.nav ul {
+  *zoom: 1; }
+
+/* line 19, ../../client/styles/includes/_mixins.scss */
+.donut-hole .content, .announcements-icon .has-announcement .count {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+/* line 35, ../../client/styles/includes/_mixins.scss */
+menu.nav ul, .dashboard-navigation {
+  margin: 0;
+  padding: 0; }
+
+/* line 40, ../../client/styles/includes/_mixins.scss */
+table a, table a:link {
+  color: #2097e6; }
+
+/* line 1, ../../client/styles/includes/_helpers.scss */
+x.trunc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%; }
+
+/* line 9, ../../client/styles/includes/_helpers.scss */
+.btn-group-filter .btn {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 100; }
+  /* line 16, ../../client/styles/includes/_helpers.scss */
+  .btn-group-filter .btn.active, .btn-group-filter .btn:hover {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #f2f5f7; }
+
+/* line 24, ../../client/styles/includes/_helpers.scss */
+.nopad {
+  padding: 0; }
+
+/* line 28, ../../client/styles/includes/_helpers.scss */
+.nomar {
+  margin: 0; }
+
+/* line 32, ../../client/styles/includes/_helpers.scss */
+.row.nomargin, .row + .row.nomargin {
+  margin-top: 0; }
+
+/* line 36, ../../client/styles/includes/_helpers.scss */
+.row.row-short {
+  margin-bottom: 15px;
+  margin-bottom: 0.9375rem; }
+
+/* line 40, ../../client/styles/includes/_helpers.scss */
+.margin-top {
+  margin-top: 30px;
+  margin-top: 1.875rem; }
+
+/* line 44, ../../client/styles/includes/_helpers.scss */
+.padding-top {
+  padding-top: 15px;
+  padding-top: 0.9375rem; }
+
+/* line 48, ../../client/styles/includes/_helpers.scss */
+.margin-top {
+  margin-top: 30px;
+  margin-top: 1.875rem; }
+
+/* line 52, ../../client/styles/includes/_helpers.scss */
+.padding-top {
+  padding-top: 15px;
+  padding-top: 0.9375rem; }
+
+/* line 56, ../../client/styles/includes/_helpers.scss */
+.light {
+  font-weight: 100; }
+
+/* line 60, ../../client/styles/includes/_helpers.scss */
+.full-width {
+  width: 100%; }
+
+/* line 61, ../../client/styles/includes/_helpers.scss */
+.flush-right {
+  margin-right: -8px;
+  margin-right: -0.46875rem; }
+
+/* line 62, ../../client/styles/includes/_helpers.scss */
+.flush-left {
+  margin-left: -8px;
+  margin-left: -0.46875rem; }
+
+/* line 63, ../../client/styles/includes/_helpers.scss */
+.modal {
+  display: none; }
+
+/* line 64, ../../client/styles/includes/_helpers.scss */
+.modal.active {
+  display: block; }
+
+/* line 70, ../../client/styles/includes/_helpers.scss */
+table .link {
+  color: #585858;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem;
+  font-weight: 500; }
+  /* line 75, ../../client/styles/includes/_helpers.scss */
+  table .link:hover {
+    color: #727272; }
+
+/* line 79, ../../client/styles/includes/_helpers.scss */
+input.filter, .error-info textarea.filter.changed.ng-dirty, .error-info select.filter.changed.ng-dirty {
+  margin: 15px 0;
+  margin: 0.9375rem 0;
+  padding: 6px 8px;
+  padding: 0.375rem 0.5rem; }
+
+/* line 84, ../../client/styles/includes/_helpers.scss */
+.filters-table {
+  border-bottom: 4px solid #ececec;
+  margin-top: 0;
+  margin-bottom: 0; }
+
+/* line 1, ../../client/styles/elements/_base.scss */
+h1, h2, h3, h4, h5, h6 {
+  -webkit-font-smoothing: antialiased;
+  color: #585858; }
+
+/* line 6, ../../client/styles/elements/_base.scss */
+.main-content {
+  color: #646464;
+  position: relative;
+  padding-bottom: 70px;
+  padding-bottom: 4.375rem; }
+
+/* line 12, ../../client/styles/elements/_base.scss */
+.main-content .row {
+  margin-bottom: 0; }
+
+/* line 13, ../../client/styles/elements/_base.scss */
+#loading-bar-spinner {
+  display: none; }
+
+/* line 14, ../../client/styles/elements/_base.scss */
+.pointer {
+  cursor: pointer; }
+
+/* line 15, ../../client/styles/elements/_base.scss */
+.row + .row, .row.row-tall {
+  margin-top: 30px;
+  margin-top: 1.875rem; }
+
+/* line 16, ../../client/styles/elements/_base.scss */
+.row.row-short {
+  margin-top: 15px;
+  margin-top: 0.9375rem; }
+
+/* line 18, ../../client/styles/elements/_base.scss */
+.btn, button {
+  outline: none;
+  border: none; }
+  /* line 22, ../../client/styles/elements/_base.scss */
+  .btn:active, .btn:focus, .btn:visited, button:active, button:focus, button:visited {
+    outline: none !important;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+
+/* line 29, ../../client/styles/elements/_base.scss */
+a:hover {
+  cursor: pointer;
+  text-decoration: none; }
+/* line 33, ../../client/styles/elements/_base.scss */
+a[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #8d8d8d;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=65);
+  opacity: 0.65; }
+
+/* line 41, ../../client/styles/elements/_base.scss */
+body {
+  background: url("../assets/images/bg_body.jpg") no-repeat #4a5664;
+  background-size: cover; }
+
+/* line 46, ../../client/styles/elements/_base.scss */
+.insights body {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19px;
+  line-height: 1.1875rem; }
+
+/* line 50, ../../client/styles/elements/_base.scss */
+p {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 22.4px;
+  line-height: 1.4rem; }
+
+/* line 54, ../../client/styles/elements/_base.scss */
+.success {
+  color: green; }
+
+/* line 58, ../../client/styles/elements/_base.scss */
+.fail {
+  color: red; }
+
+/* line 62, ../../client/styles/elements/_base.scss */
+.breadcrumbs {
+  display: none; }
+
+/* line 77, ../../client/styles/elements/_base.scss */
+.portal-content-area, .page-wrap .main-content {
+  background: none; }
+
+@media (min-width: 768px) {
+  /* line 81, ../../client/styles/elements/_base.scss */
+  .dashboard-navigation-container {
+    float: left;
+    width: 18%; } }
+
+/* line 94, ../../client/styles/elements/_base.scss */
+.masthead {
+  background: none; }
+
+/* line 98, ../../client/styles/elements/_base.scss */
+.page-wrap .insights-main-content {
+  padding-top: 44px;
+  background: #fff;
+  padding-left: 15px;
+  padding-right: 15px; }
+  @media (min-width: 768px) {
+    /* line 98, ../../client/styles/elements/_base.scss */
+    .page-wrap .insights-main-content {
+      padding-right: 30px;
+      padding-left: 30px; } }
+  @media (min-width: 768px) {
+    /* line 98, ../../client/styles/elements/_base.scss */
+    .page-wrap .insights-main-content {
+      float: left;
+      width: 82%; } }
+
+/* line 119, ../../client/styles/elements/_base.scss */
+.page-wrap.container {
+  padding: 15px; }
+  @media (min-width: 768px) {
+    /* line 119, ../../client/styles/elements/_base.scss */
+    .page-wrap.container {
+      padding: 0; } }
+
+/* line 1, ../../client/styles/elements/_buttons.scss */
+button.simple,
+.btn.simple {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none; }
+
+/* line 12, ../../client/styles/elements/_buttons.scss */
+.export button,
+.reset button {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 33.6px;
+  line-height: 2.1rem;
+  margin: 0;
+  padding: 8px;
+  padding: 0.5rem;
+  background: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-transition-duration: 0.6s;
+  -o-transition-duration: 0.6s;
+  -webkit-transition-duration: 0.6s;
+  transition-duration: 0.6s; }
+  /* line 17, ../../client/styles/elements/_buttons.scss */
+  .export button span,
+  .reset button span {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    -webkit-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+    color: #89898f;
+    display: block; }
+/* line 25, ../../client/styles/elements/_buttons.scss */
+.export.inactive button span,
+.reset.inactive button span {
+  color: #f2f2f2;
+  z-index: 1; }
+
+/* line 33, ../../client/styles/elements/_buttons.scss */
+.reset:hover span {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  color: #0fbaf2; }
+
+/* line 40, ../../client/styles/elements/_buttons.scss */
+.btn-primary {
+  background: #646464;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  border: 0; }
+  /* line 46, ../../client/styles/elements/_buttons.scss */
+  .btn-primary:hover {
+    background: #575757; }
+
+/* line 50, ../../client/styles/elements/_buttons.scss */
+.btn-link {
+  color: #428bca;
+  font-weight: normal;
+  border-radius: 0; }
+  /* line 55, ../../client/styles/elements/_buttons.scss */
+  .btn-link, .btn-link:active, .btn-link.active, .btn-link[disabled], fieldset[disabled] .btn-link {
+    background-color: transparent;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  /* line 63, ../../client/styles/elements/_buttons.scss */
+  .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+    border-color: transparent; }
+  /* line 69, ../../client/styles/elements/_buttons.scss */
+  .btn-link:hover, .btn-link:focus {
+    color: #2a6496;
+    text-decoration: underline;
+    background-color: transparent; }
+  /* line 77, ../../client/styles/elements/_buttons.scss */
+  .btn-link[disabled]:hover, .btn-link[disabled]:focus, fieldset[disabled] .btn-link:hover, fieldset[disabled] .btn-link:focus {
+    color: #f2f5f7;
+    text-decoration: none; }
+
+/* line 85, ../../client/styles/elements/_buttons.scss */
+.btn-outline {
+  background: #FFF;
+  color: #808080;
+  border: 1px solid #ddd; }
+  /* line 90, ../../client/styles/elements/_buttons.scss */
+  .btn-outline:hover {
+    color: #428bca;
+    background-color: #fff;
+    border-color: #428bca; }
+
+/* line 99, ../../client/styles/elements/_buttons.scss */
+.pull-right .btn-group .btn + .btn {
+  margin-left: 12px !important; }
+
+@font-face {
+  font-family: Overpass;
+  src: url("../assets/fonts/overpass_regular-web.eot");
+  src: url("../assets/fonts/overpass_regular-web.eot?#iefix") format("eot"), url(../assets/fonts/overpass_regular-web.woff) format("woff"), url(../assets/fonts/overpass_regular-web.ttf) format("truetype"), url(../assets/fonts/overpass_regular-web.svg#webfontLTZe4IYH) format("svg");
+  font-weight: 600;
+  font-style: normal; }
+@font-face {
+  font-family: OverpassBold;
+  src: url("../assets/fonts/overpass_bold-web.eot");
+  src: url("../assets/fonts/overpass_bold-web.eot?#iefix") format("eot"), url(../assets/fonts/overpass_bold-web.woff) format("woff"), url(../assets/fonts/overpass_bold-web.ttf) format("truetype"), url(../assets/fonts/overpass_bold-web.svg#webfontzAU82Ltw) format("svg");
+  font-weight: 800;
+  font-style: normal; }
+@font-face {
+  font-family: OverpassLight;
+  src: url("../assets/fonts/overpass_light-webfont.eot");
+  src: url("../assets/fonts/overpass_light-webfont.eot?#iefix") format("eot"), url(../assets/fonts/overpass_light-webfont.woff) format("woff"), url(../assets/fonts/overpass_light-webfont.ttf) format("truetype"), url(../assets/fonts/overpass_light-webfont.svg#webfontzAU82Ltw) format("svg");
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: .05em; }
+@font-face {
+  font-family: 'icomoon';
+  src: url("../assets/fonts/icomoon.eot?tcaa72");
+  src: url("../assets/fonts/icomoon.eot?#iefixtcaa72") format("embedded-opentype"), url("../assets/fonts/icomoon.woff?tcaa72") format("woff"), url("../assets/fonts/icomoon.ttf?tcaa72") format("truetype"), url("../assets/fonts/icomoon.svg?tcaa72#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+/* line 47, ../../client/styles/elements/_fonts.scss */
+[class^='icon-'],
+[class*=' icon-'] {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'icomoon';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  speak: none;
+  text-transform: none; }
+  /* line 60, ../../client/styles/elements/_fonts.scss */
+  [class^='icon-']:before,
+  [class*=' icon-']:before {
+    font-family: 'icomoon'; }
+
+/* line 65, ../../client/styles/elements/_fonts.scss */
+.icon-error:before {
+  content: '\e609'; }
+
+/* line 69, ../../client/styles/elements/_fonts.scss */
+.icon-info:before {
+  content: '\e60a'; }
+
+/* line 73, ../../client/styles/elements/_fonts.scss */
+.icon-warning:before {
+  content: '\e60b'; }
+
+/* line 77, ../../client/styles/elements/_fonts.scss */
+.icon-check:before {
+  content: '\e608'; }
+
+/* line 81, ../../client/styles/elements/_fonts.scss */
+.icon-globe:before {
+  content: '\e602'; }
+
+/* line 85, ../../client/styles/elements/_fonts.scss */
+.icon-mag:before {
+  content: '\e601'; }
+
+/* line 89, ../../client/styles/elements/_fonts.scss */
+.icon-profile:before {
+  content: '\e600'; }
+
+/* line 93, ../../client/styles/elements/_fonts.scss */
+.icon-close:before {
+  content: '\e603'; }
+
+/* line 97, ../../client/styles/elements/_fonts.scss */
+.icon-loop:before {
+  content: '\e604'; }
+
+/* line 101, ../../client/styles/elements/_fonts.scss */
+.icon-googleplus:before {
+  content: '\e605'; }
+
+/* line 105, ../../client/styles/elements/_fonts.scss */
+.icon-facebook:before {
+  content: '\e606'; }
+
+/* line 109, ../../client/styles/elements/_fonts.scss */
+.icon-twitter:before {
+  content: '\e607'; }
+
+/*!
+ *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("../assets/fonts/fontawesome-webfont.eot?v=4.2.0");
+  src: url("../assets/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0") format("embedded-opentype"), url("../assets/fonts/fontawesome-webfont.woff?v=4.2.0") format("woff"), url("../assets/fonts/fontawesome-webfont.ttf?v=4.2.0") format("truetype"), url("../assets/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+/* line 129, ../../client/styles/elements/_fonts.scss */
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+/* makes the font 33% larger relative to the icon container */
+/* line 138, ../../client/styles/elements/_fonts.scss */
+.fa-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -15%; }
+
+/* line 143, ../../client/styles/elements/_fonts.scss */
+.fa-2x {
+  font-size: 2em; }
+
+/* line 146, ../../client/styles/elements/_fonts.scss */
+.fa-3x {
+  font-size: 3em; }
+
+/* line 149, ../../client/styles/elements/_fonts.scss */
+.fa-4x {
+  font-size: 4em; }
+
+/* line 152, ../../client/styles/elements/_fonts.scss */
+.fa-5x {
+  font-size: 5em; }
+
+/* line 155, ../../client/styles/elements/_fonts.scss */
+.fa-fw {
+  width: 1.28571429em;
+  text-align: center; }
+
+/* line 159, ../../client/styles/elements/_fonts.scss */
+.fa-ul {
+  padding-left: 0;
+  margin-left: 2.14285714em;
+  list-style-type: none; }
+
+/* line 164, ../../client/styles/elements/_fonts.scss */
+.fa-ul > li {
+  position: relative; }
+
+/* line 167, ../../client/styles/elements/_fonts.scss */
+.fa-li {
+  position: absolute;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  top: 0.14285714em;
+  text-align: center; }
+
+/* line 174, ../../client/styles/elements/_fonts.scss */
+.fa-li.fa-lg {
+  left: -1.85714286em; }
+
+/* line 177, ../../client/styles/elements/_fonts.scss */
+.fa-border {
+  padding: .2em .25em .15em;
+  border: solid 0.08em #eeeeee;
+  border-radius: .1em; }
+
+/* line 182, ../../client/styles/elements/_fonts.scss */
+.pull-right {
+  float: right; }
+
+/* line 185, ../../client/styles/elements/_fonts.scss */
+.pull-left {
+  float: left; }
+
+/* line 188, ../../client/styles/elements/_fonts.scss */
+.fa.pull-left {
+  margin-right: .3em; }
+
+/* line 191, ../../client/styles/elements/_fonts.scss */
+.fa.pull-right {
+  margin-left: .3em; }
+
+/* line 194, ../../client/styles/elements/_fonts.scss */
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear; }
+
+@-webkit-keyframes fa-spin {
+  /* line 199, ../../client/styles/elements/_fonts.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+
+  /* line 203, ../../client/styles/elements/_fonts.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg); } }
+@keyframes fa-spin {
+  /* line 209, ../../client/styles/elements/_fonts.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+
+  /* line 213, ../../client/styles/elements/_fonts.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg); } }
+/* line 218, ../../client/styles/elements/_fonts.scss */
+.fa-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg); }
+
+/* line 224, ../../client/styles/elements/_fonts.scss */
+.fa-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg); }
+
+/* line 230, ../../client/styles/elements/_fonts.scss */
+.fa-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg); }
+
+/* line 236, ../../client/styles/elements/_fonts.scss */
+.fa-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1); }
+
+/* line 242, ../../client/styles/elements/_fonts.scss */
+.fa-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1); }
+
+/* line 248, ../../client/styles/elements/_fonts.scss */
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical {
+  filter: none; }
+
+/* line 255, ../../client/styles/elements/_fonts.scss */
+.fa-stack {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle; }
+
+/* line 263, ../../client/styles/elements/_fonts.scss */
+.fa-stack-1x,
+.fa-stack-2x {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center; }
+
+/* line 270, ../../client/styles/elements/_fonts.scss */
+.fa-stack-1x {
+  line-height: inherit; }
+
+/* line 273, ../../client/styles/elements/_fonts.scss */
+.fa-stack-2x {
+  font-size: 2em; }
+
+/* line 276, ../../client/styles/elements/_fonts.scss */
+.fa-inverse {
+  color: #ffffff; }
+
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+/* line 281, ../../client/styles/elements/_fonts.scss */
+.fa-glass:before {
+  content: "\f000"; }
+
+/* line 284, ../../client/styles/elements/_fonts.scss */
+.fa-music:before {
+  content: "\f001"; }
+
+/* line 287, ../../client/styles/elements/_fonts.scss */
+.fa-search:before {
+  content: "\f002"; }
+
+/* line 290, ../../client/styles/elements/_fonts.scss */
+.fa-envelope-o:before {
+  content: "\f003"; }
+
+/* line 293, ../../client/styles/elements/_fonts.scss */
+.fa-heart:before {
+  content: "\f004"; }
+
+/* line 296, ../../client/styles/elements/_fonts.scss */
+.fa-star:before {
+  content: "\f005"; }
+
+/* line 299, ../../client/styles/elements/_fonts.scss */
+.fa-star-o:before {
+  content: "\f006"; }
+
+/* line 302, ../../client/styles/elements/_fonts.scss */
+.fa-user:before {
+  content: "\f007"; }
+
+/* line 305, ../../client/styles/elements/_fonts.scss */
+.fa-film:before {
+  content: "\f008"; }
+
+/* line 308, ../../client/styles/elements/_fonts.scss */
+.fa-th-large:before {
+  content: "\f009"; }
+
+/* line 311, ../../client/styles/elements/_fonts.scss */
+.fa-th:before {
+  content: "\f00a"; }
+
+/* line 314, ../../client/styles/elements/_fonts.scss */
+.fa-th-list:before {
+  content: "\f00b"; }
+
+/* line 317, ../../client/styles/elements/_fonts.scss */
+.fa-check:before {
+  content: "\f00c"; }
+
+/* line 320, ../../client/styles/elements/_fonts.scss */
+.fa-remove:before,
+.fa-close:before,
+.fa-times:before {
+  content: "\f00d"; }
+
+/* line 325, ../../client/styles/elements/_fonts.scss */
+.fa-search-plus:before {
+  content: "\f00e"; }
+
+/* line 328, ../../client/styles/elements/_fonts.scss */
+.fa-search-minus:before {
+  content: "\f010"; }
+
+/* line 331, ../../client/styles/elements/_fonts.scss */
+.fa-power-off:before {
+  content: "\f011"; }
+
+/* line 334, ../../client/styles/elements/_fonts.scss */
+.fa-signal:before {
+  content: "\f012"; }
+
+/* line 337, ../../client/styles/elements/_fonts.scss */
+.fa-gear:before,
+.fa-cog:before {
+  content: "\f013"; }
+
+/* line 341, ../../client/styles/elements/_fonts.scss */
+.fa-trash-o:before {
+  content: "\f014"; }
+
+/* line 344, ../../client/styles/elements/_fonts.scss */
+.fa-home:before {
+  content: "\f015"; }
+
+/* line 347, ../../client/styles/elements/_fonts.scss */
+.fa-file-o:before {
+  content: "\f016"; }
+
+/* line 350, ../../client/styles/elements/_fonts.scss */
+.fa-clock-o:before {
+  content: "\f017"; }
+
+/* line 353, ../../client/styles/elements/_fonts.scss */
+.fa-road:before {
+  content: "\f018"; }
+
+/* line 356, ../../client/styles/elements/_fonts.scss */
+.fa-download:before {
+  content: "\f019"; }
+
+/* line 359, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-o-down:before {
+  content: "\f01a"; }
+
+/* line 362, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-o-up:before {
+  content: "\f01b"; }
+
+/* line 365, ../../client/styles/elements/_fonts.scss */
+.fa-inbox:before {
+  content: "\f01c"; }
+
+/* line 368, ../../client/styles/elements/_fonts.scss */
+.fa-play-circle-o:before {
+  content: "\f01d"; }
+
+/* line 371, ../../client/styles/elements/_fonts.scss */
+.fa-rotate-right:before,
+.fa-repeat:before {
+  content: "\f01e"; }
+
+/* line 375, ../../client/styles/elements/_fonts.scss */
+.fa-refresh:before {
+  content: "\f021"; }
+
+/* line 378, ../../client/styles/elements/_fonts.scss */
+.fa-list-alt:before {
+  content: "\f022"; }
+
+/* line 381, ../../client/styles/elements/_fonts.scss */
+.fa-lock:before {
+  content: "\f023"; }
+
+/* line 384, ../../client/styles/elements/_fonts.scss */
+.fa-flag:before {
+  content: "\f024"; }
+
+/* line 387, ../../client/styles/elements/_fonts.scss */
+.fa-headphones:before {
+  content: "\f025"; }
+
+/* line 390, ../../client/styles/elements/_fonts.scss */
+.fa-volume-off:before {
+  content: "\f026"; }
+
+/* line 393, ../../client/styles/elements/_fonts.scss */
+.fa-volume-down:before {
+  content: "\f027"; }
+
+/* line 396, ../../client/styles/elements/_fonts.scss */
+.fa-volume-up:before {
+  content: "\f028"; }
+
+/* line 399, ../../client/styles/elements/_fonts.scss */
+.fa-qrcode:before {
+  content: "\f029"; }
+
+/* line 402, ../../client/styles/elements/_fonts.scss */
+.fa-barcode:before {
+  content: "\f02a"; }
+
+/* line 405, ../../client/styles/elements/_fonts.scss */
+.fa-tag:before {
+  content: "\f02b"; }
+
+/* line 408, ../../client/styles/elements/_fonts.scss */
+.fa-tags:before {
+  content: "\f02c"; }
+
+/* line 411, ../../client/styles/elements/_fonts.scss */
+.fa-book:before {
+  content: "\f02d"; }
+
+/* line 414, ../../client/styles/elements/_fonts.scss */
+.fa-bookmark:before {
+  content: "\f02e"; }
+
+/* line 417, ../../client/styles/elements/_fonts.scss */
+.fa-print:before {
+  content: "\f02f"; }
+
+/* line 420, ../../client/styles/elements/_fonts.scss */
+.fa-camera:before {
+  content: "\f030"; }
+
+/* line 423, ../../client/styles/elements/_fonts.scss */
+.fa-font:before {
+  content: "\f031"; }
+
+/* line 426, ../../client/styles/elements/_fonts.scss */
+.fa-bold:before {
+  content: "\f032"; }
+
+/* line 429, ../../client/styles/elements/_fonts.scss */
+.fa-italic:before {
+  content: "\f033"; }
+
+/* line 432, ../../client/styles/elements/_fonts.scss */
+.fa-text-height:before {
+  content: "\f034"; }
+
+/* line 435, ../../client/styles/elements/_fonts.scss */
+.fa-text-width:before {
+  content: "\f035"; }
+
+/* line 438, ../../client/styles/elements/_fonts.scss */
+.fa-align-left:before {
+  content: "\f036"; }
+
+/* line 441, ../../client/styles/elements/_fonts.scss */
+.fa-align-center:before {
+  content: "\f037"; }
+
+/* line 444, ../../client/styles/elements/_fonts.scss */
+.fa-align-right:before {
+  content: "\f038"; }
+
+/* line 447, ../../client/styles/elements/_fonts.scss */
+.fa-align-justify:before {
+  content: "\f039"; }
+
+/* line 450, ../../client/styles/elements/_fonts.scss */
+.fa-list:before {
+  content: "\f03a"; }
+
+/* line 453, ../../client/styles/elements/_fonts.scss */
+.fa-dedent:before,
+.fa-outdent:before {
+  content: "\f03b"; }
+
+/* line 457, ../../client/styles/elements/_fonts.scss */
+.fa-indent:before {
+  content: "\f03c"; }
+
+/* line 460, ../../client/styles/elements/_fonts.scss */
+.fa-video-camera:before {
+  content: "\f03d"; }
+
+/* line 463, ../../client/styles/elements/_fonts.scss */
+.fa-photo:before,
+.fa-image:before,
+.fa-picture-o:before {
+  content: "\f03e"; }
+
+/* line 468, ../../client/styles/elements/_fonts.scss */
+.fa-pencil:before {
+  content: "\f040"; }
+
+/* line 471, ../../client/styles/elements/_fonts.scss */
+.fa-map-marker:before {
+  content: "\f041"; }
+
+/* line 474, ../../client/styles/elements/_fonts.scss */
+.fa-adjust:before {
+  content: "\f042"; }
+
+/* line 477, ../../client/styles/elements/_fonts.scss */
+.fa-tint:before {
+  content: "\f043"; }
+
+/* line 480, ../../client/styles/elements/_fonts.scss */
+.fa-edit:before,
+.fa-pencil-square-o:before {
+  content: "\f044"; }
+
+/* line 484, ../../client/styles/elements/_fonts.scss */
+.fa-share-square-o:before {
+  content: "\f045"; }
+
+/* line 487, ../../client/styles/elements/_fonts.scss */
+.fa-check-square-o:before {
+  content: "\f046"; }
+
+/* line 490, ../../client/styles/elements/_fonts.scss */
+.fa-arrows:before {
+  content: "\f047"; }
+
+/* line 493, ../../client/styles/elements/_fonts.scss */
+.fa-step-backward:before {
+  content: "\f048"; }
+
+/* line 496, ../../client/styles/elements/_fonts.scss */
+.fa-fast-backward:before {
+  content: "\f049"; }
+
+/* line 499, ../../client/styles/elements/_fonts.scss */
+.fa-backward:before {
+  content: "\f04a"; }
+
+/* line 502, ../../client/styles/elements/_fonts.scss */
+.fa-play:before {
+  content: "\f04b"; }
+
+/* line 505, ../../client/styles/elements/_fonts.scss */
+.fa-pause:before {
+  content: "\f04c"; }
+
+/* line 508, ../../client/styles/elements/_fonts.scss */
+.fa-stop:before {
+  content: "\f04d"; }
+
+/* line 511, ../../client/styles/elements/_fonts.scss */
+.fa-forward:before {
+  content: "\f04e"; }
+
+/* line 514, ../../client/styles/elements/_fonts.scss */
+.fa-fast-forward:before {
+  content: "\f050"; }
+
+/* line 517, ../../client/styles/elements/_fonts.scss */
+.fa-step-forward:before {
+  content: "\f051"; }
+
+/* line 520, ../../client/styles/elements/_fonts.scss */
+.fa-eject:before {
+  content: "\f052"; }
+
+/* line 523, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-left:before {
+  content: "\f053"; }
+
+/* line 526, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-right:before {
+  content: "\f054"; }
+
+/* line 529, ../../client/styles/elements/_fonts.scss */
+.fa-plus-circle:before {
+  content: "\f055"; }
+
+/* line 532, ../../client/styles/elements/_fonts.scss */
+.fa-minus-circle:before {
+  content: "\f056"; }
+
+/* line 535, ../../client/styles/elements/_fonts.scss */
+.fa-times-circle:before {
+  content: "\f057"; }
+
+/* line 538, ../../client/styles/elements/_fonts.scss */
+.fa-check-circle:before {
+  content: "\f058"; }
+
+/* line 541, ../../client/styles/elements/_fonts.scss */
+.fa-question-circle:before {
+  content: "\f059"; }
+
+/* line 544, ../../client/styles/elements/_fonts.scss */
+.fa-info-circle:before {
+  content: "\f05a"; }
+
+/* line 547, ../../client/styles/elements/_fonts.scss */
+.fa-crosshairs:before {
+  content: "\f05b"; }
+
+/* line 550, ../../client/styles/elements/_fonts.scss */
+.fa-times-circle-o:before {
+  content: "\f05c"; }
+
+/* line 553, ../../client/styles/elements/_fonts.scss */
+.fa-check-circle-o:before {
+  content: "\f05d"; }
+
+/* line 556, ../../client/styles/elements/_fonts.scss */
+.fa-ban:before {
+  content: "\f05e"; }
+
+/* line 559, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-left:before {
+  content: "\f060"; }
+
+/* line 562, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-right:before {
+  content: "\f061"; }
+
+/* line 565, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-up:before {
+  content: "\f062"; }
+
+/* line 568, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-down:before {
+  content: "\f063"; }
+
+/* line 571, ../../client/styles/elements/_fonts.scss */
+.fa-mail-forward:before,
+.fa-share:before {
+  content: "\f064"; }
+
+/* line 575, ../../client/styles/elements/_fonts.scss */
+.fa-expand:before {
+  content: "\f065"; }
+
+/* line 578, ../../client/styles/elements/_fonts.scss */
+.fa-compress:before {
+  content: "\f066"; }
+
+/* line 581, ../../client/styles/elements/_fonts.scss */
+.fa-plus:before {
+  content: "\f067"; }
+
+/* line 584, ../../client/styles/elements/_fonts.scss */
+.fa-minus:before {
+  content: "\f068"; }
+
+/* line 587, ../../client/styles/elements/_fonts.scss */
+.fa-asterisk:before {
+  content: "\f069"; }
+
+/* line 590, ../../client/styles/elements/_fonts.scss */
+.fa-exclamation-circle:before {
+  content: "\f06a"; }
+
+/* line 593, ../../client/styles/elements/_fonts.scss */
+.fa-gift:before {
+  content: "\f06b"; }
+
+/* line 596, ../../client/styles/elements/_fonts.scss */
+.fa-leaf:before {
+  content: "\f06c"; }
+
+/* line 599, ../../client/styles/elements/_fonts.scss */
+.fa-fire:before {
+  content: "\f06d"; }
+
+/* line 602, ../../client/styles/elements/_fonts.scss */
+.fa-eye:before {
+  content: "\f06e"; }
+
+/* line 605, ../../client/styles/elements/_fonts.scss */
+.fa-eye-slash:before {
+  content: "\f070"; }
+
+/* line 608, ../../client/styles/elements/_fonts.scss */
+.fa-warning:before,
+.fa-exclamation-triangle:before {
+  content: "\f071"; }
+
+/* line 612, ../../client/styles/elements/_fonts.scss */
+.fa-plane:before {
+  content: "\f072"; }
+
+/* line 615, ../../client/styles/elements/_fonts.scss */
+.fa-calendar:before {
+  content: "\f073"; }
+
+/* line 618, ../../client/styles/elements/_fonts.scss */
+.fa-random:before {
+  content: "\f074"; }
+
+/* line 621, ../../client/styles/elements/_fonts.scss */
+.fa-comment:before {
+  content: "\f075"; }
+
+/* line 624, ../../client/styles/elements/_fonts.scss */
+.fa-magnet:before {
+  content: "\f076"; }
+
+/* line 627, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-up:before {
+  content: "\f077"; }
+
+/* line 630, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-down:before {
+  content: "\f078"; }
+
+/* line 633, ../../client/styles/elements/_fonts.scss */
+.fa-retweet:before {
+  content: "\f079"; }
+
+/* line 636, ../../client/styles/elements/_fonts.scss */
+.fa-shopping-cart:before {
+  content: "\f07a"; }
+
+/* line 639, ../../client/styles/elements/_fonts.scss */
+.fa-folder:before {
+  content: "\f07b"; }
+
+/* line 642, ../../client/styles/elements/_fonts.scss */
+.fa-folder-open:before {
+  content: "\f07c"; }
+
+/* line 645, ../../client/styles/elements/_fonts.scss */
+.fa-arrows-v:before {
+  content: "\f07d"; }
+
+/* line 648, ../../client/styles/elements/_fonts.scss */
+.fa-arrows-h:before {
+  content: "\f07e"; }
+
+/* line 651, ../../client/styles/elements/_fonts.scss */
+.fa-bar-chart-o:before,
+.fa-bar-chart:before {
+  content: "\f080"; }
+
+/* line 655, ../../client/styles/elements/_fonts.scss */
+.fa-twitter-square:before {
+  content: "\f081"; }
+
+/* line 658, ../../client/styles/elements/_fonts.scss */
+.fa-facebook-square:before {
+  content: "\f082"; }
+
+/* line 661, ../../client/styles/elements/_fonts.scss */
+.fa-camera-retro:before {
+  content: "\f083"; }
+
+/* line 664, ../../client/styles/elements/_fonts.scss */
+.fa-key:before {
+  content: "\f084"; }
+
+/* line 667, ../../client/styles/elements/_fonts.scss */
+.fa-gears:before,
+.fa-cogs:before {
+  content: "\f085"; }
+
+/* line 671, ../../client/styles/elements/_fonts.scss */
+.fa-comments:before {
+  content: "\f086"; }
+
+/* line 674, ../../client/styles/elements/_fonts.scss */
+.fa-thumbs-o-up:before {
+  content: "\f087"; }
+
+/* line 677, ../../client/styles/elements/_fonts.scss */
+.fa-thumbs-o-down:before {
+  content: "\f088"; }
+
+/* line 680, ../../client/styles/elements/_fonts.scss */
+.fa-star-half:before {
+  content: "\f089"; }
+
+/* line 683, ../../client/styles/elements/_fonts.scss */
+.fa-heart-o:before {
+  content: "\f08a"; }
+
+/* line 686, ../../client/styles/elements/_fonts.scss */
+.fa-sign-out:before {
+  content: "\f08b"; }
+
+/* line 689, ../../client/styles/elements/_fonts.scss */
+.fa-linkedin-square:before {
+  content: "\f08c"; }
+
+/* line 692, ../../client/styles/elements/_fonts.scss */
+.fa-thumb-tack:before {
+  content: "\f08d"; }
+
+/* line 695, ../../client/styles/elements/_fonts.scss */
+.fa-external-link:before {
+  content: "\f08e"; }
+
+/* line 698, ../../client/styles/elements/_fonts.scss */
+.fa-sign-in:before {
+  content: "\f090"; }
+
+/* line 701, ../../client/styles/elements/_fonts.scss */
+.fa-trophy:before {
+  content: "\f091"; }
+
+/* line 704, ../../client/styles/elements/_fonts.scss */
+.fa-github-square:before {
+  content: "\f092"; }
+
+/* line 707, ../../client/styles/elements/_fonts.scss */
+.fa-upload:before {
+  content: "\f093"; }
+
+/* line 710, ../../client/styles/elements/_fonts.scss */
+.fa-lemon-o:before {
+  content: "\f094"; }
+
+/* line 713, ../../client/styles/elements/_fonts.scss */
+.fa-phone:before {
+  content: "\f095"; }
+
+/* line 716, ../../client/styles/elements/_fonts.scss */
+.fa-square-o:before {
+  content: "\f096"; }
+
+/* line 719, ../../client/styles/elements/_fonts.scss */
+.fa-bookmark-o:before {
+  content: "\f097"; }
+
+/* line 722, ../../client/styles/elements/_fonts.scss */
+.fa-phone-square:before {
+  content: "\f098"; }
+
+/* line 725, ../../client/styles/elements/_fonts.scss */
+.fa-twitter:before {
+  content: "\f099"; }
+
+/* line 728, ../../client/styles/elements/_fonts.scss */
+.fa-facebook:before {
+  content: "\f09a"; }
+
+/* line 731, ../../client/styles/elements/_fonts.scss */
+.fa-github:before {
+  content: "\f09b"; }
+
+/* line 734, ../../client/styles/elements/_fonts.scss */
+.fa-unlock:before {
+  content: "\f09c"; }
+
+/* line 737, ../../client/styles/elements/_fonts.scss */
+.fa-credit-card:before {
+  content: "\f09d"; }
+
+/* line 740, ../../client/styles/elements/_fonts.scss */
+.fa-rss:before {
+  content: "\f09e"; }
+
+/* line 743, ../../client/styles/elements/_fonts.scss */
+.fa-hdd-o:before {
+  content: "\f0a0"; }
+
+/* line 746, ../../client/styles/elements/_fonts.scss */
+.fa-bullhorn:before {
+  content: "\f0a1"; }
+
+/* line 749, ../../client/styles/elements/_fonts.scss */
+.fa-bell:before {
+  content: "\f0f3"; }
+
+/* line 752, ../../client/styles/elements/_fonts.scss */
+.fa-certificate:before {
+  content: "\f0a3"; }
+
+/* line 755, ../../client/styles/elements/_fonts.scss */
+.fa-hand-o-right:before {
+  content: "\f0a4"; }
+
+/* line 758, ../../client/styles/elements/_fonts.scss */
+.fa-hand-o-left:before {
+  content: "\f0a5"; }
+
+/* line 761, ../../client/styles/elements/_fonts.scss */
+.fa-hand-o-up:before {
+  content: "\f0a6"; }
+
+/* line 764, ../../client/styles/elements/_fonts.scss */
+.fa-hand-o-down:before {
+  content: "\f0a7"; }
+
+/* line 767, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-left:before {
+  content: "\f0a8"; }
+
+/* line 770, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-right:before {
+  content: "\f0a9"; }
+
+/* line 773, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-up:before {
+  content: "\f0aa"; }
+
+/* line 776, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-down:before {
+  content: "\f0ab"; }
+
+/* line 779, ../../client/styles/elements/_fonts.scss */
+.fa-globe:before {
+  content: "\f0ac"; }
+
+/* line 782, ../../client/styles/elements/_fonts.scss */
+.fa-wrench:before {
+  content: "\f0ad"; }
+
+/* line 785, ../../client/styles/elements/_fonts.scss */
+.fa-tasks:before {
+  content: "\f0ae"; }
+
+/* line 788, ../../client/styles/elements/_fonts.scss */
+.fa-filter:before {
+  content: "\f0b0"; }
+
+/* line 791, ../../client/styles/elements/_fonts.scss */
+.fa-briefcase:before {
+  content: "\f0b1"; }
+
+/* line 794, ../../client/styles/elements/_fonts.scss */
+.fa-arrows-alt:before {
+  content: "\f0b2"; }
+
+/* line 797, ../../client/styles/elements/_fonts.scss */
+.fa-group:before,
+.fa-users:before {
+  content: "\f0c0"; }
+
+/* line 801, ../../client/styles/elements/_fonts.scss */
+.fa-chain:before,
+.fa-link:before {
+  content: "\f0c1"; }
+
+/* line 805, ../../client/styles/elements/_fonts.scss */
+.fa-cloud:before {
+  content: "\f0c2"; }
+
+/* line 808, ../../client/styles/elements/_fonts.scss */
+.fa-flask:before {
+  content: "\f0c3"; }
+
+/* line 811, ../../client/styles/elements/_fonts.scss */
+.fa-cut:before,
+.fa-scissors:before {
+  content: "\f0c4"; }
+
+/* line 815, ../../client/styles/elements/_fonts.scss */
+.fa-copy:before,
+.fa-files-o:before {
+  content: "\f0c5"; }
+
+/* line 819, ../../client/styles/elements/_fonts.scss */
+.fa-paperclip:before {
+  content: "\f0c6"; }
+
+/* line 822, ../../client/styles/elements/_fonts.scss */
+.fa-save:before,
+.fa-floppy-o:before {
+  content: "\f0c7"; }
+
+/* line 826, ../../client/styles/elements/_fonts.scss */
+.fa-square:before {
+  content: "\f0c8"; }
+
+/* line 829, ../../client/styles/elements/_fonts.scss */
+.fa-navicon:before,
+.fa-reorder:before,
+.fa-bars:before {
+  content: "\f0c9"; }
+
+/* line 834, ../../client/styles/elements/_fonts.scss */
+.fa-list-ul:before {
+  content: "\f0ca"; }
+
+/* line 837, ../../client/styles/elements/_fonts.scss */
+.fa-list-ol:before {
+  content: "\f0cb"; }
+
+/* line 840, ../../client/styles/elements/_fonts.scss */
+.fa-strikethrough:before {
+  content: "\f0cc"; }
+
+/* line 843, ../../client/styles/elements/_fonts.scss */
+.fa-underline:before {
+  content: "\f0cd"; }
+
+/* line 846, ../../client/styles/elements/_fonts.scss */
+.fa-table:before {
+  content: "\f0ce"; }
+
+/* line 849, ../../client/styles/elements/_fonts.scss */
+.fa-magic:before {
+  content: "\f0d0"; }
+
+/* line 852, ../../client/styles/elements/_fonts.scss */
+.fa-truck:before {
+  content: "\f0d1"; }
+
+/* line 855, ../../client/styles/elements/_fonts.scss */
+.fa-pinterest:before {
+  content: "\f0d2"; }
+
+/* line 858, ../../client/styles/elements/_fonts.scss */
+.fa-pinterest-square:before {
+  content: "\f0d3"; }
+
+/* line 861, ../../client/styles/elements/_fonts.scss */
+.fa-google-plus-square:before {
+  content: "\f0d4"; }
+
+/* line 864, ../../client/styles/elements/_fonts.scss */
+.fa-google-plus:before {
+  content: "\f0d5"; }
+
+/* line 867, ../../client/styles/elements/_fonts.scss */
+.fa-money:before {
+  content: "\f0d6"; }
+
+/* line 870, ../../client/styles/elements/_fonts.scss */
+.fa-caret-down:before {
+  content: "\f0d7"; }
+
+/* line 873, ../../client/styles/elements/_fonts.scss */
+.fa-caret-up:before {
+  content: "\f0d8"; }
+
+/* line 876, ../../client/styles/elements/_fonts.scss */
+.fa-caret-left:before {
+  content: "\f0d9"; }
+
+/* line 879, ../../client/styles/elements/_fonts.scss */
+.fa-caret-right:before {
+  content: "\f0da"; }
+
+/* line 882, ../../client/styles/elements/_fonts.scss */
+.fa-columns:before {
+  content: "\f0db"; }
+
+/* line 885, ../../client/styles/elements/_fonts.scss */
+.fa-unsorted:before,
+.fa-sort:before {
+  content: "\f0dc"; }
+
+/* line 889, ../../client/styles/elements/_fonts.scss */
+.fa-sort-down:before,
+.fa-sort-desc:before {
+  content: "\f0dd"; }
+
+/* line 893, ../../client/styles/elements/_fonts.scss */
+.fa-sort-up:before,
+.fa-sort-asc:before {
+  content: "\f0de"; }
+
+/* line 897, ../../client/styles/elements/_fonts.scss */
+.fa-envelope:before {
+  content: "\f0e0"; }
+
+/* line 900, ../../client/styles/elements/_fonts.scss */
+.fa-linkedin:before {
+  content: "\f0e1"; }
+
+/* line 903, ../../client/styles/elements/_fonts.scss */
+.fa-rotate-left:before,
+.fa-undo:before {
+  content: "\f0e2"; }
+
+/* line 907, ../../client/styles/elements/_fonts.scss */
+.fa-legal:before,
+.fa-gavel:before {
+  content: "\f0e3"; }
+
+/* line 911, ../../client/styles/elements/_fonts.scss */
+.fa-dashboard:before,
+.fa-tachometer:before {
+  content: "\f0e4"; }
+
+/* line 915, ../../client/styles/elements/_fonts.scss */
+.fa-comment-o:before {
+  content: "\f0e5"; }
+
+/* line 918, ../../client/styles/elements/_fonts.scss */
+.fa-comments-o:before {
+  content: "\f0e6"; }
+
+/* line 921, ../../client/styles/elements/_fonts.scss */
+.fa-flash:before,
+.fa-bolt:before {
+  content: "\f0e7"; }
+
+/* line 925, ../../client/styles/elements/_fonts.scss */
+.fa-sitemap:before {
+  content: "\f0e8"; }
+
+/* line 928, ../../client/styles/elements/_fonts.scss */
+.fa-umbrella:before {
+  content: "\f0e9"; }
+
+/* line 931, ../../client/styles/elements/_fonts.scss */
+.fa-paste:before,
+.fa-clipboard:before {
+  content: "\f0ea"; }
+
+/* line 935, ../../client/styles/elements/_fonts.scss */
+.fa-lightbulb-o:before {
+  content: "\f0eb"; }
+
+/* line 938, ../../client/styles/elements/_fonts.scss */
+.fa-exchange:before {
+  content: "\f0ec"; }
+
+/* line 941, ../../client/styles/elements/_fonts.scss */
+.fa-cloud-download:before {
+  content: "\f0ed"; }
+
+/* line 944, ../../client/styles/elements/_fonts.scss */
+.fa-cloud-upload:before {
+  content: "\f0ee"; }
+
+/* line 947, ../../client/styles/elements/_fonts.scss */
+.fa-user-md:before {
+  content: "\f0f0"; }
+
+/* line 950, ../../client/styles/elements/_fonts.scss */
+.fa-stethoscope:before {
+  content: "\f0f1"; }
+
+/* line 953, ../../client/styles/elements/_fonts.scss */
+.fa-suitcase:before {
+  content: "\f0f2"; }
+
+/* line 956, ../../client/styles/elements/_fonts.scss */
+.fa-bell-o:before {
+  content: "\f0a2"; }
+
+/* line 959, ../../client/styles/elements/_fonts.scss */
+.fa-coffee:before {
+  content: "\f0f4"; }
+
+/* line 962, ../../client/styles/elements/_fonts.scss */
+.fa-cutlery:before {
+  content: "\f0f5"; }
+
+/* line 965, ../../client/styles/elements/_fonts.scss */
+.fa-file-text-o:before {
+  content: "\f0f6"; }
+
+/* line 968, ../../client/styles/elements/_fonts.scss */
+.fa-building-o:before {
+  content: "\f0f7"; }
+
+/* line 971, ../../client/styles/elements/_fonts.scss */
+.fa-hospital-o:before {
+  content: "\f0f8"; }
+
+/* line 974, ../../client/styles/elements/_fonts.scss */
+.fa-ambulance:before {
+  content: "\f0f9"; }
+
+/* line 977, ../../client/styles/elements/_fonts.scss */
+.fa-medkit:before {
+  content: "\f0fa"; }
+
+/* line 980, ../../client/styles/elements/_fonts.scss */
+.fa-fighter-jet:before {
+  content: "\f0fb"; }
+
+/* line 983, ../../client/styles/elements/_fonts.scss */
+.fa-beer:before {
+  content: "\f0fc"; }
+
+/* line 986, ../../client/styles/elements/_fonts.scss */
+.fa-h-square:before {
+  content: "\f0fd"; }
+
+/* line 989, ../../client/styles/elements/_fonts.scss */
+.fa-plus-square:before {
+  content: "\f0fe"; }
+
+/* line 992, ../../client/styles/elements/_fonts.scss */
+.fa-angle-double-left:before {
+  content: "\f100"; }
+
+/* line 995, ../../client/styles/elements/_fonts.scss */
+.fa-angle-double-right:before {
+  content: "\f101"; }
+
+/* line 998, ../../client/styles/elements/_fonts.scss */
+.fa-angle-double-up:before {
+  content: "\f102"; }
+
+/* line 1001, ../../client/styles/elements/_fonts.scss */
+.fa-angle-double-down:before {
+  content: "\f103"; }
+
+/* line 1004, ../../client/styles/elements/_fonts.scss */
+.fa-angle-left:before {
+  content: "\f104"; }
+
+/* line 1007, ../../client/styles/elements/_fonts.scss */
+.fa-angle-right:before {
+  content: "\f105"; }
+
+/* line 1010, ../../client/styles/elements/_fonts.scss */
+.fa-angle-up:before {
+  content: "\f106"; }
+
+/* line 1013, ../../client/styles/elements/_fonts.scss */
+.fa-angle-down:before {
+  content: "\f107"; }
+
+/* line 1016, ../../client/styles/elements/_fonts.scss */
+.fa-desktop:before {
+  content: "\f108"; }
+
+/* line 1019, ../../client/styles/elements/_fonts.scss */
+.fa-laptop:before {
+  content: "\f109"; }
+
+/* line 1022, ../../client/styles/elements/_fonts.scss */
+.fa-tablet:before {
+  content: "\f10a"; }
+
+/* line 1025, ../../client/styles/elements/_fonts.scss */
+.fa-mobile-phone:before,
+.fa-mobile:before {
+  content: "\f10b"; }
+
+/* line 1029, ../../client/styles/elements/_fonts.scss */
+.fa-circle-o:before {
+  content: "\f10c"; }
+
+/* line 1032, ../../client/styles/elements/_fonts.scss */
+.fa-quote-left:before {
+  content: "\f10d"; }
+
+/* line 1035, ../../client/styles/elements/_fonts.scss */
+.fa-quote-right:before {
+  content: "\f10e"; }
+
+/* line 1038, ../../client/styles/elements/_fonts.scss */
+.fa-spinner:before {
+  content: "\f110"; }
+
+/* line 1041, ../../client/styles/elements/_fonts.scss */
+.fa-circle:before {
+  content: "\f111"; }
+
+/* line 1044, ../../client/styles/elements/_fonts.scss */
+.fa-mail-reply:before,
+.fa-reply:before {
+  content: "\f112"; }
+
+/* line 1048, ../../client/styles/elements/_fonts.scss */
+.fa-github-alt:before {
+  content: "\f113"; }
+
+/* line 1051, ../../client/styles/elements/_fonts.scss */
+.fa-folder-o:before {
+  content: "\f114"; }
+
+/* line 1054, ../../client/styles/elements/_fonts.scss */
+.fa-folder-open-o:before {
+  content: "\f115"; }
+
+/* line 1057, ../../client/styles/elements/_fonts.scss */
+.fa-smile-o:before {
+  content: "\f118"; }
+
+/* line 1060, ../../client/styles/elements/_fonts.scss */
+.fa-frown-o:before {
+  content: "\f119"; }
+
+/* line 1063, ../../client/styles/elements/_fonts.scss */
+.fa-meh-o:before {
+  content: "\f11a"; }
+
+/* line 1066, ../../client/styles/elements/_fonts.scss */
+.fa-gamepad:before {
+  content: "\f11b"; }
+
+/* line 1069, ../../client/styles/elements/_fonts.scss */
+.fa-keyboard-o:before {
+  content: "\f11c"; }
+
+/* line 1072, ../../client/styles/elements/_fonts.scss */
+.fa-flag-o:before {
+  content: "\f11d"; }
+
+/* line 1075, ../../client/styles/elements/_fonts.scss */
+.fa-flag-checkered:before {
+  content: "\f11e"; }
+
+/* line 1078, ../../client/styles/elements/_fonts.scss */
+.fa-terminal:before {
+  content: "\f120"; }
+
+/* line 1081, ../../client/styles/elements/_fonts.scss */
+.fa-code:before {
+  content: "\f121"; }
+
+/* line 1084, ../../client/styles/elements/_fonts.scss */
+.fa-mail-reply-all:before,
+.fa-reply-all:before {
+  content: "\f122"; }
+
+/* line 1088, ../../client/styles/elements/_fonts.scss */
+.fa-star-half-empty:before,
+.fa-star-half-full:before,
+.fa-star-half-o:before {
+  content: "\f123"; }
+
+/* line 1093, ../../client/styles/elements/_fonts.scss */
+.fa-location-arrow:before {
+  content: "\f124"; }
+
+/* line 1096, ../../client/styles/elements/_fonts.scss */
+.fa-crop:before {
+  content: "\f125"; }
+
+/* line 1099, ../../client/styles/elements/_fonts.scss */
+.fa-code-fork:before {
+  content: "\f126"; }
+
+/* line 1102, ../../client/styles/elements/_fonts.scss */
+.fa-unlink:before,
+.fa-chain-broken:before {
+  content: "\f127"; }
+
+/* line 1106, ../../client/styles/elements/_fonts.scss */
+.fa-question:before {
+  content: "\f128"; }
+
+/* line 1109, ../../client/styles/elements/_fonts.scss */
+.fa-info:before {
+  content: "\f129"; }
+
+/* line 1112, ../../client/styles/elements/_fonts.scss */
+.fa-exclamation:before {
+  content: "\f12a"; }
+
+/* line 1115, ../../client/styles/elements/_fonts.scss */
+.fa-superscript:before {
+  content: "\f12b"; }
+
+/* line 1118, ../../client/styles/elements/_fonts.scss */
+.fa-subscript:before {
+  content: "\f12c"; }
+
+/* line 1121, ../../client/styles/elements/_fonts.scss */
+.fa-eraser:before {
+  content: "\f12d"; }
+
+/* line 1124, ../../client/styles/elements/_fonts.scss */
+.fa-puzzle-piece:before {
+  content: "\f12e"; }
+
+/* line 1127, ../../client/styles/elements/_fonts.scss */
+.fa-microphone:before {
+  content: "\f130"; }
+
+/* line 1130, ../../client/styles/elements/_fonts.scss */
+.fa-microphone-slash:before {
+  content: "\f131"; }
+
+/* line 1133, ../../client/styles/elements/_fonts.scss */
+.fa-shield:before {
+  content: "\f132"; }
+
+/* line 1136, ../../client/styles/elements/_fonts.scss */
+.fa-calendar-o:before {
+  content: "\f133"; }
+
+/* line 1139, ../../client/styles/elements/_fonts.scss */
+.fa-fire-extinguisher:before {
+  content: "\f134"; }
+
+/* line 1142, ../../client/styles/elements/_fonts.scss */
+.fa-rocket:before {
+  content: "\f135"; }
+
+/* line 1145, ../../client/styles/elements/_fonts.scss */
+.fa-maxcdn:before {
+  content: "\f136"; }
+
+/* line 1148, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-circle-left:before {
+  content: "\f137"; }
+
+/* line 1151, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-circle-right:before {
+  content: "\f138"; }
+
+/* line 1154, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-circle-up:before {
+  content: "\f139"; }
+
+/* line 1157, ../../client/styles/elements/_fonts.scss */
+.fa-chevron-circle-down:before {
+  content: "\f13a"; }
+
+/* line 1160, ../../client/styles/elements/_fonts.scss */
+.fa-html5:before {
+  content: "\f13b"; }
+
+/* line 1163, ../../client/styles/elements/_fonts.scss */
+.fa-css3:before {
+  content: "\f13c"; }
+
+/* line 1166, ../../client/styles/elements/_fonts.scss */
+.fa-anchor:before {
+  content: "\f13d"; }
+
+/* line 1169, ../../client/styles/elements/_fonts.scss */
+.fa-unlock-alt:before {
+  content: "\f13e"; }
+
+/* line 1172, ../../client/styles/elements/_fonts.scss */
+.fa-bullseye:before {
+  content: "\f140"; }
+
+/* line 1175, ../../client/styles/elements/_fonts.scss */
+.fa-ellipsis-h:before {
+  content: "\f141"; }
+
+/* line 1178, ../../client/styles/elements/_fonts.scss */
+.fa-ellipsis-v:before {
+  content: "\f142"; }
+
+/* line 1181, ../../client/styles/elements/_fonts.scss */
+.fa-rss-square:before {
+  content: "\f143"; }
+
+/* line 1184, ../../client/styles/elements/_fonts.scss */
+.fa-play-circle:before {
+  content: "\f144"; }
+
+/* line 1187, ../../client/styles/elements/_fonts.scss */
+.fa-ticket:before {
+  content: "\f145"; }
+
+/* line 1190, ../../client/styles/elements/_fonts.scss */
+.fa-minus-square:before {
+  content: "\f146"; }
+
+/* line 1193, ../../client/styles/elements/_fonts.scss */
+.fa-minus-square-o:before {
+  content: "\f147"; }
+
+/* line 1196, ../../client/styles/elements/_fonts.scss */
+.fa-level-up:before {
+  content: "\f148"; }
+
+/* line 1199, ../../client/styles/elements/_fonts.scss */
+.fa-level-down:before {
+  content: "\f149"; }
+
+/* line 1202, ../../client/styles/elements/_fonts.scss */
+.fa-check-square:before {
+  content: "\f14a"; }
+
+/* line 1205, ../../client/styles/elements/_fonts.scss */
+.fa-pencil-square:before {
+  content: "\f14b"; }
+
+/* line 1208, ../../client/styles/elements/_fonts.scss */
+.fa-external-link-square:before {
+  content: "\f14c"; }
+
+/* line 1211, ../../client/styles/elements/_fonts.scss */
+.fa-share-square:before {
+  content: "\f14d"; }
+
+/* line 1214, ../../client/styles/elements/_fonts.scss */
+.fa-compass:before {
+  content: "\f14e"; }
+
+/* line 1217, ../../client/styles/elements/_fonts.scss */
+.fa-toggle-down:before,
+.fa-caret-square-o-down:before {
+  content: "\f150"; }
+
+/* line 1221, ../../client/styles/elements/_fonts.scss */
+.fa-toggle-up:before,
+.fa-caret-square-o-up:before {
+  content: "\f151"; }
+
+/* line 1225, ../../client/styles/elements/_fonts.scss */
+.fa-toggle-right:before,
+.fa-caret-square-o-right:before {
+  content: "\f152"; }
+
+/* line 1229, ../../client/styles/elements/_fonts.scss */
+.fa-euro:before,
+.fa-eur:before {
+  content: "\f153"; }
+
+/* line 1233, ../../client/styles/elements/_fonts.scss */
+.fa-gbp:before {
+  content: "\f154"; }
+
+/* line 1236, ../../client/styles/elements/_fonts.scss */
+.fa-dollar:before,
+.fa-usd:before {
+  content: "\f155"; }
+
+/* line 1240, ../../client/styles/elements/_fonts.scss */
+.fa-rupee:before,
+.fa-inr:before {
+  content: "\f156"; }
+
+/* line 1244, ../../client/styles/elements/_fonts.scss */
+.fa-cny:before,
+.fa-rmb:before,
+.fa-yen:before,
+.fa-jpy:before {
+  content: "\f157"; }
+
+/* line 1250, ../../client/styles/elements/_fonts.scss */
+.fa-ruble:before,
+.fa-rouble:before,
+.fa-rub:before {
+  content: "\f158"; }
+
+/* line 1255, ../../client/styles/elements/_fonts.scss */
+.fa-won:before,
+.fa-krw:before {
+  content: "\f159"; }
+
+/* line 1259, ../../client/styles/elements/_fonts.scss */
+.fa-bitcoin:before,
+.fa-btc:before {
+  content: "\f15a"; }
+
+/* line 1263, ../../client/styles/elements/_fonts.scss */
+.fa-file:before {
+  content: "\f15b"; }
+
+/* line 1266, ../../client/styles/elements/_fonts.scss */
+.fa-file-text:before {
+  content: "\f15c"; }
+
+/* line 1269, ../../client/styles/elements/_fonts.scss */
+.fa-sort-alpha-asc:before {
+  content: "\f15d"; }
+
+/* line 1272, ../../client/styles/elements/_fonts.scss */
+.fa-sort-alpha-desc:before {
+  content: "\f15e"; }
+
+/* line 1275, ../../client/styles/elements/_fonts.scss */
+.fa-sort-amount-asc:before {
+  content: "\f160"; }
+
+/* line 1278, ../../client/styles/elements/_fonts.scss */
+.fa-sort-amount-desc:before {
+  content: "\f161"; }
+
+/* line 1281, ../../client/styles/elements/_fonts.scss */
+.fa-sort-numeric-asc:before {
+  content: "\f162"; }
+
+/* line 1284, ../../client/styles/elements/_fonts.scss */
+.fa-sort-numeric-desc:before {
+  content: "\f163"; }
+
+/* line 1287, ../../client/styles/elements/_fonts.scss */
+.fa-thumbs-up:before {
+  content: "\f164"; }
+
+/* line 1290, ../../client/styles/elements/_fonts.scss */
+.fa-thumbs-down:before {
+  content: "\f165"; }
+
+/* line 1293, ../../client/styles/elements/_fonts.scss */
+.fa-youtube-square:before {
+  content: "\f166"; }
+
+/* line 1296, ../../client/styles/elements/_fonts.scss */
+.fa-youtube:before {
+  content: "\f167"; }
+
+/* line 1299, ../../client/styles/elements/_fonts.scss */
+.fa-xing:before {
+  content: "\f168"; }
+
+/* line 1302, ../../client/styles/elements/_fonts.scss */
+.fa-xing-square:before {
+  content: "\f169"; }
+
+/* line 1305, ../../client/styles/elements/_fonts.scss */
+.fa-youtube-play:before {
+  content: "\f16a"; }
+
+/* line 1308, ../../client/styles/elements/_fonts.scss */
+.fa-dropbox:before {
+  content: "\f16b"; }
+
+/* line 1311, ../../client/styles/elements/_fonts.scss */
+.fa-stack-overflow:before {
+  content: "\f16c"; }
+
+/* line 1314, ../../client/styles/elements/_fonts.scss */
+.fa-instagram:before {
+  content: "\f16d"; }
+
+/* line 1317, ../../client/styles/elements/_fonts.scss */
+.fa-flickr:before {
+  content: "\f16e"; }
+
+/* line 1320, ../../client/styles/elements/_fonts.scss */
+.fa-adn:before {
+  content: "\f170"; }
+
+/* line 1323, ../../client/styles/elements/_fonts.scss */
+.fa-bitbucket:before {
+  content: "\f171"; }
+
+/* line 1326, ../../client/styles/elements/_fonts.scss */
+.fa-bitbucket-square:before {
+  content: "\f172"; }
+
+/* line 1329, ../../client/styles/elements/_fonts.scss */
+.fa-tumblr:before {
+  content: "\f173"; }
+
+/* line 1332, ../../client/styles/elements/_fonts.scss */
+.fa-tumblr-square:before {
+  content: "\f174"; }
+
+/* line 1335, ../../client/styles/elements/_fonts.scss */
+.fa-long-arrow-down:before {
+  content: "\f175"; }
+
+/* line 1338, ../../client/styles/elements/_fonts.scss */
+.fa-long-arrow-up:before {
+  content: "\f176"; }
+
+/* line 1341, ../../client/styles/elements/_fonts.scss */
+.fa-long-arrow-left:before {
+  content: "\f177"; }
+
+/* line 1344, ../../client/styles/elements/_fonts.scss */
+.fa-long-arrow-right:before {
+  content: "\f178"; }
+
+/* line 1347, ../../client/styles/elements/_fonts.scss */
+.fa-apple:before {
+  content: "\f179"; }
+
+/* line 1350, ../../client/styles/elements/_fonts.scss */
+.fa-windows:before {
+  content: "\f17a"; }
+
+/* line 1353, ../../client/styles/elements/_fonts.scss */
+.fa-android:before {
+  content: "\f17b"; }
+
+/* line 1356, ../../client/styles/elements/_fonts.scss */
+.fa-linux:before {
+  content: "\f17c"; }
+
+/* line 1359, ../../client/styles/elements/_fonts.scss */
+.fa-dribbble:before {
+  content: "\f17d"; }
+
+/* line 1362, ../../client/styles/elements/_fonts.scss */
+.fa-skype:before {
+  content: "\f17e"; }
+
+/* line 1365, ../../client/styles/elements/_fonts.scss */
+.fa-foursquare:before {
+  content: "\f180"; }
+
+/* line 1368, ../../client/styles/elements/_fonts.scss */
+.fa-trello:before {
+  content: "\f181"; }
+
+/* line 1371, ../../client/styles/elements/_fonts.scss */
+.fa-female:before {
+  content: "\f182"; }
+
+/* line 1374, ../../client/styles/elements/_fonts.scss */
+.fa-male:before {
+  content: "\f183"; }
+
+/* line 1377, ../../client/styles/elements/_fonts.scss */
+.fa-gittip:before {
+  content: "\f184"; }
+
+/* line 1380, ../../client/styles/elements/_fonts.scss */
+.fa-sun-o:before {
+  content: "\f185"; }
+
+/* line 1383, ../../client/styles/elements/_fonts.scss */
+.fa-moon-o:before {
+  content: "\f186"; }
+
+/* line 1386, ../../client/styles/elements/_fonts.scss */
+.fa-archive:before {
+  content: "\f187"; }
+
+/* line 1389, ../../client/styles/elements/_fonts.scss */
+.fa-bug:before {
+  content: "\f188"; }
+
+/* line 1392, ../../client/styles/elements/_fonts.scss */
+.fa-vk:before {
+  content: "\f189"; }
+
+/* line 1395, ../../client/styles/elements/_fonts.scss */
+.fa-weibo:before {
+  content: "\f18a"; }
+
+/* line 1398, ../../client/styles/elements/_fonts.scss */
+.fa-renren:before {
+  content: "\f18b"; }
+
+/* line 1401, ../../client/styles/elements/_fonts.scss */
+.fa-pagelines:before {
+  content: "\f18c"; }
+
+/* line 1404, ../../client/styles/elements/_fonts.scss */
+.fa-stack-exchange:before {
+  content: "\f18d"; }
+
+/* line 1407, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-o-right:before {
+  content: "\f18e"; }
+
+/* line 1410, ../../client/styles/elements/_fonts.scss */
+.fa-arrow-circle-o-left:before {
+  content: "\f190"; }
+
+/* line 1413, ../../client/styles/elements/_fonts.scss */
+.fa-toggle-left:before,
+.fa-caret-square-o-left:before {
+  content: "\f191"; }
+
+/* line 1417, ../../client/styles/elements/_fonts.scss */
+.fa-dot-circle-o:before {
+  content: "\f192"; }
+
+/* line 1420, ../../client/styles/elements/_fonts.scss */
+.fa-wheelchair:before {
+  content: "\f193"; }
+
+/* line 1423, ../../client/styles/elements/_fonts.scss */
+.fa-vimeo-square:before {
+  content: "\f194"; }
+
+/* line 1426, ../../client/styles/elements/_fonts.scss */
+.fa-turkish-lira:before,
+.fa-try:before {
+  content: "\f195"; }
+
+/* line 1430, ../../client/styles/elements/_fonts.scss */
+.fa-plus-square-o:before {
+  content: "\f196"; }
+
+/* line 1433, ../../client/styles/elements/_fonts.scss */
+.fa-space-shuttle:before {
+  content: "\f197"; }
+
+/* line 1436, ../../client/styles/elements/_fonts.scss */
+.fa-slack:before {
+  content: "\f198"; }
+
+/* line 1439, ../../client/styles/elements/_fonts.scss */
+.fa-envelope-square:before {
+  content: "\f199"; }
+
+/* line 1442, ../../client/styles/elements/_fonts.scss */
+.fa-wordpress:before {
+  content: "\f19a"; }
+
+/* line 1445, ../../client/styles/elements/_fonts.scss */
+.fa-openid:before {
+  content: "\f19b"; }
+
+/* line 1448, ../../client/styles/elements/_fonts.scss */
+.fa-institution:before,
+.fa-bank:before,
+.fa-university:before {
+  content: "\f19c"; }
+
+/* line 1453, ../../client/styles/elements/_fonts.scss */
+.fa-mortar-board:before,
+.fa-graduation-cap:before {
+  content: "\f19d"; }
+
+/* line 1457, ../../client/styles/elements/_fonts.scss */
+.fa-yahoo:before {
+  content: "\f19e"; }
+
+/* line 1460, ../../client/styles/elements/_fonts.scss */
+.fa-google:before {
+  content: "\f1a0"; }
+
+/* line 1463, ../../client/styles/elements/_fonts.scss */
+.fa-reddit:before {
+  content: "\f1a1"; }
+
+/* line 1466, ../../client/styles/elements/_fonts.scss */
+.fa-reddit-square:before {
+  content: "\f1a2"; }
+
+/* line 1469, ../../client/styles/elements/_fonts.scss */
+.fa-stumbleupon-circle:before {
+  content: "\f1a3"; }
+
+/* line 1472, ../../client/styles/elements/_fonts.scss */
+.fa-stumbleupon:before {
+  content: "\f1a4"; }
+
+/* line 1475, ../../client/styles/elements/_fonts.scss */
+.fa-delicious:before {
+  content: "\f1a5"; }
+
+/* line 1478, ../../client/styles/elements/_fonts.scss */
+.fa-digg:before {
+  content: "\f1a6"; }
+
+/* line 1481, ../../client/styles/elements/_fonts.scss */
+.fa-pied-piper:before {
+  content: "\f1a7"; }
+
+/* line 1484, ../../client/styles/elements/_fonts.scss */
+.fa-pied-piper-alt:before {
+  content: "\f1a8"; }
+
+/* line 1487, ../../client/styles/elements/_fonts.scss */
+.fa-drupal:before {
+  content: "\f1a9"; }
+
+/* line 1490, ../../client/styles/elements/_fonts.scss */
+.fa-joomla:before {
+  content: "\f1aa"; }
+
+/* line 1493, ../../client/styles/elements/_fonts.scss */
+.fa-language:before {
+  content: "\f1ab"; }
+
+/* line 1496, ../../client/styles/elements/_fonts.scss */
+.fa-fax:before {
+  content: "\f1ac"; }
+
+/* line 1499, ../../client/styles/elements/_fonts.scss */
+.fa-building:before {
+  content: "\f1ad"; }
+
+/* line 1502, ../../client/styles/elements/_fonts.scss */
+.fa-child:before {
+  content: "\f1ae"; }
+
+/* line 1505, ../../client/styles/elements/_fonts.scss */
+.fa-paw:before {
+  content: "\f1b0"; }
+
+/* line 1508, ../../client/styles/elements/_fonts.scss */
+.fa-spoon:before {
+  content: "\f1b1"; }
+
+/* line 1511, ../../client/styles/elements/_fonts.scss */
+.fa-cube:before {
+  content: "\f1b2"; }
+
+/* line 1514, ../../client/styles/elements/_fonts.scss */
+.fa-cubes:before {
+  content: "\f1b3"; }
+
+/* line 1517, ../../client/styles/elements/_fonts.scss */
+.fa-behance:before {
+  content: "\f1b4"; }
+
+/* line 1520, ../../client/styles/elements/_fonts.scss */
+.fa-behance-square:before {
+  content: "\f1b5"; }
+
+/* line 1523, ../../client/styles/elements/_fonts.scss */
+.fa-steam:before {
+  content: "\f1b6"; }
+
+/* line 1526, ../../client/styles/elements/_fonts.scss */
+.fa-steam-square:before {
+  content: "\f1b7"; }
+
+/* line 1529, ../../client/styles/elements/_fonts.scss */
+.fa-recycle:before {
+  content: "\f1b8"; }
+
+/* line 1532, ../../client/styles/elements/_fonts.scss */
+.fa-automobile:before,
+.fa-car:before {
+  content: "\f1b9"; }
+
+/* line 1536, ../../client/styles/elements/_fonts.scss */
+.fa-cab:before,
+.fa-taxi:before {
+  content: "\f1ba"; }
+
+/* line 1540, ../../client/styles/elements/_fonts.scss */
+.fa-tree:before {
+  content: "\f1bb"; }
+
+/* line 1543, ../../client/styles/elements/_fonts.scss */
+.fa-spotify:before {
+  content: "\f1bc"; }
+
+/* line 1546, ../../client/styles/elements/_fonts.scss */
+.fa-deviantart:before {
+  content: "\f1bd"; }
+
+/* line 1549, ../../client/styles/elements/_fonts.scss */
+.fa-soundcloud:before {
+  content: "\f1be"; }
+
+/* line 1552, ../../client/styles/elements/_fonts.scss */
+.fa-database:before {
+  content: "\f1c0"; }
+
+/* line 1555, ../../client/styles/elements/_fonts.scss */
+.fa-file-pdf-o:before {
+  content: "\f1c1"; }
+
+/* line 1558, ../../client/styles/elements/_fonts.scss */
+.fa-file-word-o:before {
+  content: "\f1c2"; }
+
+/* line 1561, ../../client/styles/elements/_fonts.scss */
+.fa-file-excel-o:before {
+  content: "\f1c3"; }
+
+/* line 1564, ../../client/styles/elements/_fonts.scss */
+.fa-file-powerpoint-o:before {
+  content: "\f1c4"; }
+
+/* line 1567, ../../client/styles/elements/_fonts.scss */
+.fa-file-photo-o:before,
+.fa-file-picture-o:before,
+.fa-file-image-o:before {
+  content: "\f1c5"; }
+
+/* line 1572, ../../client/styles/elements/_fonts.scss */
+.fa-file-zip-o:before,
+.fa-file-archive-o:before {
+  content: "\f1c6"; }
+
+/* line 1576, ../../client/styles/elements/_fonts.scss */
+.fa-file-sound-o:before,
+.fa-file-audio-o:before {
+  content: "\f1c7"; }
+
+/* line 1580, ../../client/styles/elements/_fonts.scss */
+.fa-file-movie-o:before,
+.fa-file-video-o:before {
+  content: "\f1c8"; }
+
+/* line 1584, ../../client/styles/elements/_fonts.scss */
+.fa-file-code-o:before {
+  content: "\f1c9"; }
+
+/* line 1587, ../../client/styles/elements/_fonts.scss */
+.fa-vine:before {
+  content: "\f1ca"; }
+
+/* line 1590, ../../client/styles/elements/_fonts.scss */
+.fa-codepen:before {
+  content: "\f1cb"; }
+
+/* line 1593, ../../client/styles/elements/_fonts.scss */
+.fa-jsfiddle:before {
+  content: "\f1cc"; }
+
+/* line 1596, ../../client/styles/elements/_fonts.scss */
+.fa-life-bouy:before,
+.fa-life-buoy:before,
+.fa-life-saver:before,
+.fa-support:before,
+.fa-life-ring:before {
+  content: "\f1cd"; }
+
+/* line 1603, ../../client/styles/elements/_fonts.scss */
+.fa-circle-o-notch:before {
+  content: "\f1ce"; }
+
+/* line 1606, ../../client/styles/elements/_fonts.scss */
+.fa-ra:before,
+.fa-rebel:before {
+  content: "\f1d0"; }
+
+/* line 1610, ../../client/styles/elements/_fonts.scss */
+.fa-ge:before,
+.fa-empire:before {
+  content: "\f1d1"; }
+
+/* line 1614, ../../client/styles/elements/_fonts.scss */
+.fa-git-square:before {
+  content: "\f1d2"; }
+
+/* line 1617, ../../client/styles/elements/_fonts.scss */
+.fa-git:before {
+  content: "\f1d3"; }
+
+/* line 1620, ../../client/styles/elements/_fonts.scss */
+.fa-hacker-news:before {
+  content: "\f1d4"; }
+
+/* line 1623, ../../client/styles/elements/_fonts.scss */
+.fa-tencent-weibo:before {
+  content: "\f1d5"; }
+
+/* line 1626, ../../client/styles/elements/_fonts.scss */
+.fa-qq:before {
+  content: "\f1d6"; }
+
+/* line 1629, ../../client/styles/elements/_fonts.scss */
+.fa-wechat:before,
+.fa-weixin:before {
+  content: "\f1d7"; }
+
+/* line 1633, ../../client/styles/elements/_fonts.scss */
+.fa-send:before,
+.fa-paper-plane:before {
+  content: "\f1d8"; }
+
+/* line 1637, ../../client/styles/elements/_fonts.scss */
+.fa-send-o:before,
+.fa-paper-plane-o:before {
+  content: "\f1d9"; }
+
+/* line 1641, ../../client/styles/elements/_fonts.scss */
+.fa-history:before {
+  content: "\f1da"; }
+
+/* line 1644, ../../client/styles/elements/_fonts.scss */
+.fa-circle-thin:before {
+  content: "\f1db"; }
+
+/* line 1647, ../../client/styles/elements/_fonts.scss */
+.fa-header:before {
+  content: "\f1dc"; }
+
+/* line 1650, ../../client/styles/elements/_fonts.scss */
+.fa-paragraph:before {
+  content: "\f1dd"; }
+
+/* line 1653, ../../client/styles/elements/_fonts.scss */
+.fa-sliders:before {
+  content: "\f1de"; }
+
+/* line 1656, ../../client/styles/elements/_fonts.scss */
+.fa-share-alt:before {
+  content: "\f1e0"; }
+
+/* line 1659, ../../client/styles/elements/_fonts.scss */
+.fa-share-alt-square:before {
+  content: "\f1e1"; }
+
+/* line 1662, ../../client/styles/elements/_fonts.scss */
+.fa-bomb:before {
+  content: "\f1e2"; }
+
+/* line 1665, ../../client/styles/elements/_fonts.scss */
+.fa-soccer-ball-o:before,
+.fa-futbol-o:before {
+  content: "\f1e3"; }
+
+/* line 1669, ../../client/styles/elements/_fonts.scss */
+.fa-tty:before {
+  content: "\f1e4"; }
+
+/* line 1672, ../../client/styles/elements/_fonts.scss */
+.fa-binoculars:before {
+  content: "\f1e5"; }
+
+/* line 1675, ../../client/styles/elements/_fonts.scss */
+.fa-plug:before {
+  content: "\f1e6"; }
+
+/* line 1678, ../../client/styles/elements/_fonts.scss */
+.fa-slideshare:before {
+  content: "\f1e7"; }
+
+/* line 1681, ../../client/styles/elements/_fonts.scss */
+.fa-twitch:before {
+  content: "\f1e8"; }
+
+/* line 1684, ../../client/styles/elements/_fonts.scss */
+.fa-yelp:before {
+  content: "\f1e9"; }
+
+/* line 1687, ../../client/styles/elements/_fonts.scss */
+.fa-newspaper-o:before {
+  content: "\f1ea"; }
+
+/* line 1690, ../../client/styles/elements/_fonts.scss */
+.fa-wifi:before {
+  content: "\f1eb"; }
+
+/* line 1693, ../../client/styles/elements/_fonts.scss */
+.fa-calculator:before {
+  content: "\f1ec"; }
+
+/* line 1696, ../../client/styles/elements/_fonts.scss */
+.fa-paypal:before {
+  content: "\f1ed"; }
+
+/* line 1699, ../../client/styles/elements/_fonts.scss */
+.fa-google-wallet:before {
+  content: "\f1ee"; }
+
+/* line 1702, ../../client/styles/elements/_fonts.scss */
+.fa-cc-visa:before {
+  content: "\f1f0"; }
+
+/* line 1705, ../../client/styles/elements/_fonts.scss */
+.fa-cc-mastercard:before {
+  content: "\f1f1"; }
+
+/* line 1708, ../../client/styles/elements/_fonts.scss */
+.fa-cc-discover:before {
+  content: "\f1f2"; }
+
+/* line 1711, ../../client/styles/elements/_fonts.scss */
+.fa-cc-amex:before {
+  content: "\f1f3"; }
+
+/* line 1714, ../../client/styles/elements/_fonts.scss */
+.fa-cc-paypal:before {
+  content: "\f1f4"; }
+
+/* line 1717, ../../client/styles/elements/_fonts.scss */
+.fa-cc-stripe:before {
+  content: "\f1f5"; }
+
+/* line 1720, ../../client/styles/elements/_fonts.scss */
+.fa-bell-slash:before {
+  content: "\f1f6"; }
+
+/* line 1723, ../../client/styles/elements/_fonts.scss */
+.fa-bell-slash-o:before {
+  content: "\f1f7"; }
+
+/* line 1726, ../../client/styles/elements/_fonts.scss */
+.fa-trash:before {
+  content: "\f1f8"; }
+
+/* line 1729, ../../client/styles/elements/_fonts.scss */
+.fa-copyright:before {
+  content: "\f1f9"; }
+
+/* line 1732, ../../client/styles/elements/_fonts.scss */
+.fa-at:before {
+  content: "\f1fa"; }
+
+/* line 1735, ../../client/styles/elements/_fonts.scss */
+.fa-eyedropper:before {
+  content: "\f1fb"; }
+
+/* line 1738, ../../client/styles/elements/_fonts.scss */
+.fa-paint-brush:before {
+  content: "\f1fc"; }
+
+/* line 1741, ../../client/styles/elements/_fonts.scss */
+.fa-birthday-cake:before {
+  content: "\f1fd"; }
+
+/* line 1744, ../../client/styles/elements/_fonts.scss */
+.fa-area-chart:before {
+  content: "\f1fe"; }
+
+/* line 1747, ../../client/styles/elements/_fonts.scss */
+.fa-pie-chart:before {
+  content: "\f200"; }
+
+/* line 1750, ../../client/styles/elements/_fonts.scss */
+.fa-line-chart:before {
+  content: "\f201"; }
+
+/* line 1753, ../../client/styles/elements/_fonts.scss */
+.fa-lastfm:before {
+  content: "\f202"; }
+
+/* line 1756, ../../client/styles/elements/_fonts.scss */
+.fa-lastfm-square:before {
+  content: "\f203"; }
+
+/* line 1759, ../../client/styles/elements/_fonts.scss */
+.fa-toggle-off:before {
+  content: "\f204"; }
+
+/* line 1762, ../../client/styles/elements/_fonts.scss */
+.fa-toggle-on:before {
+  content: "\f205"; }
+
+/* line 1765, ../../client/styles/elements/_fonts.scss */
+.fa-bicycle:before {
+  content: "\f206"; }
+
+/* line 1768, ../../client/styles/elements/_fonts.scss */
+.fa-bus:before {
+  content: "\f207"; }
+
+/* line 1771, ../../client/styles/elements/_fonts.scss */
+.fa-ioxhost:before {
+  content: "\f208"; }
+
+/* line 1774, ../../client/styles/elements/_fonts.scss */
+.fa-angellist:before {
+  content: "\f209"; }
+
+/* line 1777, ../../client/styles/elements/_fonts.scss */
+.fa-cc:before {
+  content: "\f20a"; }
+
+/* line 1780, ../../client/styles/elements/_fonts.scss */
+.fa-shekel:before,
+.fa-sheqel:before,
+.fa-ils:before {
+  content: "\f20b"; }
+
+/* line 1785, ../../client/styles/elements/_fonts.scss */
+.fa-meanpath:before {
+  content: "\f20c"; }
+
+/* line 1, ../../client/styles/elements/_typography.scss */
+.page-title {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 33.6px;
+  line-height: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 0; }
+
+/* line 4, ../../client/styles/elements/_angular.scss */
+.ng-cloak {
+  display: none !important; }
+
+/* line 1, ../../client/styles/elements/_loading-block.scss */
+.loading-block {
+  min-height: 150px;
+  min-height: 9.375rem; }
+  /* line 4, ../../client/styles/elements/_loading-block.scss */
+  .loading-block .preloader {
+    height: 150px;
+    height: 9.375rem;
+    background-position: center;
+    background-size: 100px 100px;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 100%; }
+
+/* line 2, ../../client/styles/elements/_lists.scss */
+.list .item {
+  position: relative; }
+  /* line 4, ../../client/styles/elements/_lists.scss */
+  .list .item .item-content.faded {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    opacity: 0.5; }
+/* line 9, ../../client/styles/elements/_lists.scss */
+.list .subheading {
+  margin-bottom: 15px;
+  margin-bottom: 0.9375rem; }
+/* line 13, ../../client/styles/elements/_lists.scss */
+.list p {
+  margin: 0; }
+/* line 14, ../../client/styles/elements/_lists.scss */
+.list p + p {
+  margin-top: 15px;
+  margin-top: 0.9375rem; }
+
+/* line 17, ../../client/styles/elements/_lists.scss */
+.list.list-striped {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: #fff;
+  position: relative;
+  width: 100%;
+  z-index: 9999; }
+  /* line 27, ../../client/styles/elements/_lists.scss */
+  .list.list-striped .striped {
+    padding: 30px;
+    padding: 1.875rem; }
+    /* line 30, ../../client/styles/elements/_lists.scss */
+    .list.list-striped .striped:nth-child(even) {
+      background: #eaeaea; }
+  /* line 33, ../../client/styles/elements/_lists.scss */
+  .list.list-striped .striped + .striped {
+    margin-top: 0; }
+  @media (min-width: 992px) {
+    /* line 17, ../../client/styles/elements/_lists.scss */
+    .list.list-striped {
+      max-width: 970px;
+      width: auto;
+      margin: 0 auto; } }
+
+/* line 44, ../../client/styles/elements/_lists.scss */
+.list.with-icons .striped {
+  padding-left: 60px;
+  padding-left: 3.75rem; }
+/* line 46, ../../client/styles/elements/_lists.scss */
+.list.with-icons i {
+  position: absolute;
+  left: 22px;
+  top: 28px;
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 28px;
+  line-height: 1.75rem; }
+/* line 53, ../../client/styles/elements/_lists.scss */
+.list.with-icons .issue {
+  position: relative; }
+
+/* line 1, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th {
+  text-align: center;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+/* line 5, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable {
+  cursor: pointer; }
+
+/* line 8, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable div {
+  padding-right: 18px;
+  position: relative; }
+
+/* line 12, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable div:after,
+.ng-table th.sortable div:before {
+  content: "";
+  border-width: 0 4px 4px;
+  border-style: solid;
+  border-color: #000 transparent;
+  visibility: visible;
+  right: 8px;
+  top: 50%;
+  position: absolute;
+  margin-top: -4px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  opacity: 0.3; }
+
+/* line 25, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable div:before {
+  margin-top: 2px;
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000; }
+
+/* line 32, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable div:hover:after,
+.ng-table th.sortable div:hover:before {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+  visibility: visible; }
+
+/* line 37, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable.sort-desc div:after,
+.ng-table th.sortable.sort-asc div:after {
+  margin-top: -2px; }
+
+/* line 41, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable.sort-desc div:before,
+.ng-table th.sortable.sort-asc div:before {
+  visibility: hidden; }
+
+/* line 45, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable.sort-asc div:after,
+.ng-table th.sortable.sort-asc div:hover:after {
+  visibility: visible;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6; }
+
+/* line 50, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.sortable.sort-desc div:after {
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+  visibility: visible;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6; }
+
+/* line 59, ../../client/styles/vendor/_ng-table.scss */
+.ng-table th.filter .input-filter {
+  margin: 0;
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* line 66, ../../client/styles/vendor/_ng-table.scss */
+.ng-table + .pagination {
+  margin-top: 0; }
+
+/* line 2, ../../client/styles/page-templates/_systems.scss */
+.page-systems .page-header {
+  margin-top: 0;
+  margin-bottom: 0; }
+  /* line 6, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .page-header .page-title {
+    font-size: 22px;
+    font-size: 1.375rem;
+    line-height: 30.8px;
+    line-height: 1.925rem;
+    line-height: 1;
+    margin: 30px 0;
+    margin: 1.875rem 0; }
+/* line 13, ../../client/styles/page-templates/_systems.scss */
+.page-systems .section-system {
+  padding: 40px 0;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid #eee; }
+@media (min-width: 768px) {
+  /* line 20, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .section-system table.scroll {
+    margin-bottom: 34px; } }
+/* line 27, ../../client/styles/page-templates/_systems.scss */
+.page-systems .section-title {
+  text-transform: none;
+  text-align: center;
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem; }
+  @media (min-width: 768px) {
+    /* line 27, ../../client/styles/page-templates/_systems.scss */
+    .page-systems .section-title {
+      text-align: left; } }
+  /* line 36, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .section-title .system-summary {
+    text-align: center;
+    padding-top: 20px; }
+    @media (min-width: 768px) {
+      /* line 36, ../../client/styles/page-templates/_systems.scss */
+      .page-systems .section-title .system-summary {
+        padding-top: 0;
+        text-align: right; } }
+  /* line 46, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .section-title h1 {
+    width: 100%;
+    margin-top: 0;
+    line-height: 1;
+    font-weight: 700;
+    line-height: 1;
+    color: #585858; }
+  /* line 56, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .section-title .num {
+    font-weight: 700; }
+  /* line 60, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .section-title .block {
+    display: inline-block; }
+    /* line 63, ../../client/styles/page-templates/_systems.scss */
+    .page-systems .section-title .block img {
+      float: left;
+      margin-right: 12px; }
+    /* line 68, ../../client/styles/page-templates/_systems.scss */
+    .page-systems .section-title .block h3 {
+      margin-top: 0;
+      float: left;
+      font-size: 18px;
+      font-size: 1.125rem;
+      line-height: 25.2px;
+      line-height: 1.575rem; }
+  /* line 75, ../../client/styles/page-templates/_systems.scss */
+  .page-systems .section-title .block + .block {
+    margin-left: 20px; }
+/* line 83, ../../client/styles/page-templates/_systems.scss */
+.page-systems table .errors a {
+  display: block; }
+/* line 87, ../../client/styles/page-templates/_systems.scss */
+.page-systems table .icon img {
+  width: 16px;
+  height: 16px; }
+
+/* line 100, ../../client/styles/page-templates/_systems.scss */
+.system-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #000; }
+
+/* line 110, ../../client/styles/page-templates/_systems.scss */
+.system-modal .modal-dialog {
+  width: 80%; }
+
+/* line 115, ../../client/styles/page-templates/_systems.scss */
+a.blacklist {
+  color: #000; }
+
+/* line 119, ../../client/styles/page-templates/_systems.scss */
+.table-striped > tbody > tr.stale-system:nth-child(odd) {
+  background: none; }
+
+/* line 123, ../../client/styles/page-templates/_systems.scss */
+.table-hover > tbody > tr.stale-system:hover {
+  background-color: transparent; }
+
+/* line 127, ../../client/styles/page-templates/_systems.scss */
+.stale-system td,
+.stale-system:hover td {
+  background-color: #FAFAFA !important;
+  opacity: .7;
+  font-style: italic; }
+
+/* line 134, ../../client/styles/page-templates/_systems.scss */
+.section-system .danger td {
+  opacity: .7;
+  font-style: italic; }
+
+/* line 2, ../../client/styles/page-templates/_announcements.scss */
+.page-announcements .section-announcements {
+  padding: 40px 0;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid #eee; }
+  @media (min-width: 768px) {
+    /* line 2, ../../client/styles/page-templates/_announcements.scss */
+    .page-announcements .section-announcements {
+      width: 90%;
+      margin: 0 5%; } }
+/* line 11, ../../client/styles/page-templates/_announcements.scss */
+.page-announcements h1.page-title {
+  color: #585858; }
+
+/* line 1, ../../client/styles/page-templates/_permissions.scss */
+.user-permission {
+  height: 220px; }
+  /* line 3, ../../client/styles/page-templates/_permissions.scss */
+  .user-permission .permissions {
+    padding-bottom: 15px; }
+
+/* line 1, ../../client/styles/components/_actionbar.scss */
+.actionbar {
+  background-color: #f9f9f9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  padding: 0.625rem;
+  border-top: 1px solid #d9d9d9;
+  text-align: right; }
+  /* line 11, ../../client/styles/components/_actionbar.scss */
+  .actionbar i {
+    display: inline-block;
+    padding: 5px;
+    padding: 0.3125rem;
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    margin-left: 0.625rem;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s; }
+    /* line 18, ../../client/styles/components/_actionbar.scss */
+    .actionbar i:hover {
+      background: #646464;
+      border-color: #646464;
+      color: #fff; }
+
+/* line 1, ../../client/styles/components/_scrollable.scss */
+.scrollable {
+  max-height: 340px;
+  overflow-y: auto; }
+  @media (min-width: 768px) {
+    /* line 1, ../../client/styles/components/_scrollable.scss */
+    .scrollable {
+      max-height: 370px; } }
+
+/* line 9, ../../client/styles/components/_scrollable.scss */
+.scrollable-table {
+  border-bottom: 4px solid #ececec;
+  margin-bottom: 20px; }
+  /* line 13, ../../client/styles/components/_scrollable.scss */
+  .scrollable-table table {
+    margin-bottom: 0; }
+
+/* line 1, ../../client/styles/components/_pie-charts.scss */
+.legend {
+  text-align: left; }
+  /* line 4, ../../client/styles/components/_pie-charts.scss */
+  .legend thead tr,
+  .legend thead tr:nth-child(odd) {
+    border: 0; }
+  /* line 9, ../../client/styles/components/_pie-charts.scss */
+  .legend .legend-item.active {
+    color: #4c4c4c;
+    font-weight: 700; }
+  /* line 14, ../../client/styles/components/_pie-charts.scss */
+  .legend .legend-item:hover {
+    background: #e2e9ed;
+    cursor: pointer; }
+  /* line 19, ../../client/styles/components/_pie-charts.scss */
+  .legend tr {
+    border: 0; }
+    /* line 22, ../../client/styles/components/_pie-charts.scss */
+    .legend tr td {
+      padding: 4px 14px;
+      padding: 0.25rem 0.875rem; }
+  /* line 27, ../../client/styles/components/_pie-charts.scss */
+  .legend .color-block {
+    margin: 0 auto;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    display: block;
+    height: 12px;
+    width: 12px; }
+  /* line 35, ../../client/styles/components/_pie-charts.scss */
+  .legend .view-all-toggle {
+    cursor: pointer; }
+  /* line 39, ../../client/styles/components/_pie-charts.scss */
+  .legend .view-all-toggle:hover .fa-eye,
+  .legend .view-toggle:hover .fa-eye,
+  .legend .view-toggle:hover .fa-eye-slash {
+    color: #428bca; }
+
+/* line 46, ../../client/styles/components/_pie-charts.scss */
+.donut-hole {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  height: 120px;
+  left: 50%;
+  margin-left: -60px;
+  position: absolute;
+  text-align: center;
+  top: 72px;
+  width: 120px;
+  z-index: 9; }
+  /* line 63, ../../client/styles/components/_pie-charts.scss */
+  .donut-hole .num,
+  .donut-hole .text {
+    color: #969ba0;
+    display: block;
+    text-align: center; }
+  /* line 70, ../../client/styles/components/_pie-charts.scss */
+  .donut-hole .num {
+    font-size: 36px;
+    font-size: 2.25rem;
+    line-height: 50.4px;
+    line-height: 3.15rem;
+    line-height: 1; }
+  /* line 75, ../../client/styles/components/_pie-charts.scss */
+  .donut-hole .text {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 22.4px;
+    line-height: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase; }
+
+/* line 88, ../../client/styles/components/_pie-charts.scss */
+.chart-details tbody tr {
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s; }
+/* line 92, ../../client/styles/components/_pie-charts.scss */
+.chart-details tbody tr:hover {
+  background-color: #e2e9ed;
+  cursor: pointer; }
+
+/* line 98, ../../client/styles/components/_pie-charts.scss */
+.c3-chart-arc text {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 22.4px;
+  line-height: 1.4rem;
+  fill: #fff;
+  font-weight: 700;
+  position: relative;
+  text-shadow: 0 0 12px black;
+  z-index: 10000; }
+
+/* line 108, ../../client/styles/components/_pie-charts.scss */
+.c3:before {
+  -moz-box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+  margin-left: -130px;
+  margin-left: -8.125rem;
+  background: #fff;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  height: 260px;
+  left: 50%;
+  position: absolute;
+  top: 2px;
+  width: 260px;
+  z-index: 1; }
+  @media (max-width: 480px) {
+    /* line 108, ../../client/styles/components/_pie-charts.scss */
+    .c3:before {
+      display: none; } }
+/* line 127, ../../client/styles/components/_pie-charts.scss */
+.c3:after {
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: auto;
+  content: '';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%; }
+  @media (480px) {
+    /* line 127, ../../client/styles/components/_pie-charts.scss */
+    .c3:after {
+      background-image: url("../assets/images/bg_chart-shadow.png"); } }
+  @media (min-width: 992px) {
+    /* line 127, ../../client/styles/components/_pie-charts.scss */
+    .c3:after {
+      background-size: 108% auto;
+      background-position: center -16px;
+      background-image: url("../assets/images/bg_chart-shadow.png"); } }
+  @media (min-width: 1200px) {
+    /* line 127, ../../client/styles/components/_pie-charts.scss */
+    .c3:after {
+      background-size: 95% auto; } }
+/* line 155, ../../client/styles/components/_pie-charts.scss */
+.c3 svg {
+  margin-top: 5px;
+  margin-top: 0.3125rem;
+  position: relative;
+  z-index: 8; }
+/* line 162, ../../client/styles/components/_pie-charts.scss */
+.c3 .c3-chart-arc path {
+  stroke: #fff;
+  stroke-width: 5px; }
+
+/* line 1, ../../client/styles/components/_chart-header.scss */
+.chart-header {
+  color: #585858; }
+  /* line 5, ../../client/styles/components/_chart-header.scss */
+  .chart-header .intro {
+    margin: 24px 0 34px;
+    margin: 1.5rem 0 2.125rem;
+    padding: 0 0 34px;
+    padding: 0 0 2.125rem;
+    font-size: 18px;
+    font-size: 1.125rem;
+    line-height: 27px;
+    line-height: 1.6875rem;
+    border-bottom: 1px solid #ddd; }
+  /* line 12, ../../client/styles/components/_chart-header.scss */
+  .chart-header h1 {
+    font-size: 24px;
+    font-size: 1.5rem;
+    line-height: 33.6px;
+    line-height: 2.1rem;
+    font-weight: 700; }
+  @media (min-width: 1200px) {
+    /* line 17, ../../client/styles/components/_chart-header.scss */
+    .chart-header p {
+      margin-top: 20px;
+      margin-top: 1.25rem; } }
+  /* line 23, ../../client/styles/components/_chart-header.scss */
+  .chart-header .logo {
+    margin-bottom: 20px; }
+    /* line 26, ../../client/styles/components/_chart-header.scss */
+    .chart-header .logo.logo-sap {
+      margin-left: -20px;
+      margin-top: -52px; }
+
+/* line 1, ../../client/styles/components/_breadcrumbs.scss */
+.breadcrumb.overview-crumbs {
+  background-color: transparent; }
+
+/* line 1, ../../client/styles/components/_tables.scss */
+label {
+  color: #515258; }
+
+/* line 2, ../../client/styles/components/_tables.scss */
+input[type="checkbox"] + span, .error-info textarea[type="checkbox"].changed.ng-dirty + span, .error-info select[type="checkbox"].changed.ng-dirty + span {
+  margin-left: 10px; }
+
+/* line 4, ../../client/styles/components/_tables.scss */
+.intro {
+  font-weight: 300;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 34px;
+  line-height: 2.125rem; }
+  /* line 8, ../../client/styles/components/_tables.scss */
+  .intro em {
+    font-weight: 700;
+    color: #2c96cb; }
+
+/* line 18, ../../client/styles/components/_tables.scss */
+.error-infos td {
+  padding: 14px;
+  padding: 0.875rem;
+  word-break: break-all;
+  font-size: 11px;
+  font-size: 0.6875rem;
+  line-height: 15.4px;
+  line-height: 0.9625rem; }
+/* line 25, ../../client/styles/components/_tables.scss */
+.error-infos .plugin {
+  width: 180px; }
+/* line 29, ../../client/styles/components/_tables.scss */
+.error-infos .key {
+  max-width: 250px; }
+/* line 33, ../../client/styles/components/_tables.scss */
+.error-infos .cat {
+  word-break: normal; }
+/* line 37, ../../client/styles/components/_tables.scss */
+.error-infos .sev {
+  max-width: 64px; }
+/* line 41, ../../client/styles/components/_tables.scss */
+.error-infos .ct {
+  max-width: 56px; }
+/* line 45, ../../client/styles/components/_tables.scss */
+.error-infos .desc {
+  max-width: 170px;
+  word-break: normal; }
+/* line 50, ../../client/styles/components/_tables.scss */
+.error-infos .util {
+  padding-top: 0;
+  padding-bottom: 0; }
+/* line 55, ../../client/styles/components/_tables.scss */
+.error-infos .td-wrap {
+  width: 20px;
+  height: 20px;
+  float: right; }
+
+/* line 62, ../../client/styles/components/_tables.scss */
+.td-wrap {
+  position: relative; }
+
+/* line 66, ../../client/styles/components/_tables.scss */
+table.scroll {
+  position: relative; }
+  /* line 69, ../../client/styles/components/_tables.scss */
+  table.scroll thead {
+    background: #fff; }
+  /* line 71, ../../client/styles/components/_tables.scss */
+  table.scroll tbody {
+    position: relative;
+    max-height: 200px;
+    display: block;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden; }
+    /* line 79, ../../client/styles/components/_tables.scss */
+    table.scroll tbody tr {
+      display: table;
+      width: 100%; }
+  /* line 85, ../../client/styles/components/_tables.scss */
+  table.scroll:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 34px;
+    background: #646464; }
+
+/* line 99, ../../client/styles/components/_tables.scss */
+.sortable {
+  padding-right: 12px;
+  position: relative; }
+  /* line 103, ../../client/styles/components/_tables.scss */
+  .sortable:hover {
+    cursor: pointer; }
+  /* line 107, ../../client/styles/components/_tables.scss */
+  .sortable .carets {
+    position: absolute;
+    right: 8px;
+    top: 12px; }
+    /* line 112, ../../client/styles/components/_tables.scss */
+    .sortable .carets:before, .sortable .carets:after {
+      content: '';
+      position: absolute;
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+      opacity: 0.4;
+      -moz-transition: 0.15s;
+      -o-transition: 0.15s;
+      -webkit-transition: 0.15s;
+      transition: 0.15s;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent; }
+    /* line 121, ../../client/styles/components/_tables.scss */
+    .sortable .carets:before {
+      top: 2px;
+      border-bottom: 6px solid gray; }
+    /* line 126, ../../client/styles/components/_tables.scss */
+    .sortable .carets:after {
+      top: 10px;
+      border-top: 6px solid gray; }
+  /* line 139, ../../client/styles/components/_tables.scss */
+  .sortable.sortable-active .carets:before {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+    opacity: 0.2;
+    border-bottom-color: red; }
+  /* line 143, ../../client/styles/components/_tables.scss */
+  .sortable.sortable-active .carets:after {
+    filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+    opacity: 1;
+    border-top-color: red; }
+  /* line 152, ../../client/styles/components/_tables.scss */
+  .sortable.sortable-active.sortable-dsc .carets:before {
+    filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+    opacity: 1; }
+  /* line 153, ../../client/styles/components/_tables.scss */
+  .sortable.sortable-active.sortable-dsc .carets:after {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+    opacity: 0.2; }
+
+/* line 158, ../../client/styles/components/_tables.scss */
+.filters-table {
+  padding: 8px;
+  padding: 0.5rem;
+  color: #9a9b9c; }
+  /* line 162, ../../client/styles/components/_tables.scss */
+  .filters-table .select-all {
+    margin-top: 6px;
+    margin-top: 0.375rem; }
+
+/* line 168, ../../client/styles/components/_tables.scss */
+.table-groups tbody tr td {
+  padding: 0; }
+/* line 172, ../../client/styles/components/_tables.scss */
+.table-groups label {
+  display: block;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0; }
+  /* line 177, ../../client/styles/components/_tables.scss */
+  .table-groups label span {
+    font-weight: 500; }
+
+/* line 183, ../../client/styles/components/_tables.scss */
+.table.no-header tr:first-child td {
+  border-top: 1px solid #ececec; }
+
+/* line 2, ../../client/styles/components/_filter-search.scss */
+.filter-options .option {
+  margin-right: 12px;
+  margin-right: 0.75rem;
+  float: left; }
+  /* line 6, ../../client/styles/components/_filter-search.scss */
+  .filter-options .option .title {
+    margin: 0;
+    margin: 0;
+    display: inline-block;
+    font-size: 13px;
+    font-size: 0.8125rem;
+    line-height: 18.2px;
+    line-height: 1.1375rem;
+    font-weight: 700; }
+    /* line 13, ../../client/styles/components/_filter-search.scss */
+    .filter-options .option .title small {
+      font-size: 13px;
+      font-size: 0.8125rem;
+      line-height: 18.2px;
+      line-height: 1.1375rem;
+      color: #000;
+      font-weight: 400; }
+  /* line 20, ../../client/styles/components/_filter-search.scss */
+  .filter-options .option input, .filter-options .option .error-info textarea.changed.ng-dirty, .error-info .filter-options .option textarea.changed.ng-dirty, .filter-options .option .error-info select.changed.ng-dirty, .error-info .filter-options .option select.changed.ng-dirty {
+    margin-left: 12px; }
+  /* line 24, ../../client/styles/components/_filter-search.scss */
+  .filter-options .option select {
+    margin-left: 12px; }
+
+/* line 30, ../../client/styles/components/_filter-search.scss */
+.fa-bomb.forever {
+  color: red; }
+
+/* line 37, ../../client/styles/components/_filter-search.scss */
+.systems tbody tr.purge-pending td:not(.purging) {
+  display: none; }
+
+/* line 44, ../../client/styles/components/_filter-search.scss */
+.filter-mgr {
+  min-height: 350px;
+  min-height: 21.875rem; }
+
+/* line 48, ../../client/styles/components/_filter-search.scss */
+.filter-preloader {
+  background-position: center;
+  background-size: 100px 100px;
+  top: 30px;
+  width: 100%; }
+
+/* line 2, ../../client/styles/components/_error-infos.scss */
+.error-info .field {
+  margin-bottom: 5px;
+  margin-bottom: 0.3125rem; }
+  /* line 5, ../../client/styles/components/_error-infos.scss */
+  .error-info .field textarea {
+    height: 250px;
+    width: 100%; }
+/* line 11, ../../client/styles/components/_error-infos.scss */
+.error-info .plugin select {
+  width: 320px; }
+/* line 15, ../../client/styles/components/_error-infos.scss */
+.error-info .error_key select {
+  width: 320px; }
+/* line 19, ../../client/styles/components/_error-infos.scss */
+.error-info .category {
+  display: inline-block; }
+/* line 23, ../../client/styles/components/_error-infos.scss */
+.error-info .severity {
+  display: inline-block;
+  margin-left: 15px; }
+/* line 28, ../../client/styles/components/_error-infos.scss */
+.error-info input.ng-invalid, .error-info textarea.ng-invalid.changed.ng-dirty, .error-info select.ng-invalid.changed.ng-dirty {
+  -moz-box-shadow: red 0 0 15px;
+  -webkit-box-shadow: red 0 0 15px;
+  box-shadow: red 0 0 15px; }
+/* line 32, ../../client/styles/components/_error-infos.scss */
+.error-info input.changed.ng-dirty.ng-valid, .error-info textarea.changed.ng-dirty.ng-valid, .error-info select.changed.ng-dirty.ng-valid {
+  -moz-box-shadow: yellow 0 0 5px;
+  -webkit-box-shadow: yellow 0 0 5px;
+  box-shadow: yellow 0 0 5px; }
+
+/* line 45, ../../client/styles/components/_error-infos.scss */
+.error_info_index .preloader {
+  width: 100%;
+  top: 180px;
+  background-size: 100px 100px;
+  background-position: center; }
+
+/* line 52, ../../client/styles/components/_error-infos.scss */
+.error-icon {
+  position: absolute;
+  left: 15px;
+  top: -1px;
+  color: #fff;
+  z-index: 1; }
+  /* line 59, ../../client/styles/components/_error-infos.scss */
+  .error-icon a {
+    color: #fff; }
+    /* line 61, ../../client/styles/components/_error-infos.scss */
+    .error-icon a:hover, .error-icon a:focus, .error-icon a:visited {
+      text-decoration: none; }
+  /* line 66, ../../client/styles/components/_error-infos.scss */
+  .error-icon:hover {
+    cursor: pointer; }
+  /* line 70, ../../client/styles/components/_error-infos.scss */
+  .error-icon .fa {
+    font-size: 24px;
+    font-size: 1.5rem;
+    line-height: 33.6px;
+    line-height: 2.1rem; }
+
+/* line 1, ../../client/styles/components/_top-bar.scss */
+.top-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 8px 22px 8px 0;
+  padding: 0.5rem 1.375rem 0.5rem 0;
+  background: #646464; }
+  /* line 10, ../../client/styles/components/_top-bar.scss */
+  .top-bar .case-switch {
+    margin-right: 38px;
+    margin-right: 2.375rem;
+    float: right; }
+    /* line 14, ../../client/styles/components/_top-bar.scss */
+    .top-bar .case-switch .btn {
+      color: #aeaeae;
+      margin-left: 2px;
+      margin-left: 0.125rem;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      background: none; }
+      /* line 21, ../../client/styles/components/_top-bar.scss */
+      .top-bar .case-switch .btn.active, .top-bar .case-switch .btn:hover {
+        color: #fff;
+        background: #545454; }
+  /* line 27, ../../client/styles/components/_top-bar.scss */
+  .top-bar .top-wrapper {
+    position: relative; }
+
+/* line 2, ../../client/styles/components/_tam-panel.scss */
+.user-profile label {
+  color: #fff; }
+/* line 5, ../../client/styles/components/_tam-panel.scss */
+.user-profile .chosen-container-single {
+  width: 100%; }
+  /* line 8, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .chosen-container-single .chosen-single {
+    background: #3e383c;
+    color: #cccccc;
+    width: 100%; }
+/* line 15, ../../client/styles/components/_tam-panel.scss */
+.user-profile .chosen-drop {
+  background: #3E383C; }
+  /* line 20, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .chosen-drop .chosen-search input[type="text"], .user-profile .chosen-drop .chosen-search .error-info textarea[type="text"].changed.ng-dirty, .error-info .user-profile .chosen-drop .chosen-search textarea[type="text"].changed.ng-dirty, .user-profile .chosen-drop .chosen-search .error-info select[type="text"].changed.ng-dirty, .error-info .user-profile .chosen-drop .chosen-search select[type="text"].changed.ng-dirty {
+    border: 1px solid #595056; }
+  /* line 26, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .chosen-drop .chosen-results .active-result {
+    background: #595056; }
+  /* line 30, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .chosen-drop .chosen-results .highlighted {
+    background: #f0f0f0;
+    color: #252527; }
+/* line 37, ../../client/styles/components/_tam-panel.scss */
+.user-profile .tam, .user-profile .filter {
+  margin-bottom: 2px;
+  margin-bottom: 0.125rem;
+  padding: 12px 14px 12px 14px;
+  padding: 0.75rem 0.875rem 0.75rem 0.875rem;
+  color: #fff;
+  background: #4d464b; }
+  /* line 43, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .tam input, .user-profile .tam .error-info textarea.changed.ng-dirty, .error-info .user-profile .tam textarea.changed.ng-dirty, .user-profile .tam .error-info select.changed.ng-dirty, .error-info .user-profile .tam select.changed.ng-dirty, .user-profile .filter input, .user-profile .filter .error-info textarea.changed.ng-dirty, .error-info .user-profile .filter textarea.changed.ng-dirty, .user-profile .filter .error-info select.changed.ng-dirty, .error-info .user-profile .filter select.changed.ng-dirty {
+    width: 100%;
+    padding: 2px 8px;
+    border: none;
+    box-shadow: none;
+    background: #3E383C; }
+  /* line 51, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .tam .fa, .user-profile .filter .fa {
+    color: #999; }
+  /* line 53, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .tam select, .user-profile .filter select {
+    width: 100%;
+    min-width: 100px;
+    min-width: 6.25rem;
+    background: #3e383c;
+    color: #cccccc;
+    border: none; }
+/* line 63, ../../client/styles/components/_tam-panel.scss */
+.user-profile .group-select .btn {
+  padding: 2px 6px;
+  padding: 0.125rem 0.375rem;
+  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
+  float: right;
+  color: #999999; }
+/* line 69, ../../client/styles/components/_tam-panel.scss */
+.user-profile .group-select .btn:hover {
+  color: #f0f0f0; }
+/* line 74, ../../client/styles/components/_tam-panel.scss */
+.user-profile .tam {
+  margin-bottom: 2px;
+  margin-bottom: 0.125rem;
+  position: relative;
+  border-bottom: 1px solid #403b3f; }
+  /* line 80, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .tam input, .user-profile .tam .error-info textarea.changed.ng-dirty, .error-info .user-profile .tam textarea.changed.ng-dirty, .user-profile .tam .error-info select.changed.ng-dirty, .error-info .user-profile .tam select.changed.ng-dirty {
+    color: #ccc; }
+  /* line 84, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .tam .tam-icon {
+    font-size: 10px;
+    font-size: 0.625rem;
+    line-height: 14px;
+    line-height: 0.875rem;
+    color: #999999; }
+  /* line 89, ../../client/styles/components/_tam-panel.scss */
+  .user-profile .tam .tam-view-all {
+    right: 40px; }
+/* line 94, ../../client/styles/components/_tam-panel.scss */
+.user-profile .dropdown-select:after {
+  border-top: 5px solid #F0F0F0;
+  z-index: 1; }
+
+/* line 2, ../../client/styles/components/_header.scss */
+.page-header .page-title {
+  margin-top: 0; }
+/* line 6, ../../client/styles/components/_header.scss */
+.page-header .row {
+  margin-bottom: 0; }
+
+/* line 12, ../../client/styles/components/_header.scss */
+.create-error h1,
+.create-error h2,
+.create-error h3 {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem;
+  margin: 0; }
+/* line 19, ../../client/styles/components/_header.scss */
+.create-error input, .create-error .error-info textarea.changed.ng-dirty, .error-info .create-error textarea.changed.ng-dirty, .create-error .error-info select.changed.ng-dirty, .error-info .create-error select.changed.ng-dirty {
+  max-width: 100%;
+  width: auto; }
+@media (min-width: 768px) {
+  /* line 24, ../../client/styles/components/_header.scss */
+  .create-error .field-group {
+    float: left;
+    margin-left: 4%;
+    width: 48%; } }
+@media (min-width: 768px) {
+  /* line 31, ../../client/styles/components/_header.scss */
+  .create-error .field-group:first-of-type {
+    margin-left: 0; } }
+/* line 33, ../../client/styles/components/_header.scss */
+.create-error .field-group label {
+  display: block;
+  text-transform: uppercase;
+  width: 100%; }
+/* line 39, ../../client/styles/components/_header.scss */
+.create-error .field-group input, .create-error .field-group .error-info textarea.changed.ng-dirty, .error-info .create-error .field-group textarea.changed.ng-dirty, .create-error .field-group .error-info select.changed.ng-dirty, .error-info .create-error .field-group select.changed.ng-dirty {
+  width: 100%; }
+
+/* line 1, ../../client/styles/components/_utilities-tray.scss */
+.utilities-tray {
+  position: absolute;
+  right: 0; }
+  /* line 5, ../../client/styles/components/_utilities-tray.scss */
+  .utilities-tray i {
+    font-size: 23px;
+    font-size: 1.4375rem;
+    line-height: 32.2px;
+    line-height: 2.0125rem; }
+    /* line 8, ../../client/styles/components/_utilities-tray.scss */
+    .utilities-tray i:hover {
+      cursor: pointer; }
+  /* line 13, ../../client/styles/components/_utilities-tray.scss */
+  .utilities-tray .tray {
+    position: absolute;
+    right: 40px;
+    top: 0;
+    width: 200px;
+    background: #80797e;
+    text-align: center;
+    padding: 8px;
+    padding: 0.5rem; }
+    /* line 24, ../../client/styles/components/_utilities-tray.scss */
+    .utilities-tray .tray:after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 7px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid #80797e; }
+    /* line 35, ../../client/styles/components/_utilities-tray.scss */
+    .utilities-tray .tray a {
+      color: #fff;
+      display: inline-block;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 700; }
+      /* line 41, ../../client/styles/components/_utilities-tray.scss */
+      .utilities-tray .tray a:before {
+        content: '\007C';
+        margin: 0 6px; }
+      /* line 47, ../../client/styles/components/_utilities-tray.scss */
+      .utilities-tray .tray a:first-child:before {
+        display: none; }
+
+/* line 1, ../../client/styles/components/_filters.scss */
+.filters {
+  float: left;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border: 4px solid #ebeef0;
+  background: #f7fafc; }
+  /* line 7, ../../client/styles/components/_filters.scss */
+  .filters label {
+    display: block;
+    text-align: center; }
+  /* line 12, ../../client/styles/components/_filters.scss */
+  .filters button {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    margin-left: 0 !important;
+    padding: 6px 12px;
+    padding: 0.375rem 0.75rem;
+    text-transform: uppercase;
+    color: #333;
+    font-weight: 100;
+    line-height: 1;
+    background-image: none;
+    background: #f7fafc;
+    border-left: 5px solid #ebeef0;
+    -moz-transition: 0.1s;
+    -o-transition: 0.1s;
+    -webkit-transition: 0.1s;
+    transition: 0.1s; }
+    /* line 25, ../../client/styles/components/_filters.scss */
+    .filters button i {
+      margin-right: 4px;
+      display: inline; }
+    /* line 30, ../../client/styles/components/_filters.scss */
+    .filters button span {
+      display: inline-block; }
+    /* line 34, ../../client/styles/components/_filters.scss */
+    .filters button:first-child {
+      -moz-border-radius-topleft: 5px;
+      -webkit-border-top-left-radius: 5px;
+      border-top-left-radius: 5px;
+      -moz-border-radius-bottomleft: 5px;
+      -webkit-border-bottom-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-left: none; }
+    /* line 40, ../../client/styles/components/_filters.scss */
+    .filters button:last-child {
+      -moz-border-radius-topright: 5px;
+      -webkit-border-top-right-radius: 5px;
+      border-top-right-radius: 5px;
+      -moz-border-radius-bottomright: 5px;
+      -webkit-border-bottom-right-radius: 5px;
+      border-bottom-right-radius: 5px; }
+    /* line 45, ../../client/styles/components/_filters.scss */
+    .filters button.filter-off:not(:hover) {
+      background: #ebeef0;
+      background-image: none;
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+      opacity: 0.6; }
+      /* line 49, ../../client/styles/components/_filters.scss */
+      .filters button.filter-off:not(:hover) i {
+        color: #5C5C5C;
+        border-color: #5C5C5C; }
+  /* line 56, ../../client/styles/components/_filters.scss */
+  .filters .icon {
+    font-size: 20px;
+    font-size: 1.25rem;
+    line-height: 28px;
+    line-height: 1.75rem;
+    position: relative; }
+  /* line 61, ../../client/styles/components/_filters.scss */
+  .filters .lbl, .filters .icon {
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s; }
+  /* line 63, ../../client/styles/components/_filters.scss */
+  .filters .lbl {
+    font-size: 12px;
+    font-size: 0.75rem;
+    line-height: 16.8px;
+    line-height: 1.05rem;
+    line-height: 1; }
+  /* line 69, ../../client/styles/components/_filters.scss */
+  .filters.hover button:not(:hover) {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    opacity: 0.6;
+    background: #ebeef0; }
+    /* line 72, ../../client/styles/components/_filters.scss */
+    .filters.hover button:not(:hover) i {
+      color: #5C5C5C;
+      border-color: #5C5C5C; }
+
+/* line 81, ../../client/styles/components/_filters.scss */
+.filters-category button {
+  padding: 6px 12px;
+  padding: 0.375rem 0.75rem; }
+/* line 85, ../../client/styles/components/_filters.scss */
+.filters-category .icon-circle {
+  margin: 2px 4px 0 0;
+  margin: 0.125rem 0.25rem 0 0;
+  float: left; }
+/* line 90, ../../client/styles/components/_filters.scss */
+.filters-category .sev {
+  margin-top: 3px; }
+
+/* line 1, ../../client/styles/components/_icons.scss */
+.i-info {
+  color: #11baf2; }
+
+/* line 2, ../../client/styles/components/_icons.scss */
+.i-warning {
+  color: #ff7f0e; }
+
+/* line 3, ../../client/styles/components/_icons.scss */
+.i-error {
+  color: #ed1c24; }
+
+/* line 5, ../../client/styles/components/_icons.scss */
+.i-mute {
+  color: #CACACA; }
+
+/* line 9, ../../client/styles/components/_icons.scss */
+.content-block .header .icon-circle {
+  margin-top: 0; }
+/* line 13, ../../client/styles/components/_icons.scss */
+.icon-circle.performance {
+  border-color: #2c96cb; }
+/* line 16, ../../client/styles/components/_icons.scss */
+.icon-circle.security {
+  border-color: #6d868d; }
+/* line 19, ../../client/styles/components/_icons.scss */
+.icon-circle.stability {
+  border-color: #46b631; }
+/* line 23, ../../client/styles/components/_icons.scss */
+.icon-circle.icon-circle-large {
+  width: 18px;
+  height: 18px; }
+
+/* line 1, ../../client/styles/components/_announcements.scss */
+#announcements {
+  z-index: 99999999; }
+
+/* line 5, ../../client/styles/components/_announcements.scss */
+.announcements {
+  position: absolute;
+  right: 60px;
+  top: -40px;
+  z-index: 99; }
+  /* line 11, ../../client/styles/components/_announcements.scss */
+  .announcements ul {
+    width: 100%;
+    list-style-type: none;
+    overflow: hidden; }
+    /* line 16, ../../client/styles/components/_announcements.scss */
+    .announcements ul li {
+      width: 100%;
+      background: white;
+      padding: 12px;
+      padding: 0.75rem;
+      border: 1px solid #646464;
+      border-left: 2px solid red; }
+
+/* line 32, ../../client/styles/components/_announcements.scss */
+.announcements-icon {
+  position: absolute;
+  right: 0;
+  top: -1px;
+  color: #fff; }
+  /* line 38, ../../client/styles/components/_announcements.scss */
+  .announcements-icon a {
+    color: #fff; }
+    /* line 40, ../../client/styles/components/_announcements.scss */
+    .announcements-icon a:hover, .announcements-icon a:focus, .announcements-icon a:visited {
+      text-decoration: none; }
+  /* line 45, ../../client/styles/components/_announcements.scss */
+  .announcements-icon:hover {
+    cursor: pointer; }
+  /* line 49, ../../client/styles/components/_announcements.scss */
+  .announcements-icon .fa {
+    font-size: 24px;
+    font-size: 1.5rem;
+    line-height: 33.6px;
+    line-height: 2.1rem; }
+  /* line 53, ../../client/styles/components/_announcements.scss */
+  .announcements-icon .has-announcement {
+    position: absolute;
+    background: red;
+    width: 12px;
+    height: 12px;
+    right: -8px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 8px;
+    font-size: 0.5rem;
+    line-height: 11.2px;
+    line-height: 0.7rem;
+    text-align: center;
+    font-family: "Arial";
+    line-height: 0; }
+
+/* line 1, ../../client/styles/components/_dashboard.scss */
+.preloader {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 100px;
+  height: 100px;
+  display: block;
+  background-size: 100% auto;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=10);
+  opacity: 0.1; }
+
+/* line 30, ../../client/styles/components/_dashboard.scss */
+.user-profile .tam, .user-profile .group-select {
+  padding: 12px 20px 12px 14px;
+  padding: 0.75rem 1.25rem 0.75rem 0.875rem;
+  color: #fff;
+  background: #4d464b; }
+  /* line 35, ../../client/styles/components/_dashboard.scss */
+  .user-profile .tam input, .user-profile .tam .error-info textarea.changed.ng-dirty, .error-info .user-profile .tam textarea.changed.ng-dirty, .user-profile .tam .error-info select.changed.ng-dirty, .error-info .user-profile .tam select.changed.ng-dirty, .user-profile .group-select input, .user-profile .group-select .error-info textarea.changed.ng-dirty, .error-info .user-profile .group-select textarea.changed.ng-dirty, .user-profile .group-select .error-info select.changed.ng-dirty, .error-info .user-profile .group-select select.changed.ng-dirty {
+    padding: 2px 8px;
+    border: none;
+    box-shadow: none;
+    background: #322e31; }
+/* line 43, ../../client/styles/components/_dashboard.scss */
+.user-profile .tam {
+  border-bottom: 1px solid #403b3f; }
+
+/* line 87, ../../client/styles/components/_dashboard.scss */
+.profile-image {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: 5px solid #857e83;
+  -moz-box-shadow: 0 2px 4px 0px #252527;
+  -webkit-box-shadow: 0 2px 4px 0px #252527;
+  box-shadow: 0 2px 4px 0px #252527;
+  overflow: hidden; }
+  /* line 93, ../../client/styles/components/_dashboard.scss */
+  .profile-image img {
+    width: 100%;
+    height: auto; }
+
+/* line 99, ../../client/styles/components/_dashboard.scss */
+.profile-info {
+  padding: 16px 12px;
+  padding: 1rem 0.75rem;
+  text-align: center;
+  color: #999; }
+  @media (480px) {
+    /* line 99, ../../client/styles/components/_dashboard.scss */
+    .profile-info {
+      width: 50%; } }
+  @media (min-width: 768px) {
+    /* line 99, ../../client/styles/components/_dashboard.scss */
+    .profile-info {
+      display: none;
+      width: 100%; } }
+  /* line 114, ../../client/styles/components/_dashboard.scss */
+  .profile-info .account {
+    width: 100%;
+    display: block;
+    font-weight: 500;
+    color: #d1d0d0; }
+  /* line 121, ../../client/styles/components/_dashboard.scss */
+  .profile-info a {
+    color: #999; }
+    /* line 124, ../../client/styles/components/_dashboard.scss */
+    .profile-info a:hover {
+      color: #fff; }
+
+/* line 130, ../../client/styles/components/_dashboard.scss */
+.toggle {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s; }
+  /* line 137, ../../client/styles/components/_dashboard.scss */
+  .toggle.active {
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg); }
+
+@media (min-width: 768px) {
+  /* line 148, ../../client/styles/components/_dashboard.scss */
+  menu.nav {
+    margin: 2px 0 0;
+    margin: 0.125rem 0 0; } }
+@media (min-width: 768px) {
+  /* line 148, ../../client/styles/components/_dashboard.scss */
+  menu.nav {
+    width: 100%;
+    float: none; } }
+/* line 158, ../../client/styles/components/_dashboard.scss */
+menu.nav ul {
+  margin-bottom: 1px;
+  margin-bottom: 0.0625rem; }
+  @media (min-width: 768px) {
+    /* line 158, ../../client/styles/components/_dashboard.scss */
+    menu.nav ul {
+      margin-bottom: 2px;
+      margin-bottom: 0.125rem; } }
+  /* line 167, ../../client/styles/components/_dashboard.scss */
+  menu.nav ul li {
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -moz-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    overflow: auto; }
+    /* line 172, ../../client/styles/components/_dashboard.scss */
+    menu.nav ul li a {
+      width: 100%;
+      height: 100%;
+      display: block;
+      padding: 12px 20px 12px 14px;
+      padding: 0.75rem 1.25rem 0.75rem 0.875rem;
+      background: #5b5359;
+      color: #fff;
+      font-weight: 700;
+      border-bottom: 1px solid #4e474c;
+      -webkit-font-smoothing: antialiased;
+      -moz-transition-duration: 0.1s;
+      -o-transition-duration: 0.1s;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s;
+      -moz-transition-timing-function: ease-in-out;
+      -o-transition-timing-function: ease-in-out;
+      -webkit-transition-timing-function: ease-in-out;
+      transition-timing-function: ease-in-out;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+      /* line 187, ../../client/styles/components/_dashboard.scss */
+      menu.nav ul li a:hover {
+        text-decoration: none;
+        text-indent: 6px; }
+      /* line 192, ../../client/styles/components/_dashboard.scss */
+      menu.nav ul li a.current, menu.nav ul li a:hover {
+        color: #252527;
+        background: #f0f0f0;
+        border-color: #bdbdbd;
+        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
+        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
+        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd; }
+/* line 202, ../../client/styles/components/_dashboard.scss */
+menu.nav ul ul {
+  margin-bottom: 0;
+  display: none; }
+  @media (min-width: 768px) {
+    /* line 202, ../../client/styles/components/_dashboard.scss */
+    menu.nav ul ul {
+      display: block; } }
+  /* line 213, ../../client/styles/components/_dashboard.scss */
+  menu.nav ul ul li a {
+    padding: 12px 20px 12px 24px;
+    padding: 0.75rem 1.25rem 0.75rem 1.5rem;
+    background: #70666e; }
+    /* line 217, ../../client/styles/components/_dashboard.scss */
+    menu.nav ul ul li a:hover {
+      text-indent: 6px;
+      background: #e6e6e6; }
+
+/* line 226, ../../client/styles/components/_dashboard.scss */
+menu.account {
+  margin: 0; }
+  /* line 229, ../../client/styles/components/_dashboard.scss */
+  menu.account li {
+    position: relative;
+    float: left;
+    margin-left: 20px;
+    margin-left: 1.25rem; }
+    /* line 234, ../../client/styles/components/_dashboard.scss */
+    menu.account li a {
+      padding: 2px 12px 12px 0;
+      padding: 0.125rem 0.75rem 0.75rem 0;
+      display: block;
+      font-size: 13px;
+      font-size: 0.8125rem;
+      line-height: 18.2px;
+      line-height: 1.1375rem;
+      font-weight: bold;
+      color: #9fa0a1;
+      -moz-transition-duration: 0.1s;
+      -o-transition-duration: 0.1s;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s; }
+    /* line 244, ../../client/styles/components/_dashboard.scss */
+    menu.account li:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 22px;
+      height: 0;
+      background: #fff;
+      -moz-transition-duration: 0.1s;
+      -o-transition-duration: 0.1s;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s; }
+    /* line 260, ../../client/styles/components/_dashboard.scss */
+    menu.account li.current:after, menu.account li:hover:after {
+      height: 4px; }
+    /* line 261, ../../client/styles/components/_dashboard.scss */
+    menu.account li.current a, menu.account li:hover a {
+      color: #fff; }
+    /* line 265, ../../client/styles/components/_dashboard.scss */
+    menu.account li:hover:after {
+      bottom: 0; }
+
+/* line 1, ../../client/styles/components/_dashboard-nav.scss */
+.dashboard-navigation-container {
+  height: 100%;
+  margin-top: 20px;
+  margin-top: 1.25rem; }
+  @media (min-width: 768px) {
+    /* line 1, ../../client/styles/components/_dashboard-nav.scss */
+    .dashboard-navigation-container {
+      padding: 0; } }
+
+/* line 12, ../../client/styles/components/_dashboard-nav.scss */
+.dashboard-navigation {
+  background: #252527;
+  display: inline-block;
+  width: 100%; }
+  @media (min-width: 992px) {
+    /* line 23, ../../client/styles/components/_dashboard-nav.scss */
+    .dashboard-navigation.fixed {
+      position: fixed;
+      top: 66px;
+      margin-top: 0; } }
+
+/* line 4, ../../client/styles/components/_config-groups.scss */
+.groups section {
+  margin-bottom: 30px; }
+
+/* line 10, ../../client/styles/components/_config-groups.scss */
+.group-list .hostname {
+  overflow-x: auto; }
+/* line 14, ../../client/styles/components/_config-groups.scss */
+.group-list .group {
+  margin-bottom: 40px; }
+  /* line 17, ../../client/styles/components/_config-groups.scss */
+  .group-list .group .header {
+    background-color: #f2f5f7;
+    padding: 20px; }
+    /* line 21, ../../client/styles/components/_config-groups.scss */
+    .group-list .group .header .host {
+      font-weight: 700;
+      color: #585858; }
+    /* line 26, ../../client/styles/components/_config-groups.scss */
+    .group-list .group .header small {
+      color: #848484; }
+  /* line 31, ../../client/styles/components/_config-groups.scss */
+  .group-list .group .content {
+    padding: 20px;
+    border: 2px solid #f2f5f7; }
+  /* line 36, ../../client/styles/components/_config-groups.scss */
+  .group-list .group .footer {
+    padding: 10px; }
+/* line 45, ../../client/styles/components/_config-groups.scss */
+.group-list .more.hide {
+  display: none; }
+
+/* line 4, ../../client/styles/components/_pagination.scss */
+.pagination a {
+  font-weight: 700;
+  border-radius: 0 !important; }
+
+/* line 13, ../../client/styles/components/_pagination.scss */
+.pagination.pagination-gray {
+  color: #c6c6c6; }
+  /* line 16, ../../client/styles/components/_pagination.scss */
+  .pagination.pagination-gray a {
+    color: #c6c6c6; }
+  /* line 20, ../../client/styles/components/_pagination.scss */
+  .pagination.pagination-gray .active > a,
+  .pagination.pagination-gray .pager-current > a, .pagination.pagination-gray a:focus {
+    color: #fff;
+    background-color: #c6c6c6;
+    border-color: #c6c6c6; }
+  /* line 27, ../../client/styles/components/_pagination.scss */
+  .pagination.pagination-gray a:hover {
+    color: #444444; }
+
+/* line 3, ../../client/styles/components/_groups.scss */
+.groups-footer .pagination {
+  margin: 0; }
+
+/* line 8, ../../client/styles/components/_groups.scss */
+.group-list + .group-list {
+  margin-top: 30px;
+  margin-top: 1.875rem; }
+  @media (min-width: 992px) {
+    /* line 8, ../../client/styles/components/_groups.scss */
+    .group-list + .group-list {
+      margin-top: 0; } }
+
+/* line 19, ../../client/styles/components/_groups.scss */
+.group-list .link {
+  display: inline-block;
+  margin-top: 6px;
+  margin-top: 0.375rem; }
+/* line 24, ../../client/styles/components/_groups.scss */
+.group-list .pagination {
+  margin-top: 15px; }
+  @media (min-width: 992px) {
+    /* line 24, ../../client/styles/components/_groups.scss */
+    .group-list .pagination {
+      margin-top: 0;
+      float: right; } }
+  /* line 32, ../../client/styles/components/_groups.scss */
+  .group-list .pagination a {
+    padding: 4px 5px;
+    padding: 0.25rem 0.3125rem;
+    line-height: 1; }
+    @media (min-width: 992px) {
+      /* line 32, ../../client/styles/components/_groups.scss */
+      .group-list .pagination a {
+        padding: 6px 8px;
+        padding: 0.375rem 0.5rem; } }
+
+/* line 1, ../../client/styles/components/_chart-.scss */
+.chart-col {
+  margin-top: -24px; }
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
+    /* line 1, ../../client/styles/components/_chart-.scss */
+    .chart-col {
+      width: 46%; } }
+
+/* line 9, ../../client/styles/components/_chart-.scss */
+.chart-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background: url("../assets/images/i_chart.png");
+  background-size: 100% auto;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-right: 0.5rem; }
+
+/* line 19, ../../client/styles/components/_chart-.scss */
+.icon-circle {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin: 2px 10px 0 2px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border-width: 4px;
+  border-style: solid; }
+
+/* line 31, ../../client/styles/components/_chart-.scss */
+.chart-container svg {
+  display: inline-block; }
+/* line 33, ../../client/styles/components/_chart-.scss */
+.chart-container .reset {
+  position: absolute;
+  right: 35px;
+  top: 210px;
+  z-index: 9; }
+  @media (min-width: 768px) {
+    /* line 33, ../../client/styles/components/_chart-.scss */
+    .chart-container .reset {
+      right: 30px; } }
+/* line 42, ../../client/styles/components/_chart-.scss */
+.chart-container .export {
+  position: absolute;
+  left: 35px;
+  top: 210px;
+  z-index: 9; }
+  @media (min-width: 768px) {
+    /* line 42, ../../client/styles/components/_chart-.scss */
+    .chart-container .export {
+      left: 30px; } }
+/* line 51, ../../client/styles/components/_chart-.scss */
+.chart-container p {
+  font-weight: 500; }
+/* line 55, ../../client/styles/components/_chart-.scss */
+.chart-container p.light {
+  font-weight: 100; }
+
+/* line 60, ../../client/styles/components/_chart-.scss */
+.rha-telemetry-donut {
+  text-align: center; }
+
+@media (min-width: 768px) {
+  /* line 64, ../../client/styles/components/_chart-.scss */
+  .donut-container {
+    left: -15px; } }
+
+/* line 1, ../../client/styles/components/_fa-.scss */
+.fa-xlarge {
+  font-size: 76px;
+  font-size: 4.75rem;
+  line-height: 106.4px;
+  line-height: 6.65rem; }
+
+/* line 5, ../../client/styles/components/_fa-.scss */
+.fa-circular {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  background-color: #000;
+  color: #FFF;
+  border-radius: 50%;
+  line-height: 1.5; }
+
+/* line 2, ../../client/styles/components/_overview-breadcrumbs.scss */
+.overview-breadcrumbs ol {
+  padding: 0;
+  margin: 0; }
+
+/* line 12, ../../client/styles/components/_content-block.scss */
+.content-block {
+  margin-top: 20px;
+  margin-top: 1.25rem; }
+  /* line 14, ../../client/styles/components/_content-block.scss */
+  .content-block * {
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -moz-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out; }
+  /* line 18, ../../client/styles/components/_content-block.scss */
+  .content-block .header,
+  .content-block .content {
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -moz-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    overflow: hidden;
+    *zoom: 1; }
+  /* line 27, ../../client/styles/components/_content-block.scss */
+  .content-block .header {
+    position: relative;
+    padding-top: 20px;
+    padding-top: 1.25rem;
+    padding-bottom: 20px;
+    padding-bottom: 1.25rem; }
+    /* line 32, ../../client/styles/components/_content-block.scss */
+    .content-block .header .title {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1; }
+    /* line 39, ../../client/styles/components/_content-block.scss */
+    .content-block .header i {
+      font-size: 22px;
+      margin-right: 12px;
+      margin-top: -3px;
+      float: left; }
+    /* line 46, ../../client/styles/components/_content-block.scss */
+    .content-block .header i.permalink {
+      font-size: 12px;
+      margin-top: 0;
+      margin-left: 5px;
+      float: none;
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+      opacity: 0.5; }
+    /* line 54, ../../client/styles/components/_content-block.scss */
+    .content-block .header .toggler {
+      position: absolute;
+      top: 23px;
+      right: 5px;
+      font-size: 16px;
+      color: #8C8C8C; }
+  /* line 63, ../../client/styles/components/_content-block.scss */
+  .content-block .title:hover .permalink {
+    filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+    opacity: 1; }
+  /* line 68, ../../client/styles/components/_content-block.scss */
+  .content-block .content {
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -moz-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out; }
+  /* line 74, ../../client/styles/components/_content-block.scss */
+  .content-block .footer {
+    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
+    overflow: hidden;
+    *zoom: 1;
+    height: auto;
+    background: #f5f5f5; }
+    /* line 80, ../../client/styles/components/_content-block.scss */
+    .content-block .footer.footer-short {
+      padding: 10px 20px;
+      padding: 0.625rem 1.25rem; }
+  /* line 85, ../../client/styles/components/_content-block.scss */
+  .content-block .header + .content {
+    padding-top: 0; }
+  /* line 86, ../../client/styles/components/_content-block.scss */
+  .content-block .content + .footer {
+    border-top: 1px solid #DDD; }
+
+/* line 94, ../../client/styles/components/_content-block.scss */
+.content-block .gray {
+  background-color: #f2f5f7;
+  padding: 30px;
+  padding: 1.875rem;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out; }
+  /* line 99, ../../client/styles/components/_content-block.scss */
+  .content-block .gray pre {
+    background-color: #FFF;
+    border-width: 5px; }
+/* line 105, ../../client/styles/components/_content-block.scss */
+.content-block .content-collapsed,
+.content-block .header-collapsed {
+  background-color: #f2f5f7; }
+  /* line 109, ../../client/styles/components/_content-block.scss */
+  .content-block .content-collapsed *,
+  .content-block .header-collapsed * {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important; }
+/* line 115, ../../client/styles/components/_content-block.scss */
+.content-block .content-collapsed {
+  padding-bottom: 0;
+  padding-top: 0; }
+
+/* line 123, ../../client/styles/components/_content-block.scss */
+.content-block.content-block-outline {
+  border: 1px solid #DDD;
+  border-bottom-width: 6px; }
+  /* line 127, ../../client/styles/components/_content-block.scss */
+  .content-block.content-block-outline .header,
+  .content-block.content-block-outline .content {
+    padding: 20px;
+    padding: 1.25rem; }
+  /* line 132, ../../client/styles/components/_content-block.scss */
+  .content-block.content-block-outline .header + .content {
+    padding-top: 0; }
+  /* line 136, ../../client/styles/components/_content-block.scss */
+  .content-block.content-block-outline .content.content-collapsed {
+    padding-top: 0;
+    padding-bottom: 0; }
+
+/* line 142, ../../client/styles/components/_content-block.scss */
+.content-block + .content-block {
+  margin-top: 30px;
+  margin-top: 1.875rem; }
+
+/* line 147, ../../client/styles/components/_content-block.scss */
+.content-block.faded .header {
+  background-color: #F5f5f5; }
+/* line 148, ../../client/styles/components/_content-block.scss */
+.content-block.faded .header, .content-block.faded .footer {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5; }
+/* line 151, ../../client/styles/components/_content-block.scss */
+.content-block.faded:hover .footer, .content-block.faded:hover .footer a {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1; }
+
+/* line 2, ../../client/styles/components/insights/_table.scss */
+.insights-main-content table {
+  border: 1px solid #ddd; }
+  /* line 11, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content table thead th {
+    border-left: 1px solid #ddd;
+    border-bottom-width: 1px;
+    text-align: left; }
+    /* line 16, ../../client/styles/components/insights/_table.scss */
+    .insights-main-content table thead th:first-child {
+      border-left: none; }
+  /* line 21, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content table tbody {
+    border: 1px solid #ddd;
+    border-top: none; }
+    /* line 25, ../../client/styles/components/insights/_table.scss */
+    .insights-main-content table tbody tr {
+      -moz-transition: 0.2s;
+      -o-transition: 0.2s;
+      -webkit-transition: 0.2s;
+      transition: 0.2s; }
+      /* line 27, ../../client/styles/components/insights/_table.scss */
+      .insights-main-content table tbody tr:nth-child(odd) {
+        background: #f2f5f7; }
+    /* line 32, ../../client/styles/components/insights/_table.scss */
+    .insights-main-content table tbody td {
+      border: none;
+      line-height: 1.6; }
+/* line 39, ../../client/styles/components/insights/_table.scss */
+.insights-main-content .legend table {
+  border: none; }
+  /* line 42, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content .legend table tbody {
+    border: 1px solid #ddd;
+    border-top: none; }
+  /* line 47, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content .legend table thead {
+    border: 1px solid #ddd;
+    border-bottom: none; }
+/* line 53, ../../client/styles/components/insights/_table.scss */
+.insights-main-content .tbody-scrollable {
+  max-height: 420px;
+  overflow: auto;
+  border-bottom: 5px solid #ddd; }
+
+/* line 1, ../../client/styles/components/insights/_overview-details.scss */
+.overview-details {
+  margin-top: 30px; }
+
+/* line 1, ../../client/styles/components/insights/_group-select.scss */
+.group-select {
+  border: none;
+  width: 100%; }
+  /* line 6, ../../client/styles/components/insights/_group-select.scss */
+  .group-select select {
+    -moz-appearance: none;
+    -webkit-appearance: none; }
+
+/* line 12, ../../client/styles/components/insights/_group-select.scss */
+.group-select.dropdown-select select {
+  width: 100%; }
+
+/* line 18, ../../client/styles/components/insights/_group-select.scss */
+.group-select.rounded select {
+  border-radius: 8px !important;
+  border: 4px solid #ebeef0; }
+
+/* line 26, ../../client/styles/components/insights/_group-select.scss */
+.table-filters select {
+  background-color: #f7fafc;
+  padding: 6px 30px 6px 12px;
+  padding: 0.375rem 1.875rem 0.375rem 0.75rem;
+  line-height: 1; }
+/* line 32, ../../client/styles/components/insights/_group-select.scss */
+.table-filters .dropdown-select:after {
+  z-index: 1; }
+
+/* line 1, ../../client/styles/components/insights/_uploader-config.scss */
+.uploader-collect-list {
+  max-height: 300px;
+  overflow-y: auto; }
+  /* line 4, ../../client/styles/components/insights/_uploader-config.scss */
+  .uploader-collect-list .list-group-item {
+    word-break: break-all; }
+
+/* line 5, ../../client/styles/components/insights/_system-overlay.scss */
+.modal.active:before {
+  background: rgba(0, 0, 0, 0.6);
+  content: '';
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1; }
+
+/* line 18, ../../client/styles/components/insights/_system-overlay.scss */
+.system-overlay {
+  padding: 30px;
+  padding: 1.875rem; }
+  /* line 23, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .detail:nth-child(even) {
+    background: #eaeaea; }
+  /* line 27, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .detail ul {
+    padding-left: 18px;
+    padding-left: 1.125rem; }
+  /* line 31, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .detail .heading {
+    font-size: large;
+    padding-bottom: 15px;
+    padding-top: 15px; }
+    /* line 36, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .detail .heading i {
+      padding-right: .3em; }
+    /* line 38, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .detail .heading strong {
+      padding-left: .3em; }
+  /* line 41, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .detail .center {
+    text-align: center; }
+  /* line 46, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .content {
+    position: relative;
+    width: 100%;
+    z-index: 9; }
+  /* line 53, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .row {
+    clear: both;
+    margin-bottom: 0; }
+  /* line 58, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .row + .row {
+    margin-bottom: 0; }
+  @media (min-width: 992px) {
+    /* line 18, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay {
+      max-width: 970px;
+      width: auto;
+      margin: 0 auto; } }
+  @media (min-width: 1200px) {
+    /* line 18, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay {
+      max-width: 1170px; } }
+  /* line 70, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .btn.icon-close {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    padding: 7px;
+    padding: 0.4375rem;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    margin-top: 0; }
+    /* line 76, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .btn.icon-close:hover {
+      background: #c00;
+      color: #fff; }
+  /* line 82, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .modal-actions {
+    position: absolute;
+    right: 30px;
+    top: 25px; }
+    /* line 87, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .modal-actions .fa {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 24px;
+      font-size: 1.5rem;
+      line-height: 33.6px;
+      line-height: 2.1rem;
+      -moz-transition: 0.2s;
+      -o-transition: 0.2s;
+      -webkit-transition: 0.2s;
+      transition: 0.2s;
+      line-height: 1; }
+      /* line 93, ../../client/styles/components/insights/_system-overlay.scss */
+      .system-overlay .modal-actions .fa:hover {
+        color: rgba(0, 0, 0, 0.8);
+        cursor: pointer; }
+  /* line 100, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .view-all {
+    display: inline-block;
+    font-size: 14px;
+    font-size: 0.875rem;
+    line-height: 19.6px;
+    line-height: 1.225rem;
+    letter-spacing: normal;
+    text-decoration: underline;
+    color: #9a9a9a; }
+  /* line 108, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .breadcrumb {
+    border: none;
+    padding: 12px;
+    padding: 0.75rem;
+    font-size: 18px;
+    font-size: 1.125rem;
+    line-height: 22px;
+    line-height: 1.375rem;
+    color: white;
+    background-color: #4c4c4c;
+    border: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0; }
+    @media (min-width: 768px) {
+      /* line 108, ../../client/styles/components/insights/_system-overlay.scss */
+      .system-overlay .breadcrumb {
+        margin-bottom: 12px; } }
+  /* line 120, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .modal-title {
+    margin: 0 0 15px;
+    margin: 0 0 0.9375rem;
+    text-overflow: ellipsis;
+    width: 100%;
+    font-size: 18px;
+    font-size: 1.125rem;
+    line-height: 25.2px;
+    line-height: 1.575rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    line-height: 1;
+    text-align: center; }
+    /* line 130, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .modal-title h1, .system-overlay .modal-title h2, .system-overlay .modal-title h3 {
+      font-size: 24px;
+      font-size: 1.5rem;
+      line-height: 33.6px;
+      line-height: 2.1rem;
+      margin: 22px 0 2px;
+      margin: 1.375rem 0 0.125rem;
+      text-transform: none;
+      color: #585858; }
+    /* line 137, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .modal-title .icon {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      display: inline-block;
+      background: #0085cf;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%; }
+      /* line 145, ../../client/styles/components/insights/_system-overlay.scss */
+      .system-overlay .modal-title .icon:after {
+        content: '';
+        position: absolute;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-top: 14px solid #0085cf;
+        left: 7px;
+        bottom: -8px; }
+      /* line 155, ../../client/styles/components/insights/_system-overlay.scss */
+      .system-overlay .modal-title .icon span {
+        padding: 0 0 0 2px;
+        color: #fff;
+        display: block;
+        font-size: 30px;
+        line-height: 1.45; }
+  @media (min-width: 768px) {
+    /* line 212, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .system-overlay-item .rule-resolution {
+      padding-top: 30px;
+      padding-top: 1.875rem; } }
+  /* line 222, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .system-overlay-item ul {
+    padding-left: 16px;
+    padding-left: 1rem; }
+  /* line 226, ../../client/styles/components/insights/_system-overlay.scss */
+  .system-overlay .matched-solution {
+    position: relative;
+    padding-left: 30px;
+    padding-left: 1.875rem; }
+    /* line 230, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-overlay .matched-solution .fa-circular {
+      position: absolute;
+      top: 0;
+      left: 0; }
+
+/* line 239, ../../client/styles/components/insights/_system-overlay.scss */
+.complete-btn {
+  cursor: pointer;
+  text-decoration: underline; }
+  /* line 243, ../../client/styles/components/insights/_system-overlay.scss */
+  .complete-btn:hover {
+    color: #11baf2; }
+
+/* line 246, ../../client/styles/components/insights/_system-overlay.scss */
+.detail-part {
+  margin-bottom: 22px;
+  margin-bottom: 1.375rem;
+  position: relative; }
+  /* line 250, ../../client/styles/components/insights/_system-overlay.scss */
+  .detail-part .detail-content {
+    font-size: 13px;
+    font-size: 0.8125rem;
+    line-height: 26px;
+    line-height: 1.625rem; }
+  /* line 252, ../../client/styles/components/insights/_system-overlay.scss */
+  .detail-part .icon {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    left: -40px;
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    background: #11baf2;
+    border: 4px solid #fff; }
+    @media (min-width: 768px) {
+      /* line 252, ../../client/styles/components/insights/_system-overlay.scss */
+      .detail-part .icon {
+        left: -60px; } }
+  /* line 269, ../../client/styles/components/insights/_system-overlay.scss */
+  .detail-part [class^="fa-"], .detail-part [class*=" fa-"] {
+    font-size: 24px;
+    font-size: 1.5rem;
+    line-height: 33.6px;
+    line-height: 2.1rem;
+    left: 1px;
+    line-height: 1; }
+
+/* line 276, ../../client/styles/components/insights/_system-overlay.scss */
+.reason {
+  background: none;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 16px;
+  line-height: 1rem; }
+
+/* line 283, ../../client/styles/components/insights/_system-overlay.scss */
+.resolution {
+  padding-left: 50px;
+  padding-left: 3.125rem; }
+  @media (min-width: 768px) {
+    /* line 283, ../../client/styles/components/insights/_system-overlay.scss */
+    .resolution {
+      padding-left: 0; } }
+  /* line 288, ../../client/styles/components/insights/_system-overlay.scss */
+  .resolution .detail-content {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 20px;
+    line-height: 1.25rem; }
+  /* line 292, ../../client/styles/components/insights/_system-overlay.scss */
+  .resolution .icon span {
+    color: #FFF;
+    line-height: 1.3; }
+
+/* line 299, ../../client/styles/components/insights/_system-overlay.scss */
+.system-modal .modal-dialog {
+  width: auto; }
+  @media (min-width: 992px) {
+    /* line 299, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-modal .modal-dialog {
+      max-width: 970px; } }
+  @media (min-width: 1200px) {
+    /* line 299, ../../client/styles/components/insights/_system-overlay.scss */
+    .system-modal .modal-dialog {
+      max-width: 1170px;
+      padding-top: 0;
+      padding-bottom: 0; } }
+
+/* line 313, ../../client/styles/components/insights/_system-overlay.scss */
+.modal-open [ng-click] {
+  cursor: default; }
+
+/* line 317, ../../client/styles/components/insights/_system-overlay.scss */
+.modal-open .pointer {
+  cursor: pointer; }
+
+/* line 2, ../../client/styles/components/insights/_insights-main-content.scss */
+.insights-main-content ul {
+  padding-left: 18px;
+  padding-left: 1.125rem; }
+/* line 5, ../../client/styles/components/insights/_insights-main-content.scss */
+.insights-main-content pre {
+  margin-top: 10px;
+  margin-top: 0.625rem; }
+
+/* line 1, ../../client/styles/includes/_in-prod.scss */
+body {
+  background: none; }
+
+/* line 9, ../../client/styles/includes/_in-prod.scss */
+.c3:after {
+  background-image: none; }
+
+/* line 14, ../../client/styles/includes/_in-prod.scss */
+.insights-main-content .table > thead {
+  background-image: none;
+  background-color: #fff;
+  background-clip: initial; }
