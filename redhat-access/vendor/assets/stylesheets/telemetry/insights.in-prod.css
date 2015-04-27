@@ -773,22 +773,16 @@ button.simple,
   animation: fa-spin 2s infinite linear; }
 
 @-webkit-keyframes fa-spin {
-  /* line 199, ../../client/styles/elements/_fonts.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
-
-  /* line 203, ../../client/styles/elements/_fonts.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 @keyframes fa-spin {
-  /* line 209, ../../client/styles/elements/_fonts.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
-
-  /* line 213, ../../client/styles/elements/_fonts.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
@@ -3652,14 +3646,14 @@ table.scroll {
   margin-left: 15px; }
 /* line 28, ../../client/styles/components/_error-infos.scss */
 .error-info input.ng-invalid, .error-info textarea.ng-invalid.changed.ng-dirty, .error-info select.ng-invalid.changed.ng-dirty {
-  -moz-box-shadow: red 0 0 15px;
-  -webkit-box-shadow: red 0 0 15px;
-  box-shadow: red 0 0 15px; }
+  -moz-box-shadow: #f00 0 0 15px;
+  -webkit-box-shadow: #f00 0 0 15px;
+  box-shadow: #f00 0 0 15px; }
 /* line 32, ../../client/styles/components/_error-infos.scss */
 .error-info input.changed.ng-dirty.ng-valid, .error-info textarea.changed.ng-dirty.ng-valid, .error-info select.changed.ng-dirty.ng-valid {
-  -moz-box-shadow: yellow 0 0 5px;
-  -webkit-box-shadow: yellow 0 0 5px;
-  box-shadow: yellow 0 0 5px; }
+  -moz-box-shadow: #ff0 0 0 5px;
+  -webkit-box-shadow: #ff0 0 0 5px;
+  box-shadow: #ff0 0 0 5px; }
 
 /* line 45, ../../client/styles/components/_error-infos.scss */
 .error_info_index .preloader {
@@ -4248,9 +4242,9 @@ menu.nav ul {
         color: #252527;
         background: #f0f0f0;
         border-color: #bdbdbd;
-        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
-        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
-        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd; }
+        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd;
+        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd;
+        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd; }
 /* line 202, ../../client/styles/components/_dashboard.scss */
 menu.nav ul ul {
   margin-bottom: 0;
@@ -5077,3 +5071,5 @@ body {
   background-image: none;
   background-color: #fff;
   background-clip: initial; }
+
+/*# sourceMappingURL=in-prod.css.map */
