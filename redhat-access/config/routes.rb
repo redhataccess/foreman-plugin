@@ -32,9 +32,9 @@ RedhatAccess::Engine.routes.draw do
   get 'search', to: 'redhat_access#index'
 
   get 'proactive_support', to: 'telemetry#index'
-  get 'analytics_dashboard', to: 'analytics_dashboard#index'
+  get 'insights', to: 'analytics_dashboard#index'
   get 'analytics_configuration', to: 'telemetry_configuration#index'
-  match '/analytics_dashboard/*path', to: 'analytics_dashboard#index'
+  match '/insights/*path', to: 'analytics_dashboard#index'
 
   root :to => 'redhat_access#index'
 

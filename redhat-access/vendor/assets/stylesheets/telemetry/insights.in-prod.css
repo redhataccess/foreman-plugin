@@ -773,16 +773,22 @@ button.simple,
   animation: fa-spin 2s infinite linear; }
 
 @-webkit-keyframes fa-spin {
+  /* line 199, ../../client/styles/elements/_fonts.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
+
+  /* line 203, ../../client/styles/elements/_fonts.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 @keyframes fa-spin {
+  /* line 209, ../../client/styles/elements/_fonts.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
+
+  /* line 213, ../../client/styles/elements/_fonts.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
@@ -3147,12 +3153,7 @@ a.blacklist {
   padding: 40px 0;
   padding: 2.5rem 0;
   border-bottom: 1px solid #eee; }
-  @media (min-width: 768px) {
-    /* line 2, ../../client/styles/page-templates/_announcements.scss */
-    .page-announcements .section-announcements {
-      width: 90%;
-      margin: 0 5%; } }
-/* line 11, ../../client/styles/page-templates/_announcements.scss */
+/* line 6, ../../client/styles/page-templates/_announcements.scss */
 .page-announcements h1.page-title {
   color: #585858; }
 
@@ -3439,43 +3440,42 @@ input[type="checkbox"] + span, .error-info textarea[type="checkbox"].changed.ng-
 /* line 25, ../../client/styles/components/_tables.scss */
 .error-infos .plugin {
   width: 180px; }
-/* line 29, ../../client/styles/components/_tables.scss */
+/* line 26, ../../client/styles/components/_tables.scss */
 .error-infos .key {
   max-width: 250px; }
-/* line 33, ../../client/styles/components/_tables.scss */
+/* line 27, ../../client/styles/components/_tables.scss */
 .error-infos .cat {
   word-break: normal; }
-/* line 37, ../../client/styles/components/_tables.scss */
+/* line 28, ../../client/styles/components/_tables.scss */
 .error-infos .sev {
   max-width: 64px; }
-/* line 41, ../../client/styles/components/_tables.scss */
+/* line 29, ../../client/styles/components/_tables.scss */
 .error-infos .ct {
   max-width: 56px; }
-/* line 45, ../../client/styles/components/_tables.scss */
+/* line 30, ../../client/styles/components/_tables.scss */
+.error-infos .td-wrap {
+  position: relative; }
+/* line 32, ../../client/styles/components/_tables.scss */
 .error-infos .desc {
   max-width: 170px;
   word-break: normal; }
-/* line 50, ../../client/styles/components/_tables.scss */
+/* line 37, ../../client/styles/components/_tables.scss */
 .error-infos .util {
   padding-top: 0;
   padding-bottom: 0; }
-/* line 55, ../../client/styles/components/_tables.scss */
+/* line 42, ../../client/styles/components/_tables.scss */
 .error-infos .td-wrap {
   width: 20px;
   height: 20px;
   float: right; }
 
-/* line 62, ../../client/styles/components/_tables.scss */
-.td-wrap {
-  position: relative; }
-
-/* line 66, ../../client/styles/components/_tables.scss */
+/* line 49, ../../client/styles/components/_tables.scss */
 table.scroll {
   position: relative; }
-  /* line 69, ../../client/styles/components/_tables.scss */
+  /* line 52, ../../client/styles/components/_tables.scss */
   table.scroll thead {
     background: #fff; }
-  /* line 71, ../../client/styles/components/_tables.scss */
+  /* line 54, ../../client/styles/components/_tables.scss */
   table.scroll tbody {
     position: relative;
     max-height: 200px;
@@ -3483,11 +3483,11 @@ table.scroll {
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden; }
-    /* line 79, ../../client/styles/components/_tables.scss */
+    /* line 62, ../../client/styles/components/_tables.scss */
     table.scroll tbody tr {
       display: table;
       width: 100%; }
-  /* line 85, ../../client/styles/components/_tables.scss */
+  /* line 68, ../../client/styles/components/_tables.scss */
   table.scroll:after {
     content: '';
     position: absolute;
@@ -3495,19 +3495,19 @@ table.scroll {
     height: 34px;
     background: #646464; }
 
-/* line 99, ../../client/styles/components/_tables.scss */
+/* line 82, ../../client/styles/components/_tables.scss */
 .sortable {
   padding-right: 12px;
   position: relative; }
-  /* line 103, ../../client/styles/components/_tables.scss */
+  /* line 86, ../../client/styles/components/_tables.scss */
   .sortable:hover {
     cursor: pointer; }
-  /* line 107, ../../client/styles/components/_tables.scss */
+  /* line 90, ../../client/styles/components/_tables.scss */
   .sortable .carets {
     position: absolute;
     right: 8px;
     top: 12px; }
-    /* line 112, ../../client/styles/components/_tables.scss */
+    /* line 95, ../../client/styles/components/_tables.scss */
     .sortable .carets:before, .sortable .carets:after {
       content: '';
       position: absolute;
@@ -3519,57 +3519,57 @@ table.scroll {
       transition: 0.15s;
       border-left: 6px solid transparent;
       border-right: 6px solid transparent; }
-    /* line 121, ../../client/styles/components/_tables.scss */
+    /* line 104, ../../client/styles/components/_tables.scss */
     .sortable .carets:before {
       top: 2px;
       border-bottom: 6px solid gray; }
-    /* line 126, ../../client/styles/components/_tables.scss */
+    /* line 109, ../../client/styles/components/_tables.scss */
     .sortable .carets:after {
       top: 10px;
       border-top: 6px solid gray; }
-  /* line 139, ../../client/styles/components/_tables.scss */
+  /* line 122, ../../client/styles/components/_tables.scss */
   .sortable.sortable-active .carets:before {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
     opacity: 0.2;
     border-bottom-color: red; }
-  /* line 143, ../../client/styles/components/_tables.scss */
+  /* line 126, ../../client/styles/components/_tables.scss */
   .sortable.sortable-active .carets:after {
     filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
     opacity: 1;
     border-top-color: red; }
-  /* line 152, ../../client/styles/components/_tables.scss */
+  /* line 135, ../../client/styles/components/_tables.scss */
   .sortable.sortable-active.sortable-dsc .carets:before {
     filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
     opacity: 1; }
-  /* line 153, ../../client/styles/components/_tables.scss */
+  /* line 136, ../../client/styles/components/_tables.scss */
   .sortable.sortable-active.sortable-dsc .carets:after {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
     opacity: 0.2; }
 
-/* line 158, ../../client/styles/components/_tables.scss */
+/* line 141, ../../client/styles/components/_tables.scss */
 .filters-table {
   padding: 8px;
   padding: 0.5rem;
   color: #9a9b9c; }
-  /* line 162, ../../client/styles/components/_tables.scss */
+  /* line 145, ../../client/styles/components/_tables.scss */
   .filters-table .select-all {
     margin-top: 6px;
     margin-top: 0.375rem; }
 
-/* line 168, ../../client/styles/components/_tables.scss */
+/* line 151, ../../client/styles/components/_tables.scss */
 .table-groups tbody tr td {
   padding: 0; }
-/* line 172, ../../client/styles/components/_tables.scss */
+/* line 155, ../../client/styles/components/_tables.scss */
 .table-groups label {
   display: block;
   cursor: pointer;
   padding: 8px;
   margin: 0; }
-  /* line 177, ../../client/styles/components/_tables.scss */
+  /* line 160, ../../client/styles/components/_tables.scss */
   .table-groups label span {
     font-weight: 500; }
 
-/* line 183, ../../client/styles/components/_tables.scss */
+/* line 166, ../../client/styles/components/_tables.scss */
 .table.no-header tr:first-child td {
   border-top: 1px solid #ececec; }
 
@@ -3646,14 +3646,14 @@ table.scroll {
   margin-left: 15px; }
 /* line 28, ../../client/styles/components/_error-infos.scss */
 .error-info input.ng-invalid, .error-info textarea.ng-invalid.changed.ng-dirty, .error-info select.ng-invalid.changed.ng-dirty {
-  -moz-box-shadow: #f00 0 0 15px;
-  -webkit-box-shadow: #f00 0 0 15px;
-  box-shadow: #f00 0 0 15px; }
+  -moz-box-shadow: red 0 0 15px;
+  -webkit-box-shadow: red 0 0 15px;
+  box-shadow: red 0 0 15px; }
 /* line 32, ../../client/styles/components/_error-infos.scss */
 .error-info input.changed.ng-dirty.ng-valid, .error-info textarea.changed.ng-dirty.ng-valid, .error-info select.changed.ng-dirty.ng-valid {
-  -moz-box-shadow: #ff0 0 0 5px;
-  -webkit-box-shadow: #ff0 0 0 5px;
-  box-shadow: #ff0 0 0 5px; }
+  -moz-box-shadow: yellow 0 0 5px;
+  -webkit-box-shadow: yellow 0 0 5px;
+  box-shadow: yellow 0 0 5px; }
 
 /* line 45, ../../client/styles/components/_error-infos.scss */
 .error_info_index .preloader {
@@ -4242,9 +4242,9 @@ menu.nav ul {
         color: #252527;
         background: #f0f0f0;
         border-color: #bdbdbd;
-        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd;
-        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd;
-        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd; }
+        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
+        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
+        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd; }
 /* line 202, ../../client/styles/components/_dashboard.scss */
 menu.nav ul ul {
   margin-bottom: 0;
@@ -4675,44 +4675,45 @@ menu.account {
 
 /* line 2, ../../client/styles/components/insights/_table.scss */
 .insights-main-content table {
-  border: 1px solid #ddd; }
-  /* line 11, ../../client/styles/components/insights/_table.scss */
+  border: 1px solid #ddd;
+  border-collap: inherit; }
+  /* line 13, ../../client/styles/components/insights/_table.scss */
   .insights-main-content table thead th {
     border-left: 1px solid #ddd;
-    border-bottom-width: 1px;
+    border-bottom-width: 1px !important;
     text-align: left; }
-    /* line 16, ../../client/styles/components/insights/_table.scss */
+    /* line 18, ../../client/styles/components/insights/_table.scss */
     .insights-main-content table thead th:first-child {
       border-left: none; }
-  /* line 21, ../../client/styles/components/insights/_table.scss */
+  /* line 23, ../../client/styles/components/insights/_table.scss */
   .insights-main-content table tbody {
     border: 1px solid #ddd;
     border-top: none; }
-    /* line 25, ../../client/styles/components/insights/_table.scss */
+    /* line 27, ../../client/styles/components/insights/_table.scss */
     .insights-main-content table tbody tr {
       -moz-transition: 0.2s;
       -o-transition: 0.2s;
       -webkit-transition: 0.2s;
       transition: 0.2s; }
-      /* line 27, ../../client/styles/components/insights/_table.scss */
+      /* line 29, ../../client/styles/components/insights/_table.scss */
       .insights-main-content table tbody tr:nth-child(odd) {
         background: #f2f5f7; }
-    /* line 32, ../../client/styles/components/insights/_table.scss */
+    /* line 34, ../../client/styles/components/insights/_table.scss */
     .insights-main-content table tbody td {
       border: none;
       line-height: 1.6; }
-/* line 39, ../../client/styles/components/insights/_table.scss */
+/* line 41, ../../client/styles/components/insights/_table.scss */
 .insights-main-content .legend table {
   border: none; }
-  /* line 42, ../../client/styles/components/insights/_table.scss */
+  /* line 44, ../../client/styles/components/insights/_table.scss */
   .insights-main-content .legend table tbody {
     border: 1px solid #ddd;
     border-top: none; }
-  /* line 47, ../../client/styles/components/insights/_table.scss */
+  /* line 49, ../../client/styles/components/insights/_table.scss */
   .insights-main-content .legend table thead {
     border: 1px solid #ddd;
     border-bottom: none; }
-/* line 53, ../../client/styles/components/insights/_table.scss */
+/* line 55, ../../client/styles/components/insights/_table.scss */
 .insights-main-content .tbody-scrollable {
   max-height: 420px;
   overflow: auto;
@@ -4749,6 +4750,22 @@ menu.account {
 /* line 32, ../../client/styles/components/insights/_group-select.scss */
 .table-filters .dropdown-select:after {
   z-index: 1; }
+
+/* line 3, ../../client/styles/components/insights/_config-tabs.scss */
+.config-tabs .nav-tabs {
+  padding-left: 0; }
+  /* line 6, ../../client/styles/components/insights/_config-tabs.scss */
+  .config-tabs .nav-tabs li.active {
+    font-weight: 700; }
+  /* line 7, ../../client/styles/components/insights/_config-tabs.scss */
+  .config-tabs .nav-tabs li a {
+    max-height: 50px; }
+  /* line 8, ../../client/styles/components/insights/_config-tabs.scss */
+  .config-tabs .nav-tabs li a:after {
+    display: none; }
+/* line 13, ../../client/styles/components/insights/_config-tabs.scss */
+.config-tabs .tab-pane {
+  padding: 0; }
 
 /* line 1, ../../client/styles/components/insights/_uploader-config.scss */
 .uploader-collect-list {
@@ -5062,14 +5079,20 @@ menu.account {
 body {
   background: none; }
 
-/* line 9, ../../client/styles/includes/_in-prod.scss */
+/* line 5, ../../client/styles/includes/_in-prod.scss */
 .c3:after {
   background-image: none; }
 
-/* line 14, ../../client/styles/includes/_in-prod.scss */
+/* line 9, ../../client/styles/includes/_in-prod.scss */
+.page-title, .overview-details, .chart-col {
+  margin-top: 0; }
+
+/* line 13, ../../client/styles/includes/_in-prod.scss */
+.insights-main-content table, .insights-main-content .legend table {
+  margin-bottom: 0 !important; }
+
+/* line 24, ../../client/styles/includes/_in-prod.scss */
 .insights-main-content .table > thead {
   background-image: none;
   background-color: #fff;
   background-clip: initial; }
-
-/*# sourceMappingURL=in-prod.css.map */

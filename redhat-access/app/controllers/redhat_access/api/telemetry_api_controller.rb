@@ -41,7 +41,9 @@ module RedhatAccess
       # # Returns an array of the machine IDs that this user has access to
       def get_machines
         #TODO err out if org is not selected
-        return get_content_hosts(Organization.current)
+        machines = get_content_hosts(Organization.current)
+        Rails.logger.debug("Machines : #{machines}")
+        machines
       end
 
       # The method that "proxies" tapi requests over to Strata

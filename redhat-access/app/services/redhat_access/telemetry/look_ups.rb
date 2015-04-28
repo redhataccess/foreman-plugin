@@ -111,7 +111,7 @@ module RedhatAccess
         if org
           org_id = org.id
           environment_ids = Organization.find(org_id).kt_environments.pluck(:id)
-          hosts =  Katello::System.where("environment_id = ?", environment_ids).pluck(:uuid).compact.sort
+          hosts =  Katello::System.readable.where("environment_id = ?", environment_ids).pluck(:uuid).compact.sort
         else
           raise(RecordNotFound,'Organization not found or invalid')
         end
