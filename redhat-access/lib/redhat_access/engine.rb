@@ -116,23 +116,29 @@ module RedhatAccess
         end
         sub_menu :top_menu, :redhat_access_top_menu, :caption=> N_('Access Insights') do
           menu :top_menu,
-            :configuration,
-            :caption=> N_('Configuration'),
-            :url => '/redhat_access/analytics_dashboard/manage',
-            :url_hash => {:controller=> :"redhat_access/telemetry_configurations" , :action=>:show},
-            :engine => RedhatAccess::Engine
-          menu :top_menu,
             :dashboard,
-            :caption=> N_('Dashboard'),
-            :url => '/redhat_access/analytics_dashboard',
+            :caption=> N_('Overview'),
+            :url => '/redhat_access/insights',
             :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
             :engine => RedhatAccess::Engine
-           # menu :top_menu,
-           #  :systems,
-           #  :caption=> N_('Systems'),
-           #  :url => '/redhat_access/analytics_dashboard/systems',
-           #  :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-           #  :engine => RedhatAccess::Engine
+          menu :top_menu,
+            :rules,
+            :caption=> N_('Rules'),
+            :url => '/redhat_access/insights/rules/',
+            :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
+            :engine => RedhatAccess::Engine
+          menu :top_menu,
+            :systems,
+            :caption=> N_('Systems'),
+            :url => '/redhat_access/insights/systems',
+            :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
+            :engine => RedhatAccess::Engine
+           menu :top_menu,
+            :configuration,
+            :caption=> N_('Configuration'),
+            :url => '/redhat_access/insights/manage',
+            :url_hash => {:controller=> :"redhat_access/telemetry_configurations" , :action=>:show},
+            :engine => RedhatAccess::Engine
         end
       end
     end
