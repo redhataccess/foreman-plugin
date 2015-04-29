@@ -1,0 +1,10 @@
+{
+  "README.md": "e65dca46c976db81d9719c4dafef2832",
+  "Rakefile": "20b80e526e351a74df2001f504e756d2",
+  "manifests/init.pp": "ee45d153a2762e92ae5b42991abb4605",
+  "metadata.json": "a3bd52b9f09f229e822035fd722b022a",
+  "spec/classes/init_spec.rb": "c29f792a21c8b2beac9cbdea22304c7b",
+  "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+  "templates/redhat-access-insights.conf.erb": "beb646816e912b5cac17a867eb69c9d7",
+  "tests/init.pp": "a0794ed54109430e40ccfce54409a52c"
+}
