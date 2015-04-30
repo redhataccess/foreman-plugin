@@ -58,22 +58,20 @@ module RedhatAccess
         get_ssl_options_for_org(org,ca_file)
       end
 
+      def use_basic_auth?
+        REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth]
+      end
+
       def get_ssl_options_for_org(org ,ca_file)
         if org
-          upstream = org.owner_details['upstreamConsumer']
-          if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
-            raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
+          verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
+          ca_file = ca_file ? ca_file : get_default_ssl_ca_file
+          if use_basic_auth?
+            Rails.logger.debug("Using basic auth for portal communication")
+            get_basic_auth_options(org, ca_file,verify_peer)
           else
-            ca_file = ca_file ? ca_file : get_default_ssl_ca_file 
-            verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
-            opts = {
-              :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
-              :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
-              :ssl_ca_file => ca_file,
-              :verify_ssl => verify_peer
-            }
-            Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
-            return opts
+            Rails.logger.debug("Using SSL auth for portal communication")
+            get_mutual_tls_auth_options(org, ca_file,verify_peer)
           end
         else
           raise(RecordNotFound,'Organization not found or invalid')
@@ -85,12 +83,30 @@ module RedhatAccess
         nil
       end
 
-      def basic_auth_options_for_uuid(uuid)
-        #TODO
+      def get_mutual_tls_auth_options(org, ca_file, verify_peer)
+        upstream = org.owner_details['upstreamConsumer']
+        if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
+          raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
+        else
+          opts = {
+            :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
+            :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
+            :ssl_ca_file => ca_file,
+            :verify_ssl => verify_peer
+          }
+          Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
+          opts
+        end
       end
 
-      def basic_auth_options_for_org(org)
-        #TODO
+      def get_basic_auth_options(org, ca_file, verify_peer )
+        opts = {
+          :user => org.telemetry_configuration.portal_user,
+          :password => org.telemetry_configuration.portal_password,
+          :ssl_ca_file => ca_file,
+          :verify_ssl => verify_peer
+        }
+        opts
       end
 
       def get_branch_id_for_uuid(uuid)
