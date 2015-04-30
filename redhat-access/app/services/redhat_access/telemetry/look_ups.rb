@@ -65,11 +65,12 @@ module RedhatAccess
             raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
           else
             ca_file = ca_file ? ca_file : get_default_ssl_ca_file 
+            verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
             opts = {
               :ssl_client_cert => OpenSSL::X509::Certificate.new(upstream['idCert']['cert']),
               :ssl_client_key => OpenSSL::PKey::RSA.new(upstream['idCert']['key']),
               :ssl_ca_file => ca_file,
-              :verify_ssl => OpenSSL::SSL::VERIFY_PEER 
+              :verify_ssl => verify_peer
             }
             Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
             return opts

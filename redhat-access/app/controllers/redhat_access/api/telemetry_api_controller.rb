@@ -57,6 +57,11 @@ module RedhatAccess
         end
         client = get_api_client
         res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
+        #401 erros means our proxy is not configured right.
+        #Change it to 502 to distinguish with local applications 401 errors
+        if res[:code] == 401
+          res[:code] = 502
+        end
         render status: res[:code] , json: res[:data]
       end
 
