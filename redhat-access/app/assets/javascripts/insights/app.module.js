@@ -4,8 +4,7 @@
             'ui.router',
             'telemetryWidgets',
             'telemetryConfig',
-            'telemetryRoutes',
-            'templates'
+            'telemetryRoutes'
         ])
         .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide',
             function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide) {

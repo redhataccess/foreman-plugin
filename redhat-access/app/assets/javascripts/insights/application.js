@@ -14,8 +14,6 @@
 //= require "c3/c3"
 //= require "telemetry/insights.vendor"
 //= require "telemetry/insights.app"
-//= require "angular-rails-templates"
-//= require_tree ./views
 //= require "insights/app.module"
 //= require "insights/configuration.service"
 //= require "insights/configuration.controller"
