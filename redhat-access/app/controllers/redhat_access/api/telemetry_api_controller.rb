@@ -83,16 +83,22 @@ module RedhatAccess
         params
       end
 
+      def get_http_user_agent
+        "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
+      end
+
       def get_branch_id
         get_branch_id_for_org(Organization.current)
       end
 
       def get_api_client
+        Rails.logger.debug("User agent for telemetry is #{get_user_agent}")
         return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL,
                                                          get_creds,
                                                          self,
                                                          {:logger => Rails.logger,
-                                                          :http_proxy => get_portal_http_proxy})
+                                                          :http_proxy => get_portal_http_proxy,
+                                                          :user_agent => get_http_user_agent})
       end
 
     end

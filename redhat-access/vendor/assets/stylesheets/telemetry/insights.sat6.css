@@ -305,28 +305,32 @@ x.trunc {
   font-weight: 100; }
 
 /* line 60, ../../client/styles/includes/_helpers.scss */
+.reg {
+  font-weight: 500; }
+
+/* line 64, ../../client/styles/includes/_helpers.scss */
 .full-width {
   width: 100%; }
 
-/* line 61, ../../client/styles/includes/_helpers.scss */
+/* line 65, ../../client/styles/includes/_helpers.scss */
 .flush-right {
   margin-right: -8px;
   margin-right: -0.46875rem; }
 
-/* line 62, ../../client/styles/includes/_helpers.scss */
+/* line 66, ../../client/styles/includes/_helpers.scss */
 .flush-left {
   margin-left: -8px;
   margin-left: -0.46875rem; }
 
-/* line 63, ../../client/styles/includes/_helpers.scss */
+/* line 67, ../../client/styles/includes/_helpers.scss */
 .modal {
   display: none; }
 
-/* line 64, ../../client/styles/includes/_helpers.scss */
+/* line 68, ../../client/styles/includes/_helpers.scss */
 .modal.active {
   display: block; }
 
-/* line 70, ../../client/styles/includes/_helpers.scss */
+/* line 74, ../../client/styles/includes/_helpers.scss */
 table .link {
   color: #585858;
   font-size: 14px;
@@ -334,22 +338,33 @@ table .link {
   line-height: 19.6px;
   line-height: 1.225rem;
   font-weight: 500; }
-  /* line 75, ../../client/styles/includes/_helpers.scss */
+  /* line 79, ../../client/styles/includes/_helpers.scss */
   table .link:hover {
     color: #727272; }
 
-/* line 79, ../../client/styles/includes/_helpers.scss */
+/* line 83, ../../client/styles/includes/_helpers.scss */
 input.filter, .error-info textarea.filter.changed.ng-dirty, .error-info select.filter.changed.ng-dirty {
   margin: 15px 0;
   margin: 0.9375rem 0;
   padding: 6px 8px;
   padding: 0.375rem 0.5rem; }
 
-/* line 84, ../../client/styles/includes/_helpers.scss */
+/* line 88, ../../client/styles/includes/_helpers.scss */
 .filters-table {
   border-bottom: 4px solid #ececec;
   margin-top: 0;
   margin-bottom: 0; }
+
+/* line 94, ../../client/styles/includes/_helpers.scss */
+.with-icon {
+  position: relative;
+  padding-left: 20px;
+  padding-left: 1.25rem; }
+  /* line 98, ../../client/styles/includes/_helpers.scss */
+  .with-icon i {
+    position: absolute;
+    left: 0;
+    top: 2px; }
 
 /* line 1, ../../client/styles/elements/_base.scss */
 h1, h2, h3, h4, h5, h6 {
@@ -421,7 +436,7 @@ body {
   line-height: 1.1875rem; }
 
 /* line 50, ../../client/styles/elements/_base.scss */
-p {
+.chart-container p {
   font-size: 16px;
   font-size: 1rem;
   line-height: 22.4px;
@@ -471,10 +486,15 @@ p {
       width: 82%; } }
 
 /* line 119, ../../client/styles/elements/_base.scss */
+.page-standard {
+  padding: 40px 0;
+  padding: 2.5rem 0; }
+
+/* line 123, ../../client/styles/elements/_base.scss */
 .page-wrap.container {
   padding: 15px; }
   @media (min-width: 768px) {
-    /* line 119, ../../client/styles/elements/_base.scss */
+    /* line 123, ../../client/styles/elements/_base.scss */
     .page-wrap.container {
       padding: 0; } }
 
@@ -773,22 +793,16 @@ button.simple,
   animation: fa-spin 2s infinite linear; }
 
 @-webkit-keyframes fa-spin {
-  /* line 199, ../../client/styles/elements/_fonts.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
-
-  /* line 203, ../../client/styles/elements/_fonts.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 @keyframes fa-spin {
-  /* line 209, ../../client/styles/elements/_fonts.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
-
-  /* line 213, ../../client/styles/elements/_fonts.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
@@ -3148,15 +3162,6 @@ a.blacklist {
   opacity: .7;
   font-style: italic; }
 
-/* line 2, ../../client/styles/page-templates/_announcements.scss */
-.page-announcements .section-announcements {
-  padding: 40px 0;
-  padding: 2.5rem 0;
-  border-bottom: 1px solid #eee; }
-/* line 6, ../../client/styles/page-templates/_announcements.scss */
-.page-announcements h1.page-title {
-  color: #585858; }
-
 /* line 1, ../../client/styles/page-templates/_permissions.scss */
 .user-permission {
   height: 220px; }
@@ -3279,8 +3284,10 @@ a.blacklist {
     font-size: 2.25rem;
     line-height: 50.4px;
     line-height: 3.15rem;
-    line-height: 1; }
-  /* line 75, ../../client/styles/components/_pie-charts.scss */
+    line-height: 1;
+    font-weight: 700;
+    color: #585858; }
+  /* line 77, ../../client/styles/components/_pie-charts.scss */
   .donut-hole .text {
     font-size: 16px;
     font-size: 1rem;
@@ -3289,18 +3296,18 @@ a.blacklist {
     font-weight: 700;
     text-transform: uppercase; }
 
-/* line 88, ../../client/styles/components/_pie-charts.scss */
+/* line 90, ../../client/styles/components/_pie-charts.scss */
 .chart-details tbody tr {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s;
   transition-duration: 0.2s; }
-/* line 92, ../../client/styles/components/_pie-charts.scss */
+/* line 94, ../../client/styles/components/_pie-charts.scss */
 .chart-details tbody tr:hover {
   background-color: #e2e9ed;
   cursor: pointer; }
 
-/* line 98, ../../client/styles/components/_pie-charts.scss */
+/* line 100, ../../client/styles/components/_pie-charts.scss */
 .c3-chart-arc text {
   font-size: 16px;
   font-size: 1rem;
@@ -3312,7 +3319,7 @@ a.blacklist {
   text-shadow: 0 0 12px black;
   z-index: 10000; }
 
-/* line 108, ../../client/styles/components/_pie-charts.scss */
+/* line 110, ../../client/styles/components/_pie-charts.scss */
 .c3:before {
   -moz-box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
@@ -3330,10 +3337,10 @@ a.blacklist {
   width: 260px;
   z-index: 1; }
   @media (max-width: 480px) {
-    /* line 108, ../../client/styles/components/_pie-charts.scss */
+    /* line 110, ../../client/styles/components/_pie-charts.scss */
     .c3:before {
       display: none; } }
-/* line 127, ../../client/styles/components/_pie-charts.scss */
+/* line 129, ../../client/styles/components/_pie-charts.scss */
 .c3:after {
   background-position: center top;
   background-repeat: no-repeat;
@@ -3345,27 +3352,27 @@ a.blacklist {
   position: absolute;
   top: 0;
   width: 100%; }
-  @media (480px) {
-    /* line 127, ../../client/styles/components/_pie-charts.scss */
+  @media (min-width: 480px) {
+    /* line 129, ../../client/styles/components/_pie-charts.scss */
     .c3:after {
       background-image: url("../assets/images/bg_chart-shadow.png"); } }
   @media (min-width: 992px) {
-    /* line 127, ../../client/styles/components/_pie-charts.scss */
+    /* line 129, ../../client/styles/components/_pie-charts.scss */
     .c3:after {
       background-size: 108% auto;
       background-position: center -16px;
       background-image: url("../assets/images/bg_chart-shadow.png"); } }
   @media (min-width: 1200px) {
-    /* line 127, ../../client/styles/components/_pie-charts.scss */
+    /* line 129, ../../client/styles/components/_pie-charts.scss */
     .c3:after {
       background-size: 95% auto; } }
-/* line 155, ../../client/styles/components/_pie-charts.scss */
+/* line 157, ../../client/styles/components/_pie-charts.scss */
 .c3 svg {
   margin-top: 5px;
   margin-top: 0.3125rem;
   position: relative;
   z-index: 8; }
-/* line 162, ../../client/styles/components/_pie-charts.scss */
+/* line 164, ../../client/styles/components/_pie-charts.scss */
 .c3 .c3-chart-arc path {
   stroke: #fff;
   stroke-width: 5px; }
@@ -3373,7 +3380,7 @@ a.blacklist {
 /* line 1, ../../client/styles/components/_chart-header.scss */
 .chart-header {
   color: #585858; }
-  /* line 5, ../../client/styles/components/_chart-header.scss */
+  /* line 4, ../../client/styles/components/_chart-header.scss */
   .chart-header .intro {
     margin: 24px 0 34px;
     margin: 1.5rem 0 2.125rem;
@@ -3384,22 +3391,15 @@ a.blacklist {
     line-height: 27px;
     line-height: 1.6875rem;
     border-bottom: 1px solid #ddd; }
-  /* line 12, ../../client/styles/components/_chart-header.scss */
-  .chart-header h1 {
-    font-size: 24px;
-    font-size: 1.5rem;
-    line-height: 33.6px;
-    line-height: 2.1rem;
-    font-weight: 700; }
   @media (min-width: 1200px) {
-    /* line 17, ../../client/styles/components/_chart-header.scss */
+    /* line 11, ../../client/styles/components/_chart-header.scss */
     .chart-header p {
       margin-top: 20px;
       margin-top: 1.25rem; } }
-  /* line 23, ../../client/styles/components/_chart-header.scss */
+  /* line 17, ../../client/styles/components/_chart-header.scss */
   .chart-header .logo {
     margin-bottom: 20px; }
-    /* line 26, ../../client/styles/components/_chart-header.scss */
+    /* line 20, ../../client/styles/components/_chart-header.scss */
     .chart-header .logo.logo-sap {
       margin-left: -20px;
       margin-top: -52px; }
@@ -3646,14 +3646,14 @@ table.scroll {
   margin-left: 15px; }
 /* line 28, ../../client/styles/components/_error-infos.scss */
 .error-info input.ng-invalid, .error-info textarea.ng-invalid.changed.ng-dirty, .error-info select.ng-invalid.changed.ng-dirty {
-  -moz-box-shadow: red 0 0 15px;
-  -webkit-box-shadow: red 0 0 15px;
-  box-shadow: red 0 0 15px; }
+  -moz-box-shadow: #f00 0 0 15px;
+  -webkit-box-shadow: #f00 0 0 15px;
+  box-shadow: #f00 0 0 15px; }
 /* line 32, ../../client/styles/components/_error-infos.scss */
 .error-info input.changed.ng-dirty.ng-valid, .error-info textarea.changed.ng-dirty.ng-valid, .error-info select.changed.ng-dirty.ng-valid {
-  -moz-box-shadow: yellow 0 0 5px;
-  -webkit-box-shadow: yellow 0 0 5px;
-  box-shadow: yellow 0 0 5px; }
+  -moz-box-shadow: #ff0 0 0 5px;
+  -webkit-box-shadow: #ff0 0 0 5px;
+  box-shadow: #ff0 0 0 5px; }
 
 /* line 45, ../../client/styles/components/_error-infos.scss */
 .error_info_index .preloader {
@@ -3907,8 +3907,8 @@ table.scroll {
     -webkit-border-radius: 0;
     border-radius: 0;
     margin-left: 0 !important;
-    padding: 6px 12px;
-    padding: 0.375rem 0.75rem;
+    padding: 6px 8px;
+    padding: 0.375rem 0.5rem;
     text-transform: uppercase;
     color: #333;
     font-weight: 100;
@@ -3920,11 +3920,16 @@ table.scroll {
     -o-transition: 0.1s;
     -webkit-transition: 0.1s;
     transition: 0.1s; }
-    /* line 25, ../../client/styles/components/_filters.scss */
+    @media (min-width: 480px) {
+      /* line 12, ../../client/styles/components/_filters.scss */
+      .filters button {
+        padding: 6px 12px;
+        padding: 0.375rem 0.75rem; } }
+    /* line 27, ../../client/styles/components/_filters.scss */
     .filters button i {
       margin-right: 4px;
       display: inline; }
-    /* line 30, ../../client/styles/components/_filters.scss */
+    /* line 32, ../../client/styles/components/_filters.scss */
     .filters button span {
       display: inline-block; }
     /* line 34, ../../client/styles/components/_filters.scss */
@@ -3945,57 +3950,108 @@ table.scroll {
       -webkit-border-bottom-right-radius: 5px;
       border-bottom-right-radius: 5px; }
     /* line 45, ../../client/styles/components/_filters.scss */
-    .filters button.filter-off:not(:hover) {
-      background: #ebeef0;
+    .filters button.filter-on {
+      background: #949794;
+      color: #e4e4e4;
       background-image: none;
-      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-      opacity: 0.6; }
-      /* line 49, ../../client/styles/components/_filters.scss */
-      .filters button.filter-off:not(:hover) i {
-        color: #5C5C5C;
-        border-color: #5C5C5C; }
-  /* line 56, ../../client/styles/components/_filters.scss */
+      -moz-box-shadow: inset 0 0 2px 4px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: inset 0 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: inset 0 0 2px 4px rgba(0, 0, 0, 0.1); }
+      /* line 51, ../../client/styles/components/_filters.scss */
+      .filters button.filter-on i {
+        color: #e4e4e4;
+        border-color: #e4e4e4; }
+  /* line 59, ../../client/styles/components/_filters.scss */
+  .filters .all-toggle i {
+    display: none; }
+  /* line 64, ../../client/styles/components/_filters.scss */
   .filters .icon {
     font-size: 20px;
     font-size: 1.25rem;
     line-height: 28px;
     line-height: 1.75rem;
     position: relative; }
-  /* line 61, ../../client/styles/components/_filters.scss */
+  /* line 69, ../../client/styles/components/_filters.scss */
   .filters .lbl, .filters .icon {
     -moz-transition: 0.2s;
     -o-transition: 0.2s;
     -webkit-transition: 0.2s;
     transition: 0.2s; }
-  /* line 63, ../../client/styles/components/_filters.scss */
+  /* line 71, ../../client/styles/components/_filters.scss */
   .filters .lbl {
     font-size: 12px;
     font-size: 0.75rem;
     line-height: 16.8px;
     line-height: 1.05rem;
     line-height: 1; }
-  /* line 69, ../../client/styles/components/_filters.scss */
-  .filters.hover button:not(:hover) {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-    opacity: 0.6;
-    background: #ebeef0; }
-    /* line 72, ../../client/styles/components/_filters.scss */
-    .filters.hover button:not(:hover) i {
-      color: #5C5C5C;
-      border-color: #5C5C5C; }
 
-/* line 81, ../../client/styles/components/_filters.scss */
+/* line 79, ../../client/styles/components/_filters.scss */
 .filters-category button {
   padding: 6px 12px;
   padding: 0.375rem 0.75rem; }
-/* line 85, ../../client/styles/components/_filters.scss */
+/* line 83, ../../client/styles/components/_filters.scss */
 .filters-category .icon-circle {
   margin: 2px 4px 0 0;
   margin: 0.125rem 0.25rem 0 0;
   float: left; }
-/* line 90, ../../client/styles/components/_filters.scss */
+/* line 88, ../../client/styles/components/_filters.scss */
 .filters-category .sev {
   margin-top: 3px; }
+
+/* line 95, ../../client/styles/components/_filters.scss */
+.table-filters .groups-select {
+  float: left; }
+  @media (min-width: 480px) {
+    /* line 95, ../../client/styles/components/_filters.scss */
+    .table-filters .groups-select {
+      float: right; } }
+  @media (min-width: 480px) {
+    /* line 95, ../../client/styles/components/_filters.scss */
+    .table-filters .groups-select {
+      float: left; } }
+  @media (min-width: 1200px) {
+    /* line 95, ../../client/styles/components/_filters.scss */
+    .table-filters .groups-select {
+      float: right; } }
+/* line 111, ../../client/styles/components/_filters.scss */
+.table-filters .severity-bar {
+  width: 100%;
+  float: left;
+  margin-top: 15px;
+  margin-top: 0.9375rem; }
+  @media (min-width: 480px) {
+    /* line 111, ../../client/styles/components/_filters.scss */
+    .table-filters .severity-bar {
+      margin-right: 15px;
+      margin-right: 0.9375rem;
+      float: left; } }
+  @media (min-width: 768px) {
+    /* line 111, ../../client/styles/components/_filters.scss */
+    .table-filters .severity-bar {
+      width: auto;
+      margin-top: 23px;
+      margin-top: 1.4375rem;
+      margin-right: 0;
+      float: right; } }
+  @media (min-width: 992px) {
+    /* line 111, ../../client/styles/components/_filters.scss */
+    .table-filters .severity-bar {
+      float: left;
+      margin-top: 15px;
+      margin-top: 0.9375rem; } }
+  @media (min-width: 1200px) {
+    /* line 111, ../../client/styles/components/_filters.scss */
+    .table-filters .severity-bar {
+      margin-top: 23px;
+      margin-top: 1.4375rem; } }
+@media (min-width: 768px) {
+  /* line 138, ../../client/styles/components/_filters.scss */
+  .table-filters .severity-bar .filters {
+    float: left; } }
+@media (min-width: 992px) {
+  /* line 138, ../../client/styles/components/_filters.scss */
+  .table-filters .severity-bar .filters {
+    float: left; } }
 
 /* line 1, ../../client/styles/components/_icons.scss */
 .i-info {
@@ -4142,7 +4198,7 @@ table.scroll {
   padding: 1rem 0.75rem;
   text-align: center;
   color: #999; }
-  @media (480px) {
+  @media (min-width: 480px) {
     /* line 99, ../../client/styles/components/_dashboard.scss */
     .profile-info {
       width: 50%; } }
@@ -4242,9 +4298,9 @@ menu.nav ul {
         color: #252527;
         background: #f0f0f0;
         border-color: #bdbdbd;
-        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
-        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd;
-        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #dddddd; }
+        -moz-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd;
+        -webkit-box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd;
+        box-shadow: 0 4px 0 0 #504a4f, inset -8px 0 10px 0px #ddd; }
 /* line 202, ../../client/styles/components/_dashboard.scss */
 menu.nav ul ul {
   margin-bottom: 0;
@@ -4500,6 +4556,13 @@ menu.account {
   line-height: 6.65rem; }
 
 /* line 5, ../../client/styles/components/_fa-.scss */
+.fa-small {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 22.4px;
+  line-height: 1.4rem; }
+
+/* line 9, ../../client/styles/components/_fa-.scss */
 .fa-circular {
   width: 20px;
   height: 20px;
@@ -4673,109 +4736,7 @@ menu.account {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1; }
 
-/* line 2, ../../client/styles/components/insights/_table.scss */
-.insights-main-content table {
-  border: 1px solid #ddd;
-  border-collap: inherit; }
-  /* line 13, ../../client/styles/components/insights/_table.scss */
-  .insights-main-content table thead th {
-    border-left: 1px solid #ddd;
-    border-bottom-width: 1px !important;
-    text-align: left; }
-    /* line 18, ../../client/styles/components/insights/_table.scss */
-    .insights-main-content table thead th:first-child {
-      border-left: none; }
-  /* line 23, ../../client/styles/components/insights/_table.scss */
-  .insights-main-content table tbody {
-    border: 1px solid #ddd;
-    border-top: none; }
-    /* line 27, ../../client/styles/components/insights/_table.scss */
-    .insights-main-content table tbody tr {
-      -moz-transition: 0.2s;
-      -o-transition: 0.2s;
-      -webkit-transition: 0.2s;
-      transition: 0.2s; }
-      /* line 29, ../../client/styles/components/insights/_table.scss */
-      .insights-main-content table tbody tr:nth-child(odd) {
-        background: #f2f5f7; }
-    /* line 34, ../../client/styles/components/insights/_table.scss */
-    .insights-main-content table tbody td {
-      border: none;
-      line-height: 1.6; }
-/* line 41, ../../client/styles/components/insights/_table.scss */
-.insights-main-content .legend table {
-  border: none; }
-  /* line 44, ../../client/styles/components/insights/_table.scss */
-  .insights-main-content .legend table tbody {
-    border: 1px solid #ddd;
-    border-top: none; }
-  /* line 49, ../../client/styles/components/insights/_table.scss */
-  .insights-main-content .legend table thead {
-    border: 1px solid #ddd;
-    border-bottom: none; }
-/* line 55, ../../client/styles/components/insights/_table.scss */
-.insights-main-content .tbody-scrollable {
-  max-height: 420px;
-  overflow: auto;
-  border-bottom: 5px solid #ddd; }
-
-/* line 1, ../../client/styles/components/insights/_overview-details.scss */
-.overview-details {
-  margin-top: 30px; }
-
-/* line 1, ../../client/styles/components/insights/_group-select.scss */
-.group-select {
-  border: none;
-  width: 100%; }
-  /* line 6, ../../client/styles/components/insights/_group-select.scss */
-  .group-select select {
-    -moz-appearance: none;
-    -webkit-appearance: none; }
-
-/* line 12, ../../client/styles/components/insights/_group-select.scss */
-.group-select.dropdown-select select {
-  width: 100%; }
-
-/* line 18, ../../client/styles/components/insights/_group-select.scss */
-.group-select.rounded select {
-  border-radius: 8px !important;
-  border: 4px solid #ebeef0; }
-
-/* line 26, ../../client/styles/components/insights/_group-select.scss */
-.table-filters select {
-  background-color: #f7fafc;
-  padding: 6px 30px 6px 12px;
-  padding: 0.375rem 1.875rem 0.375rem 0.75rem;
-  line-height: 1; }
-/* line 32, ../../client/styles/components/insights/_group-select.scss */
-.table-filters .dropdown-select:after {
-  z-index: 1; }
-
-/* line 3, ../../client/styles/components/insights/_config-tabs.scss */
-.config-tabs .nav-tabs {
-  padding-left: 0; }
-  /* line 6, ../../client/styles/components/insights/_config-tabs.scss */
-  .config-tabs .nav-tabs li.active {
-    font-weight: 700; }
-  /* line 7, ../../client/styles/components/insights/_config-tabs.scss */
-  .config-tabs .nav-tabs li a {
-    max-height: 50px; }
-  /* line 8, ../../client/styles/components/insights/_config-tabs.scss */
-  .config-tabs .nav-tabs li a:after {
-    display: none; }
-/* line 13, ../../client/styles/components/insights/_config-tabs.scss */
-.config-tabs .tab-pane {
-  padding: 0; }
-
-/* line 1, ../../client/styles/components/insights/_uploader-config.scss */
-.uploader-collect-list {
-  max-height: 300px;
-  overflow-y: auto; }
-  /* line 4, ../../client/styles/components/insights/_uploader-config.scss */
-  .uploader-collect-list .list-group-item {
-    word-break: break-all; }
-
-/* line 5, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 5, ../../client/styles/components/_system-overlay.scss */
 .modal.active:before {
   background: rgba(0, 0, 0, 0.6);
   content: '';
@@ -4786,54 +4747,54 @@ menu.account {
   width: 100%;
   z-index: 1; }
 
-/* line 18, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 18, ../../client/styles/components/_system-overlay.scss */
 .system-overlay {
   padding: 30px;
   padding: 1.875rem; }
-  /* line 23, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 23, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .detail:nth-child(even) {
     background: #eaeaea; }
-  /* line 27, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 27, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .detail ul {
     padding-left: 18px;
     padding-left: 1.125rem; }
-  /* line 31, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 31, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .detail .heading {
     font-size: large;
     padding-bottom: 15px;
     padding-top: 15px; }
-    /* line 36, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 36, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .detail .heading i {
       padding-right: .3em; }
-    /* line 38, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 38, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .detail .heading strong {
       padding-left: .3em; }
-  /* line 41, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 41, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .detail .center {
     text-align: center; }
-  /* line 46, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 46, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .content {
     position: relative;
     width: 100%;
     z-index: 9; }
-  /* line 53, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 53, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .row {
     clear: both;
     margin-bottom: 0; }
-  /* line 58, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 58, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .row + .row {
     margin-bottom: 0; }
   @media (min-width: 992px) {
-    /* line 18, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 18, ../../client/styles/components/_system-overlay.scss */
     .system-overlay {
       max-width: 970px;
       width: auto;
       margin: 0 auto; } }
   @media (min-width: 1200px) {
-    /* line 18, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 18, ../../client/styles/components/_system-overlay.scss */
     .system-overlay {
       max-width: 1170px; } }
-  /* line 70, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 70, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .btn.icon-close {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
@@ -4845,16 +4806,16 @@ menu.account {
     -webkit-transition-duration: 0.2s;
     transition-duration: 0.2s;
     margin-top: 0; }
-    /* line 76, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 76, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .btn.icon-close:hover {
       background: #c00;
       color: #fff; }
-  /* line 82, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 82, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .modal-actions {
     position: absolute;
     right: 30px;
     top: 25px; }
-    /* line 87, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 87, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .modal-actions .fa {
       color: rgba(0, 0, 0, 0.4);
       font-size: 24px;
@@ -4866,11 +4827,11 @@ menu.account {
       -webkit-transition: 0.2s;
       transition: 0.2s;
       line-height: 1; }
-      /* line 93, ../../client/styles/components/insights/_system-overlay.scss */
+      /* line 93, ../../client/styles/components/_system-overlay.scss */
       .system-overlay .modal-actions .fa:hover {
         color: rgba(0, 0, 0, 0.8);
         cursor: pointer; }
-  /* line 100, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 100, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .view-all {
     display: inline-block;
     font-size: 14px;
@@ -4880,7 +4841,7 @@ menu.account {
     letter-spacing: normal;
     text-decoration: underline;
     color: #9a9a9a; }
-  /* line 108, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 108, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .breadcrumb {
     border: none;
     padding: 12px;
@@ -4896,10 +4857,10 @@ menu.account {
     -webkit-border-radius: 0;
     border-radius: 0; }
     @media (min-width: 768px) {
-      /* line 108, ../../client/styles/components/insights/_system-overlay.scss */
+      /* line 108, ../../client/styles/components/_system-overlay.scss */
       .system-overlay .breadcrumb {
         margin-bottom: 12px; } }
-  /* line 120, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 120, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .modal-title {
     margin: 0 0 15px;
     margin: 0 0 0.9375rem;
@@ -4913,7 +4874,7 @@ menu.account {
     letter-spacing: .05em;
     line-height: 1;
     text-align: center; }
-    /* line 130, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 130, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .modal-title h1, .system-overlay .modal-title h2, .system-overlay .modal-title h3 {
       font-size: 24px;
       font-size: 1.5rem;
@@ -4923,7 +4884,7 @@ menu.account {
       margin: 1.375rem 0 0.125rem;
       text-transform: none;
       color: #585858; }
-    /* line 137, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 137, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .modal-title .icon {
       position: relative;
       width: 42px;
@@ -4933,7 +4894,7 @@ menu.account {
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       border-radius: 50%; }
-      /* line 145, ../../client/styles/components/insights/_system-overlay.scss */
+      /* line 145, ../../client/styles/components/_system-overlay.scss */
       .system-overlay .modal-title .icon:after {
         content: '';
         position: absolute;
@@ -4942,7 +4903,7 @@ menu.account {
         border-top: 14px solid #0085cf;
         left: 7px;
         bottom: -8px; }
-      /* line 155, ../../client/styles/components/insights/_system-overlay.scss */
+      /* line 155, ../../client/styles/components/_system-overlay.scss */
       .system-overlay .modal-title .icon span {
         padding: 0 0 0 2px;
         color: #fff;
@@ -4950,45 +4911,45 @@ menu.account {
         font-size: 30px;
         line-height: 1.45; }
   @media (min-width: 768px) {
-    /* line 212, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 212, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .system-overlay-item .rule-resolution {
       padding-top: 30px;
       padding-top: 1.875rem; } }
-  /* line 222, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 222, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .system-overlay-item ul {
     padding-left: 16px;
     padding-left: 1rem; }
-  /* line 226, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 226, ../../client/styles/components/_system-overlay.scss */
   .system-overlay .matched-solution {
     position: relative;
     padding-left: 30px;
     padding-left: 1.875rem; }
-    /* line 230, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 230, ../../client/styles/components/_system-overlay.scss */
     .system-overlay .matched-solution .fa-circular {
       position: absolute;
       top: 0;
       left: 0; }
 
-/* line 239, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 239, ../../client/styles/components/_system-overlay.scss */
 .complete-btn {
   cursor: pointer;
   text-decoration: underline; }
-  /* line 243, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 243, ../../client/styles/components/_system-overlay.scss */
   .complete-btn:hover {
     color: #11baf2; }
 
-/* line 246, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 246, ../../client/styles/components/_system-overlay.scss */
 .detail-part {
   margin-bottom: 22px;
   margin-bottom: 1.375rem;
   position: relative; }
-  /* line 250, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 250, ../../client/styles/components/_system-overlay.scss */
   .detail-part .detail-content {
     font-size: 13px;
     font-size: 0.8125rem;
     line-height: 26px;
     line-height: 1.625rem; }
-  /* line 252, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 252, ../../client/styles/components/_system-overlay.scss */
   .detail-part .icon {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -5005,10 +4966,10 @@ menu.account {
     background: #11baf2;
     border: 4px solid #fff; }
     @media (min-width: 768px) {
-      /* line 252, ../../client/styles/components/insights/_system-overlay.scss */
+      /* line 252, ../../client/styles/components/_system-overlay.scss */
       .detail-part .icon {
         left: -60px; } }
-  /* line 269, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 269, ../../client/styles/components/_system-overlay.scss */
   .detail-part [class^="fa-"], .detail-part [class*=" fa-"] {
     font-size: 24px;
     font-size: 1.5rem;
@@ -5017,7 +4978,7 @@ menu.account {
     left: 1px;
     line-height: 1; }
 
-/* line 276, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 276, ../../client/styles/components/_system-overlay.scss */
 .reason {
   background: none;
   font-size: 16px;
@@ -5025,52 +4986,164 @@ menu.account {
   line-height: 16px;
   line-height: 1rem; }
 
-/* line 283, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 283, ../../client/styles/components/_system-overlay.scss */
 .resolution {
   padding-left: 50px;
   padding-left: 3.125rem; }
   @media (min-width: 768px) {
-    /* line 283, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 283, ../../client/styles/components/_system-overlay.scss */
     .resolution {
       padding-left: 0; } }
-  /* line 288, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 288, ../../client/styles/components/_system-overlay.scss */
   .resolution .detail-content {
     font-size: 16px;
     font-size: 1rem;
     line-height: 20px;
     line-height: 1.25rem; }
-  /* line 292, ../../client/styles/components/insights/_system-overlay.scss */
+  /* line 292, ../../client/styles/components/_system-overlay.scss */
   .resolution .icon span {
     color: #FFF;
     line-height: 1.3; }
 
-/* line 299, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 299, ../../client/styles/components/_system-overlay.scss */
 .system-modal .modal-dialog {
   width: auto; }
   @media (min-width: 992px) {
-    /* line 299, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 299, ../../client/styles/components/_system-overlay.scss */
     .system-modal .modal-dialog {
       max-width: 970px; } }
   @media (min-width: 1200px) {
-    /* line 299, ../../client/styles/components/insights/_system-overlay.scss */
+    /* line 299, ../../client/styles/components/_system-overlay.scss */
     .system-modal .modal-dialog {
       max-width: 1170px;
       padding-top: 0;
       padding-bottom: 0; } }
 
-/* line 313, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 313, ../../client/styles/components/_system-overlay.scss */
 .modal-open [ng-click] {
   cursor: default; }
 
-/* line 317, ../../client/styles/components/insights/_system-overlay.scss */
+/* line 317, ../../client/styles/components/_system-overlay.scss */
 .modal-open .pointer {
   cursor: pointer; }
 
-/* line 2, ../../client/styles/components/insights/_insights-main-content.scss */
+/* line 1, ../../client/styles/components/insights/_table.scss */
+.insights-main-content table {
+  border: 1px solid #ddd;
+  border-collap: inherit; }
+  /* line 12, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content table thead th {
+    border-left: 1px solid #ddd;
+    border-bottom-width: 1px !important;
+    text-align: left; }
+    /* line 17, ../../client/styles/components/insights/_table.scss */
+    .insights-main-content table thead th:first-child {
+      border-left: none; }
+  /* line 22, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content table tbody {
+    border: 1px solid #ddd;
+    border-top: none; }
+    /* line 26, ../../client/styles/components/insights/_table.scss */
+    .insights-main-content table tbody tr {
+      -moz-transition: 0.2s;
+      -o-transition: 0.2s;
+      -webkit-transition: 0.2s;
+      transition: 0.2s; }
+      /* line 28, ../../client/styles/components/insights/_table.scss */
+      .insights-main-content table tbody tr:nth-child(odd) {
+        background: #f2f5f7; }
+    /* line 33, ../../client/styles/components/insights/_table.scss */
+    .insights-main-content table tbody td {
+      border: none;
+      line-height: 1.6; }
+/* line 40, ../../client/styles/components/insights/_table.scss */
+.insights-main-content .legend table {
+  border: none; }
+  /* line 43, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content .legend table tbody {
+    border: 1px solid #ddd;
+    border-top: none; }
+  /* line 48, ../../client/styles/components/insights/_table.scss */
+  .insights-main-content .legend table thead {
+    border: 1px solid #ddd;
+    border-bottom: none; }
+/* line 54, ../../client/styles/components/insights/_table.scss */
+.insights-main-content .tbody-scrollable {
+  max-height: 420px;
+  overflow: auto;
+  border-bottom: 5px solid #ddd; }
+/* line 1, ../../client/styles/components/insights/_overview-details.scss */
+.insights-main-content .overview-details {
+  margin-top: 30px; }
+/* line 1, ../../client/styles/components/insights/_group-select.scss */
+.insights-main-content .group-select {
+  border: none;
+  width: 100%; }
+  /* line 6, ../../client/styles/components/insights/_group-select.scss */
+  .insights-main-content .group-select select {
+    -moz-appearance: none;
+    -webkit-appearance: none; }
+/* line 12, ../../client/styles/components/insights/_group-select.scss */
+.insights-main-content .group-select.dropdown-select select {
+  width: 100%; }
+/* line 18, ../../client/styles/components/insights/_group-select.scss */
+.insights-main-content .group-select.rounded select {
+  border-radius: 8px !important;
+  border: 4px solid #ebeef0; }
+/* line 26, ../../client/styles/components/insights/_group-select.scss */
+.insights-main-content .table-filters select {
+  background-color: #f7fafc;
+  padding: 6px 30px 6px 12px;
+  padding: 0.375rem 1.875rem 0.375rem 0.75rem;
+  line-height: 1; }
+/* line 32, ../../client/styles/components/insights/_group-select.scss */
+.insights-main-content .table-filters .dropdown-select:after {
+  z-index: 1; }
+/* line 3, ../../client/styles/components/insights/_config-tabs.scss */
+.insights-main-content .config-tabs .nav-tabs {
+  padding-left: 0; }
+  /* line 6, ../../client/styles/components/insights/_config-tabs.scss */
+  .insights-main-content .config-tabs .nav-tabs li.active {
+    font-weight: 700; }
+  /* line 7, ../../client/styles/components/insights/_config-tabs.scss */
+  .insights-main-content .config-tabs .nav-tabs li a {
+    max-height: 50px; }
+  /* line 8, ../../client/styles/components/insights/_config-tabs.scss */
+  .insights-main-content .config-tabs .nav-tabs li a:after {
+    display: none; }
+/* line 13, ../../client/styles/components/insights/_config-tabs.scss */
+.insights-main-content .config-tabs .tab-pane {
+  padding: 0; }
+/* line 1, ../../client/styles/components/insights/_uploader-config.scss */
+.insights-main-content .uploader-collect-list {
+  max-height: 300px;
+  overflow-y: auto; }
+  /* line 4, ../../client/styles/components/insights/_uploader-config.scss */
+  .insights-main-content .uploader-collect-list .list-group-item {
+    word-break: break-all; }
+/* line 1, ../../client/styles/components/insights/_panel.scss */
+.insights-main-content .panel {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0; }
+  /* line 4, ../../client/styles/components/insights/_panel.scss */
+  .insights-main-content .panel .panel-heading {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0; }
+/* line 1, ../../client/styles/components/insights/_lists.scss */
+.insights-main-content ul {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0; }
+/* line 5, ../../client/styles/components/insights/_lists.scss */
+.insights-main-content .list-group-item {
+  border-radius: 0 !important; }
+/* line 3, ../../client/styles/components/insights/_insights-main-content.scss */
 .insights-main-content ul {
   padding-left: 18px;
   padding-left: 1.125rem; }
-/* line 5, ../../client/styles/components/insights/_insights-main-content.scss */
+/* line 6, ../../client/styles/components/insights/_insights-main-content.scss */
 .insights-main-content pre {
   margin-top: 10px;
   margin-top: 0.625rem; }
@@ -5084,15 +5157,39 @@ body {
   background-image: none; }
 
 /* line 9, ../../client/styles/includes/_in-prod.scss */
-.page-title, .overview-details, .chart-col {
-  margin-top: 0; }
+.insights-main-content {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem; }
 
 /* line 13, ../../client/styles/includes/_in-prod.scss */
-.insights-main-content table, .insights-main-content .legend table {
+.insights-main-content table,
+.insights-main-content .legend table {
   margin-bottom: 0 !important; }
 
-/* line 24, ../../client/styles/includes/_in-prod.scss */
+/* line 19, ../../client/styles/includes/_in-prod.scss */
 .insights-main-content .table > thead {
   background-image: none;
   background-color: #fff;
   background-clip: initial; }
+
+/* line 1, ../../client/styles/prod/_sat4-6.scss */
+.page-title,
+.overview-details,
+.chart-col {
+  margin-top: 0; }
+
+/* line 7, ../../client/styles/prod/_sat4-6.scss */
+.page-title {
+  font-weight: 500;
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 28px;
+  line-height: 1.75rem; }
+
+/* line 13, ../../client/styles/prod/_sat4-6.scss */
+.insights-main-content h1 {
+  margin-top: 0; }
+
+/*# sourceMappingURL=sat6.css.map */

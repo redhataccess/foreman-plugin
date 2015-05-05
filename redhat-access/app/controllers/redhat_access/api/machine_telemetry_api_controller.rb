@@ -22,7 +22,7 @@ module RedhatAccess
       end
 
       def ensure_telemetry_enabled
-         render_telemetry_off unless telemetry_enabled_for_uuid?(User.current.login) 
+        render_telemetry_off unless telemetry_enabled_for_uuid?(User.current.login)
       end
 
       def get_auth_opts()
@@ -50,22 +50,24 @@ module RedhatAccess
         uuid = User.current.login
         begin
           org = get_organization(uuid)
-          client_id = { :remote_leaf => uuid ,
-                        :remote_branch => get_branch_id_for_uuid(uuid),
-                        :display_name => org.name,
-                        :hostname => request.host,
-                        :product => {
-                            :type => "Satellite",
-                            :major_version => 6,
-                            :minor_version => 1
-                          }
-                        }
+          major,minor,build = get_plugin_parent_version.scan(/\d+/)
+          client_id = {:remote_leaf => uuid ,
+                       :remote_branch => get_branch_id_for_uuid(uuid),
+                       :display_name => org.name,
+                       :hostname => request.host,
+                       :product => {:type => get_plugin_parent_name,
+                                    :major_version => major,
+                                    :minor_version => minor
+                                    }
+                       }
           render :json => client_id.to_json
         rescue RedhatAccess::Telemetry::LookUps::RecordNotFound => e
           http_error_response(e.message, 400)
         end
       end
-      
+
+
+
       protected
 
       def valid_machine_user?
@@ -75,6 +77,12 @@ module RedhatAccess
         else
           return false
         end
+      end
+
+      def get_http_user_agent
+        base_user_agent = super
+        client_user_agent = request.env['HTTP_USER_AGENT']
+        "#{base_user_agent};#{client_user_agent}"
       end
 
 

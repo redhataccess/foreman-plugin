@@ -11,7 +11,7 @@
         "release/insights.app.js",
         "release/insights.vendor.js"
       ],
-      "stylesheets": "release/insights.in-prod.css"
+      "stylesheets": "release/insights.sat6.css"
     },
     "c3": {
       "javascripts/c3": "c3"
