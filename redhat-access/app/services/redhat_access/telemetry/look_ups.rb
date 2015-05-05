@@ -150,6 +150,34 @@ module RedhatAccess
         return proxy
       end
 
+      #TODO move version and name methods to generic utility
+      def get_rha_plugin_name
+        'redhat_access'
+      end
+
+      def get_rha_plugin_rpm_name
+        'foreman-redhat_access'
+      end
+
+      def get_rha_plugin_version
+        RedhatAccess::VERSION
+      end
+
+      def get_plugin_parent_name
+        if defined? Satellite::VERSION
+          return 'Satellite'
+        end
+        'Foreman'
+      end
+
+      def get_plugin_parent_version
+        if defined? Satellite::VERSION
+          return Satellite::VERSION
+        end
+        new Foreman::Version.to_s
+      end
+
+
     end
   end
 end
