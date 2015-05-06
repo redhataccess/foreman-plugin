@@ -174,7 +174,7 @@ module RedhatAccess
         if defined? Satellite::VERSION
           return Satellite::VERSION
         end
-        new Foreman::Version.to_s
+        Foreman::Version.new.to_s
       end
 
 

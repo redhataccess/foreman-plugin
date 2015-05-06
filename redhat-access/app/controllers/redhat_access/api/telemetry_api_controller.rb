@@ -92,7 +92,7 @@ module RedhatAccess
       end
 
       def get_api_client
-        Rails.logger.debug("User agent for telemetry is #{get_user_agent}")
+        Rails.logger.debug("User agent for telemetry is #{get_http_user_agent}")
         return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL,
                                                          get_creds,
                                                          self,
