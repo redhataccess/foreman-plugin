@@ -8,6 +8,12 @@
 %global foreman_assets_dir %foreman_dir/public/assets
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
+%global puppet_module_version 0.0.3
+%global puppet_module access_insights_client
+%global puppet_modules_dir /usr/share/puppet/modules
+%global puppet_full_name redhat-%{puppet_module}-%{puppet_module_version}
+
+
 %if "%{?scl}" == "ruby193"
     %global scl_rake /usr/bin/ruby193-rake
 %else
@@ -16,12 +22,13 @@
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 0.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
 Source0: %{gem_name}-%{version}.gem
+Source1: %{puppet_full_name}.tar.gz
 
 
 Requires: foreman => 1.5.0
@@ -53,11 +60,24 @@ Provides: %{?scl_prefix}rubygem(foreman-%{gem_name}) = %{version}
 Foreman engine to access Red Hat knowledge base search
 
 %prep
+
+
 %{?scl:scl enable %{scl} "}
-gem unpack %{SOURCE0}
+gem unpack %{SOURCE0} 
 %{?scl:"}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+
+#Manually unpack puppet module to workaround %setup issues
+cd $RPM_BUILD_DIR
+rm -rf %{puppet_full_name}
+gzip -dc %{SOURCE1} | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd %{puppet_full_name}
+chmod -R a+rX,g-w,o-w .
+
 
 %build
 mkdir -p .%{gem_dir}
@@ -85,6 +105,7 @@ mkdir -p %{buildroot}/etc/security/console.apps
 mkdir -p %{buildroot}/usr/sbin
 mkdir -p %{buildroot}/usr/bin
 
+
 cp -pa .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 cat <<GEMFILE > %{buildroot}%{foreman_bundlerd_dir}/%{gem_name}.rb
@@ -102,18 +123,40 @@ chmod 755 %{buildroot}/usr/sbin/foreman-sosreport-wrapper
 ln -s /usr/bin/consolehelper %{buildroot}/usr/bin/foreman-sosreport
 cp -pa .%{rubygem_redhat_access_dir}/config/config.yml.example %{buildroot}/etc/redhat_access/config.yml
 
+#puppet module installation
+mkdir -p %{buildroot}/%{puppet_modules_dir}/%{puppet_module}
+cp -p $RPM_BUILD_DIR/%{puppet_full_name}/README.md %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/
+cp -p $RPM_BUILD_DIR/%{puppet_full_name}/metadata.json %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/
+cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/manifests/ %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/manifests
+cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/templates
+
 %files
 %defattr(-,root,root,-)
 %{gem_dir}
 %{foreman_bundlerd_dir}/%{gem_name}.rb
 %{foreman_assets_dir}/redhat_access
 /etc/redhat_access
-/etc/pam.d
+/etc/pam.d/foreman-sosreport
 /etc/security/console.apps
-/usr/sbin
-/usr/bin
+/usr/sbin/foreman-sosreport-wrapper
+/usr/bin/foreman-sosreport
+
+%{puppet_modules_dir}/%{puppet_module}
 
 %changelog
+* Mon Mar 23 2015 Lindani Phiri <lindani@redhat.com> - 0.1.0-1
+- Database prep for z stream for RHAI (BZ 1197764)
+
+* Wed Mar 4 2015 Lindani Phiri <lindani@redhat.com> - 0.0.9-1
+- Resolves : bz1197764
+
+* Fri Feb 19 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-2
+- Resolves : bz1193672
+
+* Fri Feb 12 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-1
+- Removed proactive support
+- Resolves : bz1191406
+
 * Mon Dec 12 2014 Lindani Phiri <lindani@redhat.com> - 0.0.7-1
 - Add proactive support
 - Resolves: bz1131538
