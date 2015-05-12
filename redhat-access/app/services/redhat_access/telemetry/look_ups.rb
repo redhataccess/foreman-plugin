@@ -1,9 +1,29 @@
+begin
+  #TODO fix dirty hack
+  require '/usr/share/foreman/lib/satellite/version.rb'
+rescue LoadError
+  #don't need to do anything
+  Rails.logger.debug("Unable to load version file.")
+end
 module RedhatAccess
   module Telemetry
     module LookUps
 
       class  RecordNotFound < StandardError
       end
+
+      def is_susbcribed_to_redhat?(org)
+        if org
+          upstream = org.owner_details['upstreamConsumer']
+          return upstream && upstream['idCert']
+        end
+        return false
+      end
+
+      def is_org_selected?
+        return Organization.current
+      end
+
 
       def telemetry_enabled?(org)
         if org
@@ -24,6 +44,7 @@ module RedhatAccess
 
       def disconnected_org?(org)
         if org
+          #TODO fix hard coding
           org.redhat_repository_url != 'https://cdn.redhat.com'
         else
           raise(RecordNotFound,'Organization not found or invalid')
