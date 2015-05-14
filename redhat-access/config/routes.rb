@@ -25,7 +25,6 @@ RedhatAccess::Engine.routes.draw do
       match '/api/:path',           to: 'api/machine_telemetry_api#proxy', :constraints => {:path => /.*/}
       match '/view/api/:path',      to: 'api/telemetry_api#proxy', :constraints => {:path => /.*/}
     end
-    get 'proactive_support', to: 'telemetry#index'
     get 'insights', to: 'analytics_dashboard#index'
     get 'analytics_configuration', to: 'telemetry_configuration#index'
     match '/insights/*path', to: 'analytics_dashboard#index'

@@ -113,19 +113,17 @@ module RedhatAccess
 
           unless sam_deployment?
             #Proactive Diagnostics permissions
-            permission :rh_telemetry_api, { :"redhat_access/telemetry_api" => [:index,:upload_sosreport,:get_ph_conf,:proxy] }
+            permission :rh_telemetry_api, { :"redhat_access/api/telemetry_api" => [:proxy] }
             permission :rh_telemetry_view, { :"redhat_access/analytics_dashboard" => [:index] }
-            permission :rh_telemetry_creds, { :"redhat_access/strata_credentials" => [:index, :destroy, :create] }
             permission :rh_telemetry_configurations, { :"redhat_access/telemetry_configurations" => [:show,:update] }
           end
 
         end
         #roles section
-        #role "Red Hat Access", [:view_search,:view_cases,:attachments, :configuration]
         role "Red Hat Access Logs", [:logs,:view_log_viewer]
         unless sam_deployment?
-          role "Access Insights Viewer" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds]
-          role "Access Insights Admin" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_creds, :rh_telemetry_configurations]
+          role "Access Insights Viewer" , [:rh_telemetry_api, :rh_telemetry_view]
+          role "Access Insights Admin" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
         end
         #menus
         sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
