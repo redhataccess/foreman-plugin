@@ -2,9 +2,7 @@
     'use strict';
     angular.module('RedhatAccessInsights', [
             'ui.router',
-            'telemetryWidgets',
-            'telemetryConfig',
-            'telemetryRoutes',
+            'insights',
             'templates'
         ])
         .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide',
