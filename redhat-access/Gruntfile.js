@@ -93,7 +93,7 @@ module.exports = function(grunt) {
                         cwd: '.tmp/bower_components/telemetry/release',
                         dest: 'vendor/assets/images',
                         src: [
-                            'assets/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                            'images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                         ]
                     }, {
                         expand: true,
@@ -101,26 +101,9 @@ module.exports = function(grunt) {
                         cwd: '.tmp/bower_components/telemetry/release',
                         dest: 'vendor/assets/fonts',
                         src: [
-                            'assets/fonts/**/*'
+                            'fonts/**/*'
                         ]
-                    }, {
-                        expand: true,
-                        dot: true,
-                        cwd: '.tmp/bower_components/c3',
-                        dest: 'vendor/assets/javascripts/c3',
-                        src: [
-                            'c3.js'
-                        ]
-                    }, {
-                        expand: true,
-                        dot: true,
-                        cwd: '.tmp/bower_components/d3',
-                        dest: 'vendor/assets/javascripts/d3',
-                        src: [
-                            'd3.js'
-                        ]
-                    },
-
+                    }
 
                 ]
             }

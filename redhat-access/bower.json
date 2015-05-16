@@ -7,17 +7,8 @@
   },
   "exportsOverride": {
     "telemetry": {
-      "javascripts": [
-        "release/insights.app.js",
-        "release/insights.vendor.js"
-      ],
-      "stylesheets": "release/insights.sat6.css"
-    },
-    "c3": {
-      "javascripts/c3": "c3"
-    },
-    "d3": {
-      "javascripts/d3": "d3"
+      "javascripts": "release/js/insights.js",
+      "stylesheets": "release/css/sat6.css"
     }
   },
   "resolutions": {
