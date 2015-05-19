@@ -4,7 +4,7 @@ require 'redhat_access_lib'
 
 module RedhatAccess
   module Api
-    class TelemetryApiController < ApiController
+    class TelemetryApiController < RedhatAccess::Api::ApiController
       include RedhatAccess::Authentication::ClientAuthentication
       include RedhatAccess::Telemetry::LookUps
 
@@ -99,6 +99,10 @@ module RedhatAccess
                                                          {:logger => Rails.logger,
                                                           :http_proxy => get_portal_http_proxy,
                                                           :user_agent => get_http_user_agent})
+      end
+      
+      def api_version
+        'v1'
       end
 
     end

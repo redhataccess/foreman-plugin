@@ -17,7 +17,7 @@
                                 var $q = $injector.get('$q');
                                 var $window = $injector.get('$window');
                                 if (response.status === 401) {
-                                    $window.location.href = '/users/login';
+                                    $window.location.reload();
                                 } else
                                 if (response.status === 403) {
                                     var message = 'You are not authorized to perform this action.';
