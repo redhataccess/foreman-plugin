@@ -22,7 +22,7 @@
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 0.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
@@ -145,8 +145,9 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
-* Thu May 14 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-4
-- First pre-official release for QE testing
+* Tue May 19 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-5
+- First tech preview  release of RHAI for QA testing
+- Resolves : bz1217726
 
 * Mon Mar 23 2015 Lindani Phiri <lindani@redhat.com> - 0.1.0-1
 - Database prep for z stream for RHAI (BZ 1197764)

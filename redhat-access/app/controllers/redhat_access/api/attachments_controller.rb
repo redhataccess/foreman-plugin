@@ -3,7 +3,7 @@ require_dependency "redhat_access/strata/client"
 require_dependency "redhat_access/sos_reports/generator"
 
 module RedhatAccess
-  class AttachmentsController < ApplicationController
+  class AttachmentsController < RedhatAccess::Api::ApiController
     wrap_parameters :attach_payload, format: :json
     def index
       render :text => "SOS Report?checked=true",
@@ -31,8 +31,8 @@ module RedhatAccess
       end
     end
 
-    def api_request?
-      true
+    def api_version
+      'v1'
     end
   end
 end

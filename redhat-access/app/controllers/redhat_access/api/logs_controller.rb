@@ -2,8 +2,7 @@ require_dependency "redhat_access/application_controller"
 
 module RedhatAccess
   module Api
-    class LogsController < ApplicationController
-
+    class LogsController < RedhatAccess::Api::ApiController
       # Use temporary implementation to show proof of ooncept in beta release
       # In GA a more robust implementation will be used
       #@@log_files = ['/var/log/foreman/production.log','/var/log/foreman/delayed_job.log','/var/log/foreman/jobs-startup.log']
@@ -37,12 +36,13 @@ module RedhatAccess
         @@log_files.include?(file) && File.exist?(file) && File.readable?(file) && File.size(file) > 0
       end
 
-      def api_request?
-        true
-      end
 
       def permission_denied
         render :template => "katello/common/403"
+      end
+
+      def api_version
+        'v1'
       end
     end
   end
