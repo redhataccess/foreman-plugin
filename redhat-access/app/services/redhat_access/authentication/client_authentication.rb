@@ -23,7 +23,10 @@ module RedhatAccess
         if cert_present?
           client_cert = RedhatAccess::Authentication::Cert.new(cert_from_request)
           uuid = client_cert.uuid
+          Rails.logger.debug("Client cert UUID is : #{uuid}")
           User.current =  CertUser.new(:login => uuid)
+        else
+          Rails.logger.debug("Client cert not present in request")
         end
       end
 
@@ -33,7 +36,8 @@ module RedhatAccess
       end
 
       def cert_from_request
-        request.env['SSL_CLIENT_CERT'] ||
+        request.env['HTTP_X_RHSM_SSL_CLIENT_CERT'] ||
+          request.env['SSL_CLIENT_CERT'] ||
           request.env['HTTP_SSL_CLIENT_CERT'] ||
           ENV['SSL_CLIENT_CERT'] ||
           ENV['HTTP_SSL_CLIENT_CERT']
