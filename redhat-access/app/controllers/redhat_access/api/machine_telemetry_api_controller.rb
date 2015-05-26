@@ -37,12 +37,13 @@ module RedhatAccess
         original_method  = request.method
         original_params  = add_branch_to_params(request.query_parameters)
         original_payload = request.request_parameters[controller_name]
+        resource         = "uploads/#{params[:id]}"
         if params[:file]
           original_payload = get_file_data(params)
         end
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
-        res = client.post_upload(original_params, original_payload)
+        res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
         render status: res[:code] , json: res[:data]
       end
 

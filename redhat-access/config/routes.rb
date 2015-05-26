@@ -21,7 +21,7 @@ RedhatAccess::Engine.routes.draw do
     end
     scope '/rs/telemetry' do
       get   '/api/v1/branch_info',  to: 'api/machine_telemetry_api#get_branch_info'
-      post  '/',                    to: 'api/machine_telemetry_api#proxy_upload'
+      post  '/:id',                 to: 'api/machine_telemetry_api#proxy_upload'
       match '/api/:path',           to: 'api/machine_telemetry_api#proxy', :constraints => {:path => /.*/}
       match '/view/api/:path',      to: 'api/telemetry_api#proxy', :constraints => {:path => /.*/}
     end

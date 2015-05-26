@@ -86,13 +86,15 @@ module RedhatAccess
       def get_ssl_options_for_org(org ,ca_file)
         if org
           verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
+          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ?  REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] : nil
           ca_file = ca_file ? ca_file : get_default_ssl_ca_file
+          Rails.logger.debug("Verify peer #{verify_peer}")
           if use_basic_auth?
             Rails.logger.debug("Using basic auth for portal communication")
-            get_basic_auth_options(org, ca_file,verify_peer)
+            get_basic_auth_options(org, ca_file,verify_peer, ssl_version)
           else
             Rails.logger.debug("Using SSL auth for portal communication")
-            get_mutual_tls_auth_options(org, ca_file,verify_peer)
+            get_mutual_tls_auth_options(org, ca_file,verify_peer, ssl_version)
           end
         else
           raise(RecordNotFound,'Organization not found or invalid')
@@ -104,7 +106,7 @@ module RedhatAccess
         nil
       end
 
-      def get_mutual_tls_auth_options(org, ca_file, verify_peer)
+      def get_mutual_tls_auth_options(org, ca_file, verify_peer, ssl_version)
         upstream = org.owner_details['upstreamConsumer']
         if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
           raise(RecordNotFound,'Unable to get portal SSL credentials. Missing org manifest?')
@@ -115,18 +117,20 @@ module RedhatAccess
             :ssl_ca_file => ca_file,
             :verify_ssl => verify_peer
           }
+          opts[:ssl_version] = ssl_version if ssl_version
           Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
           opts
         end
       end
 
-      def get_basic_auth_options(org, ca_file, verify_peer )
+      def get_basic_auth_options(org, ca_file, verify_peer, ssl_version )
         opts = {
           :user => org.telemetry_configuration.portal_user,
           :password => org.telemetry_configuration.portal_password,
           :ssl_ca_file => ca_file,
           :verify_ssl => verify_peer
         }
+        opts[:ssl_version] = ssl_version if ssl_version
         opts
       end
 

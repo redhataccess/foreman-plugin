@@ -12,8 +12,8 @@ module RedhatAccess
 
       UPLOAD_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_upload_host]}"
       API_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_api_host]}"
-      UPLOAD_URL = "#{UPLOAD_HOST}/rs/telemetry"
-      STRATA_URL = "#{API_HOST}/rs/telemetry/api"
+      UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/uploads"
+      STRATA_URL = "#{API_HOST}/r/insights"
 
       def check_telemetry_enabled
         render_telemetry_off unless telemetry_enabled?(Organization.current)
