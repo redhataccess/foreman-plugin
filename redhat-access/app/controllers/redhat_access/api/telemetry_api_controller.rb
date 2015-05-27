@@ -65,7 +65,7 @@ module RedhatAccess
         when 200
           resp = JSON.parse(res[:data])
           data = {
-            :connectionStatus => 'Up',
+            :connectionStatus => 'UP',
             :account => resp["account_number"],
             :company => resp["company"],
             :orgId  => resp["ord_id"]

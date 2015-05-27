@@ -44,7 +44,7 @@
                     error(function(data, status, headers, config) {
                         $scope.accountLoading = false;
                         $scope.portalAccount = {
-                            connectionStatus  : 'Down',
+                            connectionStatus  : 'DOWN',
                             account : 'Unknown',
                             company : 'Unknown',
                             orgId   : 'Unknown'

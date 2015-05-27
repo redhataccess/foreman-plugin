@@ -527,7 +527,7 @@ button.simple,
 /* FONT PATH
  * -------------------------- */
 @font-face {
-  font-family: 'I-FontAwesome';
+  font-family: 'FontAwesome';
   src: url("../fonts/fontawesome-webfont.eot?v=4.2.0");
   src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff?v=4.2.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.2.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular") format("svg");
   font-weight: normal;
@@ -535,7 +535,7 @@ button.simple,
 }
 .fa {
   display: inline-block;
-  font: normal normal normal 14px/1 I-FontAwesome;
+  font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -5026,6 +5026,7 @@ table.scroll:after {
 @media (min-width: 1200px) {
   .rules-filters .col-text {
     width: auto;
+    max-width: 200px;
   }
 }
 .rules-filters .col-toggle {
@@ -5052,6 +5053,9 @@ table.scroll:after {
 
 .content-block .header .icon-circle {
   margin-top: 0;
+}
+.icon-circle.availability {
+  border-color: #1F77B4;
 }
 .icon-circle.performance {
   border-color: #2c96cb;
@@ -6472,6 +6476,256 @@ input.cmn-toggle:checked + label:before, .error-info textarea.cmn-toggle.changed
 
 input.cmn-toggle-round:checked + label:after, .error-info textarea.cmn-toggle-round.changed.ng-dirty:checked + label:after, .error-info select.cmn-toggle-round.changed.ng-dirty:checked + label:after {
   margin-left: 40px;
+}
+
+.info-page-intro {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 25.2px;
+  line-height: 1.575rem;
+}
+@media (min-width: 768px) {
+  .info-page-intro {
+    font-size: 26px;
+    font-size: 1.625rem;
+    line-height: 29px;
+    line-height: 1.8125rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .flex-container {
+    display: flex;
+  }
+}
+
+.logo-insights {
+  margin: 0;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 25.2px;
+  line-height: 1.575rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
+}
+@media (min-width: 480px) {
+  .logo-insights {
+    font-size: 28px;
+    font-size: 1.75rem;
+    line-height: 39.2px;
+    line-height: 2.45rem;
+    line-height: 1;
+  }
+}
+@media (min-width: 768px) {
+  .logo-insights {
+    font-size: 48px;
+    font-size: 3rem;
+    line-height: 67.2px;
+    line-height: 4.2rem;
+    line-height: 1;
+  }
+}
+.logo-insights span, .logo-insights .block {
+  position: relative;
+  display: inline-block;
+  padding: 6px 8px;
+  padding: 0.375rem 0.5rem;
+  overflow: hidden;
+}
+@media (min-width: 480px) {
+  .logo-insights span, .logo-insights .block {
+    padding: 6px 12px;
+    padding: 0.375rem 0.75rem;
+  }
+}
+@media (min-width: 768px) {
+  .logo-insights span, .logo-insights .block {
+    padding: 8px 18px;
+    padding: 0.5rem 1.125rem;
+  }
+}
+.logo-insights span {
+  z-index: 2;
+  display: inline-block;
+  padding-left: 0;
+}
+.logo-insights .block {
+  background: #e62235;
+  font-weight: 700;
+}
+.logo-insights .block span {
+  display: inline;
+  padding: 0;
+}
+.logo-insights .block:after {
+  content: '';
+  position: absolute;
+  right: -19%;
+  top: 0;
+  z-index: 1;
+  height: 100%;
+  width: 50%;
+  -moz-transform: skew(-44deg);
+  -ms-transform: skew(-44deg);
+  -webkit-transform: skew(-44deg);
+  transform: skew(-44deg);
+  background: #c00;
+}
+
+.getting-started {
+  overflow-x: hidden;
+  margin-top: 30px;
+  margin-top: 1.875rem;
+  padding: 0;
+  background: #fff;
+}
+@media (min-width: 992px) {
+  .getting-started {
+    background: none;
+  }
+}
+
+/* Namespacing Styles ------------------------------------------------------------------------- */
+.fixed-scroll-content .navvy, .fixed-scroll-content .info, .fixed-scroll-content .header, .fixed-scroll-content .content {
+  position: relative;
+  z-index: 99;
+}
+.fixed-scroll-content .navvy:after, .fixed-scroll-content .info:after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  top: 0;
+  height: 100%;
+}
+.fixed-scroll-content .navvy-container {
+  *zoom: 1;
+  position: relative;
+  min-height: 100%;
+  background: #556170;
+  margin-top: 40px;
+}
+.fixed-scroll-content .navvy-container:before, .fixed-scroll-content .navvy-container:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.fixed-scroll-content .navvy-container:after {
+  clear: both;
+}
+@media (min-width: 768px) {
+  .fixed-scroll-content .navvy-container:before {
+    content: '';
+    background: #556170;
+    position: absolute;
+    left: -200%;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    display: block;
+  }
+}
+.fixed-scroll-content .navvy {
+  color: #fff;
+  background: #556170;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  /* Set width to 100% when position is fixed ------------------------------------------------------------------------- */
+}
+@media (min-width: 992px) {
+  .fixed-scroll-content .navvy {
+    width: 100%;
+  }
+}
+.fixed-scroll-content .navvy:after {
+  left: -100%;
+  background: #556170;
+}
+.fixed-scroll-content .navvy.absolute-top {
+  position: absolute;
+  top: 0;
+}
+.fixed-scroll-content .navvy.absolute-bottom {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+}
+.fixed-scroll-content .navvy.fixed-bottom {
+  position: fixed;
+  top: 0;
+}
+.fixed-scroll-content .navvy .header {
+  margin: 0;
+  padding: 0;
+  margin-right: -15px;
+  margin-right: -0.9375rem;
+}
+.fixed-scroll-content .navvy .header, .fixed-scroll-content .navvy .header:before {
+  background: #424b57;
+}
+@media (min-width: 768px) {
+  .fixed-scroll-content .navvy .header:before {
+    content: '';
+    position: absolute;
+    left: -200%;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    display: block;
+    border-bottom: 1px solid #4d5764;
+  }
+}
+.fixed-scroll-content .navvy .header h1, .fixed-scroll-content .navvy .header h2, .fixed-scroll-content .navvy .header h3, .fixed-scroll-content .navvy .header h4 {
+  color: #fff;
+}
+.fixed-scroll-content .navvy .header h2 {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #4d5764;
+}
+.fixed-scroll-content .navvy .content {
+  padding: 15px 0;
+  padding: 0.9375rem 0;
+}
+.fixed-scroll-content .info {
+  position: relative;
+}
+.fixed-scroll-content .info .content {
+  min-height: 800px;
+  padding: 20px;
+  padding: 1.25rem;
+}
+@media (min-width: 992px) {
+  .fixed-scroll-content .info .content {
+    padding: 30px;
+    padding: 1.875rem;
+  }
+}
+.fixed-scroll-content .info .section-header {
+  line-heights: 1;
+  font-weight: 100;
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 33.6px;
+  line-height: 2.1rem;
+}
+@media (min-width: 768px) {
+  .fixed-scroll-content .info .section-header {
+    font-size: 36px;
+    font-size: 2.25rem;
+    line-height: 50.4px;
+    line-height: 3.15rem;
+  }
+}
+.fixed-scroll-content .info:after {
+  right: -100%;
+  background: #fff;
 }
 
 .insights-main-content table {

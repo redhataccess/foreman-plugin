@@ -168,7 +168,7 @@ module RedhatAccess
             rha_menu :top_menu,
               :systems,
               :caption=> N_('Systems'),
-              :url => '/redhat_access/insights/systems',
+              :url => '/redhat_access/insights/systems/',
               :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
               :engine => RedhatAccess::Engine
             rha_menu :top_menu,
