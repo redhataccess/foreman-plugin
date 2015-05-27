@@ -113,7 +113,7 @@ module RedhatAccess
 
           unless sam_deployment?
             #Proactive Diagnostics permissions
-            permission :rh_telemetry_api, { :"redhat_access/api/telemetry_api" => [:proxy] }
+            permission :rh_telemetry_api, { :"redhat_access/api/telemetry_api" => [:proxy,:connection_status] }
             permission :rh_telemetry_view, { :"redhat_access/analytics_dashboard" => [:index] }
             permission :rh_telemetry_configurations, { :"redhat_access/telemetry_configurations" => [:show,:update] }
           end
@@ -173,7 +173,7 @@ module RedhatAccess
               :engine => RedhatAccess::Engine
             rha_menu :top_menu,
               :configuration,
-              :caption=> N_('Configuration'),
+              :caption=> N_('Manage'),
               :url => '/redhat_access/insights/manage',
               :url_hash => {:controller=> :"redhat_access/telemetry_configurations" , :action=>:show},
               :engine => RedhatAccess::Engine

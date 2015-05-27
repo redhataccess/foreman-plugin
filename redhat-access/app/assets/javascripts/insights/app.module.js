@@ -2,6 +2,7 @@
     'use strict';
     angular.module('RedhatAccessInsights', [
             'ui.router',
+            'ui.bootstrap',
             'insights',
             'templates'
         ])
@@ -42,14 +43,9 @@
         ]).value('CONFIG', {
             preloadData: false,
             authenticate: false,
-            API_ROOT: '/redhat_access/rs/telemetry/view/api/',
+            API_ROOT: '/redhat_access/r/insights/view/api/',
             ACCT_KEY: 'telemetry:account_number'
         }).value('SAT_CONFIG', {
             enableBasicAuth: true
-        }).run([
-            'RhaTelemetryOverviewService',
-            function(RhaTelemetryOverviewService, enableBasicAuth) {
-                //RhaTelemetryOverviewService.populateData(true);
-            }
-        ]);
+        });
 })();

@@ -15,6 +15,17 @@ module RedhatAccess
       UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/uploads"
       STRATA_URL = "#{API_HOST}/r/insights"
 
+      def action_permission
+        case params[:action]
+        when 'proxy'
+          :proxy
+        when 'connection_status'
+          :connection_status
+        else
+          super
+        end
+      end
+
       def check_telemetry_enabled
         render_telemetry_off unless telemetry_enabled?(Organization.current)
       end
@@ -46,6 +57,27 @@ module RedhatAccess
         machines
       end
 
+      def connection_status
+        client = get_api_client
+        res = client.call_tapi('GET', 'me', nil, nil, nil)
+        Rails.logger.debug(res[:data])
+        case res[:code]
+        when 200
+          resp = JSON.parse(res[:data])
+          data = {
+            :connectionStatus => 'Up',
+            :account => resp["account_number"],
+            :company => resp["company"],
+            :orgId  => resp["ord_id"]
+          }
+          render status: res[:code] , json: data
+        when 401
+          render status: 407 , json:  { :ok => true }
+        else
+          render status: res[:code] , json: { :ok => true }
+        end
+      end
+
       # The method that "proxies" tapi requests over to Strata
       def proxy
         original_method  = request.method
@@ -60,7 +92,7 @@ module RedhatAccess
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
         if res[:code] == 401
-          res[:code] = 502
+          res[:code] = 407
         end
         render status: res[:code] , json: res[:data]
       end

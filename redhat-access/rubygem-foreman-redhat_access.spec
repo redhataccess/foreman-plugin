@@ -28,7 +28,7 @@ Group: Development/Languages
 License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
 Source0: %{gem_name}-%{version}.gem
-Source1: %{puppet_full_name}.tar.gz
+Source1: puppet/redhat-access_insights_client/pkg/%{puppet_full_name}.tar.gz
 
 
 Requires: foreman => 1.5.0
