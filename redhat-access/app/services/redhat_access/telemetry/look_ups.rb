@@ -102,8 +102,7 @@ module RedhatAccess
       end
 
       def get_default_ssl_ca_file
-        #{}"#{RedhatAccess::Engine.root}/ca/rh_cert-api_chain.pem"
-        nil
+         "#{RedhatAccess::Engine.root}/ca/rh_cert-api_chain.pem"
       end
 
       def get_mutual_tls_auth_options(org, ca_file, verify_peer, ssl_version)
