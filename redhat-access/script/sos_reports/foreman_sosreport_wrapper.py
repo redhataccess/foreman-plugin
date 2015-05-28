@@ -15,7 +15,7 @@
 
 """ sos entry point. """
 
-from sos.sosreport import sosreport, doExitCode
+from sos.sosreport import main
 import os
 import pwd
 import sys
@@ -31,9 +31,9 @@ if __name__ == '__main__':
     sys.argv.append('--tmp-dir=%s' % (newtmpdir))
 
     try:
-        sosreport(sys.argv[1:])
+        main(sys.argv[1:])
     except KeyboardInterrupt:
-        doExitCode()
+        raise SystemExit()
 
     filelist = os.listdir(newtmpdir)
     filelist.append('')
