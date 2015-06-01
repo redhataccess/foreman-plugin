@@ -62,7 +62,63 @@ def append_gem_paths env
       each {|path| env.append_path(path) }
   end
 end
+
 #-----end lift
+
+class MonkeyTemplate < Tilt::Template
+     #temporary class to fix brew build error
+     JS_ESCAPE_MAP = {
+      '\\'    => '\\\\',
+      "\r\n"  => '\n',
+      "\n"    => '\n',
+      "\r"    => '\n',
+      '"'     => '\\"',
+      "'"     => "\\'"
+    }
+
+    # We want to deliver the shortist valid javascript escaped string
+    # Count the number of " vs '
+    # If more ', escape "
+    # If more ", escape '
+    # If equal, prefer to escape "
+
+    def escape_javascript(raw)
+      if raw
+        quote = raw.count(%{'}) >= raw.count(%{"}) ? %{"} : %{'}
+        escaped = raw.gsub(/(\\|\r\n|[\n\r#{quote}])/u) {|match| JS_ESCAPE_MAP[match] }
+        "#{quote}#{escaped}#{quote}"
+      else
+        '""'
+      end
+    end
+
+    def self.default_mime_type
+      'application/javascript'
+    end
+
+    def prepare; end
+
+    def evaluate(scope, locals, &block)
+      #module_name           = configuration.module_name
+      logical_template_path = logical_template_path(scope)
+
+      <<-EOS
+window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module('templates', []));
+window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
+  $templateCache.put(#{logical_template_path.inspect}, #{escape_javascript(data)});
+}]);
+      EOS
+    end
+
+    private
+    def logical_template_path(scope)
+      path = scope.logical_path
+      ext = basename.split(".")[1]
+      "#{path}.#{ext}"
+    end
+end
+
+
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
@@ -86,7 +142,8 @@ task 'assets:precompile:engine' do
   require 'sass/rails/compressor'
   require 'angular-rails-templates'
   Sprockets::Engines #force autoloading
-  Sprockets.register_engine '.html', AngularRailsTemplates::Template
+  Sprockets.register_engine '.html', MonkeyTemplate
+
 
   precompile = [
     'redhat_access/application.js',
