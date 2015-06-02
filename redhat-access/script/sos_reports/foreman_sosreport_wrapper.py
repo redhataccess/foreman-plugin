@@ -14,12 +14,17 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 """ sos entry point. """
-
-from sos.sosreport import main
 import os
 import pwd
 import sys
 import tempfile
+try:
+    from sos.sosreport import sosreport, doExitCode
+except ImportError:
+    from sos.sosreport import main as sosreport
+    def doExitCode():
+        raise SystemExit()
+
 
 if __name__ == '__main__':
     for arg in sys.argv:
@@ -31,9 +36,9 @@ if __name__ == '__main__':
     sys.argv.append('--tmp-dir=%s' % (newtmpdir))
 
     try:
-        main(sys.argv[1:])
+        sosreport(sys.argv[1:])
     except KeyboardInterrupt:
-        raise SystemExit()
+        doExitCode()
 
     filelist = os.listdir(newtmpdir)
     filelist.append('')
