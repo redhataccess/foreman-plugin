@@ -44,19 +44,21 @@ module RedhatAccess
     end
 
     initializer :config_csp_headers do |app|
-      ::SecureHeaders::Configuration.configure do |config|
-        if config && config.csp
-          if config.csp[:frame_src]
-            config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
-          end
-          if config.csp[:connect_src]
-            config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
-          end
-          if config.csp[:script_src]
-            config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
-          end
-          if config.csp[:img_src]
-            config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
+      if defined?(::SecureHeaders::Configuration) && (::SecureHeaders::Configuration.instance_methods(false).include?(:configure))
+        ::SecureHeaders::Configuration.configure do |config|
+          if config && config.csp
+            if config.csp[:frame_src]
+              config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
+            end
+            if config.csp[:connect_src]
+              config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
+            end
+            if config.csp[:script_src]
+              config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
+            end
+            if config.csp[:img_src]
+              config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
+            end
           end
         end
       end
@@ -94,9 +96,9 @@ module RedhatAccess
           Foreman::Plugin.installed?('foreman_sam')
         end
 
-        requires_foreman '> 1.6'
+        requires_foreman '> 1.5'
 
-        requires_foreman_plugin 'katello', '> 2.0'
+        requires_foreman_plugin 'katello', '> 1.4.0'
 
         # permission section
         security_block :redhat_access_security do
