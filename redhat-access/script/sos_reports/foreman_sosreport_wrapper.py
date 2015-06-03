@@ -14,12 +14,17 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 """ sos entry point. """
-
-from sos.sosreport import sosreport, doExitCode
 import os
 import pwd
 import sys
 import tempfile
+try:
+    from sos.sosreport import sosreport, doExitCode
+except ImportError:
+    from sos.sosreport import main as sosreport
+    def doExitCode():
+        raise SystemExit()
+
 
 if __name__ == '__main__':
     for arg in sys.argv:
