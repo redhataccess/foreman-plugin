@@ -1,6 +1,6 @@
 {
   "name": "redhat-access_insights_client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Lindani Phiri (redhat)",
   "summary": "Satellite 6 Client configuration for Red Hat proactive support services",
   "license": "Apache 2.0",
@@ -8,6 +8,6 @@
   "project_page": null,
   "issues_url": null,
   "dependencies": [
-    {"name":"puppetlabs/stdlib"}
+    {"name":"puppetlabs-stdlib"}
   ]
 }

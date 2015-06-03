@@ -37,28 +37,19 @@
 # Copyright 2015 Red Hat Inc.
 #
 class access_insights_client(
+	$log_level = undef,
     $auto_config = 'True',
-    $upload_schedule = weekly,
     $authmethod = undef,
-    $upload_url = undef,
-    $api_url = undef,
-    $branch_info_url = undef,
-    $remove_file = undef,
-    $fallback_file = undef,
-    $cert_verify = undef,
-    $use_consumer_cert = undef,
-    $dynamic_config = undef,
-    $dynamic_config_file = undef,
-    $auto_update = undef,
-    $gpg = undef,
-    $obsfucate = undef,
-    $obsfucate_hostname = undef,
-    $proxy = undef,
-    $proxy = undef,
-    $lo_level = undef,
-    $conf_url = undef,
     $username = undef,
     $password = undef,
+    $base_url = undef,
+    $proxy = undef,
+    $cert_verify = undef,
+    $gpg = undef,
+    $auto_update = undef,
+    $obsfucate = undef,
+    $obsfucate_hostname = undef,
+    $upload_schedule = 'weekly',
 ){
     package {'redhat-access-insights':
       ensure   => latest,
@@ -88,5 +79,10 @@ class access_insights_client(
             target => '/etc/redhat-access-insights/redhat-access-insights.cron',
             require  => Package['redhat-access-insights'],
         }}
+    }  
+    exec { "/usr/bin/redhat-access-insights --register":
+        creates => "/etc/redhat-access-insights/.registered",
+        unless => "/usr/bin/test -f /etc/redhat-access-insights/.unregistered",
+        require => Package['redhat-access-insights']
     }
 }

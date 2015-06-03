@@ -8,7 +8,7 @@
 %global foreman_assets_dir %foreman_dir/public/assets
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
-%global puppet_module_version 0.0.3
+%global puppet_module_version 0.0.4
 %global puppet_module access_insights_client
 %global puppet_modules_dir /usr/share/puppet/modules
 %global puppet_full_name redhat-%{puppet_module}-%{puppet_module_version}
@@ -22,13 +22,13 @@
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 0.2.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
 Source0: %{gem_name}-%{version}.gem
-Source1: puppet/redhat-access_insights_client/pkg/%{puppet_full_name}.tar.gz
+Source1: %{puppet_full_name}.tar.gz
 
 
 Requires: foreman => 1.5.0
@@ -37,7 +37,7 @@ Requires: %{?scl_prefix}ruby(abi)
 Requires: %{?scl_prefix}rubygems
 Requires: %{?scl_prefix}rubygem(rails)
 Requires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.2
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.3
 
 BuildRequires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
 BuildRequires: %{?scl_prefix}ruby(abi)
@@ -145,7 +145,7 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
-* Tue May 19 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-5
+* Tue May 19 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-6
 - First tech preview  release of RHAI for QA testing
 - Resolves : bz1217726
 

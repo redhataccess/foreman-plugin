@@ -4,28 +4,31 @@
 #
 # === Parameters
 #
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
-#
-# === Examples
-#
-#  class { access_insights_client:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+# Change log level, valid options DEBUG, INFO, WARNING, ERROR, CRITICAL. Default DEBUG
+#loglevel=DEBUG
+# Attempt to auto configure with Satellite server
+#auto_config=True
+# Change authentication method, valid options BASIC, CERT. Default BASIC
+#authmethod=BASIC
+# username to use when authmethod is BASIC
+#username=
+# password to use when authmethod is BASIC
+#password=
+#base_url=cert-api.access.redhat.com:443/r/insights
+# URL for your proxy.  Example: http://user:pass@192.168.100.50:8080
+#proxy=
+# Location of the certificate chain for api.access.redhat.com used for Certificate Pinning
+#cert_verify=/etc/redhat-access-insights/cert-api.access.redhat.com.pem
+#cert_verify=False
+#cert_verify=True
+# Enable/Disable GPG verification of dynamic configuration
+#gpg=True
+# Automatically update the dynamic configuration
+#auto_update=True
+# Obfuscate IP addresses
+#obfuscate=False
+# Obfuscate hostname
+#obfuscate_hostname=False
 #
 # === Authors
 #
@@ -37,28 +40,19 @@
 # Copyright 2015 Red Hat Inc.
 #
 class access_insights_client(
+	$log_level = undef,
     $auto_config = 'True',
-    $upload_schedule = weekly,
     $authmethod = undef,
-    $upload_url = undef,
-    $api_url = undef,
-    $branch_info_url = undef,
-    $remove_file = undef,
-    $fallback_file = undef,
-    $cert_verify = undef,
-    $use_consumer_cert = undef,
-    $dynamic_config = undef,
-    $dynamic_config_file = undef,
-    $auto_update = undef,
-    $gpg = undef,
-    $obsfucate = undef,
-    $obsfucate_hostname = undef,
-    $proxy = undef,
-    $proxy = undef,
-    $lo_level = undef,
-    $conf_url = undef,
     $username = undef,
     $password = undef,
+    $base_url = undef,
+    $proxy = undef,
+    $cert_verify = undef,
+    $gpg = undef,
+    $auto_update = undef,
+    $obsfucate = undef,
+    $obsfucate_hostname = undef,
+    $upload_schedule = 'weekly',
 ){
     package {'redhat-access-insights':
       ensure   => latest,
@@ -88,5 +82,10 @@ class access_insights_client(
             target => '/etc/redhat-access-insights/redhat-access-insights.cron',
             require  => Package['redhat-access-insights'],
         }}
+    }  
+    exec { "/usr/bin/redhat-access-insights --register":
+        creates => "/etc/redhat-access-insights/.registered",
+        unless => "/usr/bin/test -f /etc/redhat-access-insights/.unregistered",
+        require => Package['redhat-access-insights']
     }
 }
