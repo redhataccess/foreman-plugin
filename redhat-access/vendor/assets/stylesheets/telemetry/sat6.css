@@ -426,6 +426,19 @@ button.simple,
   margin-left: 12px !important;
 }
 
+.btn-white {
+  background: #fff;
+  border-color: #fff;
+}
+.btn-white, .btn-white:link, .btn-white:visited {
+  color: #cc0000;
+}
+.btn-white:hover, .btn-white:focus {
+  color: #cc0000;
+  background: #f2f2f2;
+  border-color: #f2f2f2;
+}
+
 @font-face {
   font-family: Overpass;
   src: url("../fonts/overpass_regular-web.eot");
@@ -533,7 +546,7 @@ button.simple,
   font-weight: normal;
   font-style: normal;
 }
-.fa {
+.insights-main-content .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -6966,6 +6979,12 @@ input.cmn-toggle-round:checked + label:after, .error-info textarea.cmn-toggle-ro
   .insights-main-content .alert.alert-systems-not-checking [class*="col-"] ~ [class*="col-"] {
     margin-top: 0;
   }
+}
+.insights-main-content .alert.alert-systems-not-checking .btn {
+  padding: 4px 10px;
+  padding: 0.25rem 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 body {
