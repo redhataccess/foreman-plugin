@@ -28,8 +28,11 @@
                         //$scope.index();
                         $scope.loading = false;
                         $scope.original = angular.copy($scope.config);
-                        //console.log("Saved...");
-                    });
+                        $scope.getAccountInfo();
+                    }).error(function(response) {
+                        $scope.getAccountInfo();
+                    })
+
                 };
                 $scope.disableUpdateButton = function() {
                     return $scope.loading || angular.equals($scope.config, $scope.original);
@@ -44,10 +47,9 @@
                     error(function(data, status, headers, config) {
                         $scope.accountLoading = false;
                         $scope.portalAccount = {
-                            connectionStatus  : 'DOWN',
-                            account : 'Unknown',
-                            company : 'Unknown',
-                            orgId   : 'Unknown'
+                            connectionStatus: data.connectionStatus,
+                            account: 'Unknown',
+                            company: 'Unknown'
                         }
                     });
                 };

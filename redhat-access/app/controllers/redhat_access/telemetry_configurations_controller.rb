@@ -2,22 +2,16 @@ require_dependency "redhat_access/application_controller"
 
 module RedhatAccess
   class TelemetryConfigurationsController < ApplicationController
+    include RedhatAccess::Telemetry::LookUps
     def show
-      #TODO require current ORG
-      conf = Organization.current.telemetry_configuration
-      if conf.nil?
-        Rails.logger.error("building a conf object")
-        conf = Organization.current.build_telemetry_configuration({:portal_password=>"",
-                                                                   :portal_user=>"",
-                                                                   :enable_telemetry=> false})
-        conf.save
-      end
+       #TODO require current ORG
+      conf = get_telemetry_config(Organization.current)
       render json:  conf.to_json(:except => [ :id, :created_at, :portal_password ,:updated_at])
     end
 
     def update
       #TODO require current ORG
-      conf = Organization.current.telemetry_configuration
+      conf = get_telemetry_config(Organization.current)
       if conf
         begin
           if conf.update_attributes(JSON.parse(request.body.read))

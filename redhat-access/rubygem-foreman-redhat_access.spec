@@ -22,7 +22,7 @@
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 0.2.0
-Release: 6%{?dist}
+Release: 8%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
@@ -145,6 +145,14 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
+* Fri Jun 5 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-8
+- Fix fat figured space into puppet module template
+- Resolves : bz1217726
+
+* Thu Jun 4 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-7
+- Make Insights proxy on by default to support RHCI
+- Resolves : bz1217726
+
 * Tue May 19 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-6
 - First tech preview  release of RHAI for QA testing
 - Resolves : bz1217726
@@ -155,14 +163,14 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 * Wed Mar 4 2015 Lindani Phiri <lindani@redhat.com> - 0.0.9-1
 - Resolves : bz1197764
 
-* Fri Feb 19 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-2
+* Sun Feb 19 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-2
 - Resolves : bz1193672
 
-* Fri Feb 12 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-1
+* Thu Feb 12 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-1
 - Removed proactive support
 - Resolves : bz1191406
 
-* Mon Dec 12 2014 Lindani Phiri <lindani@redhat.com> - 0.0.7-1
+* Fri Dec 12 2014 Lindani Phiri <lindani@redhat.com> - 0.0.7-1
 - Add proactive support
 - Resolves: bz1131538
 - Resolves: bz1145742

@@ -65,16 +65,22 @@ module RedhatAccess
         when 200
           resp = JSON.parse(res[:data])
           data = {
-            :connectionStatus => 'UP',
+            :connectionStatus => 'Connected',
             :account => resp["account_number"],
             :company => resp["company"],
             :orgId  => resp["ord_id"]
           }
           render status: res[:code] , json: data
         when 401
-          render status: 407 , json:  { :ok => true }
+          data = {
+            :connectionStatus => 'Authentication Failure'
+          }
+          render status: 502 , json: data
         else
-          render status: res[:code] , json: { :ok => true }
+          data = {
+            :connectionStatus => 'Connection Failed'
+          }
+          render status: res[:code] , json: data
         end
       end
 
@@ -92,7 +98,7 @@ module RedhatAccess
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
         if res[:code] == 401
-          res[:code] = 407
+          res[:code] = 502
         end
         render status: res[:code] , json: res[:data]
       end

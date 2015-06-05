@@ -24,10 +24,15 @@ module RedhatAccess
         return Organization.current
       end
 
+      def get_telemetry_config(org)
+        TelemetryConfiguration.find_or_create_by_organization_id(:organization_id => org.id) do |conf|
+          conf.enable_telemetry = true
+        end
+      end
 
       def telemetry_enabled?(org)
         if org
-          conf = org.telemetry_configuration
+          conf = get_telemetry_config(org)
           return conf.nil? ? false : conf.enable_telemetry
         else
           raise(RecordNotFound,'Host not found or invalid')
@@ -102,7 +107,7 @@ module RedhatAccess
       end
 
       def get_default_ssl_ca_file
-         "#{RedhatAccess::Engine.root}/ca/rh_cert-api_chain.pem"
+        "#{RedhatAccess::Engine.root}/ca/rh_cert-api_chain.pem"
       end
 
       def get_mutual_tls_auth_options(org, ca_file, verify_peer, ssl_version)
