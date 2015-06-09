@@ -12,7 +12,7 @@ module RedhatAccess
       skip_before_filter :verify_authenticity_token
       skip_before_filter :check_telemetry_enabled
       before_filter :telemetry_auth
-      before_filter :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload, :get_branch_info]
+      before_filter :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload]
 
       def telemetry_auth
         authenticate_client
