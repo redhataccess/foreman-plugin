@@ -46,9 +46,19 @@
   <%= javascript_tag do %>
   var allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
   var sysCount = <%=  get_content_hosts(Organization.current).length %>;
+  var canUnregisterSystems = <%= can_unregister_system(User.current) %>;
+  var canIgnoreRules = <%= can_mask_rules(User.current) %>;
   angular.module('RedhatAccessInsights').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
   angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: allowBasicAuth});
   angular.module('RedhatAccessInsights').value('userEnvironment', {availableSystems: sysCount});
   angular.module('RedhatAccessInsights').value('markActiveMenu', mark_active_menu);
+  angular.module('RedhatAccessInsights').value('CONFIG', {
+            preloadData: false,
+            authenticate: false,
+            API_ROOT: '/redhat_access/r/insights/view/api/',
+            ACCT_KEY: 'telemetry:account_number',
+            canUnregisterSystems: canUnregisterSystems,
+            canIgnoreRules: canIgnoreRules
+        });
   <%end%>
 <%end%>

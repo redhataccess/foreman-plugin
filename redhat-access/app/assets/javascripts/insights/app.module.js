@@ -44,12 +44,7 @@
                 $urlRouterProvider.otherwise('/overview');
                 $locationProvider.html5Mode(true);
             }
-        ]).value('CONFIG', {
-            preloadData: false,
-            authenticate: false,
-            API_ROOT: '/redhat_access/r/insights/view/api/',
-            ACCT_KEY: 'telemetry:account_number'
-        }).value('SAT_CONFIG', {
+        ]).value('SAT_CONFIG', {
             enableBasicAuth: true
         }).value('userEnvironment', {
             availableSystems: 0
