@@ -52,7 +52,7 @@ class access_insights_client(
     $auto_update = undef,
     $obsfucate = undef,
     $obsfucate_hostname = undef,
-    $upload_schedule = 'weekly',
+    $upload_schedule = undef,
 ){
     package {'redhat-access-insights':
       ensure   => latest,
@@ -71,7 +71,8 @@ class access_insights_client(
             ensure => 'link',
             target => '/etc/redhat-access-insights/redhat-access-insights.cron',
             require  => Package['redhat-access-insights'],
-        }}
+        }
+       }
         weekly: { file { '/etc/cron.weekly/redhat-access-insights':
             ensure => 'link',
             target => '/etc/redhat-access-insights/redhat-access-insights.cron',
@@ -83,6 +84,19 @@ class access_insights_client(
             require  => Package['redhat-access-insights'],
         }}
     }  
+    if ($upload_schedule == 'weekly') {
+        file { '/etc/cron.daily/redhat-access-insights':
+            ensure => 'absent'
+        }
+    }elsif ($upload_schedule == 'daily') {
+        file { '/etc/cron.weekly/redhat-access-insights':
+            ensure => 'absent'
+        }
+    }else {
+        file { '/etc/cron.weekly/redhat-access-insights':
+            ensure => 'absent'
+        }
+    }
     exec { "/usr/bin/redhat-access-insights --register":
         creates => "/etc/redhat-access-insights/.registered",
         unless => "/usr/bin/test -f /etc/redhat-access-insights/.unregistered",

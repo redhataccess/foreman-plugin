@@ -1,6 +1,6 @@
 {
   "name": "redhat-access_insights_client",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Lindani Phiri (redhat)",
   "summary": "Satellite 6 Client configuration for Red Hat proactive support services",
   "license": "Apache 2.0",
