@@ -7,10 +7,8 @@ RedhatAccess::Engine.routes.draw do
   post 'attachments' => 'api/attachments#create'
 
   #Angular UI routes
-  get 'logviewer', to: 'redhat_access#index'
-  get 'case/new', to: 'redhat_access#index'
-  get 'case/list', to: 'redhat_access#index'
-  get 'search', to: 'redhat_access#index'
+  match '/:path',  to: 'redhat_access#index', :constraints => {:path => /.*/}, :via => [:get]
+
 
 
   unless  Foreman::Plugin.installed?('foreman_sam')
