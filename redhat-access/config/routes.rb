@@ -6,16 +6,13 @@ RedhatAccess::Engine.routes.draw do
   get 'attachments' => 'api/attachments#index'
   post 'attachments' => 'api/attachments#create'
 
-  #Angular UI routes
-  match '/:path',  to: 'redhat_access#index', :constraints => {:path => /.*/}, :via => [:get]
+
 
 
 
   unless  Foreman::Plugin.installed?('foreman_sam')
-    unless  Foreman::Plugin.installed?('foreman_sam')
-      scope '/' do
-        resource :telemetry_configuration, only: [:show, :update]
-      end
+    scope '/' do
+      resource :telemetry_configuration, only: [:show, :update]
     end
     scope '/r/insights' do
       get   '/v1/branch_info',      to: 'api/machine_telemetry_api#get_branch_info'
@@ -29,6 +26,8 @@ RedhatAccess::Engine.routes.draw do
     match '/insights/*path', to: 'analytics_dashboard#index'
   end
 
+  #Angular UI routes
+  match '/:path',  to: 'redhat_access#index', :constraints => {:path => /.*/}, :via => [:get]
   root :to => 'redhat_access#index'
 
 end

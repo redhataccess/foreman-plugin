@@ -13,8 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 require 'open3'
 module RedhatAccess::SosReports
-  #SOS_COMMAND = "foreman-sosreport --batch -e rhn"
-  SOS_COMMAND = "foreman-sosreport --batch -o rhn,foreman"
+  SOS_COMMAND = "foreman-sosreport --batch -o foreman"
   class Generator
     def self.create_report case_num
       command = SOS_COMMAND
