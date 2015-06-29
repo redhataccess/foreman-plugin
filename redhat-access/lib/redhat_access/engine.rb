@@ -180,15 +180,15 @@ module RedhatAccess
               :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
               :engine => RedhatAccess::Engine
             rha_menu :top_menu,
-              :rules,
-              :caption=> N_('Rules'),
-              :url => '/redhat_access/insights/rules/',
-              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-              :engine => RedhatAccess::Engine
-            rha_menu :top_menu,
               :systems,
               :caption=> N_('Systems'),
               :url => '/redhat_access/insights/systems/',
+              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
+              :engine => RedhatAccess::Engine
+            rha_menu :top_menu,
+              :rules,
+              :caption=> N_('Rules'),
+              :url => '/redhat_access/insights/rules/',
               :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
               :engine => RedhatAccess::Engine
             rha_menu :top_menu,
@@ -196,6 +196,12 @@ module RedhatAccess
               :caption=> N_('Manage'),
               :url => '/redhat_access/insights/manage',
               :url_hash => {:controller=> :"redhat_access/telemetry_configurations" , :action=>:show},
+              :engine => RedhatAccess::Engine
+             rha_menu :top_menu,
+              :help,
+              :caption=> N_('Help'),
+              :url => '/redhat_access/insights/help',
+              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:show},
               :engine => RedhatAccess::Engine
           end
         end

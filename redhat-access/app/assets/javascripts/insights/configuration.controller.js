@@ -18,7 +18,7 @@
                         //$scope.index();
                         $scope.loading = false;
                         $scope.config = data;
-                        $scope.original = angular.copy(data);
+                        $scope.originalConfig = angular.copy(data);
                         //console.log("Loaded...");
                     });
                 };
@@ -27,7 +27,7 @@
                     ConfigurationService.postConfig($scope.config).success(function() {
                         //$scope.index();
                         $scope.loading = false;
-                        $scope.original = angular.copy($scope.config);
+                        $scope.originalConfig = angular.copy($scope.config);
                         $scope.getAccountInfo();
                     }).error(function(response) {
                         $scope.getAccountInfo();
@@ -35,7 +35,7 @@
 
                 };
                 $scope.disableUpdateButton = function() {
-                    return $scope.loading || angular.equals($scope.config, $scope.original);
+                    return $scope.loading || angular.equals($scope.config, $scope.originalConfig);
                 };
 
                 $scope.getAccountInfo = function() {
@@ -53,6 +53,12 @@
                         }
                     });
                 };
+
+                $scope.showConnectionStatus = function() {
+                    return $scope.originalConfig ? $scope.originalConfig.enable_telemetry : false ;
+                };
+
+
                 $scope.load();
                 $scope.getAccountInfo();
             }

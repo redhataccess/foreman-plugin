@@ -1,4 +1,4 @@
-<% if !is_org_selected? || !is_susbcribed_to_redhat?(Organization.current) || disconnected_org?(Organization.current) %>
+<% if !help_path? && (!is_org_selected? || !is_susbcribed_to_redhat?(Organization.current) || disconnected_org?(Organization.current)) %>
   <article id='content'>
     <%if !is_org_selected? %>
       <section>
@@ -44,13 +44,19 @@
   <%= javascript_include_tag 'insights/application' %>
   <%= stylesheet_link_tag "insights/application" %>
   <%= javascript_tag do %>
+  var isOrgSelected = <%= is_org_selected? %>;
+  var isSubscribedToRedhat = <%= is_susbcribed_to_redhat?(Organization.current) %>;
+  var isOrgDisconnected = <%=  disconnected_org?(Organization.current) %>;
   var allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
   var sysCount = <%=  get_content_hosts(Organization.current).length %>;
   var canUnregisterSystems = <%= can_unregister_system(User.current) %>;
   var canIgnoreRules = <%= can_mask_rules(User.current) %>;
   angular.module('RedhatAccessInsights').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
   angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: allowBasicAuth});
-  angular.module('RedhatAccessInsights').value('userEnvironment', {availableSystems: sysCount});
+  angular.module('RedhatAccessInsights').value('userEnvironment', {availableSystems: sysCount,
+                                                                   isOrgSelected : isOrgSelected,
+                                                                   isSubscribedToRedhat : isSubscribedToRedhat,
+                                                                   isOrgDisconnected : isOrgDisconnected});
   angular.module('RedhatAccessInsights').value('markActiveMenu', mark_active_menu);
   angular.module('RedhatAccessInsights').value('CONFIG', {
             preloadData: false,

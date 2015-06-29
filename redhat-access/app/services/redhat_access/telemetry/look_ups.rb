@@ -33,13 +33,13 @@ module RedhatAccess
       def is_susbcribed_to_redhat?(org)
         if org
           upstream = org.owner_details['upstreamConsumer']
-          return upstream && upstream['idCert']
+          return upstream && upstream['idCert'] ? true : false
         end
         return false
       end
 
       def is_org_selected?
-        return Organization.current
+        Organization.current.nil? ? false: true 
       end
 
       def get_telemetry_config(org)

@@ -41,6 +41,10 @@
                     url: '/nohosts',
                     templateUrl: 'insights/views/nohosts.html'
                 });
+                $stateProvider.state('help', {
+                    url: '/help',
+                    templateUrl: 'insights/views/help.html'
+                });
                 $urlRouterProvider.otherwise('/overview');
                 $locationProvider.html5Mode(true);
             }

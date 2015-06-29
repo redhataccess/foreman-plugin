@@ -8,7 +8,7 @@
 %global foreman_assets_dir %foreman_dir/public/assets
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
-%global puppet_module_version 0.0.4
+%global puppet_module_version 0.0.8
 %global puppet_module access_insights_client
 %global puppet_modules_dir /usr/share/puppet/modules
 %global puppet_full_name redhat-%{puppet_module}-%{puppet_module_version}

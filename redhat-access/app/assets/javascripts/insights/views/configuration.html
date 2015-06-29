@@ -6,84 +6,80 @@
     </div>
     <div class="row row-short">
         <div class="col-sm-12">
-            <tabset>
-                <tab heading="Service Status">
-                    <div class="panel panel-default">
-                        <div>
-                            <i ng-show="loading" class="fa fa-spinner fa-spin fa-1-5x"></i>
+            <div class="panel panel-default">
+                <div class="panel-heading">Access Insights Service Configuration</div>
+                <div>
+                    <i ng-show="loading" class="fa fa-spinner fa-spin fa-1-5x"></i>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="rha-insights-enabled" class="col-lg-3 control-label">Enable Service </label>
+                            <div class="col-lg-6">
+                                <div class="checkbox">
+                                    <input id="rha-insights-enabled" type="checkbox" ng-model="config.enable_telemetry" ng-disabled="loading" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="rha-insights-enabled" class="col-lg-3 control-label">Enable Insights Service Proxy</label>
-                                    <div class="col-lg-6">
-                                        <div class="checkbox">
-                                            <input id="rha-insights-enabled" type="checkbox" ng-model="config.enable_telemetry" ng-disabled="loading" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" ng-show="env.enableBasicAuth">
-                                    <label for="rha-insights-password" class="col-lg-3 control-label">Customer Portal Username</label>
-                                    <div class="col-lg-6">
-                                        <input id="rha-insights-password" type="text" size="32" ng-model="config.portal_user" ng-disabled="loading" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group" ng-show="env.enableBasicAuth">
-                                    <label for="rha-insights-password" class="col-lg-3 control-label">Customer Portal Password</label>
-                                    <div class="col-lg-6">
-                                        <input id="rha-insights-password" type="password" size="32" ng-model="config.portal_password" ng-disabled="loading" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-offset-3 col-lg-6">
-                                        <input type="submit" value="Save" ng-click="update()" ng-disabled="disableUpdateButton()" class="btn btn-success" />
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="form-group" ng-show="env.enableBasicAuth">
+                            <label for="rha-insights-password" class="col-lg-3 control-label">Customer Portal Username</label>
+                            <div class="col-lg-6">
+                                <input id="rha-insights-password" type="text" size="32" ng-model="config.portal_user" ng-disabled="loading" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                </tab>
-                <tab heading="Portal Connection" ng-show="config.enable_telemetry">
-                    <div class="panel panel-default">
-                        <div>
-                            <i ng-show="accountLoading" class="fa fa-spinner fa-spin fa-1-5x"></i>
+                        <div class="form-group" ng-show="env.enableBasicAuth">
+                            <label for="rha-insights-password" class="col-lg-3 control-label">Customer Portal Password</label>
+                            <div class="col-lg-6">
+                                <input id="rha-insights-password" type="password" size="32" ng-model="config.portal_password" ng-disabled="loading" class="form-control" />
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="connectionStatus">Status:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static"> {{portalAccount.connectionStatus}} </p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="account">Account Number:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static">{{portalAccount.account}}</p>
-                                    </div>
-                                </div>
-                                <div class="form-group" ng-show="portalAccount.company">
-                                    <label class="control-label col-sm-2" for="company">Company:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static"> {{portalAccount.company}} </p>
-                                    </div>
-                                </div>
-                                <div class="form-group" ng-show="portalAccount.orgId">
-                                    <label class="control-label col-sm-2" for="orgid">Organization ID:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static"> {{portalAccount.orgId}} </p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-2">
-                                        <input type="submit" value="Check Connection" ng-click="getAccountInfo()" ng-disabled="accountLoading" class="btn btn-success" />
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-6">
+                                <input type="submit" value="Save" ng-click="update()" ng-hide="disableUpdateButton()" class="btn btn-success" />
+                            </div>
                         </div>
-                    </div>
-                </tab>
-            </tabset>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="showConnectionStatus()">
+                <div class="panel-heading">Insights Engine Connection</div>
+                <div>
+                    <i ng-show="accountLoading" class="fa fa-spinner fa-spin fa-1-5x"></i>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="connectionStatus">Status:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static"> {{portalAccount.connectionStatus}} </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="account">Account Number:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{portalAccount.account}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="portalAccount.company">
+                            <label class="control-label col-sm-2" for="company">Company:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static"> {{portalAccount.company}} </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="portalAccount.orgId">
+                            <label class="control-label col-sm-2" for="orgid">Organization ID:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static"> {{portalAccount.orgId}} </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-2">
+                                <input type="submit" value="Check Connection" ng-click="getAccountInfo()" ng-hide="accountLoading" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
