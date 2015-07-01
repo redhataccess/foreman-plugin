@@ -37,10 +37,6 @@
                     templateUrl: 'insights/views/configuration.html',
                     controller: 'ConfigurationCtrl'
                 });
-                $stateProvider.state('nohosts', {
-                    url: '/nohosts',
-                    templateUrl: 'insights/views/nohosts.html'
-                });
                 $stateProvider.state('help', {
                     url: '/help',
                     templateUrl: 'insights/views/help.html'
@@ -50,23 +46,5 @@
             }
         ]).value('SAT_CONFIG', {
             enableBasicAuth: true
-        }).value('userEnvironment', {
-            availableSystems: 0
-        }).value('markActiveMenu', function() {}).run(['$rootScope', '$state', 'userEnvironment', 'markActiveMenu',
-            function($rootScope, $state, userEnvironment, markActiveMenu) {
-                $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-                    //console.log("State is : " + toState.name);
-                    if ((toState.name === 'app.overview' || toState.name === 'app.systems') &&
-                        userEnvironment.availableSystems == 0) {
-                        event.preventDefault();
-                        $state.go('nohosts');
-                    }
-                    if (toState.name === 'nohosts' && userEnvironment.availableSystems > 0) {
-                        event.preventDefault();
-                        $state.go('app.overview');
-                    }
-                    //markActiveMenu();
-                });
-            }
-        ]);
+        });
 })();

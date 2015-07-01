@@ -53,6 +53,9 @@ module RedhatAccess
       def get_machines
         #TODO err out if org is not selected
         machines = get_content_hosts(Organization.current)
+        if machines.empty? 
+          machines = ['NULL_SET']
+        end
         Rails.logger.debug("Machines : #{machines}")
         machines
       end

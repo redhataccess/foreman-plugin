@@ -48,13 +48,11 @@
   var isSubscribedToRedhat = <%= is_susbcribed_to_redhat?(Organization.current) %>;
   var isOrgDisconnected = <%=  disconnected_org?(Organization.current) %>;
   var allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
-  var sysCount = <%=  get_content_hosts(Organization.current).length %>;
   var canUnregisterSystems = <%= can_unregister_system(User.current) %>;
   var canIgnoreRules = <%= can_mask_rules(User.current) %>;
   angular.module('RedhatAccessInsights').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
   angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: allowBasicAuth});
-  angular.module('RedhatAccessInsights').value('userEnvironment', {availableSystems: sysCount,
-                                                                   isOrgSelected : isOrgSelected,
+  angular.module('RedhatAccessInsights').value('userEnvironment', {isOrgSelected : isOrgSelected,
                                                                    isSubscribedToRedhat : isSubscribedToRedhat,
                                                                    isOrgDisconnected : isOrgDisconnected});
   angular.module('RedhatAccessInsights').value('markActiveMenu', mark_active_menu);
@@ -64,7 +62,14 @@
             API_ROOT: '/redhat_access/r/insights/view/api/',
             ACCT_KEY: 'telemetry:account_number',
             canUnregisterSystems: canUnregisterSystems,
-            canIgnoreRules: canIgnoreRules
+            canIgnoreRules: canIgnoreRules,
+            getSystemStatus: true,
+            allowExport: true,
+            doPaf: true,
+            gettingStartedLink :'https://access.redhat.com/insights/getting-started/satellite/6/'
+            //overviewShowSystem : function(system) {
+            //   window.location = '/content_hosts/'+system.remote_leaf+'/info';
+            //}
         });
   <%end%>
 <%end%>
