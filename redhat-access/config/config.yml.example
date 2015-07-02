@@ -1,8 +1,4 @@
 :strata_host : access.redhat.com
-:proxy_host :
-:proxy_port :
-:proxy_user :
-:proxy_password :
 :attachment_max_http_size : 250000000
 :attachment_ftp_host : dropbox.redhat.com
 :attachment_ftp_dir : /incoming

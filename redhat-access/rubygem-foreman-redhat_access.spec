@@ -37,7 +37,7 @@ Requires: %{?scl_prefix}ruby(abi)
 Requires: %{?scl_prefix}rubygems
 Requires: %{?scl_prefix}rubygem(rails)
 Requires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.3
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.4
 
 BuildRequires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
 BuildRequires: %{?scl_prefix}ruby(abi)

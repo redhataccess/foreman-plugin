@@ -14,15 +14,26 @@ module RedhatAccess::Strata
       config.base_uri = 'https://api.' + REDHAT_ACCESS_CONFIG[:strata_host]
       config.username= username
       config.password = password
-      config.proxy_host= REDHAT_ACCESS_CONFIG[:proxy_host]
-      config.proxy_port = REDHAT_ACCESS_CONFIG[:strata_host]
-      config.proxy_user= REDHAT_ACCESS_CONFIG[:proxy_user]
-      config.proxy_password= REDHAT_ACCESS_CONFIG[:proxy_password ]
-      #config.log_location = '/home/lindani/support_lib.txt'
+      config.proxy = get_portal_http_proxy
       attachments_config = {:max_http_size => REDHAT_ACCESS_CONFIG[:attachment_max_http_size],
                             :ftp_host => REDHAT_ACCESS_CONFIG[:attachment_ftp_host],
                             :ftp_remote_dir => REDHAT_ACCESS_CONFIG[:attachment_ftp_dir]}
       @api = RedHatSupportLib::Api::API.new(config,attachments_config)
+    end
+
+    def get_portal_http_proxy
+      proxy = nil
+      if Katello.config.cdn_proxy && Katello.config.cdn_proxy.host
+        proxy_config = Katello.config.cdn_proxy
+        uri = URI('')
+        uri.scheme = URI.parse(proxy_config.host).scheme
+        uri.host = URI.parse(proxy_config.host).host
+        uri.port = proxy_config.port
+        uri.user = proxy_config.user
+        uri.password = proxy_config.password
+        proxy = uri.to_s
+      end
+      return proxy
     end
   end
 end

@@ -17,17 +17,18 @@ module RedhatAccess
         return false if user.nil?
         return true if user.admin
         permissions = user.cached_roles.collect { |role| role.permissions }.flatten.map! { |permission| permission.name }
-        Rails.logger.debug("User can unregister telemetry hosts : #{ permissions.include?("rh_telemetry_configurations")}")
+        #Rails.logger.debug("User can unregister telemetry hosts : #{ permissions.include?("rh_telemetry_configurations")}")
         permissions.include?("rh_telemetry_configurations")
       end
 
       def can_mask_rules(user)
-        #TODO move this to an auth class?
-        return false if user.nil?
-        return true if user.admin
-        permissions = user.cached_roles.collect { |role| role.permissions }.flatten.map!{ |permission| permission.name }
-        Rails.logger.debug("User can ignore telemetry rules : #{ permissions.include?("rh_telemetry_configurations")}")
-        permissions.include?("rh_telemetry_configurations")
+        # #TODO move this to an auth class?
+        # return false if user.nil?
+        # return true if user.admin
+        # permissions = user.cached_roles.collect { |role| role.permissions }.flatten.map!{ |permission| permission.name }
+        # #Rails.logger.debug("User can ignore telemetry rules : #{ permissions.include?("rh_telemetry_configurations")}")
+        # permissions.include?("rh_telemetry_configurations")
+        true  # for now, allow it for 
       end
 
       def is_susbcribed_to_redhat?(org)
