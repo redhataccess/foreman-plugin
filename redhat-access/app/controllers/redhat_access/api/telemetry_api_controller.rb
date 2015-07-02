@@ -76,14 +76,18 @@ module RedhatAccess
           render status: res[:code] , json: data
         when 401
           data = {
-            :connectionStatus => 'Authentication Failure'
+            :connectionStatus => 'Authentication Failure',
+            :account => 'Unknown',
+            :company => 'Unknown',
           }
-          render status: 502 , json: data
+          render status: 200 , json: data
         else
           data = {
-            :connectionStatus => 'Connection Failed'
+            :connectionStatus => 'Connection Failed',
+            :account => 'Unknown',
+            :company => 'Unknown',
           }
-          render status: res[:code] , json: data
+          render status: 200 , json: data
         end
       end
 

@@ -6,7 +6,7 @@
             'insights',
             'templates'
         ])
-        .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide',
+        .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide', 
             function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide) {
                 $httpProvider.defaults.headers.common = {
                     'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
@@ -26,6 +26,9 @@
                                     response.data.displayMessage = message;
                                     $window.location.href = '/katello/403';
                                 }
+                                if (response.status === 502) {
+                                    $window.location = '/redhat_access/insights/proxyerror';
+                                }
                                 return $q.reject(response);
                             }
                         };
@@ -40,6 +43,10 @@
                 $stateProvider.state('help', {
                     url: '/help',
                     templateUrl: 'insights/views/help.html'
+                });
+                $stateProvider.state('serviceerror', {
+                    url: '/proxyerror',
+                    templateUrl: 'insights/views/error.html'
                 });
                 $urlRouterProvider.otherwise('/overview');
                 $locationProvider.html5Mode(true);
