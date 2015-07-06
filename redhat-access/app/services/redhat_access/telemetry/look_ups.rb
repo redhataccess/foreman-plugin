@@ -93,8 +93,7 @@ module RedhatAccess
             branch_id =  org.owner_details['upstreamConsumer']['uuid']
           end
         else
-          #ldebug('Org not found or invalid in get_branch_id')
-          get_organization(uuid)
+          raise(RecordNotFound,'Organization not found or invalid')
         end
       end
 
