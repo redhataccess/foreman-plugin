@@ -21,8 +21,8 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.2.0
-Release: 8%{?dist}
+Version: 0.2.1
+Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
@@ -144,6 +144,13 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 %{puppet_modules_dir}/%{puppet_module}
 
 %changelog
+
+* Mon Jul 13 2015 Lindani Phiri <lindani@redhat.com> - 0.2.1-1
+- GA build for Access Insights
+- Resolves : bz1193202 
+- Resolves : bz1187091
+- Resolves : bz1192207
+- Resolves : bz1224202 
 
 * Fri Jun 5 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-8
 - Fix fat figured space into puppet module template
