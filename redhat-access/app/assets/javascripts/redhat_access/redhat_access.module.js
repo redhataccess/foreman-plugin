@@ -55,10 +55,10 @@ angular.module('RedhatAccess', [
         $httpProvider.interceptors.push('AuthInterceptor');
         $locationProvider.html5Mode(true);
     }
-]).run(['TITLE_VIEW_CONFIG',
+]).run(['COMMON_CONFIG',
     '$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS', 'currentLocale', 'gettextCatalog',
-    function(TITLE_VIEW_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS, currentLocale, gettextCatalog) {
-        TITLE_VIEW_CONFIG.show = true;
+    function(COMMON_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS, currentLocale, gettextCatalog) {
+        COMMON_CONFIG.showTitle = true;
         hideMachinesDropdown.value = true;
         NEW_DEFAULTS.product = "Red Hat Satellite or Proxy"; //TODO read from server config
         NEW_DEFAULTS.version = "6.1"; //TODO read from server config
