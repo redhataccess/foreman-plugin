@@ -8,10 +8,12 @@
 %global foreman_assets_dir %foreman_dir/public/assets
 %global rubygem_redhat_access_dir %{gem_dir}/gems/%{gem_name}-%{version}
 
+# For we bundle the puppet module required.
+# See https://forge.puppetlabs.com/lphiri/access_insights_client
 %global puppet_module_version 0.0.8
 %global puppet_module access_insights_client
 %global puppet_modules_dir /usr/share/puppet/modules
-%global puppet_full_name redhat-%{puppet_module}-%{puppet_module_version}
+%global puppet_full_name lphiri-%{puppet_module}-%{puppet_module_version}
 
 
 %if "%{?scl}" == "ruby193"
@@ -170,7 +172,7 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 * Wed Mar 4 2015 Lindani Phiri <lindani@redhat.com> - 0.0.9-1
 - Resolves : bz1197764
 
-* Sun Feb 19 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-2
+* Thu Feb 19 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-2
 - Resolves : bz1193672
 
 * Thu Feb 12 2015 Lindani Phiri <lindani@redhat.com> - 0.0.8-1
