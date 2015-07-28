@@ -55,7 +55,13 @@ angular.module('RedhatAccess', [
         $httpProvider.interceptors.push('AuthInterceptor');
         $locationProvider.html5Mode(true);
     }
-]).run(['COMMON_CONFIG',
+]).value('LOGIN_VIEW_CONFIG', { verbose: true }).value('SECURITY_CONFIG', {
+    displayLoginStatus: true,
+    autoCheckLogin: true,
+    loginURL: '',
+    logoutURL: '',
+    forceLogin: true
+}).run(['COMMON_CONFIG',
     '$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS', 'currentLocale', 'gettextCatalog',
     function(COMMON_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS, currentLocale, gettextCatalog) {
         COMMON_CONFIG.showTitle = true;

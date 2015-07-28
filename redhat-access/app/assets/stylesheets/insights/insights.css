@@ -1,0 +1,15 @@
+.insights-main-content .alert {
+	font-weight: 500;
+	padding: 7px;
+	font-size: 12px;
+}
+
+.insights-main-content .alert.alert-danger {
+	background: #FFF;
+	color: #C00;
+}
+
+.alert-dismissable .close {
+	right: auto;
+	top: auto;
+}

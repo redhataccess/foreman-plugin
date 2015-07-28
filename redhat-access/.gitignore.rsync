@@ -28,6 +28,10 @@ vendor/assets/sweetalert/*
 vendor/assets/c3/*
 vendor/assets/d3/*
 vendor/assets/angular-scroll/*
+vendor/assets/angular-scroll/*
+vendor/assets/angular-animate/*
+vendor/assets/angular-gettext/*
+vendor/assets/angular-mocks/*
 
 
 

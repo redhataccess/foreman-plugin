@@ -6,11 +6,12 @@
             'insights',
             'templates'
         ])
-        .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide', 
-            function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide) {
+        .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide', 'InsightsConfigProvider','$injector',
+            function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide,InsightsConfigProvider,$injector) {
                 $httpProvider.defaults.headers.common = {
                     'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
                 };
+
                 $provide.factory('AuthInterceptor', ['$injector',
                     function($injector) {
                         return {
@@ -25,9 +26,6 @@
                                     response.data.errors = [message];
                                     response.data.displayMessage = message;
                                     $window.location.href = '/katello/403';
-                                }
-                                if (response.status === 502) {
-                                    $window.location = '/redhat_access/insights/proxyerror';
                                 }
                                 return $q.reject(response);
                             }
@@ -50,6 +48,12 @@
                 });
                 $urlRouterProvider.otherwise('/overview');
                 $locationProvider.html5Mode(true);
+
+                // Insights UI configuration
+                InsightsConfigProvider.setApiRoot('/redhat_access/r/insights/view/api/');
+                InsightsConfigProvider.setCanUnregisterSystems(window.canUnregisterSystems);
+                InsightsConfigProvider.setCanIgnoreRules(window.canIgnoreRules);
+                InsightsConfigProvider.setGettingStartedLink('https://access.redhat.com/insights/getting-started/satellite/6/');
             }
         ]).value('SAT_CONFIG', {
             enableBasicAuth: true

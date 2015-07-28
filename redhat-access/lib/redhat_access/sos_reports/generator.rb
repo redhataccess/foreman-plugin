@@ -24,22 +24,28 @@ module RedhatAccess::SosReports
           command = command + " --ticket-number=#{case_num}"
         end
       end
-      Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
-        report_location = ''
-        if wait_thr.value == 0
-          stdout.readlines.each do |line|
-            if line.include? "tar.xz"
-              report_location = line #brittle, but we assume only single line
-              break
+      begin
+        Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+          report_location = ''
+          if wait_thr.value == 0
+            stdout.readlines.each do |line|
+              if line.include? "tar.xz"
+                report_location = line #brittle, but we assume only single line
+                break
+              end
             end
+          else
+            #puts "sos report failed"
           end
-        else
-          #puts "sos report failed"
+          sos_file_name = report_location.strip
+          puts "SOS file created : " + sos_file_name
+          sos_file_name
         end
-        sos_file_name = report_location.strip
-        puts "SOS file created : " + sos_file_name
-        sos_file_name
+      rescue => exception
+        Rails.logger.error("Error Creating SOS report: #{$!}")
+        raise exception
       end
+
     end
 
     def self.is_valid_case_number case_num

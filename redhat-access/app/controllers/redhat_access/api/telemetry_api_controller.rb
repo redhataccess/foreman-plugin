@@ -1,6 +1,7 @@
 require_dependency "redhat_access/application_controller"
 require 'rest_client'
 require 'redhat_access_lib'
+require 'uri'
 
 module RedhatAccess
   module Api
@@ -53,7 +54,7 @@ module RedhatAccess
       def get_machines
         #TODO err out if org is not selected
         machines = get_content_hosts(Organization.current)
-        if machines.empty? 
+        if machines.empty?
           machines = ['NULL_SET']
         end
         Rails.logger.debug("Machines : #{machines}")
@@ -101,13 +102,19 @@ module RedhatAccess
           original_payload = get_file_data(params)
         end
         client = get_api_client
-        res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil)
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
+        resp_data = res[:data]
         if res[:code] == 401
           res[:code] = 502
+          resp_data = {
+            :internal_error => {
+              :reference => 'Authentication to the Insights Service Failed.'
+            }
+          }
         end
-        render status: res[:code] , json: res[:data]
+        render status: res[:code] , json: resp_data
       end
 
       protected
@@ -145,7 +152,7 @@ module RedhatAccess
                                                           :http_proxy => get_portal_http_proxy,
                                                           :user_agent => get_http_user_agent})
       end
-      
+
       def api_version
         'v1'
       end

@@ -1,6 +1,7 @@
 require_dependency "redhat_access/application_controller"
 require 'rest_client'
 require 'redhat_access_lib'
+require 'uri'
 
 module RedhatAccess
   module Api
@@ -43,7 +44,7 @@ module RedhatAccess
         end
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
-        res = client.call_tapi(original_method, resource, original_params, original_payload, nil)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil)
         render status: res[:code] , json: res[:data]
       end
 
