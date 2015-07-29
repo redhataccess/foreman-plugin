@@ -109,9 +109,7 @@ module RedhatAccess
         if res[:code] == 401
           res[:code] = 502
           resp_data = {
-            :internal_error => {
-              :reference => 'Authentication to the Insights Service Failed.'
-            }
+            :message => 'Authentication to the Insights Service failed.'
           }
         end
         render status: res[:code] , json: resp_data
