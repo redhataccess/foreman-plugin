@@ -147,6 +147,10 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
+* Mon Aug 3 2015 Lindani Phiri <lindani@redhat.com> - 0.2.2-1
+- UI library update for RHAI entitlements
+- Resolves : bz1246632
+
 * Mon Jul 13 2015 Lindani Phiri <lindani@redhat.com> - 0.2.1-1
 - GA build for Access Insights
 - Resolves : bz1193202 
