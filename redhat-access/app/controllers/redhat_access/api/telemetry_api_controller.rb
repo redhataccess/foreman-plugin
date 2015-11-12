@@ -95,8 +95,14 @@ module RedhatAccess
       # The method that "proxies" tapi requests over to Strata
       def proxy
         original_method  = request.method
-        original_params  = add_branch_to_params(request.query_parameters)
+        original_params = request.query_parameters
+        if request.user_agent and not request.user_agent.include?('redhat_access_cfme')
+           original_params  = add_branch_to_params(request.query_parameters)
+        end
         original_payload = request.request_parameters[controller_name]
+        if request.post? && request.raw_post
+             original_payload = request.raw_post.clone
+        end
         resource         = params[:path] == nil ?  "/" : params[:path]
         if params[:file]
           original_payload = get_file_data(params)

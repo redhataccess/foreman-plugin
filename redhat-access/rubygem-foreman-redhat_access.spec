@@ -23,7 +23,7 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.2.3
+Version: 0.2.4
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -39,7 +39,7 @@ Requires: %{?scl_prefix}ruby(abi)
 Requires: %{?scl_prefix}rubygems
 Requires: %{?scl_prefix}rubygem(rails)
 Requires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.4
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.6
 
 BuildRequires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
 BuildRequires: %{?scl_prefix}ruby(abi)
@@ -65,7 +65,7 @@ Foreman engine to access Red Hat knowledge base search
 
 
 %{?scl:scl enable %{scl} "}
-gem unpack %{SOURCE0} 
+gem unpack %{SOURCE0}
 %{?scl:"}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
@@ -147,6 +147,9 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
+* Thu Nov 12 2015 Lindani Phiri <lindani@redhat.com> - 0.2.4-1
+- Resolves : bz1276676
+
 * Mon Aug 17 2015 Lindani Phiri <lindani@redhat.com> - 0.2.3-1
 - Resolves : bz1254252
 
@@ -156,10 +159,10 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 * Mon Jul 13 2015 Lindani Phiri <lindani@redhat.com> - 0.2.1-1
 - GA build for Access Insights
-- Resolves : bz1193202 
+- Resolves : bz1193202
 - Resolves : bz1187091
 - Resolves : bz1192207
-- Resolves : bz1224202 
+- Resolves : bz1224202
 
 * Fri Jun 5 2015 Lindani Phiri <lindani@redhat.com> - 0.2.0-8
 - Fix fat figured space into puppet module template
@@ -212,4 +215,3 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 * Thu Apr 3 2014 Rex White <rexwhite@redhat.com>
 - Initial package
-
