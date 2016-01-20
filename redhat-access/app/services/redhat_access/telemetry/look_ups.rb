@@ -45,7 +45,7 @@ module RedhatAccess
       end
 
       def get_telemetry_config(org)
-        TelemetryConfiguration.find_or_create_by_organization_id(:organization_id => org.id) do |conf|
+        TelemetryConfiguration.find_or_create_by(:organization_id => org.id) do |conf|
           conf.enable_telemetry = true
         end
       end
@@ -184,8 +184,8 @@ module RedhatAccess
 
       def get_portal_http_proxy
         proxy = nil
-        if Katello.config.cdn_proxy && Katello.config.cdn_proxy.host
-          proxy_config = Katello.config.cdn_proxy
+        if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
+          proxy_config = SETTINGS[:katello][:cdn_proxy]
           uri = URI('')
 
           uri.scheme = URI.parse(proxy_config.host).scheme

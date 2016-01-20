@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor,public,script,ca,locale}/**/*"] + ["LICENSE.txt", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2"
+  #s.add_dependency "rails", "~> 3.2"
   #s.add_dependency "redhat_access_lib" , ">=0.0.6"
 
   #s.add_dependency "haml-rails"

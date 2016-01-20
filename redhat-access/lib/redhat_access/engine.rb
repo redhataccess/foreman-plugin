@@ -3,12 +3,12 @@
 # require 'deface'
 
 begin
-  #Since we depend on katello, need to force it load so our plugin
-  #dependency checks can work properly
+  # Since we depend on katello, need to force it load so our plugin
+  # dependency checks can work properly
   require 'katello'
   require 'foreman_sam.rb'
 rescue LoadError
-  #don't need to do anything
+  # don't need to do anything
 end
 
 module RedhatAccess
@@ -16,7 +16,11 @@ module RedhatAccess
     isolate_namespace RedhatAccess
 
     initializer 'redhat_access.load_app_instance_data' do |app|
-      app.config.paths['db/migrate'] += RedhatAccess::Engine.paths['db/migrate'].existent
+      unless app.root.to_s.match root.to_s
+        config.paths["db/migrate"].expanded.each do |expanded_path|
+          app.config.paths["db/migrate"] << expanded_path
+        end
+      end
     end
 
     initializer 'redhat_access.mount_engine', :after => :build_middleware_stack do |app|
@@ -24,26 +28,33 @@ module RedhatAccess
       app.reload_routes!
     end
 
-    initializer :register_assets do |app|
-      if Rails.env.production?
-        assets = YAML.load_file("#{RedhatAccess::Engine.root}/public/assets/manifest.yml")
-        assets.each_pair do |file, digest|
-          app.config.assets.digests[file] = digest
+    # Precompile any JS or CSS files under app/assets/
+    # If requiring files from each other, list them explicitly here to avoid precompiling the same
+    # content twice.
+    assets_to_precompile =
+      Dir.chdir(root) do
+        Dir['app/assets/javascripts/**/*', 'app/assets/stylesheets/**/*'].map do |f|
+          f.split(File::SEPARATOR, 4).last
         end
       end
+    initializer 'redhat_access.assets.precompile' do |app|
+      app.config.assets.precompile += assets_to_precompile
+    end
+    initializer 'redhat_access.configure_assets', :group => :assets do
+      SETTINGS[:redhat_access] = {:assets => {:precompile => assets_to_precompile}}
     end
 
     initializer :security_initialization do |app|
       app.config.filter_parameters << :authToken
     end
 
-    initializer 'redhat_access.register_gettext', :after => :load_config_initializers do |app|
+    initializer 'redhat_access.register_gettext', :after => :load_config_initializers do |_app|
       locale_dir = File.join(File.expand_path('../../..', __FILE__), 'locale')
       locale_domain = 'redhat_access'
       Foreman::Gettext::Support.add_text_domain locale_domain, locale_dir
     end
 
-    initializer :config_csp_headers do |app|
+    initializer :config_csp_headers do |_app|
       ::SecureHeaders::Configuration.configure do |config|
         if config && config.csp
           if config.csp[:frame_src]
@@ -62,16 +73,17 @@ module RedhatAccess
       end
     end
 
-    initializer 'redhat_access.register_plugin', :after=> :finisher_hook do |app|
+    initializer 'redhat_access.register_plugin', :before => :finisher_hook do |_app|
       Foreman::Plugin.register :redhat_access do
         #
         # Start Monkey Patching
-        #Implement our own (temp until we fix foreman upstream)
+        # Implement our own (temp until we fix foreman upstream)
         #
         class RhaItem < Menu::Item
           def initialize(name, options)
             super(name, options)
           end
+
           def authorized?
             return false if @condition and not @condition.call
             User.current.allowed_to?(url_hash.slice(:controller, :action, :id))
@@ -90,99 +102,98 @@ module RedhatAccess
         #
 
         def sam_deployment?
-          #TODO make generic and move to lib util class
+          # TODO: make generic and move to lib util class
           Foreman::Plugin.installed?('foreman_sam')
         end
 
         requires_foreman '> 1.6'
 
-        requires_foreman_plugin 'katello', '> 2.0'
+        #requires_foreman_plugin 'katello', '> 2.0'
 
         # permission section
         security_block :redhat_access_security do
-          #Everything except logs should be available to all users
-          permission :view_search, {:"redhat_access/search" => [:index] } ,  :public => true
-          permission :view_cases, {:"redhat_access/cases" => [:index, :create] } ,  :public => true
-          permission :attachments, {:"redhat_access/attachments" => [:index, :create] } ,  :public => true
-          permission :configuration, {:"redhat_access/configuration" => [:index] } ,  :public => true
-          permission :app_root, {:"redhat_access/redhat_access" => [:index] },  :public => true
+          # Everything except logs should be available to all users
+          permission :view_search, {:"redhat_access/search" => [:index]},  :public => true
+          permission :view_cases, {:"redhat_access/cases" => [:index, :create]},  :public => true
+          permission :attachments, {:"redhat_access/attachments" => [:index, :create]},  :public => true
+          permission :configuration, {:"redhat_access/configuration" => [:index]},  :public => true
+          permission :app_root, {:"redhat_access/redhat_access" => [:index]},  :public => true
 
-          #Logs require special permissions
-          permission :view_log_viewer, {:"redhat_access/logviewer" => [:index] }
-          permission :logs, {:"redhat_access/logs" => [:index] }
+          # Logs require special permissions
+          permission :view_log_viewer, {:"redhat_access/logviewer" => [:index]}
+          permission :logs, {:"redhat_access/logs" => [:index]}
 
           unless sam_deployment?
-            #Proactive Diagnostics permissions
-            permission :rh_telemetry_api, { :"redhat_access/api/telemetry_api" => [:proxy,:connection_status] }
-            permission :rh_telemetry_view, { :"redhat_access/analytics_dashboard" => [:index] }
-            permission :rh_telemetry_configurations, { :"redhat_access/telemetry_configurations" => [:show,:update] }
+            # Proactive Diagnostics permissions
+            permission :rh_telemetry_api, {:"redhat_access/api/telemetry_api" => [:proxy, :connection_status]}
+            permission :rh_telemetry_view, {:"redhat_access/analytics_dashboard" => [:index]}
+            permission :rh_telemetry_configurations, {:"redhat_access/telemetry_configurations" => [:show, :update]}
           end
-
         end
-        #roles section
-        role "Red Hat Access Logs", [:logs,:view_log_viewer]
+        # roles section
+        role "Red Hat Access Logs", [:logs, :view_log_viewer]
         unless sam_deployment?
-          role "Access Insights Viewer" , [:rh_telemetry_api, :rh_telemetry_view]
-          role "Access Insights Admin" , [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
+          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view]
+          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
         end
-        #menus
-        sub_menu :header_menu, :redhat_access_menu, :caption=> N_('Red Hat Access') do
+        # menus
+        sub_menu :header_menu, :redhat_access_menu, :caption => N_('Red Hat Access') do
           menu :header_menu,
-            :Search,
-            :url => '/redhat_access/search',
-            :url_hash => {:controller=> :"redhat_access/search" , :action=>:index},
-            :engine => RedhatAccess::Engine
+               :Search,
+               :url      => '/redhat_access/search',
+               :url_hash => {:controller => :"redhat_access/search", :action => :index},
+               :engine   => RedhatAccess::Engine
           menu :header_menu,
-            :LogViewer,
-            :url => '/redhat_access/logviewer',
-            :url_hash => {:controller=> :"redhat_access/logs" , :action=>:index},
-            :engine => RedhatAccess::Engine,
-            :caption=> N_('Logs')
+               :LogViewer,
+               :url      => '/redhat_access/logviewer',
+               :url_hash => {:controller => :"redhat_access/logs", :action => :index},
+               :engine   => RedhatAccess::Engine,
+               :caption  => N_('Logs')
           divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
           menu :header_menu,
-            :mycases,
-            :url => '/redhat_access/case/list',
-            :url_hash => {:controller=> :"redhat_access/cases" , :action=>:index},
-            :engine => RedhatAccess::Engine,
-            :caption=> N_('My Cases')
-          menu :header_menu, :new_cases, :caption=> N_('Open New Case'),
-            :url => '/redhat_access/case/new',
-            :url_hash => {:controller=> :"redhat_access/cases", :action=>:create },
-            :engine => RedhatAccess::Engine
+               :mycases,
+               :url      => '/redhat_access/case/list',
+               :url_hash => {:controller => :"redhat_access/cases", :action => :index},
+               :engine   => RedhatAccess::Engine,
+               :caption  => N_('My Cases')
+          menu :header_menu, :new_cases, :caption  => N_('Open New Case'),
+                                         :url      => '/redhat_access/case/new',
+                                         :url_hash => {:controller => :"redhat_access/cases", :action => :create},
+                                         :engine   => RedhatAccess::Engine
         end
 
         unless sam_deployment?
-          sub_menu :top_menu, :redhat_access_top_menu, :caption=> N_('Red Hat Insights') do
+          sub_menu :top_menu, :redhat_access_top_menu, :caption => N_('Red Hat Insights') do
             rha_menu :top_menu,
-              :rhai_dashboard,
-              :caption=> N_('Overview'),
-              :url => '/redhat_access/insights',
-              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-              :engine => RedhatAccess::Engine
+                     :rhai_dashboard,
+                     :caption  => N_('Overview'),
+                     :url      => '/redhat_access/insights',
+                     :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
+                     :engine   => RedhatAccess::Engine
             rha_menu :top_menu,
-              :rhai_systems,
-              :caption=> N_('Systems'),
-              :url => '/redhat_access/insights/systems/',
-              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-              :engine => RedhatAccess::Engine
+                     :rhai_systems,
+                     :caption  => N_('Systems'),
+                     :url      => '/redhat_access/insights/systems/',
+                     :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
+                     :engine   => RedhatAccess::Engine
             rha_menu :top_menu,
-              :rhai_rules,
-              :caption=> N_('Rules'),
-              :url => '/redhat_access/insights/rules/',
-              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-              :engine => RedhatAccess::Engine
+                     :rhai_rules,
+                     :caption  => N_('Rules'),
+                     :url      => '/redhat_access/insights/rules/',
+                     :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
+                     :engine   => RedhatAccess::Engine
             rha_menu :top_menu,
-              :rhai_dashboardconfiguration,
-              :caption=> N_('Manage'),
-              :url => '/redhat_access/insights/manage',
-              :url_hash => {:controller=> :"redhat_access/telemetry_configurations" , :action=>:show},
-              :engine => RedhatAccess::Engine
-             rha_menu :top_menu,
-              :rhai_help,
-              :caption=> N_('Help'),
-              :url => '/redhat_access/insights/help',
-              :url_hash => {:controller=> :"redhat_access/analytics_dashboard" , :action=>:index},
-              :engine => RedhatAccess::Engine
+                     :rhai_dashboardconfiguration,
+                     :caption  => N_('Manage'),
+                     :url      => '/redhat_access/insights/manage',
+                     :url_hash => {:controller => :"redhat_access/telemetry_configurations", :action => :show},
+                     :engine   => RedhatAccess::Engine
+            rha_menu :top_menu,
+                     :rhai_help,
+                     :caption  => N_('Help'),
+                     :url      => '/redhat_access/insights/help',
+                     :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
+                     :engine   => RedhatAccess::Engine
           end
         end
       end
@@ -191,6 +202,5 @@ module RedhatAccess
     config.to_prepare do
       ::Organization.send :include, RedhatAccess::Concerns::OrganizationExtensions
     end
-
   end
 end
