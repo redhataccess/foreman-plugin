@@ -16,4 +16,3 @@
 //= require "insights/app.module"
 //= require "insights/configuration.service"
 //= require "insights/configuration.controller"
-

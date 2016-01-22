@@ -10,6 +10,7 @@ RedhatAccess::Engine.routes.draw do
     scope '/' do
       resource :telemetry_configuration, only: [:show, :update]
     end
+    get "/insights/templates/:page" => "analytics_dashboard#template"  # hack to get around angular-rails-templates bug
     scope '/r/insights' do
       get   '/v1/branch_info',      to: 'api/machine_telemetry_api#get_branch_info'
       post  '/uploads/:id',         to: 'api/machine_telemetry_api#proxy_upload'
@@ -23,6 +24,7 @@ RedhatAccess::Engine.routes.draw do
   end
 
   #Angular UI routes
+
   match '/:path',  to: 'redhat_access#index', :constraints => {:path => /.*/}, :via => [:get]
   root :to => 'redhat_access#index'
 

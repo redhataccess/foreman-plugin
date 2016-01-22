@@ -31,12 +31,13 @@ module RedhatAccess
     # Precompile any JS or CSS files under app/assets/
     # If requiring files from each other, list them explicitly here to avoid precompiling the same
     # content twice.
-    assets_to_precompile =
-      Dir.chdir(root) do
-        Dir['app/assets/javascripts/**/*', 'app/assets/stylesheets/**/*'].map do |f|
-          f.split(File::SEPARATOR, 4).last
-        end
-      end
+    assets_to_precompile = [
+      'redhat_access/application.js',
+      'redhat_access/application.css',
+      'proactive_support/application.js',
+      'insights/application.js',
+      'insights/application.css'
+    ]
     initializer 'redhat_access.assets.precompile' do |app|
       app.config.assets.precompile += assets_to_precompile
     end

@@ -35,16 +35,16 @@
                 $httpProvider.interceptors.push('AuthInterceptor');
                 $stateProvider.state('manage', {
                     url: '/manage',
-                    templateUrl: 'insights/views/configuration.html',
+                    templateUrl: '/redhat_access/insights/templates/configuration', //TODO HACK!
                     controller: 'ConfigurationCtrl'
                 });
                 $stateProvider.state('help', {
                     url: '/help',
-                    templateUrl: 'insights/views/help.html'
+                    templateUrl: '/redhat_access/insights/templates/help' //TODO HACK
                 });
                 $stateProvider.state('serviceerror', {
                     url: '/proxyerror',
-                    templateUrl: 'insights/views/error.html'
+                    templateUrl: '/redhat_access/insights/templates/error' //TODO HACK
                 });
                 $urlRouterProvider.otherwise('/overview');
                 $locationProvider.html5Mode(true);
@@ -54,6 +54,7 @@
                 InsightsConfigProvider.setCanUnregisterSystems(window.canUnregisterSystems);
                 InsightsConfigProvider.setCanIgnoreRules(window.canIgnoreRules);
                 InsightsConfigProvider.setGettingStartedLink('https://access.redhat.com/insights/getting-started/satellite/6/');
+                InsightsConfigProvider.setAllowExport(true);
             }
         ]).value('SAT_CONFIG', {
             enableBasicAuth: true
