@@ -15,8 +15,8 @@ RedhatAccess::Engine.routes.draw do
       get   '/v1/branch_info',      to: 'api/machine_telemetry_api#get_branch_info'
       post  '/uploads/:id',         to: 'api/machine_telemetry_api#proxy_upload'
       match '/view/api/me'   ,      to: 'api/telemetry_api#connection_status', via: [:get]
-      match '/view/api/:path',      to: 'api/telemetry_api#proxy', :constraints => {:path => /.*/} , via: [:all]
-      match '/:path',               to: 'api/machine_telemetry_api#proxy', :constraints => {:path => /.*/}, via: [:all]
+      match '/view/api/:path',      to: 'api/telemetry_api#proxy', :constraints => {:path => /.*/} ,via: [:get, :post, :delete,:put]
+      match '/:path',               to: 'api/machine_telemetry_api#proxy', :constraints => {:path => /.*/}, via: [:get, :post, :delete,:put]
     end
     get 'insights', to: 'analytics_dashboard#index'
     get 'analytics_configuration', to: 'telemetry_configuration#index'
