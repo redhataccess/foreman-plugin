@@ -45,7 +45,6 @@ angular.module('RedhatAccess', [
                             var message = 'You are not authorized to perform this action.';
                             response.data.errors = [message];
                             response.data.displayMessage = message;
-                            $window.location.href = '/katello/403';
                         }
                         return $q.reject(response);
                     }
