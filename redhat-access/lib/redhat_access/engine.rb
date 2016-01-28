@@ -34,7 +34,6 @@ module RedhatAccess
     assets_to_precompile = [
       'redhat_access/application.js',
       'redhat_access/application.css',
-      'proactive_support/application.js',
       'insights/application.js',
       'insights/application.css'
     ]
