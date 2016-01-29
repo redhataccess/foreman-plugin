@@ -117,8 +117,15 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/script/sos_reports/foreman_sosrepor
 chmod 755 %{buildroot}/usr/sbin/foreman-sosreport-wrapper
 ln -s /usr/bin/consolehelper %{buildroot}/usr/bin/foreman-sosreport
 
+
+# Below is static assets hack - here until we figure out how to do precompile properly
+cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/images/images  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
+cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/fonts/fonts  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
+
+
 # Copy config file
 cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildroot}/etc/redhat_access/config.yml
+
 
 #puppet module installation
 mkdir -p %{buildroot}/%{puppet_modules_dir}/%{puppet_module}
@@ -130,17 +137,8 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 %files
 %defattr(-,root,root,-)
 %{rubygem_redhat_access_dir}
-#%{rubygem_redhat_access_dir}/app
-#%{rubygem_redhat_access_dir}/ca
-#%{rubygem_redhat_access_dir}/config
-#%{rubygem_redhat_access_dir}/db
-#%{rubygem_redhat_access_dir}/lib
-#%{rubygem_redhat_access_dir}/locale
-#%{rubygem_redhat_access_dir}/script
-#%{rubygem_redhat_access_dir}/vendor
-#%{rubygem_redhat_access_dir}/public/assets
 %{foreman_bundlerd_plugin}
-%{foreman_assets_plugin}
+#%{foreman_assets_plugin}
 
 %{gem_spec}
 
@@ -159,6 +157,8 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %exclude %{gem_cache}
 %exclude %{rubygem_redhat_access_dir}/test
+%exclude %{rubygem_redhat_access_dir}/vendor
+
 
 
 
