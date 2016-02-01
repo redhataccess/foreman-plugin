@@ -34,11 +34,23 @@ module RedhatAccess
         end
       end
 
+      def api_connection_test
+        client = get_api_client
+        res = client.call_tapi('GET', '/', nil, nil, nil)
+        Rails.logger.debug(res[:data])
+        render status: res[:code], json: {}
+      end
+
       def proxy_upload
         original_method  = request.method
         original_params  = add_branch_to_params(request.query_parameters)
         original_payload = request.request_parameters[controller_name]
-        resource         = "uploads/#{params[:id]}"
+        if not params[:id] and params[:test]
+          resource = "uploads/"
+          original_payload = {:test => params[:test]}
+        else
+          resource = "uploads/#{params[:id]}"
+        end
         if params[:file]
           original_payload = get_file_data(params)
         end
