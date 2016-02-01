@@ -118,7 +118,11 @@ module RedhatAccess
             :message => 'Authentication to the Insights Service failed.'
           }
         end
-        render status: res[:code] , json: resp_data
+        if original_params && original_params["accept"] && original_params["accept"] = "csv"
+          send_data resp_data, type: 'text/csv; charset=utf-8', :filename => "insights_report.csv"
+        else
+          render status: res[:code] , json: resp_data
+        end
       end
 
       protected
