@@ -21,7 +21,7 @@
 %global scl_rake /usr/bin/%{?scl:%{scl_prefix}}rake
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.2.5
+Version: 1.0.0
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -35,7 +35,7 @@ Requires: foreman => 1.11.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.6
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.0
 
 
 BuildRequires: foreman-assets
@@ -43,7 +43,7 @@ BuildRequires: foreman-plugin >= 1.11.0
 BuildRequires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
 BuildRequires: %{?scl_prefix_ruby}ruby(rubygems)
 BuildRequires: %{?scl_prefix_ruby}rubygems-devel
-BuildRequires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.6
+BuildRequires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.0
 
 
 
@@ -163,6 +163,11 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 
 %changelog
+
+* Tue Feb 02 2016 Lindani Phiri <lindani@redhat.com> - 1.0.0-1
+- Resolves 1297523
+- Resolves 1293463
+
 
 * Thu Nov 12 2015 Lindani Phiri <lindani@redhat.com> - 0.2.4-1
 - Resolves : bz1276676
