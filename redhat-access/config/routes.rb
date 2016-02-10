@@ -24,6 +24,10 @@ RedhatAccess::Engine.routes.draw do
     match '/insights/*path', to: 'analytics_dashboard#index', via: [:get]
   end
 
+  scope '/strata' do
+    match '/:path', to: 'api/strata_proxy#call', :constraints => {:path => /.*/}, via: [:get, :post, :delete,:put]
+  end
+
   #Angular UI routes
 
   match '/:path',  to: 'redhat_access#index', :constraints => {:path => /.*/}, :via => [:get]
