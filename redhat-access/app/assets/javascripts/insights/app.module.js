@@ -24,6 +24,7 @@
                   var message = 'You are not authorized to perform this action.';
                   response.data.errors = [message];
                   response.data.displayMessage = message;
+                  $window.location.reload();
                 }
                 return $q.reject(response);
               }

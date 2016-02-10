@@ -17,8 +17,8 @@ module RedhatAccess
       end
 
       def get_auth_opts()
-        return {:user => 'XXXXX',
-               :password => 'XXXXX'}
+        #We only support pass through basic auth @see get_api_client method
+        return {}
       end
 
       def index
@@ -28,8 +28,6 @@ module RedhatAccess
 
       # The method that "proxies" tapi requests over to Strata
       def call
-        @auth = request.headers['Authorization'] ;
-        Rails.logger.error("Auth token is #{@auth}")
         original_method  = request.method
         original_params = request.query_parameters
         original_payload = request.request_parameters[controller_name]
@@ -61,6 +59,7 @@ module RedhatAccess
          unless content_hdr.nil?
             headers['content-type'] = content_hdr
          end
+         headers['Authorization'] = env['HTTP_AUTHORIZATION'] if env['HTTP_AUTHORIZATION']
          Rails.logger.debug("User agent for telemetry is #{get_http_user_agent}")
          return RedhatAccess::Telemetry::PortalClient.new('https://api.access.redhat.com','https://api.access.redhat.com',
                                                           nil,
