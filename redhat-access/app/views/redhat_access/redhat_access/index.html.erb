@@ -23,6 +23,11 @@
         }
     }
   });
+  $(document).on('ajaxError', function(event, xhr) {
+    if (xhr.status === 401 || xhr.status === 403) {
+        window.location.href = "/users/login";
+    }
+  });
   angular.module('RedhatAccess').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
   strata.setPortalHostname('<%=  REDHAT_ACCESS_CONFIG[:strata_host] %>');
   strata.setRedhatClientID('<%=  "foreman_plugin_#{REDHAT_ACCESS_CONFIG[:deployment]}_#{RedhatAccess::VERSION}" %>');

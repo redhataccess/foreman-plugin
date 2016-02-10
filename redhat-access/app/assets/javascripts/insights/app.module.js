@@ -56,6 +56,6 @@
                 InsightsConfigProvider.setGettingStartedLink('https://access.redhat.com/insights/getting-started/satellite/6/');
             }
         ]).value('SAT_CONFIG', {
-            enableBasicAuth: true
-        });
+        enableBasicAuth: true
+    });
 })();
