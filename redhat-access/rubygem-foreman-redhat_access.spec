@@ -23,7 +23,9 @@
 %endif
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 0.2.4
+
+Version: 0.2.5
+
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -40,6 +42,7 @@ Requires: %{?scl_prefix}rubygems
 Requires: %{?scl_prefix}rubygem(rails)
 Requires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
 Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.6
+
 
 BuildRequires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
 BuildRequires: %{?scl_prefix}ruby(abi)
