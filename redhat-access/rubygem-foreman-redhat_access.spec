@@ -41,7 +41,7 @@ Requires: %{?scl_prefix}ruby(abi)
 Requires: %{?scl_prefix}rubygems
 Requires: %{?scl_prefix}rubygem(rails)
 Requires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.6
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 0.0.7
 
 
 BuildRequires: %{?scl_prefix}rubygem-angular-rails-templates >= 0.0.4
@@ -149,6 +149,9 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 %{puppet_modules_dir}/%{puppet_module}
 
 %changelog
+
+* Tue Feb 23 2016 Lindani Phiri <lindani@redhat.com> - 0.2.5-1
+- Resolves : bz1306848
 
 * Thu Nov 12 2015 Lindani Phiri <lindani@redhat.com> - 0.2.4-1
 - Resolves : bz1276676
