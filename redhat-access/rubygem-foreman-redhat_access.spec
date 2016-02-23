@@ -35,7 +35,7 @@ Requires: foreman => 1.11.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.0
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.1
 
 
 BuildRequires: foreman-assets
@@ -164,10 +164,12 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
+* Tue Feb 23 2016 Lindani Phiri <lindani@redhat.com> - 1.0.1-1
+- Resolves 1306849
+
 * Tue Feb 02 2016 Lindani Phiri <lindani@redhat.com> - 1.0.0-1
 - Resolves 1297523
 - Resolves 1293463
-
 
 * Thu Nov 12 2015 Lindani Phiri <lindani@redhat.com> - 0.2.4-1
 - Resolves : bz1276676
