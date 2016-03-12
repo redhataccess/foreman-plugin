@@ -10,7 +10,7 @@
   $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
     var strataHost = "<%=  REDHAT_ACCESS_CONFIG[:strata_host] %>";
     var strataUrlPrefix = 'https://api.'+strataHost + '/';
-    var strataProxyUrl = window.location.protocol +"//"+ window.location.hostname + '/redhat_access/strata/';
+    var strataProxyUrl = window.location.protocol +"//"+ window.location.hostname + ':'+ window.location.port + '/redhat_access/strata/';
     if (options.url.startsWith(strataUrlPrefix)){
         var s = options.url.replace(strataUrlPrefix, strataProxyUrl);
         options.url = options.url.replace(strataUrlPrefix, strataProxyUrl);

@@ -1,5 +1,5 @@
-/*! redhat_access_angular_ui - v0.9.85 - 2015-07-08
- * Copyright (c) 2015 ;
+/*! redhat_access_angular_ui - v0.9.86 - 2016-03-11
+ * Copyright (c) 2016 ;
  * Licensed 
  */
 /*!
@@ -457,7 +457,7 @@
         createEscalation,
         attachmentMaxSize;
 
-    strata.version = '1.4.1';
+    strata.version = '1.2.5';
     redhatClientID = 'stratajs-' + strata.version;
 
     if (window.portal && window.portal.host) {
@@ -1199,27 +1199,18 @@
     };
 
     //Utility wrapper for preparing SOLR query
-    function prepareSolrQuery(caseStatus, caseOwner, caseGroup, accountNumber, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams) {
+    function prepareSolrQuery(caseStatus, caseOwner, caseGroup, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams) {
         var solrQueryString = "";
         var identifier = '';        
         var concatQueryString = function(param){
             if(solrQueryString === ""){
                 solrQueryString = param;
             }else{
-                solrQueryString = solrQueryString.concat("+AND+" + param);
+                solrQueryString = solrQueryString.concat(" AND " + param);
             }
-        };
-        //Function to escape special chars in search query string
-        var escapeSearchString = function(searchString) {
-            var replace = /([^a-zA-Z0-9])/g;
-            var newSearchString = searchString.replace(replace,"\\$1");
-            return newSearchString;
-        };
-        if (!isObjectNothing(searchString)) {
-            concatQueryString(escapeSearchString(searchString));
-        }
+        };        
         if (!isObjectNothing(caseStatus)) {
-            identifier = 'case_status:';
+            identifier = '+case_status:';
             if (caseStatus.toLowerCase() === 'open') {
                 concatQueryString(identifier + 'Waiting*');
             } else if (caseStatus.toLowerCase() === 'closed') {
@@ -1229,20 +1220,20 @@
             }
         }
         if (!isObjectNothing(caseOwner)) { 
-            identifier = 'case_owner:';
+            identifier = '+case_owner:';
             concatQueryString(identifier + caseOwner);
         }
         if (!isObjectNothing(caseGroup)) {
-            identifier = 'case_folderNumber:';
+            identifier = '+case_folderNumber:';
             if (caseGroup === 'ungrouped') {
-                concatQueryString('case_hasGroup:false');
+                concatQueryString('+case_hasGroup:false');
             } else {
                 concatQueryString(identifier + caseGroup);
             }
         }
-        if (!isObjectNothing(accountNumber)) {
-            identifier = 'case_accountNumber:';
-            concatQueryString(identifier + accountNumber);
+        if (!isObjectNothing(searchString)) {
+            identifier = 'allText:';
+            concatQueryString(identifier + searchString);
         }
         if (!isObjectNothing(queryParams) && queryParams.length > 0){
             for (var i = 0; i < queryParams.length; ++i) {
@@ -1274,18 +1265,17 @@
     //1.caseStatus - open (waiting on Red Hat/Waiting on customer), closed, both
     //2.caseOwner - full name of the case owner (First name + Last name)
     //3.caseGroup - group number of the group to which the case belongs
-    //4.accountNumber - account under which cases need to be searched
-    //5.searchString - the search string present in the case description, summary, comments etc
-    //6.sortField - to sort the result list based on this field (case property)
-    //7.sortOrder - order ASC/DESC
-    //8.offset - from which index to start (0 for begining)
-    //9.limit - how many results to fetch (50 by default)
-    //10.queryParams - should be a list of params (identifier:value) to be added to the search query
-    //11.addlQueryParams - additional query params to be appended at the end of the query, begin with '&'
-    strata.cases.search = function (onSuccess, onFailure, caseStatus, caseOwner, caseGroup, accountNumber, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams) {
+    //4.searchString - the search string present in the case description, summary, comments etc
+    //5.sortField - to sort the result list based on this field (case property)
+    //6.sortOrder - order ASC/DESC
+    //7.offset - from which index to start (0 for begining)
+    //8.limit - how many results to fetch (50 by default)
+    //9.queryParams - should be a list of params (identifier:value) to be added to the search query
+    //10.addlQueryParams - additional query params to be appended at the end of the query, begin with '&'
+    strata.cases.search = function (onSuccess, onFailure, caseStatus, caseOwner, caseGroup, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams) {
         if (!$.isFunction(onSuccess)) { throw 'onSuccess callback must be a function'; }
         if (!$.isFunction(onFailure)) { throw 'onFailure callback must be a function'; }
-        var searchQuery = prepareSolrQuery(caseStatus, caseOwner, caseGroup, accountNumber, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams);
+        var searchQuery = prepareSolrQuery(caseStatus, caseOwner, caseGroup, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams);
         
         var url = strataHostname.clone().setPath('/rs/cases');
         url.addQueryParam('query', searchQuery);
@@ -1369,7 +1359,7 @@
         $.ajax(removeNotifiedUser);
     };
 
-    //List cases in CSV for the given user
+    //List cases in CSV for the given user, this casues a download to occur
     strata.cases.csv = function (onSuccess, onFailure) {
         var url = strataHostname.clone().setPath('/rs/cases');
 
@@ -1381,7 +1371,9 @@
             contentType: 'text/csv',
             dataType: 'text',
             success: function(data) {
-                onSuccess(data);
+                var uri = 'data:text/csv;charset=UTF-8,' + encodeURIComponent(data);
+                window.location = uri;
+                onSuccess();
             },
             error: function (xhr, response, status) {
                 onFailure('Error ' + xhr.status + ' ' + xhr.statusText, xhr, response, status);
@@ -11590,7 +11582,7 @@ angular.module("gettext",[]),angular.module("gettext").constant("gettext",functi
       return {
         restrict: 'A',
         require: '?ngModel',
-        terminal: true,
+        priority: 1,
         link: function(scope, element, attr, ngModel) {
           var chosen, defaultText, disableWithMessage, empty, initOrUpdate, match, options, origRender, removeEmptyMessage, startLoading, stopLoading, valuesExpr, viewWatch;
           element.addClass('localytics-chosen');
@@ -11674,7 +11666,6 @@ angular.module("gettext",[]),angular.module("gettext").constant("gettext",functi
   ]);
 
 }).call(this);
-
 /**
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @file angular-cache.js

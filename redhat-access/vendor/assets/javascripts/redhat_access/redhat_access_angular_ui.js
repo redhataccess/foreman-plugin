@@ -1,5 +1,5 @@
-/*! redhat_access_angular_ui - v0.9.85 - 2015-07-08
- * Copyright (c) 2015 ;
+/*! redhat_access_angular_ui - v0.9.86 - 2016-03-11
+ * Copyright (c) 2016 ;
  * Licensed 
  */
 angular.module('gettext').run(['gettextCatalog', function (gettextCatalog) {
@@ -163,12 +163,10 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     titlePrefix: 'Red Hat Access: '
 }).controller('TitleViewCtrl', [
     'TITLE_VIEW_CONFIG',
-    'COMMON_CONFIG',
     '$scope',
     'translate',
-    function (TITLE_VIEW_CONFIG, COMMON_CONFIG, $scope, translate) {
-        $scope.showTitle = COMMON_CONFIG.showTitle;
-        $scope.COMMON_CONFIG = COMMON_CONFIG;
+    function (TITLE_VIEW_CONFIG, $scope, translate) {
+        $scope.showTitle = TITLE_VIEW_CONFIG.show;
         $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
         $scope.getPageTitle = function () {
             switch ($scope.page) {
@@ -6720,6 +6718,10 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
             var fileNameForRefresh = this.$parent.tab.longTitle;
             var hostForRefresh = null;
             var splitNameForRefresh = fileNameForRefresh.split(':');
+            if (splitNameForRefresh.length == 1){
+                //we did not a have a machine
+                splitNameForRefresh.unshift("None");
+            }
             if (splitNameForRefresh[0] && splitNameForRefresh[1]) {
                 $scope.isLoading = true;
                 hostForRefresh = splitNameForRefresh[0];
