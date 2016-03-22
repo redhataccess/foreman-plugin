@@ -22,7 +22,7 @@
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 1.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
@@ -163,6 +163,9 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 
 %changelog
+
+* Mon Mar 21 2016 Lindani Phiri <lindani@redhat.com> - 1.0.1-2
+- Resolves 1263819
 
 * Tue Feb 23 2016 Lindani Phiri <lindani@redhat.com> - 1.0.1-1
 - Resolves 1306849
