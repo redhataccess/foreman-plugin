@@ -21,7 +21,7 @@
 %global scl_rake /usr/bin/%{?scl:%{scl_prefix}}rake
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -32,6 +32,7 @@ Source1: %{puppet_full_name}.tar.gz
 
 
 Requires: foreman => 1.11.0
+Requires: katello => 3.1.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
@@ -163,6 +164,10 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 
 %changelog
+
+* Tue Mar 22 2016 Lindani Phiri <lindani@redhat.com> - 1.0.3-1
+- Fix DB seed error
+- Resolves 1265107
 
 * Tue Mar 22 2016 Lindani Phiri <lindani@redhat.com> - 1.0.2-1
 - Resolves 1265107

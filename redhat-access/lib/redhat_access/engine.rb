@@ -1,13 +1,12 @@
 # require 'fast_gettext'
 # require 'gettext_i18n_rails'
 # require 'deface'
-
+require 'katello'
 begin
   # Since we depend on katello, need to force it load so our plugin
   # dependency checks can work properly
-  require 'katello'
   require 'foreman_sam.rb'
-rescue LoadError
+rescue Exception => error
   # don't need to do anything
 end
 
@@ -107,8 +106,8 @@ module RedhatAccess
         end
 
         requires_foreman '> 1.6'
+        requires_foreman_plugin 'katello', '> 3.0.0'
 
-        #requires_foreman_plugin 'katello', '> 2.0'
 
         # permission section
         security_block :redhat_access_security do
