@@ -1,10 +1,10 @@
 # require 'fast_gettext'
 # require 'gettext_i18n_rails'
 # require 'deface'
-require 'katello'
 begin
   # Since we depend on katello, need to force it load so our plugin
   # dependency checks can work properly
+  require 'katello'
   require 'foreman_sam.rb'
 rescue Exception => error
   # don't need to do anything
@@ -106,7 +106,7 @@ module RedhatAccess
         end
 
         requires_foreman '> 1.6'
-        requires_foreman_plugin 'katello', '> 3.0.0'
+        #requires_foreman_plugin 'katello', '> 3.0.0'
 
 
         # permission section
@@ -133,8 +133,8 @@ module RedhatAccess
         role "Red Hat Access Logs", [:logs, :view_log_viewer]
         unless sam_deployment?
           #Need to be kept in sync with db/seeds.d/20-update-insights-roles
-          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view, :view_content_hosts]
-          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations,:view_content_hosts]
+          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view]
+          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
         end
         # menus
         sub_menu :header_menu, :redhat_access_menu, :caption => N_('Red Hat Access') do

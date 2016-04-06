@@ -191,12 +191,11 @@ module RedhatAccess
         if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
           proxy_config = SETTINGS[:katello][:cdn_proxy]
           uri = URI('')
-
-          uri.scheme = URI.parse(proxy_config.host).scheme
-          uri.host = URI.parse(proxy_config.host).host
-          uri.port = proxy_config.port
-          uri.user = proxy_config.user
-          uri.password = proxy_config.password
+          uri.scheme = URI.parse(proxy_config[:host]).scheme
+          uri.host = URI.parse(proxy_config[:host]).host
+          uri.port = proxy_config[:port]
+          uri.user = proxy_config[:user]
+          uri.password = proxy_config[:password]
           proxy = uri.to_s
         end
         proxy
