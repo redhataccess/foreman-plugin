@@ -72,7 +72,7 @@ module RedhatAccess
       end
     end
 
-    initializer 'redhat_access.register_plugin', :before => :finisher_hook do |_app|
+    config.after_initialize do
       Foreman::Plugin.register :redhat_access do
         #
         # Start Monkey Patching
