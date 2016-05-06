@@ -41,6 +41,7 @@
 <%else%>
   <% content_for(:head) do %>
     <base href="/redhat_access/insights/"/>
+
   <% end %>
   <div class="container main-content insights-main-content">
   <div class="form-group">
@@ -51,14 +52,18 @@
     <actionbar></actionbar>
   </div>
   </div>
-  <%= javascript_tag do %>
-  var REDHAT_ACCESS_SETTINGS = REDHAT_ACCESS_SETTINGS || {};
-  REDHAT_ACCESS_SETTINGS.Insights = {};
-  REDHAT_ACCESS_SETTINGS.Insights.allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
-  REDHAT_ACCESS_SETTINGS.Insights.canUnregisterSystems = <%= can_unregister_system(User.current) %>;
-  REDHAT_ACCESS_SETTINGS.Insights.canIgnoreRules = <%= can_mask_rules(User.current) %>;
-  REDHAT_ACCESS_SETTINGS.currentLocale = '<%= (I18n.locale)[0..1] %>';
-  <%end%>
-  <%= javascript_include_tag 'insights/application' %>
-  <%= stylesheet_link_tag "insights/application" %>
+    <% content_for(:stylesheets) do %>
+        <%= stylesheet "insights/application" %>
+    <% end %>
+    <% content_for(:javascripts) do %>
+        <%= javascript_tag do %>
+            var REDHAT_ACCESS_SETTINGS = REDHAT_ACCESS_SETTINGS || {};
+            REDHAT_ACCESS_SETTINGS.Insights = {};
+            REDHAT_ACCESS_SETTINGS.Insights.allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
+            REDHAT_ACCESS_SETTINGS.Insights.canUnregisterSystems = <%= can_unregister_system(User.current) %>;
+            REDHAT_ACCESS_SETTINGS.Insights.canIgnoreRules = <%= can_mask_rules(User.current) %>;
+            REDHAT_ACCESS_SETTINGS.currentLocale = '<%= (I18n.locale)[0..1] %>';
+        <%end%>
+        <%= javascript_include_tag "insights/application" %>
+    <% end %>
 <%end%>
