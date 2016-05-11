@@ -35,7 +35,7 @@
 
                 };
                 $scope.disableUpdateButton = function() {
-                    return $scope.loading || angular.equals($scope.config, $scope.originalConfig);
+                    return !$scope.insightsAdminForm.$valid || $scope.loading || angular.equals($scope.config, $scope.originalConfig);
                 };
 
                 $scope.getAccountInfo = function() {
