@@ -167,7 +167,7 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 %changelog
 
 * Thu May 5 2016 Lindani Phiri <lindani@redhat.com> - 1.0.7-1
-- BZ 1332271
+- BZs 1332271 1192210  1191769 1191765
 
 * Mon Apr 25 2016 Lindani Phiri <lindani@redhat.com> - 1.0.6-2
 - Respin fix  BZ 1328857 and 1323562
