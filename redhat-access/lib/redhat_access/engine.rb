@@ -33,6 +33,7 @@ module RedhatAccess
     assets_to_precompile = [
         'redhat_access/application.js',
         'redhat_access/application.css',
+        'bastion_redhat/bastion_redhat.js',
         'insights/application.js',
         'insights/application.css'
     ]
@@ -195,14 +196,14 @@ module RedhatAccess
             rha_menu :top_menu,
                      :rhai_dashboardconfiguration,
                      :caption => N_('Manage'),
-                     :url => '/redhat_access/insights/manage',
+                     :url => '/insights/manage',
                      :url_hash => {:controller => :"redhat_access/telemetry_configurations", :action => :show},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
                      :rhai_help,
                      :caption => N_('Help'),
-                     :url => '/redhat_access/insights/help',
+                     :url => '/insights/help',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
