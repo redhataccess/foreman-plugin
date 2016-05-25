@@ -34,6 +34,7 @@ module RedhatAccess
         'redhat_access/application.js',
         'redhat_access/application.css',
         'bastion_redhat/bastion_redhat.js',
+        'bastion_redhat/bastion_redhat.css',
         'insights/application.js',
         'insights/application.css'
     ]
@@ -175,21 +176,21 @@ module RedhatAccess
             rha_menu :top_menu,
                      :rhai_dashboard,
                      :caption => N_('Overview'),
-                     :url => '/redhat_access/insights',
+                     :url => '/insights/actions/{category}?initialSeverity',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
                      :rhai_systems,
                      :caption => N_('Systems'),
-                     :url => '/redhat_access/insights/systems/',
+                     :url => '/insights/inventory/',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
                      :rhai_rules,
                      :caption => N_('Rules'),
-                     :url => '/redhat_access/insights/rules/',
+                     :url => '/insights/rules/',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false

@@ -10,7 +10,7 @@ module BastionRedhat
       Bastion.register_plugin(
         :name => 'bastion_redhat',
         :javascript => 'bastion_redhat/bastion_redhat',
-        #:stylesheet => 'bastion_redhat/bastion_redhat',
+        :stylesheet => 'bastion_redhat/bastion_redhat',
         :pages => %w(
           insights
         )
