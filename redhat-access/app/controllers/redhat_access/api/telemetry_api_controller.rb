@@ -13,8 +13,8 @@ module RedhatAccess
 
       UPLOAD_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_upload_host]}"
       API_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_api_host]}"
-      UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/v1/uploads"
-      STRATA_URL = "#{API_HOST}/r/insights/v1"
+      UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/uploads"
+      STRATA_URL = "#{API_HOST}/r/insights"
 
       def action_permission
         case params[:action]
