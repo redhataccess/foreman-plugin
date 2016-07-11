@@ -179,16 +179,23 @@ module RedhatAccess
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
+                     :rhai_dashboard,
+                     :caption => N_('Actions'),
+                     :url => '/redhat_access/insights/actions',
+                     :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
+                     :engine => RedhatAccess::Engine,
+                     :turbolinks => false
+            rha_menu :top_menu,
                      :rhai_systems,
-                     :caption => N_('Systems'),
-                     :url => '/redhat_access/insights/systems/',
+                     :caption => N_('Inventory'),
+                     :url => '/redhat_access/insights/inventory',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
                      :rhai_rules,
                      :caption => N_('Rules'),
-                     :url => '/redhat_access/insights/rules/',
+                     :url => '/redhat_access/insights/rules',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
