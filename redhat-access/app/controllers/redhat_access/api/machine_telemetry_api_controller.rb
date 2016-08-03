@@ -56,7 +56,7 @@ module RedhatAccess
         end
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, false)
         render status: res[:code] , json: res[:data]
       end
 
@@ -83,6 +83,10 @@ module RedhatAccess
 
 
       protected
+
+      def use_subsets
+        false
+      end
 
       def valid_machine_user?
         if User.current && User.current.is_a?(RedhatAccess::Authentication::CertUser)
