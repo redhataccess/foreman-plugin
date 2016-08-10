@@ -15,7 +15,8 @@ module RedhatAccess
       API_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_api_host]}"
       UPLOAD_URL = "http://192.168.121.1:9002/r/insights/uploads"
       STRATA_URL = "http://192.168.121.1:9002/r/insights"
-
+      # UPLOAD_URL = "#{UPLOAD_HOST}r/insights/uploads"
+      # STRATA_URL = "#{API_HOST}/r/insights"
       def action_permission
         case params[:action]
         when 'proxy'

@@ -179,7 +179,7 @@ module RedhatAccess
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
-                     :rhai_dashboard,
+                     :rhai_actions,
                      :caption => N_('Actions'),
                      :url => '/redhat_access/insights/actions',
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
@@ -200,7 +200,7 @@ module RedhatAccess
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
-                     :rhai_dashboardconfiguration,
+                     :rhai_configuration,
                      :caption => N_('Manage'),
                      :url => '/redhat_access/insights/manage',
                      :url_hash => {:controller => :"redhat_access/telemetry_configurations", :action => :show},
