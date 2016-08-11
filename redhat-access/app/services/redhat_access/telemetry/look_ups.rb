@@ -193,9 +193,9 @@ module RedhatAccess
           uri = URI('')
           uri.scheme = URI.parse(proxy_config[:host]).scheme
           uri.host = URI.parse(proxy_config[:host]).host
-          uri.port = proxy_config[:port]
-          uri.user =  ERB::Util.url_encode(proxy_config[:user])
-          uri.password = ERB::Util.url_encode(proxy_config[:password])
+          uri.port = proxy_config[:port] if proxy_config[:port]
+          uri.user =  ERB::Util.url_encode(proxy_config[:user]) if proxy_config[:user]
+          uri.password = ERB::Util.url_encode(proxy_config[:password]) if proxy_config[:password]
           proxy = uri.to_s
         end
         proxy
