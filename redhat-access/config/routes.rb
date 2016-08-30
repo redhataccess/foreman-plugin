@@ -14,8 +14,8 @@ RedhatAccess::Engine.routes.draw do
     scope '/r/insights' do
       get   '/',                    to: 'api/machine_telemetry_api#api_connection_test'
       get   '/v1/branch_info',      to: 'api/machine_telemetry_api#get_branch_info'
-      post  '/uploads/(:id)',         to: 'api/machine_telemetry_api#proxy_upload'
-      match '/view/api/me'   ,      to: 'api/telemetry_api#connection_status', via: [:get]
+      post  '/uploads/(:id)',       to: 'api/machine_telemetry_api#proxy_upload'
+      get '/view/api/:v/me' ,   to: 'api/telemetry_api#connection_status', :constraints => {:v =>/(v[0-9]|latest)/}
       match '/view/api/:path',      to: 'api/telemetry_api#proxy', :constraints => {:path => /.*/} ,via: [:get, :post, :delete,:put]
       match '/:path',               to: 'api/machine_telemetry_api#proxy', :constraints => {:path => /.*/}, via: [:get, :post, :delete,:put]
     end

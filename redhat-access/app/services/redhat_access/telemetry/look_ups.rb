@@ -210,20 +210,21 @@ module RedhatAccess
         'foreman-redhat_access'
       end
 
+
       def get_rha_plugin_version
         RedhatAccess::VERSION
       end
 
       def get_plugin_parent_name
-        if defined? Satellite::VERSION
+        if defined? ForemanThemeSatellite::SATELLITE_VERSION
           return 'Satellite'
         end
         'Foreman'
       end
 
       def get_plugin_parent_version
-        if defined? Satellite::VERSION
-          return Satellite::VERSION
+        if defined? ForemanThemeSatellite::SATELLITE_VERSION
+          return ForemanThemeSatellite::SATELLITE_VERSION.gsub(/[a-zA-Z ]/, "")
         end
         Foreman::Version.new.to_s
       end

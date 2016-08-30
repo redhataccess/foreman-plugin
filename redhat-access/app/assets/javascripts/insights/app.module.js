@@ -49,7 +49,7 @@
         $locationProvider.html5Mode(true);
 
         // Insights UI configuration
-        InsightsConfigProvider.setApiRoot('/redhat_access/r/insights/view/api/');
+        InsightsConfigProvider.setApiPrefix('/redhat_access/r/insights/view/api/');
         InsightsConfigProvider.setCanUnregisterSystems(REDHAT_ACCESS_SETTINGS.Insights.canUnregisterSystems);
         InsightsConfigProvider.setCanIgnoreRules(REDHAT_ACCESS_SETTINGS.Insights.canIgnoreRules);
         InsightsConfigProvider.setGettingStartedLink('https://access.redhat.com/insights/getting-started/satellite/6/');
