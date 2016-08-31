@@ -34,6 +34,10 @@ module RedhatAccess
         if request.post? && request.raw_post
              original_payload = request.raw_post.clone
         end
+
+        if request.put?
+           original_payload = request.body.read
+        end
         resource = params[:path] == nil ?  "/" : params[:path]
         if params[:file]
           original_payload = get_file_data(params)
