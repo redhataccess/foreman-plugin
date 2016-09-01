@@ -7,6 +7,27 @@
 <%= stylesheet_link_tag 'redhat_access/application'%>
 <%= javascript_include_tag 'redhat_access/application' %>
 <%= javascript_tag do %>
+  $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+    var strataHost = "<%=  REDHAT_ACCESS_CONFIG[:strata_host] %>";
+    var strataUrlPrefix = 'https://api.'+strataHost + '/';
+    var strataProxyUrl = window.location.protocol +"//"+ window.location.hostname + ':'+ window.location.port + '/redhat_access/strata/';
+    if (options.url.startsWith(strataUrlPrefix)){
+        var s = options.url.replace(strataUrlPrefix, strataProxyUrl);
+        options.url = options.url.replace(strataUrlPrefix, strataProxyUrl);
+        options.crossDomain = false;
+    }
+    if (options.url.startsWith(strataProxyUrl)){ //option.crossDomain check not reliable
+        var token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+            return jqXHR.setRequestHeader('X-CSRF-Token', token);
+        }
+    }
+  });
+  $(document).on('ajaxError', function(event, xhr) {
+    if (xhr.status === 401 || xhr.status === 403) {
+        window.location.href = "/users/login";
+    }
+  });
   angular.module('RedhatAccess').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
   strata.setPortalHostname('<%=  REDHAT_ACCESS_CONFIG[:strata_host] %>');
   strata.setRedhatClientID('<%=  "foreman_plugin_#{REDHAT_ACCESS_CONFIG[:deployment]}_#{RedhatAccess::VERSION}" %>');

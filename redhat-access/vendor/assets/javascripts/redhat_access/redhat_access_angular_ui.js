@@ -1,5 +1,5 @@
-/*! redhat_access_angular_ui - v0.9.85 - 2015-07-08
- * Copyright (c) 2015 ;
+/*! redhat_access_angular_ui - v0.9.87 - 2016-05-12
+ * Copyright (c) 2016 ;
  * Licensed 
  */
 angular.module('gettext').run(['gettextCatalog', function (gettextCatalog) {
@@ -163,12 +163,10 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     titlePrefix: 'Red Hat Access: '
 }).controller('TitleViewCtrl', [
     'TITLE_VIEW_CONFIG',
-    'COMMON_CONFIG',
     '$scope',
     'translate',
-    function (TITLE_VIEW_CONFIG, COMMON_CONFIG, $scope, translate) {
-        $scope.showTitle = COMMON_CONFIG.showTitle;
-        $scope.COMMON_CONFIG = COMMON_CONFIG;
+    function (TITLE_VIEW_CONFIG, $scope, translate) {
+        $scope.showTitle = TITLE_VIEW_CONFIG.show;
         $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
         $scope.getPageTitle = function () {
             switch ($scope.page) {
@@ -1702,6 +1700,10 @@ angular.module('RedhatAccess.security').factory('securityService', [
                             function resetStatus() {
                                 $scope.status.authenticating = false;
                                 isLoginDisplayed = false;
+
+                                // reset input fields
+                                $scope.user.user = null;
+                                $scope.user.password = null;
                             }
                             $scope.modalOptions = tempModalOptions;
                             $scope.modalOptions.keyDown = function($event, onEnter) {
@@ -1731,10 +1733,10 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                         function(error) {
                                             if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                                                 $scope.$apply(function() {
-                                                    $scope.authError = 'Login Failed!';
+                                                    $scope.authError = 'Username or password was invalid';
                                                 });
                                             } else {
-                                                $scope.authError = 'Login Failed!';
+                                                $scope.authError = 'Username or password was invalid';
                                             }
                                             resetStatus();
                                         }
@@ -6720,6 +6722,10 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
             var fileNameForRefresh = this.$parent.tab.longTitle;
             var hostForRefresh = null;
             var splitNameForRefresh = fileNameForRefresh.split(':');
+            if (splitNameForRefresh.length == 1){
+                //we did not a have a machine
+                splitNameForRefresh.unshift("None");
+            }
             if (splitNameForRefresh[0] && splitNameForRefresh[1]) {
                 $scope.isLoading = true;
                 hostForRefresh = splitNameForRefresh[0];
@@ -7768,7 +7774,7 @@ angular.module("log_viewer/views/logsInstructionPane.html", []).run(["$templateC
     "                                <h4>\n" +
     "                                    <span class=\"glyphicon glyphicon-search\"></span>&nbsp;{{'Diagnose'|translate}}\n" +
     "                                </h4>\n" +
-    "                                <p translate>Once you have selected your log file then you may diagnose any part of the log file and clicking the 'Red Hat Diagnose' button. This will then display relevant articles and solutons from our Red Hat Knowledge base.</p>\n" +
+    "                                <p translate>Once you have selected your log file then you may diagnose any part of the log file by clicking the 'Red Hat Diagnose' button. This displays relevant articles and solutons from the Red Hat Knowledge base.</p>\n" +
     "\n" +
     "                            </div>\n" +
     "                            <div>\n" +
@@ -7781,7 +7787,8 @@ angular.module("log_viewer/views/logsInstructionPane.html", []).run(["$templateC
     "                            </div>\n" +
     "                        </div>\n" +
     "\n" +
-    "                    </div>");
+    "                    </div>\n" +
+    "");
 }]);
 
 angular.module("log_viewer/views/navSideBar.html", []).run(["$templateCache", function($templateCache) {

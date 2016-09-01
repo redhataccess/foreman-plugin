@@ -3,8 +3,11 @@ module RedhatAccess
     include RedhatAccess::Telemetry::LookUps
 
     def help_path?
-    	Rails.logger.error("Path is #{request.path}")
     	request.path == '/redhat_access/insights/help'
+    end
+
+    def manage_path?
+      request.path == '/redhat_access/insights/manage'
     end
   end
 end

@@ -45,7 +45,6 @@ angular.module('RedhatAccess', [
                             var message = 'You are not authorized to perform this action.';
                             response.data.errors = [message];
                             response.data.displayMessage = message;
-                            $window.location.href = '/katello/403';
                         }
                         return $q.reject(response);
                     }
@@ -55,12 +54,26 @@ angular.module('RedhatAccess', [
         $httpProvider.interceptors.push('AuthInterceptor');
         $locationProvider.html5Mode(true);
     }
-]).value('LOGIN_VIEW_CONFIG', { verbose: true }).value('SECURITY_CONFIG', {
+]).value('LOGIN_VIEW_CONFIG', { verbose: true
+}).value('SECURITY_CONFIG', {
     displayLoginStatus: true,
     autoCheckLogin: true,
     loginURL: '',
     logoutURL: '',
     forceLogin: true
+}).value('NEW_CASE_CONFIG', {
+    'showRecommendations': true,
+    'showAttachments': true,
+    'showServerSideAttachments': false
+}).value('EDIT_CASE_CONFIG', {
+        'showDetails': true,
+        'showDescription': true,
+        'showBugzillas': true,
+        'showAttachments': true,
+        'showRecommendations': true,
+        'showComments': true,
+        'showServerSideAttachments': false,
+        'showEmailNotifications': true
 }).run(['COMMON_CONFIG',
     '$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS', 'currentLocale', 'gettextCatalog',
     function(COMMON_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS, currentLocale, gettextCatalog) {

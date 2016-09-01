@@ -15,7 +15,7 @@ module RedhatAccess
         #
         path = params[:path]
         if path.nil?
-          render :text => get_available_logs, :layout => false
+          render  :plain => get_available_logs, :layout => false
         else
           if is_valid_file? path
             render :file => path, :layout => false

@@ -5,8 +5,8 @@
 :deployment : satellite
 
 :enable_telemetry_basic_auth : false
-:telemetry_upload_host : cert-api.access.redhat.com
-:telemetry_api_host : cert-api.access.redhat.com
+:telemetry_upload_host : "https://cert-api.access.redhat.com"
+:telemetry_api_host : "https://cert-api.access.redhat.com"
 :telemetry_ssl_verify_peer : true
 
 :diagnostic_logs :

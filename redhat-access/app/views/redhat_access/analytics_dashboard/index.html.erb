@@ -1,6 +1,6 @@
-<% if !help_path? && (!is_org_selected? || !is_susbcribed_to_redhat?(Organization.current) || disconnected_org?(Organization.current)) %>
-  <article id='content'>
-    <%if !is_org_selected? %>
+<% if ((!help_path? && !manage_path?) || (manage_path? && !is_org_selected?)) && (!is_org_selected? || !telemetry_enabled?(Organization.current) || !is_susbcribed_to_redhat?(Organization.current) || disconnected_org?(Organization.current)) %>
+    <article id='content'>
+    <%if !is_org_selected? && !help_path %>
       <section>
         <h1>
           <%= _("Organization Selection Required") %>
@@ -9,13 +9,22 @@
           <%= _("Please choose an organization using the selector located at the far left of the menu.") %>
         </p>
       </section>
+    <%elsif !telemetry_enabled?(Organization.current) %>
+        <section>
+          <h1>
+            <%= _("The Red Hat Insights service is disabled for this organization.") %>
+          </h1>
+          <p>
+            <%= _("Please contact your organization's administrator to enable the service.") %>
+          </p>
+        </section>
     <%elsif !is_susbcribed_to_redhat?(Organization.current) %>
       <section>
         <h1>
           <%= _("No Red Hat Subscriptions found!") %>
         </h1>
         <p>
-          <%= (_("A Red Hat Subscription is required to access this service, please import a manifest <a href='/subscriptions'>here</a>.")).html_safe %>
+          <%= (_("A Red Hat Subscription is required to access this service, please import a manifest <a href='/subscriptions' data-no-turbolink>here</a>.")).html_safe %>
         </p>
       </section>
     <%else%>
@@ -32,44 +41,29 @@
 <%else%>
   <% content_for(:head) do %>
     <base href="/redhat_access/insights/"/>
+
   <% end %>
-  <div class="container main-content insights-main-content">
+  <div class="container main-content insights-main-content insights-app-overview">
   <div class="form-group">
     <h1><%= 'Red Hat Insights' %></h1>
   </div>
   <div ng-app="RedhatAccessInsights">
     <div ui-view="" class="wrapper ng-cloak in-prod"></div>
+    <actionbar></actionbar>
   </div>
   </div>
-  <%= javascript_include_tag 'insights/application' %>
-  <%= stylesheet_link_tag "insights/application" %>
-  <%= javascript_tag do %>
-  var isOrgSelected = <%= is_org_selected? %>;
-  var isSubscribedToRedhat = <%= is_susbcribed_to_redhat?(Organization.current) %>;
-  var isOrgDisconnected = <%=  disconnected_org?(Organization.current) %>;
-  var allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
-  var canUnregisterSystems = <%= can_unregister_system(User.current) %>;
-  var canIgnoreRules = <%= can_mask_rules(User.current) %>;
-  angular.module('RedhatAccessInsights').value('currentLocale', '<%= (I18n.locale)[0..1] %>');
-  angular.module('RedhatAccessInsights').value('SAT_CONFIG', {enableBasicAuth: allowBasicAuth});
-  angular.module('RedhatAccessInsights').value('userEnvironment', {isOrgSelected : isOrgSelected,
-                                                                   isSubscribedToRedhat : isSubscribedToRedhat,
-                                                                   isOrgDisconnected : isOrgDisconnected});
-  angular.module('RedhatAccessInsights').value('markActiveMenu', mark_active_menu);
-  angular.module('RedhatAccessInsights').value('CONFIG', {
-            preloadData: false,
-            authenticate: false,
-            API_ROOT: '/redhat_access/r/insights/view/api/',
-            ACCT_KEY: 'telemetry:account_number',
-            canUnregisterSystems: canUnregisterSystems,
-            canIgnoreRules: canIgnoreRules,
-            getSystemStatus: true,
-            allowExport: true,
-            doPaf: true,
-            gettingStartedLink :'https://access.redhat.com/insights/getting-started/satellite/6/'
-            //overviewShowSystem : function(system) {
-            //   window.location = '/content_hosts/'+system.remote_leaf+'/info';
-            //}
-        });
-  <%end%>
+    <% content_for(:stylesheets) do %>
+        <%= stylesheet "insights/application" %>
+    <% end %>
+    <% content_for(:javascripts) do %>
+        <%= javascript_tag do %>
+            var REDHAT_ACCESS_SETTINGS = REDHAT_ACCESS_SETTINGS || {};
+            REDHAT_ACCESS_SETTINGS.Insights = {};
+            REDHAT_ACCESS_SETTINGS.Insights.allowBasicAuth = <%= REDHAT_ACCESS_CONFIG[:enable_telemetry_basic_auth] %> ;
+            REDHAT_ACCESS_SETTINGS.Insights.canUnregisterSystems = <%= can_unregister_system(User.current) %>;
+            REDHAT_ACCESS_SETTINGS.Insights.canIgnoreRules = <%= can_mask_rules(User.current) %>;
+            REDHAT_ACCESS_SETTINGS.currentLocale = '<%= (I18n.locale)[0..1] %>';
+        <%end%>
+        <%= javascript_include_tag "insights/application" %>
+    <% end %>
 <%end%>

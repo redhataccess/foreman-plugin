@@ -39,6 +39,7 @@ module RedhatAccess
         request.env['HTTP_X_RHSM_SSL_CLIENT_CERT'] ||
           request.env['SSL_CLIENT_CERT'] ||
           request.env['HTTP_SSL_CLIENT_CERT'] ||
+          ENV['HTTP_X_RHSM_SSL_CLIENT_CERT'] ||
           ENV['SSL_CLIENT_CERT'] ||
           ENV['HTTP_SSL_CLIENT_CERT']
       end

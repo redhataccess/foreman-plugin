@@ -11,10 +11,11 @@ module RedhatAccess
 
       before_filter :check_telemetry_enabled, :only => [:proxy]
 
-      UPLOAD_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_upload_host]}"
-      API_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_api_host]}"
+      UPLOAD_HOST = REDHAT_ACCESS_CONFIG[:telemetry_upload_host]
+      API_HOST = REDHAT_ACCESS_CONFIG[:telemetry_api_host]
       UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/uploads"
       STRATA_URL = "#{API_HOST}/r/insights"
+
 
       def action_permission
         case params[:action]
@@ -108,20 +109,32 @@ module RedhatAccess
           original_payload = get_file_data(params)
         end
         client = get_api_client
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
         resp_data = res[:data]
         if res[:code] == 401
           res[:code] = 502
           resp_data = {
-            :message => 'Authentication to the Insights Service failed.'
+            :message => 'Authentication to the Insights Service failed.',
+            :headers => {}
           }
         end
-        render status: res[:code] , json: resp_data
+        if original_params && original_params["accept"] && original_params["accept"] = "csv"
+          send_data resp_data, type: 'text/csv; charset=utf-8', :filename => "insights_report.csv"
+        else
+          if  resp_data.headers && resp_data.headers[:x_resource_count]
+               response.headers['X-Resource-Count'] = resp_data.headers[:x_resource_count]
+          end
+          render status: res[:code] , json: resp_data
+        end
       end
 
       protected
+
+      def use_subsets
+        true
+      end
 
       def get_file_data params
         return {
