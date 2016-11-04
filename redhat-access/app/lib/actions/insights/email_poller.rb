@@ -1,7 +1,8 @@
 module Actions
   module Insights
     class EmailPoller < Actions::Base
-      #middleware.use Actions::Middleware::RecurringLogic
+      include RedhatAccess::Telemetry::LookUps
+      middleware.use Actions::Middleware::RecurringLogic
       class RunOnceCoordinatorLock < Dynflow::Coordinator::LockByWorld
         def initialize(world)
           super
@@ -16,9 +17,8 @@ module Actions
             unless ForemanTasks::Task::DynflowTask.for_action(self).any?
               params = {:mode => :recurring,
                         :input_type => :cronline,
-                        :cronline => "19 * * * *"}
+                        :cronline => "30 * * * *"}
               @triggered_action = ForemanTasks::Triggering.new_from_params(params).trigger(self)
-              #ForemanTasks.async_task(::Actions::Insights::EmailPoller)
             end
           end
         rescue Dynflow::Coordinator::LockError
@@ -26,10 +26,10 @@ module Actions
         end
       end
 
-      def humanized_output
-        ""
+      def humanized_name
+        N_('Insights Email Notifications')
       end
-      #
+
       def plan
         # Make sure we only have one instance
         Rails.logger.info("Planning Task ")
@@ -38,7 +38,30 @@ module Actions
 
       def run
         Rails.logger.info("Running Task")
+        Organization.all.each do |org|
+           if telemetry_enabled?(org)
+             process_emails(org)
+           end
+        end
       end
+
+      def process_emails(org)
+        message_svc = RedhatAccess::Telemetry::MessagingService.new(org)
+        message_svc.all_messages.each do |message|
+          begin
+            MailNotification[:insights_notifications].deliver(message[:user], message[:body], message[:subject])
+          rescue => e
+            message = _('Unable to send insights e-mail notification: %{error}' % {:error => e})
+            Rails.logger.error(message)
+            #output[:result] = message
+          end
+        end
+      end
+
+      def rescue_strategy_for_self
+        Dynflow::Action::Rescue::Skip
+      end
+
     end
   end
 

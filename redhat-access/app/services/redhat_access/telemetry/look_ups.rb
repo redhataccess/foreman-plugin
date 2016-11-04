@@ -1,10 +1,3 @@
-begin
-  # TODO: fix dirty hack
-  require '/usr/share/foreman/lib/satellite/version.rb'
-rescue LoadError
-  # don't need to do anything
-  Rails.logger.debug("Unable to load version file.")
-end
 module RedhatAccess
   module Telemetry
     module LookUps
@@ -199,6 +192,26 @@ module RedhatAccess
           proxy = uri.to_s
         end
         proxy
+      end
+
+      def get_http_user_agent
+        "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
+      end
+
+
+      def get_http_options(include_user_id = false)
+        headers = {}
+        if include_user_id && User.current
+          headers = {:INSIGHTS_USER_ID => user_login_to_hash(User.current.login)}
+        end
+        {:logger => Rails.logger,
+         :http_proxy => get_portal_http_proxy,
+         :user_agent => get_http_user_agent,
+         :headers => headers}
+      end
+
+      def user_login_to_hash(login)
+        Digest::SHA1.hexdigest(login)
       end
 
       # TODO: move version and name methods to generic utility
