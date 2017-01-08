@@ -17,7 +17,7 @@ module Actions
             unless ForemanTasks::Task::DynflowTask.for_action(self).any?
               params = {:mode => :recurring,
                         :input_type => :cronline,
-                        :cronline => "30 * * * *"}
+                        :cronline => "00 00 * * 6"}
               @triggered_action = ForemanTasks::Triggering.new_from_params(params).trigger(self)
             end
           end
@@ -32,31 +32,27 @@ module Actions
 
       def plan
         # Make sure we only have one instance
-        Rails.logger.info("Planning Task ")
+        Rails.logger.debug("Planning Task ")
         plan_self
       end
 
       def run
-        Rails.logger.info("Running Task")
+        Rails.logger.debug("Running Task")
         Organization.all.each do |org|
-           if telemetry_enabled?(org)
-             process_emails(org)
+           if telemetry_enabled?(org) && is_susbcribed_to_redhat?(org)
+             weekly_summary(org)
            end
         end
       end
 
-      def process_emails(org)
+      def weekly_summary(org)
         message_svc = RedhatAccess::Telemetry::MessagingService.new(org)
-        message_svc.all_messages.each do |message|
-          begin
-            MailNotification[:insights_notifications].deliver(message[:user], message[:body], message[:subject])
-          rescue => e
-            message = _('Unable to send insights e-mail notification: %{error}' % {:error => e})
-            Rails.logger.error(message)
-            #output[:result] = message
-          end
+        weekly_data_list = message_svc.all_weekly_mail_data
+        weekly_data_list.each do |info|
+          RedhatAccess::InsightsMailer.weekly_email(info[:user], info[:data], "Insights Weekly Summary",org).deliver_now
         end
       end
+
 
       def rescue_strategy_for_self
         Dynflow::Action::Rescue::Skip

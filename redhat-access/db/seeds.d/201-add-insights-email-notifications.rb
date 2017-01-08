@@ -3,7 +3,7 @@
 #
 # !!! PLEASE KEEP THIS SCRIPT IDEMPOTENT !!!
 #
-::User.current = ::User.anonymous_api_admin
+::User.current = ::User.anonymous_admin
 
 # Mail Notifications
 notifications = [
