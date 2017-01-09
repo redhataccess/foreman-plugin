@@ -13,8 +13,10 @@ module RedhatAccess
 
       delegate [:get_machines,:get_auth_opts,:get_current_organization] => :@context
 
-      def initialize(creds, context, optional)
-        super(UPLOAD_URL,STRATA_URL, creds, optional)
+      def initialize(upload_url, strata_url, creds, context, optional)
+        upload_url = UPLOAD_URL if upload_url.nil?
+        strata_url = STRATA_URL if strata_url.nil?
+        super(upload_url, strata_url, creds, optional)
         @context = context
       end
 

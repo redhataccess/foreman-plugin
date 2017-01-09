@@ -107,7 +107,9 @@ module RedhatAccess
 
       def new_api_client(add_user_header)
         options = get_http_options(add_user_header)
-        RedhatAccess::Telemetry::PortalClient.new(get_creds,
+        RedhatAccess::Telemetry::PortalClient.new(nil,
+                                                  nil,
+                                                  get_creds,
                                                   self,
                                                   options)
       end

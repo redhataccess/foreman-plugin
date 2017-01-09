@@ -164,7 +164,9 @@ module RedhatAccess
         if User.current
 
         end
-        return RedhatAccess::Telemetry::PortalClient.new(get_creds,
+        return RedhatAccess::Telemetry::PortalClient.new(nil,
+                                                         nil,
+                                                         get_creds,
                                                          self,
                                                          get_http_options(true))
       end

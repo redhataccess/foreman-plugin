@@ -17,7 +17,7 @@ module Actions
             unless ForemanTasks::Task::DynflowTask.for_action(self).any?
               params = {:mode => :recurring,
                         :input_type => :cronline,
-                        :cronline => "00 00 * * 6"}
+                        :cronline => "0 0 * * 6"}
               @triggered_action = ForemanTasks::Triggering.new_from_params(params).trigger(self)
             end
           end
