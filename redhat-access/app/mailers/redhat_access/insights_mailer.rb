@@ -12,7 +12,7 @@ module RedhatAccess
       @user = user
       @data = data
       @org  = org
-      @server_url = "#{Setting[:foreman_url]}/redhat_access/insights/"
+      @server_url = "#{Setting[:foreman_url]}/redhat_access/insights"
       @email_settings_url = "#{Setting[:foreman_url]}/users/#{user.id}/edit#mail_preferences"
       mail(to: user.mail,
            subject: subject)

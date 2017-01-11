@@ -96,6 +96,14 @@
                       </a>
                       high severity hits.
                     </p>
+                    <% rules = @data.new_rules %>
+                    <% if rules.length > 0 %>
+                        <p>
+                          <% has = rules.length > 1 ? 'have' : 'has' %>
+                          <%= "There #{has} been #{rules.length} new rule{s} discovered since your last weekly report:" %>
+                        </p>
+                        <%= render partial: "new_rules_section", locals: { new_rules: rules , server_url: @server_url} %>
+                    <% end %>
                     <p>
                       We want you to get the most out of Insights and would love to hear your
                       questions and comments.   Feel free to email us at

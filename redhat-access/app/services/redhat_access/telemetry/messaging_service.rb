@@ -38,6 +38,19 @@ module RedhatAccess
                      :use_subsets => true
           }
           json_data = http_request(options, true)
+          # Sample expected output: {
+          #     "total_systems": 43,
+          #     "checking_in_pct": 2,
+          #     "total_actions": 22,
+          #     "high_severity_hits": 11,
+          #     "new_rules": [
+          #         {
+          #             "rule_id": "vfs_cache_pressure|VFS_CACHE_PRESSURE_TOO_HIGH",
+          #             "summary": Rule summary,
+          #             "description": "VFS cache pressue"
+          #         }
+          #     ]
+          # }
           data = JSON.parse(json_data, object_class: OpenStruct)
           info = {
               user: User.current,
