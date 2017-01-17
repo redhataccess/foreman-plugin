@@ -14,7 +14,7 @@ module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
 
-    initializer 'redhat_access.load_app_instance_data' do |app|
+    initializer "redhat_access.load_app_instance_data" do |app|
       unless app.root.to_s.match root.to_s
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
@@ -22,9 +22,26 @@ module RedhatAccess
       end
     end
 
-    initializer 'redhat_access.mount_engine', :after => :build_middleware_stack do |app|
+    initializer "redhat_access.mount_engine", :after => :build_middleware_stack do |app|
       app.routes_reloader.paths << "#{RedhatAccess::Engine.root}/config/mount_engine.rb"
       app.reload_routes!
+    end
+
+    initializer "redhat_access.register_actions", :before => :finisher_hook do |_app|
+      ForemanTasks.dynflow.require!
+      action_paths = %W(#{RedhatAccess::Engine.root}/app/lib/actions)
+      ForemanTasks.dynflow.config.eager_load_paths.concat(action_paths)
+    end
+
+
+    initializer "redhat_access.initialize_insights_poller", :before => :finisher_hook do
+      unless ForemanTasks.dynflow.config.remote? || File.basename($PROGRAM_NAME) == 'rake' || Rails.env.test?
+        Rails.logger.info("Triggering..")
+        ForemanTasks.dynflow.config.on_init do |world|
+          Rails.logger.info("Init triggered.......")
+          ::Actions::Insights::EmailPoller.ensure_running(world)
+        end
+      end
     end
 
     # Precompile any JS or CSS files under app/assets/

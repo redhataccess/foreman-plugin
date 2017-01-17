@@ -22,7 +22,7 @@
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
 Version: 1.0.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
@@ -36,7 +36,7 @@ Requires: katello => 3.0.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.4
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.6
 
 
 BuildRequires: foreman-assets
@@ -165,6 +165,9 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 
 %changelog
+
+* Wed Jan 04 2017 Lindani Phiri <lindani@redhat.com> - 1.0.13-2
+- BZ 1403979
 
 * Wed Aug 31 2016 Lindani Phiri <lindani@redhat.com> - 1.0.13-1
 - BZ 1362187 add OSP/RHEV/Container support
