@@ -70,24 +70,6 @@ module RedhatAccess
       Foreman::Gettext::Support.add_text_domain locale_domain, locale_dir
     end
 
-    initializer :config_csp_headers do |_app|
-      ::SecureHeaders::Configuration.configure do |config|
-        if config && config.csp
-          if config.csp[:frame_src]
-            config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
-          end
-          if config.csp[:connect_src]
-            config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
-          end
-          if config.csp[:script_src]
-            config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
-          end
-          if config.csp[:img_src]
-            config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
-          end
-        end
-      end
-    end
 
     config.after_initialize do
       Foreman::Plugin.register :redhat_access do
@@ -130,7 +112,7 @@ module RedhatAccess
         # permission section
         security_block :redhat_access_security do
           # Everything except logs should be available to all users
-          permission :view_search, {:"redhat_access/search" => [:index]}, :public => true
+          permission :view_rh_search, {:"redhat_access/search" => [:index]}, :public => true
           permission :view_cases, {:"redhat_access/cases" => [:index, :create]}, :public => true
           permission :attachments, {:"redhat_access/attachments" => [:index, :create]}, :public => true
           permission :configuration, {:"redhat_access/configuration" => [:index]}, :public => true
