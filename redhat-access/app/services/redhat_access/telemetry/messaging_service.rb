@@ -21,7 +21,7 @@ module RedhatAccess
         current_user_map.each do |key,user|
           begin
             user_data = weekly_summary_data(user.login)
-            data.push(user_data) unless user_data.nil? || user_data.total_systems = 0
+            data.push(user_data) unless user_data.nil? || user_data[:data].nil? || user_data[:data].total_systems == 0
           rescue => e
             Rails.logger.warn("Unable to get weekly email data for user")
           end

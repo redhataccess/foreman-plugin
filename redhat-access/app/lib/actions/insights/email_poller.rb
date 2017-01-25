@@ -49,7 +49,7 @@ module Actions
         message_svc = RedhatAccess::Telemetry::MessagingService.new(org)
         weekly_data_list = message_svc.all_weekly_mail_data
         weekly_data_list.each do |info|
-          RedhatAccess::InsightsMailer.weekly_email(info[:user], info[:data], "Insights Weekly Summary",org).deliver_now
+          RedhatAccess::InsightsMailer.weekly_email(info[:user], info[:data], "Insights Weekly Summary",org).deliver
         end
       end
 
