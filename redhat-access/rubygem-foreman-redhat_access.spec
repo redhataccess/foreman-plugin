@@ -166,6 +166,9 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 %changelog
 
+* Wed Jan 25 2017 Lindani Phiri <lindani@redhat.com> - 2.0.2-1
+- BZ 1403979 (6.3)
+
 * Thu Jan 19 2017 Lindani Phiri <lindani@redhat.com> - 2.0.1-1
 - BZ 1403979 (6.3)
 
