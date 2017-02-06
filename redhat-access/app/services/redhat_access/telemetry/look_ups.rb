@@ -55,10 +55,6 @@ module RedhatAccess
         telemetry_enabled?(get_organization(uuid))
       end
 
-      def get_content_host_by_fqdn(name)
-        Katello::System.first(:conditions => {:name => name})
-      end
-
       def disconnected_org?(org)
         if org
           # TODO: fix hard coding
@@ -102,7 +98,7 @@ module RedhatAccess
       def get_ssl_options_for_org(org, ca_file)
         if org
           verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
-          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] : nil
+          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_version] ? REDHAT_ACCESS_CONFIG[:telemetry_ssl_version] : nil
           ca_file = ca_file ? ca_file : get_default_ssl_ca_file
           Rails.logger.debug("Verify peer #{verify_peer}")
           if use_basic_auth?
@@ -171,9 +167,8 @@ module RedhatAccess
 
       def get_content_hosts(org)
         if org
-          org_id = org.id
-          environment_ids = Organization.find(org_id).kt_environments.pluck(:id)
-          hosts =  Katello::System.readable.where(:environment_id => environment_ids).pluck(:uuid).compact.sort
+         Katello::Host::SubscriptionFacet.joins(:host).where(:hosts => {:host_id => ::Host::Managed.authorized('view_hosts', ::Host::Managed)},
+                                                             :hosts => {:organization_id => org.id}).pluck(:uuid)
         else
           raise(RecordNotFound, 'Organization not found or invalid')
         end
