@@ -7,8 +7,6 @@ module RedhatAccess
       before_filter :session_expiry, :update_activity_time
       #around_filter :set_timezone
 
-      cache_sweeper :topbar_sweeper
-
       respond_to :json
 
       def http_error_response(msg,status)
