@@ -1,10 +1,3 @@
-begin
-  # TODO: fix dirty hack
-  require '/usr/share/foreman/lib/satellite/version.rb'
-rescue LoadError
-  # don't need to do anything
-  Rails.logger.debug("Unable to load version file.")
-end
 module RedhatAccess
   module Telemetry
     module LookUps
@@ -62,10 +55,6 @@ module RedhatAccess
         telemetry_enabled?(get_organization(uuid))
       end
 
-      def get_content_host_by_fqdn(name)
-        Katello::System.first(:conditions => {:name => name})
-      end
-
       def disconnected_org?(org)
         if org
           # TODO: fix hard coding
@@ -109,7 +98,7 @@ module RedhatAccess
       def get_ssl_options_for_org(org, ca_file)
         if org
           verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
-          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] : nil
+          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_version] ? REDHAT_ACCESS_CONFIG[:telemetry_ssl_version] : nil
           ca_file = ca_file ? ca_file : get_default_ssl_ca_file
           Rails.logger.debug("Verify peer #{verify_peer}")
           if use_basic_auth?
@@ -178,9 +167,8 @@ module RedhatAccess
 
       def get_content_hosts(org)
         if org
-          org_id = org.id
-          environment_ids = Organization.find(org_id).kt_environments.pluck(:id)
-          hosts =  Katello::System.readable.where(:environment_id => environment_ids).pluck(:uuid).compact.sort
+         Katello::Host::SubscriptionFacet.joins(:host).where(:hosts => {:host_id => ::Host::Managed.authorized('view_hosts', ::Host::Managed)},
+                                                             :hosts => {:organization_id => org.id}).pluck(:uuid)
         else
           raise(RecordNotFound, 'Organization not found or invalid')
         end
@@ -193,12 +181,32 @@ module RedhatAccess
           uri = URI('')
           uri.scheme = URI.parse(proxy_config[:host]).scheme
           uri.host = URI.parse(proxy_config[:host]).host
-          uri.port = proxy_config[:port]
-          uri.user = proxy_config[:user]
-          uri.password = proxy_config[:password]
+          uri.port = proxy_config[:port] if proxy_config[:port]
+          uri.user =  ERB::Util.url_encode(proxy_config[:user]) if proxy_config[:user]
+          uri.password = ERB::Util.url_encode(proxy_config[:password]) if proxy_config[:password]
           proxy = uri.to_s
         end
         proxy
+      end
+
+      def get_http_user_agent
+        "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
+      end
+
+
+      def get_http_options(include_user_id = false)
+        headers = {}
+        if include_user_id && User.current
+          headers = {:INSIGHTS_USER_ID => user_login_to_hash(User.current.login)}
+        end
+        {:logger => Rails.logger,
+         :http_proxy => get_portal_http_proxy,
+         :user_agent => get_http_user_agent,
+         :headers => headers}
+      end
+
+      def user_login_to_hash(login)
+        Digest::SHA1.hexdigest(login)
       end
 
       # TODO: move version and name methods to generic utility
@@ -210,20 +218,21 @@ module RedhatAccess
         'foreman-redhat_access'
       end
 
+
       def get_rha_plugin_version
         RedhatAccess::VERSION
       end
 
       def get_plugin_parent_name
-        if defined? Satellite::VERSION
+        if defined? ForemanThemeSatellite::SATELLITE_VERSION
           return 'Satellite'
         end
         'Foreman'
       end
 
       def get_plugin_parent_version
-        if defined? Satellite::VERSION
-          return Satellite::VERSION
+        if defined? ForemanThemeSatellite::SATELLITE_VERSION
+          return ForemanThemeSatellite::SATELLITE_VERSION.gsub(/[a-zA-Z ]/, "")
         end
         Foreman::Version.new.to_s
       end

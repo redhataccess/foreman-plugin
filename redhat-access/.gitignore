@@ -35,4 +35,6 @@ vendor/assets/angular-mocks/*
 
 puppet/redhat-access_insights_client/pkg/*
 
+build
 
+lphiri-access_insights_client-0.0.8.tar.gz

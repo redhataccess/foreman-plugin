@@ -14,7 +14,7 @@ module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
 
-    initializer 'redhat_access.load_app_instance_data' do |app|
+    initializer "redhat_access.load_app_instance_data" do |app|
       unless app.root.to_s.match root.to_s
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
@@ -22,9 +22,26 @@ module RedhatAccess
       end
     end
 
-    initializer 'redhat_access.mount_engine', :after => :build_middleware_stack do |app|
+    initializer "redhat_access.mount_engine", :after => :build_middleware_stack do |app|
       app.routes_reloader.paths << "#{RedhatAccess::Engine.root}/config/mount_engine.rb"
       app.reload_routes!
+    end
+
+    initializer "redhat_access.register_actions", :before => :finisher_hook do |_app|
+      ForemanTasks.dynflow.require!
+      action_paths = %W(#{RedhatAccess::Engine.root}/app/lib/actions)
+      ForemanTasks.dynflow.config.eager_load_paths.concat(action_paths)
+    end
+
+
+    initializer "redhat_access.initialize_insights_poller", :before => :finisher_hook do
+      unless ForemanTasks.dynflow.config.remote? || File.basename($PROGRAM_NAME) == 'rake' || Rails.env.test?
+        Rails.logger.info("Triggering..")
+        ForemanTasks.dynflow.config.on_init do |world|
+          Rails.logger.info("Init triggered.......")
+          ::Actions::Insights::EmailPoller.ensure_running(world)
+        end
+      end
     end
 
     # Precompile any JS or CSS files under app/assets/
@@ -55,24 +72,6 @@ module RedhatAccess
       Foreman::Gettext::Support.add_text_domain locale_domain, locale_dir
     end
 
-    initializer :config_csp_headers do |_app|
-      ::SecureHeaders::Configuration.configure do |config|
-        if config && config.csp
-          if config.csp[:frame_src]
-            config.csp[:frame_src] = config.csp[:frame_src] << ' *.redhat.com  *.force.com'
-          end
-          if config.csp[:connect_src]
-            config.csp[:connect_src] = config.csp[:connect_src] << ' *.redhat.com'
-          end
-          if config.csp[:script_src]
-            config.csp[:script_src] = config.csp[:script_src] << ' *.redhat.com'
-          end
-          if config.csp[:img_src]
-            config.csp[:img_src] = config.csp[:img_src] << ' *.redhat.com'
-          end
-        end
-      end
-    end
 
     config.after_initialize do
       Foreman::Plugin.register :redhat_access do
@@ -115,7 +114,7 @@ module RedhatAccess
         # permission section
         security_block :redhat_access_security do
           # Everything except logs should be available to all users
-          permission :view_search, {:"redhat_access/search" => [:index]}, :public => true
+          permission :view_rh_search, {:"redhat_access/search" => [:index]}, :public => true
           permission :view_cases, {:"redhat_access/cases" => [:index, :create]}, :public => true
           permission :attachments, {:"redhat_access/attachments" => [:index, :create]}, :public => true
           permission :configuration, {:"redhat_access/configuration" => [:index]}, :public => true
@@ -195,7 +194,7 @@ module RedhatAccess
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
-                     :rhai_dashboardconfiguration,
+                     :rhai_configuration,
                      :caption => N_('Manage'),
                      :url => '/insights/manage',
                      :url_hash => {:controller => :"redhat_access/telemetry_configurations", :action => :show},

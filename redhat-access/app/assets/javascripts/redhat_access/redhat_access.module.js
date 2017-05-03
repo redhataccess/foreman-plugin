@@ -54,19 +54,33 @@ angular.module('RedhatAccess', [
         $httpProvider.interceptors.push('AuthInterceptor');
         $locationProvider.html5Mode(true);
     }
-]).value('LOGIN_VIEW_CONFIG', { verbose: true }).value('SECURITY_CONFIG', {
+]).value('LOGIN_VIEW_CONFIG', { verbose: true
+}).value('SECURITY_CONFIG', {
     displayLoginStatus: true,
     autoCheckLogin: true,
     loginURL: '',
     logoutURL: '',
     forceLogin: true
+}).value('NEW_CASE_CONFIG', {
+    'showRecommendations': true,
+    'showAttachments': true,
+    'showServerSideAttachments': false
+}).value('EDIT_CASE_CONFIG', {
+        'showDetails': true,
+        'showDescription': true,
+        'showBugzillas': true,
+        'showAttachments': true,
+        'showRecommendations': true,
+        'showComments': true,
+        'showServerSideAttachments': false,
+        'showEmailNotifications': true
 }).run(['COMMON_CONFIG',
     '$http', 'securityService', 'hideMachinesDropdown', 'NEW_DEFAULTS', 'currentLocale', 'gettextCatalog',
     function(COMMON_CONFIG, $http, securityService, hideMachinesDropdown, NEW_DEFAULTS, currentLocale, gettextCatalog) {
         COMMON_CONFIG.showTitle = true;
         hideMachinesDropdown.value = true;
         NEW_DEFAULTS.product = "Red Hat Satellite or Proxy"; //TODO read from server config
-        NEW_DEFAULTS.version = "6.1"; //TODO read from server config
+        NEW_DEFAULTS.version = "6.2"; //TODO read from server config
         gettextCatalog.currentLanguage = currentLocale;
         //console.log('Setting language to ' + currentLocale);
         // $http({

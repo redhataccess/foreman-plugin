@@ -9,12 +9,10 @@ module RedhatAccess
       include RedhatAccess::Authentication::ClientAuthentication
       include RedhatAccess::Telemetry::LookUps
 
+
+
       before_filter :check_telemetry_enabled, :only => [:proxy]
 
-      UPLOAD_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_upload_host]}"
-      API_HOST = "https://#{REDHAT_ACCESS_CONFIG[:telemetry_api_host]}"
-      UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/uploads"
-      STRATA_URL = "#{API_HOST}/r/insights"
 
       def action_permission
         case params[:action]
@@ -41,7 +39,7 @@ module RedhatAccess
         #return TelemetryProxyCredentials.limit(1)[0]
       end
 
-      def get_auth_opts()
+      def get_auth_opts(creds)
         return get_ssl_options_for_org(Organization.current ,nil)
       end
 
@@ -59,6 +57,11 @@ module RedhatAccess
         end
         Rails.logger.debug("Machines : #{machines}")
         machines
+      end
+
+
+      def get_current_organization
+        Organization.current
       end
 
       def connection_status
@@ -108,24 +111,32 @@ module RedhatAccess
           original_payload = get_file_data(params)
         end
         client = get_api_client
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
         resp_data = res[:data]
         if res[:code] == 401
           res[:code] = 502
           resp_data = {
-            :message => 'Authentication to the Insights Service failed.'
+            :message => 'Authentication to the Insights Service failed.',
+            :headers => {}
           }
         end
         if original_params && original_params["accept"] && original_params["accept"] = "csv"
           send_data resp_data, type: 'text/csv; charset=utf-8', :filename => "insights_report.csv"
         else
+          if  resp_data.respond_to?(:headers) && resp_data.headers[:x_resource_count]
+               response.headers['X-Resource-Count'] = resp_data.headers[:x_resource_count]
+          end
           render status: res[:code] , json: resp_data
         end
       end
 
       protected
+
+      def use_subsets
+        true
+      end
 
       def get_file_data params
         return {
@@ -143,9 +154,6 @@ module RedhatAccess
         params
       end
 
-      def get_http_user_agent
-        "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
-      end
 
       def get_branch_id
         get_branch_id_for_org(Organization.current)
@@ -153,12 +161,14 @@ module RedhatAccess
 
       def get_api_client
         Rails.logger.debug("User agent for telemetry is #{get_http_user_agent}")
-        return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL,
+        if User.current
+
+        end
+        return RedhatAccess::Telemetry::PortalClient.new(nil,
+                                                         nil,
                                                          get_creds,
                                                          self,
-                                                         {:logger => Rails.logger,
-                                                          :http_proxy => get_portal_http_proxy,
-                                                          :user_agent => get_http_user_agent})
+                                                         get_http_options(true))
       end
 
       def api_version

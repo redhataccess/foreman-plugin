@@ -26,7 +26,7 @@ module RedhatAccess
         render_telemetry_off unless telemetry_enabled_for_uuid?(User.current.login)
       end
 
-      def get_auth_opts()
+      def get_auth_opts(creds)
         if valid_machine_user?
           get_ssl_options_for_uuid(User.current.login, nil)
         else
@@ -56,7 +56,7 @@ module RedhatAccess
         end
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
         render status: res[:code] , json: res[:data]
       end
 
@@ -83,6 +83,10 @@ module RedhatAccess
 
 
       protected
+
+      def use_subsets
+        false
+      end
 
       def valid_machine_user?
         if User.current && User.current.is_a?(RedhatAccess::Authentication::CertUser)

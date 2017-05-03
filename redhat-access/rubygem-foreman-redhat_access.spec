@@ -10,25 +10,18 @@
 %global gem_spec %{gem_dir}/specifications/%{gem_name}-%{version}.gemspec
 %global gem_cache %{gem_dir}/cache/%{gem_name}-%{version}.gem
 
-# For now we bundle the puppet module required.
-# See https://forge.puppetlabs.com/lphiri/access_insights_client
-%global puppet_module_version 0.0.8
-%global puppet_module access_insights_client
-%global puppet_modules_dir /usr/share/puppet/modules
-%global puppet_full_name lphiri-%{puppet_module}-%{puppet_module_version}
 
 
 %global scl_rake /usr/bin/%{?scl:%{scl_prefix}}rake
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 1.0.7
+Version: 2.0.2
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
 License: GPLv2+
 URL: https://github.com/redhataccess/foreman-plugin
-Source0: %{gem_name}-%{version}.gem
-Source1: %{puppet_full_name}.tar.gz
+Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 
 
 Requires: foreman => 1.11.0
@@ -36,7 +29,8 @@ Requires: katello => 3.0.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.1
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.4
+Requires: redhat-access-insights-puppet >= 0.0.9
 
 
 BuildRequires: foreman-assets
@@ -45,7 +39,6 @@ BuildRequires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
 BuildRequires: %{?scl_prefix_ruby}ruby(rubygems)
 BuildRequires: %{?scl_prefix_ruby}rubygems-devel
 BuildRequires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.1
-
 
 
 
@@ -67,14 +60,6 @@ gem unpack %{SOURCE0}
 
 #Manually unpack puppet module to workaround %setup issues
 cd $RPM_BUILD_DIR
-rm -rf %{puppet_full_name}
-gzip -dc %{SOURCE1} | tar -xvvf -
-if [ $? -ne 0 ]; then
-  exit $?
-fi
-cd %{puppet_full_name}
-chmod -R a+rX,g-w,o-w .
-
 
 %build
 mkdir -p .%{gem_dir}
@@ -95,10 +80,7 @@ mkdir -p %{buildroot}%{gem_dir}
 mkdir -p %{buildroot}%{foreman_bundlerd_dir}
 #mkdir -p %{buildroot}%{foreman_assets_dir}
 mkdir -p %{buildroot}/etc/redhat_access
-mkdir -p %{buildroot}/etc/pam.d
-mkdir -p %{buildroot}/etc/security/console.apps
-mkdir -p %{buildroot}/usr/sbin
-mkdir -p %{buildroot}/usr/bin
+
 
 
 cp -pa .%{gem_dir}/* %{buildroot}%{gem_dir}/
@@ -112,12 +94,6 @@ GEMFILE
 %foreman_precompile_plugin -s
 
 
-# copy sos report functions
-cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/script/sos_reports/foreman_sosreport.pam %{buildroot}/etc/pam.d/foreman-sosreport
-cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/script/sos_reports/foreman_sosreport_console.apps %{buildroot}/etc/security/console.apps/foreman-sosreport
-cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/script/sos_reports/foreman_sosreport_wrapper.py %{buildroot}/usr/sbin/foreman-sosreport-wrapper
-chmod 755 %{buildroot}/usr/sbin/foreman-sosreport-wrapper
-ln -s /usr/bin/consolehelper %{buildroot}/usr/bin/foreman-sosreport
 
 
 # Below is static assets hack - here until we figure out how to do precompile properly
@@ -128,13 +104,6 @@ cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/fonts/fonts  %{buildr
 # Copy config file
 cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildroot}/etc/redhat_access/config.yml
 
-
-#puppet module installation
-mkdir -p %{buildroot}/%{puppet_modules_dir}/%{puppet_module}
-cp -p $RPM_BUILD_DIR/%{puppet_full_name}/README.md %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/
-cp -p $RPM_BUILD_DIR/%{puppet_full_name}/metadata.json %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/
-cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/manifests/ %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/manifests
-cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modules_dir}/%{puppet_module}/templates
 
 %files
 %defattr(-,root,root,-)
@@ -147,15 +116,6 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 #Config file
 /etc/redhat_access
 
-#Sos staff
-/etc/pam.d/foreman-sosreport
-/etc/security/console.apps
-/usr/sbin/foreman-sosreport-wrapper
-/usr/bin/foreman-sosreport
-
-
-#Puppet module
-%{puppet_modules_dir}/%{puppet_module}
 
 %exclude %{gem_cache}
 %exclude %{rubygem_redhat_access_dir}/test
@@ -165,6 +125,34 @@ cp -rp $RPM_BUILD_DIR/%{puppet_full_name}/templates/ %{buildroot}/%{puppet_modul
 
 
 %changelog
+
+* Thu Apr 27 2017 Lindani Phiri <lindani@redhat.com> - 2.0.2-1
+- Remove puppet module bundle
+
+* Thu Jan 19 2017 Lindani Phiri <lindani@redhat.com> - 2.0.1-1
+- BZ 1403979 (6.3)
+
+
+* Thu Nov 24 2016 Eric D Helms <ericdhelms@gmail.com> 1.0.14-1
+- new package built with tito
+
+* Wed Aug 31 2016 Lindani Phiri <lindani@redhat.com> - 1.0.13-1
+- BZ 1362187 add OSP/RHEV/Container support
+
+* Wed Aug 31 2016 Lindani Phiri <lindani@redhat.com> - 1.0.12-1
+- BZ 1370352
+
+* Thu Aug 11 2016 Lindani Phiri <lindani@redhat.com> - 1.0.11-1
+- BZ1365590
+
+* Tue Jun 28 2016 Lindani Phiri <lindani@redhat.com> - 1.0.10-1
+- BZ 1340254 respin
+
+* Thu Jun 23 2016 Lindani Phiri <lindani@redhat.com> - 1.0.9-1
+-BZ 1349617
+
+* Tue May 31 2016 Lindani Phiri <lindani@redhat.com> - 1.0.8-1
+- BZ 1340254
 
 * Thu May 5 2016 Lindani Phiri <lindani@redhat.com> - 1.0.7-1
 - BZs 1332271 1192210  1191769 1191765

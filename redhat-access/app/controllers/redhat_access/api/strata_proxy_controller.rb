@@ -16,7 +16,7 @@ module RedhatAccess
         end
       end
 
-      def get_auth_opts()
+      def get_auth_opts(creds)
         #We only support pass through basic auth @see get_api_client method
         return {}
       end
@@ -33,6 +33,10 @@ module RedhatAccess
         original_payload = request.request_parameters[controller_name]
         if request.post? && request.raw_post
              original_payload = request.raw_post.clone
+        end
+
+        if request.put?
+           original_payload = request.body.read
         end
         resource = params[:path] == nil ?  "/" : params[:path]
         if params[:file]
