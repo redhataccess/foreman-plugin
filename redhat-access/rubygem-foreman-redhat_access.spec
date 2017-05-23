@@ -24,17 +24,17 @@ URL: https://github.com/redhataccess/foreman-plugin
 Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 
 
-Requires: foreman => 1.11.0
-Requires: katello => 3.0.0
+Requires: foreman >= 1.15.0
+Requires: katello >= 3.4.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.4
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.7
 Requires: redhat-access-insights-puppet >= 0.0.9
 
 
-BuildRequires: foreman-assets
-BuildRequires: foreman-plugin >= 1.11.0
+BuildRequires: foreman-assets >= 1.15.0
+BuildRequires: foreman-plugin >= 1.15.0
 BuildRequires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
 BuildRequires: %{?scl_prefix_ruby}ruby(rubygems)
 BuildRequires: %{?scl_prefix_ruby}rubygems-devel
