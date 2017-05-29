@@ -8,16 +8,49 @@ module RedhatAccess
       include RedhatAccess::Telemetry::LookUps
 
       WEEKLY_SUMMARY_PATH = 'v1/messaging/data/weeklyinfo'
+      RULE_STATS_PATH = 'v3/stats/rules'
+      SYSTEM_STATS_PATH = 'v3/stats/systems'
 
       def initialize(org)
         @org = org
-        @user_map = current_user_map
         @branch_id = get_branch_id_for_org(org)
+      end
+
+      def risk_summary
+        begin
+          rule_counts = rules_stat_summary
+          critical_counts = http_get_from_json(SYSTEM_STATS_PATH, {:minSeverity => :CRITICAL}, true)
+          return OpenStruct.new({:critical_count => critical_counts.affected,
+                                 :system_count => critical_counts.total,
+                                 :low_percent => ((rule_counts.info.to_f/rule_counts.total)*100).round(1),
+                                 :medium_percent => ((rule_counts.warn.to_f/rule_counts.total)*100).round(1),
+                                 :high_percent => ((rule_counts.error.to_f/rule_counts.total)*100).round(1),
+                                 :critical_percent => ((rule_counts.critical.to_f/rule_counts.total)*100).round(1)
+                                })
+        rescue
+          return error_response("Unable to get risk summary.")
+        end
+        # return {:critical_count => 10,
+        #         :system_count => 100,
+        #         :low_percent => 1.2,
+        #         :medium_percent => 38.4,
+        #         :high_percent => 17.5,
+        #         :critical_percent => 24.2
+        # }
+      end
+
+      def rules_stat_summary
+        begin
+          http_get_from_json(RULE_STATS_PATH, {}, true)
+        rescue
+          return error_response("Unable to get rule summary.")
+        end
       end
 
 
       def all_weekly_mail_data
         data = []
+        @user_map = current_user_map
         current_user_map.each do |key,user|
           begin
             user_data = weekly_summary_data(user.login)
@@ -82,8 +115,23 @@ module RedhatAccess
       end
 
 
-
       private
+
+      def error_response(message)
+         resp = OpenStruct.new
+         resp.query_error = message
+      end
+
+      def http_get_from_json(resource,params,use_subsets=true)
+        options = {:method => :GET,
+                   :resource => resource,
+                   :params => params,
+                   :payload => nil,
+                   :use_subsets => use_subsets
+        }
+        json_data = http_request(options, true);
+        JSON.parse(json_data, object_class: OpenStruct)
+      end
 
       def current_user_map
         map = {}

@@ -213,6 +213,8 @@ module RedhatAccess
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
           end
+          widget 'insights_issues_widget', :name => 'Red Hat Insights Actions', :sizey => 1, :sizex => 6
+          widget 'insights_risk_widget', :name => 'Red Hat Insights Risk Summary', :sizey => 1, :sizex => 6
         end
       end
     end

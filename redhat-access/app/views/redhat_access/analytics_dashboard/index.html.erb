@@ -1,6 +1,6 @@
-<% if ((!help_path? && !manage_path?) || (manage_path? && !is_org_selected?)) && (!is_org_selected? || !telemetry_enabled?(Organization.current) || !is_susbcribed_to_redhat?(Organization.current) || disconnected_org?(Organization.current)) %>
+<% if (not view_preconditions_met?) %>
     <article id='content'>
-    <%if !is_org_selected? && !help_path %>
+    <%if !is_org_selected? %>
       <section>
         <h1>
           <%= _("Organization Selection Required") %>

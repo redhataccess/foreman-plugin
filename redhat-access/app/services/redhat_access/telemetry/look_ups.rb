@@ -33,6 +33,7 @@ module RedhatAccess
       end
 
       def is_org_selected?
+        Rails.logger.debug("Org selected ? #{Organization.current.nil?}")
         Organization.current.nil? ? false : true
       end
 
@@ -67,7 +68,7 @@ module RedhatAccess
       def get_leaf_id(uuid)
         system = get_content_host(uuid)
         if system.nil?
-          ldebug('Host not found or invalid')
+          Rails.logger.debug('Host not found or invalid')
           raise(RecordNotFound, 'Host not found or invalid')
         end
         uuid
