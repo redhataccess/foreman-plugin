@@ -1,8 +1,8 @@
 {
   "name": "sat6-insights",
-  "version": "0.1.0",
+  "version": "4.10.3",
   "dependencies": {
-    "telemetry": "git@labs-git.usersys.redhat.com:labs/insights.git#4.1.59"
+    "telemetry": "git@github.com:RedHatInsights/insights-frontend.git#4.10.3"
   },
   "exportsOverride": {
     "telemetry": {

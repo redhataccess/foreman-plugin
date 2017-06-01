@@ -65,24 +65,14 @@ module.exports = function(grunt) {
                 tasks: ['jshint:lib_test', 'nodeunit']
             }
         },
-        bower: {
-            install: {
-                options: {
-                    copy: true,
-                    targetDir: "vendor/assets",
-                    layout :'byType',
-                    // layout: function(type, component, source) {
-                    //     console.log("Type : " + type);
-                    //     console.log("Component : " + component);
-                    //     console.log("Source : " + source);
-                    //     var renamedType = type;
-                    //     if (type == 'js') renamedType = 'javascripts/insights';
-                    //     else if (type == 'css') renamedType = 'stylesheets/insights';
-
-                    //     return path.join(renamedType, component);
-                    // },
-                    clearBowerDir: true
-                }
+        copy: {
+            js: {
+                src: 'node_modules/insights-frontend/js/insights.js',
+                dest: 'vendor/assets/javascripts/telemetry/insights.js'
+            },
+            css: {
+                src: 'node_modules/insights-frontend/css/sat6.css',
+                dest: 'vendor/assets/stylesheets/telemetry/sat6.css'
             }
         },
         sync: {
@@ -90,15 +80,15 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         dot: true,
-                        cwd: '.tmp/bower_components/telemetry/release',
+                        cwd: 'node_modules/insights-frontend',
                         dest: 'vendor/assets/images',
                         src: [
-                            'images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                            'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                         ]
                     }, {
                         expand: true,
                         dot: true,
-                        cwd: '.tmp/bower_components/telemetry/release',
+                        cwd: 'node_modules/insights-frontend',
                         dest: 'vendor/assets/fonts',
                         src: [
                             'fonts/**/*'
@@ -118,11 +108,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower-installer');
+    grunt.loadNpmTasks('grunt-npm-install');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-sync');
 
     // Default task.
-    grunt.registerTask('default', ['bower:install','sync']);
+    grunt.registerTask('default', ['npm-install','sync','copy']);
 
 
 };
