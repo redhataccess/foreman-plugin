@@ -22,10 +22,10 @@ module RedhatAccess
           critical_counts = http_get_from_json(SYSTEM_STATS_PATH, {:minSeverity => :CRITICAL}, true)
           return OpenStruct.new({:critical_count => critical_counts.affected,
                                  :system_count => critical_counts.total,
-                                 :low_percent => ((rule_counts.info.to_f/rule_counts.total)*100).round(1),
-                                 :medium_percent => ((rule_counts.warn.to_f/rule_counts.total)*100).round(1),
-                                 :high_percent => ((rule_counts.error.to_f/rule_counts.total)*100).round(1),
-                                 :critical_percent => ((rule_counts.critical.to_f/rule_counts.total)*100).round(1)
+                                 :low_percent => percent(rule_counts.info,rule_counts.total),
+                                 :medium_percent => percent(rule_counts.warn,rule_counts.total),
+                                 :high_percent => percent(rule_counts.error,rule_counts.total),
+                                 :critical_percent => percent(rule_counts.critical,rule_counts.total)
                                 })
         rescue
           return error_response("Unable to get risk summary.")
@@ -116,6 +116,13 @@ module RedhatAccess
 
 
       private
+
+      def percent(fraction, total)
+        if (total== 0)
+          return 0
+        end
+        ((fraction.to_f/total)*100).round(1)
+      end
 
       def error_response(message)
          resp = OpenStruct.new
