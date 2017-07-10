@@ -168,8 +168,8 @@ module RedhatAccess
 
       def get_content_hosts(org)
         if org
-         Katello::Host::SubscriptionFacet.joins(:host).where(:hosts => {:host_id => ::Host::Managed.authorized('view_hosts', ::Host::Managed)},
-                                                             :hosts => {:organization_id => org.id}).pluck(:uuid)
+          host_ids = ::Host::Managed.authorized('view_hosts', ::Host::Managed).where({:organization_id => org.id}).pluck(:id)
+          Katello::Host::SubscriptionFacet.where(:host_id => host_ids).pluck(:uuid)
         else
           raise(RecordNotFound, 'Organization not found or invalid')
         end
