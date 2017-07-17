@@ -171,9 +171,8 @@ module RedhatAccess
 
       def get_content_hosts(org)
         if org
-          org_id = org.id
-          environment_ids = Organization.find(org_id).kt_environments.pluck(:id)
-          hosts =  Katello::System.readable.where(:environment_id => environment_ids).pluck(:uuid).compact.sort
+          host_ids = ::Host::Managed.authorized('view_hosts', ::Host::Managed).where({:organization_id => org.id}).pluck(:id)
+          Katello::Host::SubscriptionFacet.where(:host_id => host_ids).pluck(:uuid).uniq
         else
           raise(RecordNotFound, 'Organization not found or invalid')
         end
