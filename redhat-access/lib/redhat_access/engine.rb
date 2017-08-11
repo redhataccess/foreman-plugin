@@ -105,7 +105,7 @@ module RedhatAccess
           Foreman::Plugin.installed?('foreman_sam')
         end
 
-        requires_foreman '> 1.6'
+        requires_foreman '>= 1.15'
         #requires_foreman_plugin 'katello', '> 3.0.0'
 
 
@@ -136,6 +136,7 @@ module RedhatAccess
           role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view]
           role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
         end
+        add_all_permissions_to_default_roles
         # menus
         sub_menu :header_menu, :redhat_access_menu, :caption => N_('Red Hat Access') do
           menu :header_menu,
