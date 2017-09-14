@@ -117,6 +117,7 @@ module RedhatAccess
           permission :attachments, {:"redhat_access/attachments" => [:index, :create]}, :public => true
           permission :configuration, {:"redhat_access/configuration" => [:index]}, :public => true
           permission :app_root, {:"redhat_access/redhat_access" => [:index]}, :public => true
+          permission :strata_api,{:"redhat_access/api/strata_proxy" => [:call]}, :public => true
 
           # Logs require special permissions
           permission :view_log_viewer, {:"redhat_access/logviewer" => [:index]}
