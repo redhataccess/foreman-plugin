@@ -160,10 +160,10 @@ module RedhatAccess
         uuid ||= params[:id]
         facet = Katello::Host::SubscriptionFacet.where(:uuid => uuid).first
         if facet.nil?
-          User.as_anonymous_admin { Resources::Candlepin::Consumer.get(uuid) }
-          raise HttpErrors::NotFound, _("Couldn't find consumer '%s'") % uuid
+          User.as_anonymous_admin { Katello::Resources::Candlepin::Consumer.get(uuid) }
+          return nil
         end
-        @host = facet.host
+        ::Host::Managed.unscoped.find(facet.host_id)
       end
 
       def get_content_hosts(org)
