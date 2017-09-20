@@ -36,7 +36,7 @@ Requires: katello => 3.0.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.7
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.0.8
 
 
 BuildRequires: foreman-assets
