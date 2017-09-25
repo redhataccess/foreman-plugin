@@ -127,6 +127,7 @@ module RedhatAccess
       def error_response(message)
          resp = OpenStruct.new
          resp.query_error = message
+         resp
       end
 
       def http_get_from_json(resource,params,use_subsets=true)
