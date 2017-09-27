@@ -55,8 +55,7 @@ module RedhatAccess
         if machines.empty?
           machines = ['NULL_SET']
         end
-        Rails.logger.debug("Machines : #{machines}")
-        machines
+        machines.sort
       end
 
 
