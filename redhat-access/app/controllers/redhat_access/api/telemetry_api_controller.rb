@@ -54,9 +54,8 @@ module RedhatAccess
         machines = get_content_hosts(Organization.current)
         if machines.empty?
           machines = ['NULL_SET']
-        end
-        Rails.logger.debug("Machines : #{machines}")
-        machines
+        end 
+        machines.sort
       end
 
 
