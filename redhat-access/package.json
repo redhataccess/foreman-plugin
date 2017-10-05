@@ -12,7 +12,7 @@
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-npm-install": "^0.3.1",
-    "insights-frontend": "4.10.11"
+    "insights-frontend": "4.10.13"
   },
   "dependencies": {
     "grunt-sync": "~0.2.3"
