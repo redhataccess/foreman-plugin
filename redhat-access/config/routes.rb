@@ -3,6 +3,7 @@ RedhatAccess::Engine.routes.draw do
   #API routes
   get 'configuration' => 'configuration#index'
   get 'logs' => 'api/logs#index'
+  get 'logs/:path' => 'api/logs#show'
   get 'attachments' => 'api/attachments#index'
   post 'attachments' => 'api/attachments#create'
 

@@ -9,19 +9,15 @@ module RedhatAccess
       @@log_files = REDHAT_ACCESS_CONFIG[:diagnostic_logs]
 
       def index
-        #
-        # This REST hack of using index for both list and specific resource get
-        # is being forced by the current UI design
-        #
-        path = params[:path]
-        if path.nil?
           render  :plain => get_available_logs, :layout => false
+      end
+
+      def show
+        path = params[:path]
+        if is_valid_file? path
+          render :file => path, :layout => false
         else
-          if is_valid_file? path
-            render :file => path, :layout => false
-          else
-            render :text => ''
-          end
+          render :text => ''
         end
       end
 
@@ -33,12 +29,13 @@ module RedhatAccess
       end
 
       def is_valid_file?  file
+        return false if file.nil?
         @@log_files.include?(file) && File.exist?(file) && File.readable?(file) && File.size(file) > 0
       end
 
 
       def permission_denied
-        render :template => "katello/common/403"
+          render json: { :message => "Permission Denied." }, :status => 403
       end
 
       def api_version
