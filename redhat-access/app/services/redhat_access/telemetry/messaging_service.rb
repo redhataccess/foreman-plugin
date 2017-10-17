@@ -27,8 +27,8 @@ module RedhatAccess
                                  :high_percent => percent(rule_counts.error,rule_counts.total),
                                  :critical_percent => percent(rule_counts.critical,rule_counts.total)
                                 })
-        rescue
-          return error_response("Unable to get risk summary.")
+        rescue Exception => e
+          return error_response("Unable to get risk summary : #{e}")
         end
         # return {:critical_count => 10,
         #         :system_count => 100,
@@ -42,8 +42,8 @@ module RedhatAccess
       def rules_stat_summary
         begin
           http_get_from_json(RULE_STATS_PATH, {}, true)
-        rescue
-          return error_response("Unable to get rule summary.")
+        rescue Exception => e
+          return error_response("Unable to get rule summary : #{e}")
         end
       end
 
@@ -56,7 +56,7 @@ module RedhatAccess
             user_data = weekly_summary_data(user.login)
             data.push(user_data) unless user_data.nil? || user_data[:data].nil? || user_data[:data].total_systems == 0
           rescue => e
-            Rails.logger.warn("Unable to get weekly email data for user")
+            Rails.logger.warn("Unable to get weekly email data for user : #{e}")
           end
         end
         data
@@ -98,7 +98,7 @@ module RedhatAccess
         if machines.empty?
           machines = ['NULL_SET']
         end
-        machines
+        machines.sort
       end
 
       def get_current_organization
@@ -167,11 +167,18 @@ module RedhatAccess
                                                         options[:payload],
                                                         nil,
                                                         options[:use_subsets])
-        resp_data = res[:data]
-        if res[:code] != 200
-            raise "Unable to read data code #{res[:code]}"
+        if res.key?(:error)
+          raise res[:error]
         end
-        resp_data
+        res[:data]
+
+      end
+
+      def handle_errors(http_code)
+        return if http_code == 200 or http_code == 201
+        case http_code
+          when 401
+        end
       end
 
       def new_api_client(add_user_header)
