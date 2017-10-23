@@ -1,4 +1,4 @@
-require_dependency "redhat_access/application_controller"
+#require_dependency "redhat_access/application_controller"
 require 'rest_client'
 require 'redhat_access_lib'
 require 'uri'
@@ -26,7 +26,7 @@ module RedhatAccess
       end
 
       def check_telemetry_enabled
-        render_telemetry_off unless telemetry_enabled?(Organization.current)
+        render_telemetry_off unless telemetry_enabled?(current_organization)
       end
 
       def render_telemetry_off
@@ -40,7 +40,7 @@ module RedhatAccess
       end
 
       def get_auth_opts(creds)
-        return get_ssl_options_for_org(Organization.current ,nil)
+        return get_ssl_options_for_org(current_organization ,nil)
       end
 
       def index
@@ -51,7 +51,7 @@ module RedhatAccess
       # # Returns an array of the machine IDs that this user has access to
       def get_machines
         #TODO err out if org is not selected
-        machines = get_content_hosts(Organization.current)
+        machines = get_content_hosts(current_organization)
         if machines.empty?
           machines = ['NULL_SET']
         end 
@@ -60,7 +60,7 @@ module RedhatAccess
 
 
       def get_current_organization
-        Organization.current
+          current_organization
       end
 
       def connection_status
@@ -160,7 +160,7 @@ module RedhatAccess
 
 
       def get_branch_id
-        get_branch_id_for_org(Organization.current)
+        get_branch_id_for_org(current_organization)
       end
 
       def get_api_client

@@ -53,7 +53,7 @@
             InsightsConfigProvider.setGettingStartedLink('https://access.redhat.com/insights/getting-started/satellite/6/');
             InsightsConfigProvider.setAllowExport(true);
             InsightsConfigProvider.setOverviewKey('overview-satellite6');
-            InsightsConfigProvider.setPlannerEnabled(false);
+            InsightsConfigProvider.setPlannerEnabled(true);
 
         }
     ]).value('SAT_CONFIG', {
