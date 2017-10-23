@@ -201,6 +201,13 @@ module RedhatAccess
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
             rha_menu :top_menu,
+                     :rhai_planner,
+                     :caption => N_('Planner'),
+                     :url => '/redhat_access/insights/planner',
+                     :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
+                     :engine => RedhatAccess::Engine,
+                     :turbolinks => false
+            rha_menu :top_menu,
                      :rhai_configuration,
                      :caption => N_('Manage'),
                      :url => '/redhat_access/insights/manage',

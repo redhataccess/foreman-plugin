@@ -15,7 +15,7 @@
 %global scl_rake /usr/bin/%{?scl:%{scl_prefix}}rake
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 2.0.10
+Version: 2.0.11
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -97,8 +97,8 @@ GEMFILE
 
 
 # Below is static assets hack - here until we figure out how to do precompile properly
-cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/images/images  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
-cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/fonts/fonts  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
+cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/images  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
+cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/fonts  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
 
 
 # Copy config file
