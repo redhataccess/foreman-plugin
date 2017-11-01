@@ -97,8 +97,8 @@ GEMFILE
 
 
 # Below is static assets hack - here until we figure out how to do precompile properly
-cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/images/images  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
-cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/fonts/fonts  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
+cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/images  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
+cp -r  $RPM_BUILD_DIR/%{gem_name}-%{version}/vendor/assets/fonts  %{buildroot}/%{rubygem_redhat_access_dir}/public/assets
 
 
 # Copy config file
