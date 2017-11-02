@@ -26,7 +26,7 @@ module RedhatAccess
 
       def is_susbcribed_to_redhat?(org)
         if org
-          upstream = org.owner_details['upstreamConsumer']
+          upstream = upstream_owner(org)
           return upstream && upstream['idCert'] ? true : false
         end
         false
@@ -80,11 +80,12 @@ module RedhatAccess
 
       def get_branch_id_for_org(org)
         if org
-          if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
+          owner = upstream_owner(org)
+          if !owner['uuid']
             # ldebug('Org manifest not found or invalid in get_branch_id')
             raise(RecordNotFound, 'Branch ID not found for organization')
           else
-            branch_id =  org.owner_details['upstreamConsumer']['uuid']
+            branch_id =  owner['uuid']
           end
         else
           raise(RecordNotFound, 'Organization not found or invalid')
@@ -123,7 +124,7 @@ module RedhatAccess
       end
 
       def get_mutual_tls_auth_options(org, ca_file, verify_peer, ssl_version)
-        upstream = org.owner_details['upstreamConsumer']
+        upstream = upstream_owner(org)
         if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
           raise(RecordNotFound, 'Unable to get portal SSL credentials. Missing org manifest?')
         else
@@ -136,6 +137,14 @@ module RedhatAccess
           opts[:ssl_version] = ssl_version if ssl_version
           Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
           opts
+        end
+      end
+
+      def upstream_owner(org)
+        #We use a cache because owner_details is networkcall to Candlepin
+        #We make a lot of these calls each time the UI is accessed
+        Rails.cache.fetch("insights_upstream_owner-#{org.id}", expires_in: 1.minute) do
+          org.owner_details['upstreamConsumer']
         end
       end
 
