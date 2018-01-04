@@ -143,11 +143,13 @@ module RedhatAccess
 
       def current_user_map
         map = {}
-        users = ::User.select do |user|
-          user.receives?(:insights_notifications) && user.mail_enabled? && user.allowed_organizations.include?(@org)
-        end
-        users.each do |user|
-          map[user_login_to_hash(user.login)] = user
+        User.as_anonymous_admin  do
+          users = ::User.select do |user|
+            user.receives?(:insights_notifications) && user.mail_enabled? && user.allowed_organizations.include?(@org)
+          end
+          users.each do |user|
+            map[user_login_to_hash(user.login)] = user
+          end
         end
         map
       end
