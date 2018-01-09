@@ -1,4 +1,4 @@
-class CreateRedhatAccessTelemetryProxyCredentials < ActiveRecord::Migration
+class CreateRedhatAccessTelemetryProxyCredentials < ActiveRecord::Migration[4.2]
   def change
     create_table :redhat_access_telemetry_proxy_credentials do |t|
       t.string :username
