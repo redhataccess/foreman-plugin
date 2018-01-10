@@ -19,3 +19,19 @@
 	width : auto;
 	height :auto;
 }
+
+
+/* .insights .page-title, .insights-main-content .page-title {
+	font-weight: 300;
+	font-size: 24px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	display: block;
+	font-family: inherit;
+    line-height: 1.1;
+    color: inherit;
+} */
+
+.insights-main-content {
+	padding-top: 0;
+}

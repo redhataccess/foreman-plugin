@@ -1,10 +1,3 @@
-begin
-  # TODO: fix dirty hack
-  require '/usr/share/foreman/lib/satellite/version.rb'
-rescue LoadError
-  # don't need to do anything
-  Rails.logger.debug("Unable to load version file.")
-end
 module RedhatAccess
   module Telemetry
     module LookUps
@@ -33,14 +26,15 @@ module RedhatAccess
 
       def is_susbcribed_to_redhat?(org)
         if org
-          upstream = org.owner_details['upstreamConsumer']
+          upstream = upstream_owner(org)
           return upstream && upstream['idCert'] ? true : false
         end
         false
       end
 
       def is_org_selected?
-        Organization.current.nil? ? false : true
+        Rails.logger.debug("Org selected ? #{current_organization.nil?}")
+        current_organization.nil? ? false : true
       end
 
       def get_telemetry_config(org)
@@ -49,21 +43,21 @@ module RedhatAccess
         end
       end
 
+      def current_organization
+        Organization.current || Organization.find_by_id(session[:organization_id]) if session[:organization_id]
+      end
+
       def telemetry_enabled?(org)
         if org
           conf = get_telemetry_config(org)
           return conf.nil? ? false : conf.enable_telemetry
         else
-          raise(RecordNotFound, 'Host not found or invalid')
+          raise(RecordNotFound, 'Organization not found or invalid')
         end
       end
 
       def telemetry_enabled_for_uuid?(uuid)
         telemetry_enabled?(get_organization(uuid))
-      end
-
-      def get_content_host_by_fqdn(name)
-        Katello::System.first(:conditions => {:name => name})
       end
 
       def disconnected_org?(org)
@@ -78,7 +72,7 @@ module RedhatAccess
       def get_leaf_id(uuid)
         system = get_content_host(uuid)
         if system.nil?
-          ldebug('Host not found or invalid')
+          Rails.logger.debug('Host not found or invalid')
           raise(RecordNotFound, 'Host not found or invalid')
         end
         uuid
@@ -86,11 +80,12 @@ module RedhatAccess
 
       def get_branch_id_for_org(org)
         if org
-          if !org.owner_details['upstreamConsumer'] || !org.owner_details['upstreamConsumer']['uuid']
+          owner = upstream_owner(org)
+          if !owner['uuid']
             # ldebug('Org manifest not found or invalid in get_branch_id')
             raise(RecordNotFound, 'Branch ID not found for organization')
           else
-            branch_id =  org.owner_details['upstreamConsumer']['uuid']
+            branch_id =  owner['uuid']
           end
         else
           raise(RecordNotFound, 'Organization not found or invalid')
@@ -109,7 +104,7 @@ module RedhatAccess
       def get_ssl_options_for_org(org, ca_file)
         if org
           verify_peer = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
-          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] ? REDHAT_ACCESS_CONFIG[:telemetry_ssl_verify_peer] : nil
+          ssl_version = REDHAT_ACCESS_CONFIG[:telemetry_ssl_version] ? REDHAT_ACCESS_CONFIG[:telemetry_ssl_version] : nil
           ca_file = ca_file ? ca_file : get_default_ssl_ca_file
           Rails.logger.debug("Verify peer #{verify_peer}")
           if use_basic_auth?
@@ -129,7 +124,7 @@ module RedhatAccess
       end
 
       def get_mutual_tls_auth_options(org, ca_file, verify_peer, ssl_version)
-        upstream = org.owner_details['upstreamConsumer']
+        upstream = upstream_owner(org)
         if !upstream || !upstream['idCert'] || !upstream['idCert']['cert'] || !upstream['idCert']['key']
           raise(RecordNotFound, 'Unable to get portal SSL credentials. Missing org manifest?')
         else
@@ -142,6 +137,14 @@ module RedhatAccess
           opts[:ssl_version] = ssl_version if ssl_version
           Rails.logger.debug("Telemetry ssl options => ca_file:#{opts[:ssl_ca_file]} , peer verify #{opts[:verify_ssl]}")
           opts
+        end
+      end
+
+      def upstream_owner(org)
+        #We use a cache because owner_details is networkcall to Candlepin
+        #We make a lot of these calls each time the UI is accessed
+        Rails.cache.fetch("insights_upstream_owner-#{org.id}", expires_in: 1.minute) do
+          org.owner_details['upstreamConsumer']
         end
       end
 
@@ -170,17 +173,16 @@ module RedhatAccess
         uuid ||= params[:id]
         facet = Katello::Host::SubscriptionFacet.where(:uuid => uuid).first
         if facet.nil?
-          User.as_anonymous_admin { Resources::Candlepin::Consumer.get(uuid) }
-          raise HttpErrors::NotFound, _("Couldn't find consumer '%s'") % uuid
+          User.as_anonymous_admin { Katello::Resources::Candlepin::Consumer.get(uuid) }
+          return nil
         end
-        @host = facet.host
+        ::Host::Managed.unscoped.find(facet.host_id)
       end
 
       def get_content_hosts(org)
         if org
-          org_id = org.id
-          environment_ids = Organization.find(org_id).kt_environments.pluck(:id)
-          hosts =  Katello::System.readable.where(:environment_id => environment_ids).pluck(:uuid).compact.sort
+          host_ids = ::Host::Managed.authorized('view_hosts', ::Host::Managed).where({:organization_id => org.id}).pluck(:id)
+          Katello::Host::SubscriptionFacet.where(:host_id => host_ids).pluck(:uuid)
         else
           raise(RecordNotFound, 'Organization not found or invalid')
         end
@@ -199,6 +201,26 @@ module RedhatAccess
           proxy = uri.to_s
         end
         proxy
+      end
+
+      def get_http_user_agent
+        "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
+      end
+
+
+      def get_http_options(include_user_id = false)
+        headers = {}
+        if include_user_id && User.current
+          headers = {:INSIGHTS_USER_ID => user_login_to_hash(User.current.login)}
+        end
+        {:logger => Rails.logger,
+         :http_proxy => get_portal_http_proxy,
+         :user_agent => get_http_user_agent,
+         :headers => headers}
+      end
+
+      def user_login_to_hash(login)
+        Digest::SHA1.hexdigest(login)
       end
 
       # TODO: move version and name methods to generic utility

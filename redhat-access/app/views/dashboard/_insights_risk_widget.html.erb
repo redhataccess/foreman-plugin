@@ -1,0 +1,81 @@
+<h4 class="header">
+  <%= _("Red Hat Insights Risk Summary") %>
+</h4>
+
+<% helper = RedhatAccess::Telemetry::Helper.new %>
+<% if !Organization.current.present? %>
+    <p class="ca"><%= _("Please select an organization to view Red Hat Insights risk summary.") %></p>
+<% elsif !helper.telemetry_enabled?(Organization.current) %>
+    <p class="ca"><%= _("Insights functionality is disabled.") %></p>
+<% elsif !helper.is_susbcribed_to_redhat?(Organization.current) %>
+    <p class="ca"><%= _("Insights data not available.") %></p>
+<% elsif helper.disconnected_org?(Organization.current) %>
+    <p class="ca"><%= _("Insights is data not available for disconnected environments.") %></p>
+<% else %>
+    <% api = RedhatAccess::Telemetry::MessagingService.new(Organization.current) %>
+    <% risk_data = api.risk_summary %>
+    <% if risk_data.query_error %>
+        <p class="ca"><%= _("There was an error retrieving Insights data:") %></p>
+        <p class="ca"><%= risk_data.query_error %></p>
+    <% else %>
+        <table class="table table-fixed table-striped table-bordered">
+          <thead>
+          <tr>
+            <th><%= _("Risk Level") %></th>
+            <th><%= _("Percentage") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <h4>
+              <%= link_to('/redhat_access/insights/actions/critical-risk') do %>
+                  <i class="label " style="margin-right: 6px">&nbsp;</i> <%= risk_data.critical_count %> <%= _('system(s) have critical issues.') %>
+              <% end %>
+
+            </h4>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to('/redhat_access/insights/actions/low-risk') do %>
+                  <i class="label label-info" style="margin-right: 6px">&nbsp;</i><%= _("Low") %>
+              <% end %>
+            </td>
+            <td style="text-align:right">
+              <%= link_to("#{risk_data.low_percent}%", '/redhat_access/insights/actions/low-risk') %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to('/redhat_access/insights/actions/medium-risk') do %>
+                  <i class="label label-success" style="margin-right: 6px">&nbsp;</i><%= _("Medium") %>
+              <% end %>
+            </td>
+            <td style="text-align:right">
+              <%= link_to("#{risk_data[:medium_percent]}%", '/redhat_access/insights/actions/medium-risk') %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to('/redhat_access/insights/actions/high-risk') do %>
+                  <i class="label label-warning" style="margin-right: 6px">&nbsp;</i><%= _("High") %>
+              <% end %>
+            </td>
+            <td style="text-align:right">
+              <%= link_to("#{risk_data.high_percent}%", '/redhat_access/insights/actions/high-risk') %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to('/redhat_access/insights/actions/critical-risk') do %>
+                  <i class="label label-danger" style="margin-right: 6px">&nbsp;</i><%= _("Critical") %>
+              <% end %>
+            </td>
+            <td style="text-align:right">
+              <%= link_to("#{risk_data.critical_percent}%", '/redhat_access/insights/actions/critical-risk') %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+    <% end %>
+
+<% end %>

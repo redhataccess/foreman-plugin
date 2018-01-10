@@ -26,7 +26,7 @@ module RedhatAccess
         render_telemetry_off unless telemetry_enabled_for_uuid?(User.current.login)
       end
 
-      def get_auth_opts()
+      def get_auth_opts(creds)
         if valid_machine_user?
           get_ssl_options_for_uuid(User.current.login, nil)
         else

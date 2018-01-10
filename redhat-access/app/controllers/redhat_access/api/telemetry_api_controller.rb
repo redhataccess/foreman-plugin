@@ -1,4 +1,4 @@
-require_dependency "redhat_access/application_controller"
+#require_dependency "redhat_access/application_controller"
 require 'rest_client'
 require 'redhat_access_lib'
 require 'uri'
@@ -9,12 +9,9 @@ module RedhatAccess
       include RedhatAccess::Authentication::ClientAuthentication
       include RedhatAccess::Telemetry::LookUps
 
-      before_filter :check_telemetry_enabled, :only => [:proxy]
 
-      UPLOAD_HOST = REDHAT_ACCESS_CONFIG[:telemetry_upload_host]
-      API_HOST = REDHAT_ACCESS_CONFIG[:telemetry_api_host]
-      UPLOAD_URL = "#{UPLOAD_HOST}/r/insights/uploads"
-      STRATA_URL = "#{API_HOST}/r/insights"
+
+      before_filter :check_telemetry_enabled, :only => [:proxy]
 
 
       def action_permission
@@ -29,7 +26,7 @@ module RedhatAccess
       end
 
       def check_telemetry_enabled
-        render_telemetry_off unless telemetry_enabled?(Organization.current)
+        render_telemetry_off unless telemetry_enabled?(current_organization)
       end
 
       def render_telemetry_off
@@ -42,8 +39,8 @@ module RedhatAccess
         #return TelemetryProxyCredentials.limit(1)[0]
       end
 
-      def get_auth_opts()
-        return get_ssl_options_for_org(Organization.current ,nil)
+      def get_auth_opts(creds)
+        return get_ssl_options_for_org(current_organization ,nil)
       end
 
       def index
@@ -54,12 +51,16 @@ module RedhatAccess
       # # Returns an array of the machine IDs that this user has access to
       def get_machines
         #TODO err out if org is not selected
-        machines = get_content_hosts(Organization.current)
+        machines = get_content_hosts(current_organization)
         if machines.empty?
           machines = ['NULL_SET']
-        end
-        Rails.logger.debug("Machines : #{machines}")
-        machines
+        end 
+        machines.sort
+      end
+
+
+      def get_current_organization
+          current_organization
       end
 
       def connection_status
@@ -95,16 +96,18 @@ module RedhatAccess
 
       # The method that "proxies" tapi requests over to Strata
       def proxy
-        original_method  = request.method
+        original_method = request.method
         original_params = request.query_parameters
         if request.user_agent and not request.user_agent.include?('redhat_access_cfme')
-           original_params  = add_branch_to_params(request.query_parameters)
+          original_params = add_branch_to_params(request.query_parameters)
         end
         original_payload = request.request_parameters[controller_name]
         if request.post? && request.raw_post
-             original_payload = request.raw_post.clone
+          original_payload = request.raw_post.clone
+        elsif request.put?
+          original_payload = request.body.read
         end
-        resource         = params[:path] == nil ?  "/" : params[:path]
+        resource = params[:path] == nil ? "/" : params[:path]
         if params[:file]
           original_payload = get_file_data(params)
         end
@@ -116,19 +119,24 @@ module RedhatAccess
         if res[:code] == 401
           res[:code] = 502
           resp_data = {
-            :message => 'Authentication to the Insights Service failed.',
-            :headers => {}
+              :message => 'Authentication to the Insights Service failed.',
+              :headers => {}
           }
         end
-        if original_params && original_params["accept"] && original_params["accept"] = "csv"
-          send_data resp_data, type: 'text/csv; charset=utf-8', :filename => "insights_report.csv"
-        else
-          if  resp_data.headers && resp_data.headers[:x_resource_count]
-               response.headers['X-Resource-Count'] = resp_data.headers[:x_resource_count]
+        if resp_data.respond_to?(:headers)
+          if resp_data.headers[:content_disposition]
+            send_data resp_data, disposition: resp_data.headers[:content_disposition], type: resp_data.headers[:content_type]
+            return
           end
-          render status: res[:code] , json: resp_data
+          if resp_data.headers[:x_resource_count]
+            response.headers['x-resource-count'] = resp_data.headers[:x_resource_count]
+          end
+          render status: res[:code], json: resp_data
+        else
+          render status: res[:code], json: resp_data
         end
       end
+
 
       protected
 
@@ -152,22 +160,21 @@ module RedhatAccess
         params
       end
 
-      def get_http_user_agent
-        "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
-      end
 
       def get_branch_id
-        get_branch_id_for_org(Organization.current)
+        get_branch_id_for_org(current_organization)
       end
 
       def get_api_client
         Rails.logger.debug("User agent for telemetry is #{get_http_user_agent}")
-        return RedhatAccess::Telemetry::PortalClient.new(UPLOAD_URL,STRATA_URL,
+        if User.current
+
+        end
+        return RedhatAccess::Telemetry::PortalClient.new(nil,
+                                                         nil,
                                                          get_creds,
                                                          self,
-                                                         {:logger => Rails.logger,
-                                                          :http_proxy => get_portal_http_proxy,
-                                                          :user_agent => get_http_user_agent})
+                                                         get_http_options(true))
       end
 
       def api_version

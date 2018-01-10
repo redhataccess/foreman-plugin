@@ -80,7 +80,7 @@ angular.module('RedhatAccess', [
         COMMON_CONFIG.showTitle = true;
         hideMachinesDropdown.value = true;
         NEW_DEFAULTS.product = "Red Hat Satellite or Proxy"; //TODO read from server config
-        NEW_DEFAULTS.version = "6.1"; //TODO read from server config
+        NEW_DEFAULTS.version = "6.2"; //TODO read from server config
         gettextCatalog.currentLanguage = currentLocale;
         //console.log('Setting language to ' + currentLocale);
         // $http({

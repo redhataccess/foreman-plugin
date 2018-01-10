@@ -16,7 +16,7 @@ module RedhatAccess
         end
       end
 
-      def get_auth_opts()
+      def get_auth_opts(creds)
         #We only support pass through basic auth @see get_api_client method
         return {}
       end
