@@ -11,7 +11,7 @@ module RedhatAccess
 
 
 
-      before_filter :check_telemetry_enabled, :only => [:proxy]
+      before_action :check_telemetry_enabled, :only => [:proxy]
 
 
       def action_permission
@@ -54,7 +54,7 @@ module RedhatAccess
         machines = get_content_hosts(current_organization)
         if machines.empty?
           machines = ['NULL_SET']
-        end 
+        end
         machines.sort
       end
 
