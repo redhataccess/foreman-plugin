@@ -7,13 +7,13 @@ module RedhatAccess
   module Api
     class MachineTelemetryApiController < TelemetryApiController
 
-      skip_before_filter :authorize
-      skip_before_filter :require_login
-      skip_before_filter :session_expiry
-      skip_before_filter :verify_authenticity_token
-      skip_before_filter :check_telemetry_enabled
-      before_filter :telemetry_auth
-      before_filter :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload]
+      skip_before_action :authorize
+      skip_before_action :require_login
+      skip_before_action :session_expiry
+      skip_before_action :verify_authenticity_token
+      skip_before_action :check_telemetry_enabled
+      before_action :telemetry_auth
+      before_action :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload]
 
       def telemetry_auth
         authenticate_client
