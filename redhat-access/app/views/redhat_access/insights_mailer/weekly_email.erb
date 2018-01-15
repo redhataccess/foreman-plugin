@@ -1,254 +1,136 @@
-<body style="background-color: #687079; margin: 0; padding: 0;">
-<table id="outermost-table" cellpadding="0" cellspacing="0" style="border: 0; margin: 0; padding: 0; width: 100%;">
-  <tbody>
-  <tr>
-    <td align="center" valign="top">
-      <table width="640" cellspacing="0" cellpadding="0">
-        <tbody>
-        <tr>
-          <td height="20"></td>
-        </tr>
-        <tr>
-          <td width="640" valign="top">
-            <div id="header">
-              <!-- HEADER -->
-              <table width="640" border="0" cellspacing="0" cellpadding="20" background="https://access.redhat.com/insightsbeta/images/email_bg.jpg">
-                <tbody>
-                <tr>
-                  <td valign="top">
-                    <table border="0" cellspacing="0" cellpadding="0" width="600">
-                      <tbody>
-                      <tr>
-                        <td align="left" width="50%">
-                          <img id="rh-logo" src="https://access.redhat.com/insightsbeta/images/email_logo.png" alt="Logo" style="border: 0; display: block;">
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                    <table border="0" cellspacing="0" cellpadding="0" width="600">
-                      <tbody>
-                      <tr>
-                        <td height="25"></td>
-                      </tr>
-                      <tr>
-                        <td align="center">
-                          <table>
-                            <tbody>
-                            <tr>
-                              <td>
-                                <img id="insights-text" src="https://access.redhat.com/insightsbeta/images/email_rhi.png" style="min-height: auto; width: 360px;">
-                                <div id="hbi-subject" style="margin-top: 8px; text-align: right;">
-                                              <span id="hbi-subject-text" style="color: #fff; font-family: 'Arimo',Arial,sans-serif; font-size: 14px;">
-                                                <!-- EMAIL SUBJECT -->
-                                                Weekly Report for <%= Time.now.strftime("%B %e, %Y") %>
-                                              </span>
-                                </div>
-                              </td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td height="35"></td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div id="hbi-content" style="background-color: #ffffff;">
-              <!-- CONTENT -->
-              <table width="640" border="0" cellspacing="20" cellpadding="10">
-                <tbody>
-                <tr>
-                  <td align="center" style="padding:60px 0 0;font-size:36px;color:#585858;font-weight:700">
-                    <font face="'Arimo', Arial, sans-serif">
-                      Your <span class="il">weekly</span> Insights report
-                    </font>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-size:16px;color:#585858;padding-bottom:40px">
-                    <p>
-                      <font face="'Arimo', Arial, sans-serif">
-                    <p>
-                      Hi <%= @user.name %>,
-                    </p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #3f3f3f; background-color: #f1f1f1;">
+<body>
+<style type="text/css">
+  a, a:visited {
+    color: #6bb5df !important;
+  }
 
-                    <p>
-                      You currently have
-                      <a href="<%=@server_url%>/inventory?product=all&amp;utm_source=all_systems_first_paragraph&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail">
-                        <strong><%= @data.total_systems %> system(s)</strong>
-                      </a>
-                      registered with Insights in the <%=@org.name%> organization and
+  a:hover {
+    color: #CCCCCC !important;
+  }
+</style>
+<div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #3f3f3f; background-color: #f1f1f1;">
+  <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" bgcolor="#f1f1f1">
+    <tr>
+      <td align="center" valign="top">
+        <table border="0" id="emailContainer" style="max-width: 600px;">
+          <tr>
+            <td align="center" valign="top">
+              <div align="left">
+                <h2 style="font-weight: normal;"> Your weekly Insights report
+                  for <%= Time.now.strftime("%B %e, %Y") %></h2>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size:16px;color:#585858;padding-bottom:40px">
+              <p>
+                <font face="'Arimo', Arial, sans-serif">
+              <p>
+                Hi <%= @user.name %>,
+              </p>
 
-                      <a href="<%=@server_url%>/actions?product=all&amp;initialSeverity=ERROR&amp;utm_source=high_sev_hits_first_paragraph&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail">
-                        <strong>
-                          <%= @data.high_severity_hits %>
-                        </strong>
-                      </a>
-                      high severity hits.
-                    </p>
-                    <% rules = @data.new_rules %>
-                    <% if rules.length > 0 %>
-                        <p>
-                          <% has = rules.length > 1 ? 'have' : 'has' %>
-                          <%= "There #{has} been #{rules.length} new rule{s} discovered since your last weekly report:" %>
-                        </p>
-                        <%= render partial: "new_rules_section", locals: { new_rules: rules , server_url: @server_url} %>
-                    <% end %>
-                    <p>
-                      We want you to get the most out of Insights and would love to hear your
-                      questions and comments.   Feel free to email us at
-                      <a href="mailto:insights+weekly@redhat.com">insights+weekly@redhat.com</a>,
-                      and we'll get
-                      back to you as soon as we can.
-                    </p>
-                    </font>
-                    </p>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+              <p>
+                You currently have
+                <a href="<%= @server_url %>/inventory?product=all&amp;utm_source=all_systems_first_paragraph&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail">
+                  <strong><%= @data.total_systems %> system(s)</strong>
+                </a>
+                registered with Insights in the <%= @org.name %> organization and
 
-              <table width="640" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="padding-bottom:40px">
-                <tbody>
+                <a href="<%= @server_url %>/actions?product=all&amp;initialSeverity=ERROR&amp;utm_source=high_sev_hits_first_paragraph&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail">
+                  <strong>
+                    <%= @data.high_severity_hits %> high severity
+                  </strong>
+                </a>
+                hits.
+              </p>
+              <% rules = @data.new_rules %>
+              <% if rules.length > 0 %>
+                  <p>
+                    <% has = rules.length > 1 ? 'have' : 'has' %>
+                    <%= "There #{has} been #{rules.length} new rule{s} discovered since your last weekly report:" %>
+                  </p>
+                  <%= render partial: "new_rules_section", locals: {new_rules: rules, server_url: @server_url} %>
+              <% end %>
+              <p>
+                We want you to get the most out of Insights and would love to hear your
+                questions and comments. Feel free to email us at
+                <a href="mailto:insights+weekly@redhat.com">insights+weekly@redhat.com</a>,
+                and we'll get
+                back to you as soon as we can.
+              </p>
+              </font>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">
+              <table border="0" width="100%" id="emailHeader" style="background-color: #e1e2e3;" bgcolor="#e1e2e3">
                 <tr>
-                  <td valign="top" align="left">
-                    <table align="center" width="200">
-                      <tbody>
-                      <tr>
-                        <td align="center">
-                          <a href="<%=@server_url%>/actions?product=all&amp;utm_source=total_actions&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank">
-                            <table style="background-color:#535e6a;width:136px;height:136px;color:#fff;font-family:'Arimo',sans-serif;font-weight:700;font-size:52px;border-width:12px;border-color:#cad6e2;border-style:solid;text-align:center;border-radius:50%" align="center">
-                              <tbody style="width:136px">
-                              <tr>
-                                <td style="vertical-align:middle">
-                                  <span><%= @data.total_actions %></span>
-                                </td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="center" style="font-family:'Arimo',Arial,sans-serif;padding-top:16px">
-                          <a href="<%=@server_url%>/actions?product=all&amp;utm_source=total_actions&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#535e6a;text-decoration:none" target="_blank">Total Actions</a>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                  <td width="20"></td>
-                  <td valign="top" align="left">
-                    <table align="center" width="200">
-                      <tbody>
-                      <tr>
-                        <td align="center">
-                          <a href="<%=@server_url%>/actions?product=all&amp;initialSeverity=ERROR&amp;utm_source=high_sev_hits&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank">
-                            <table style="background-color:#535e6a;width:136px;height:136px;color:#fff;font-family:'Arimo',sans-serif;font-weight:700;font-size:52px;border-width:12px;border-color:#cad6e2;border-style:solid;text-align:center;border-radius:50%" align="center">
-                              <tbody style="width:136px">
-                              <tr>
-                                <td style="vertical-align:middle">
-                                  <span><%= @data.high_severity_hits %></span>
-                                </td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="center" style="font-family:'Arimo',Arial,sans-serif;padding-top:16px">
-                          <a href="<%=@server_url%>/actions?product=all&amp;initialSeverity=ERROR&amp;utm_source=high_sev_hits&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#535e6a;text-decoration:none" target="_blank">High Severity Hits</a>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                  <td width="20"></td>
-                  <td valign="top" align="left">
-                    <table align="center" width="200">
-                      <tbody>
-                      <tr>
-                        <td align="center">
-                          <a href="<%=@server_url%>/inventory?product=all&amp;utm_source=percent_checkin&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank">
-                            <table style="background-color:#535e6a;width:136px;height:136px;color:#fff;font-family:'Arimo',sans-serif;font-weight:700;font-size:52px;border-width:12px;border-color:#cad6e2;border-style:solid;text-align:center;border-radius:50%" align="center">
-                              <tbody style="width:136px">
-                              <tr>
-                                <td style="vertical-align:middle">
-                                  <span><%= @data.checking_in_pct %></span><span style="font-size:16px;vertical-align:top">%</span>
-                                </td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="center" style="color:#535e6a;font-family:'Arimo',Arial,sans-serif;padding-top:16px">
-                          <a href="<%=@server_url%>/inventory?product=all&amp;utm_source=percent_checkin&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#535e6a;text-decoration:none" target="_blank">Systems Checking In</a>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+                  <td align="left" valign="top" style="padding: 0px 20px;">
+                    <div align="center" style="margin: 10px 0px;">
+                      <table class="summary" style="border: 1px solid; padding: 5px; background-color: #ffffff; border-collapse: collapse; text-align: center; width: 100%;" bgcolor="#ffffff">
+                        <tr>
+                          <td style="width: 33%; padding: 5px; border: 1px solid #ccc;">
+                            <b class="counter" style="color: #6bb5df;">
+                              <a href="<%= @server_url %>/actions?product=all&amp;utm_source=total_actions&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank"><%= @data.total_actions %></a>
+                            </b>
 
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div id="goto">
-              <!-- GO TO INSIGHTS BUTTON -->
-              <table class="footer-table go2insights" style="background-color: #ffffff; border: 0; min-width: 640px !important; padding: 20px 0 60px; width: 640px;">
-                <tbody>
-                <tr>
-                  <td align="center">
-                    <a id="go2insights-button" href="<%=@server_url%>/overview?utm_source=insights_overview&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" target="_blank" style="background: #03afe8; border-radius: 4px; color: #fff; font-family: 'Arimo',Arial,sans-serif; font-size: 12px; padding: 10px 20px; text-decoration: none;">
-                      Go To Insights
-                    </a>
+                            <p class="summary-title" style="font-size: 80%; font-weight: bold; margin: 5px; padding: 0px;">
+                              <a href="<%= @server_url %>/actions?product=all&amp;utm_source=total_actions&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank">Total
+                                Actions</a></p>
+                          </td>
+                          <td style="width: 33%; padding: 5px; border: 1px solid #ccc;">
+                            <b class="counter" style="color: #6bb5df;">
+                              <a href="<%= @server_url %>/actions?product=all&amp;initialSeverity=ERROR&amp;utm_source=high_sev_hits&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank"><%= @data.high_severity_hits %></a>
+                            </b>
+
+                            <p class="summary-title" style="font-size: 80%; font-weight: bold; margin: 5px; padding: 0px;">
+                              <a href="<%= @server_url %>/actions?product=all&amp;initialSeverity=ERROR&amp;utm_source=high_sev_hits&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank">High
+                                Severity Issues</a>
+                            </p>
+                          </td>
+                          <td style="width: 33%; padding: 5px; border: 1px solid #ccc;">
+                            <b class="counter" style="color: #6bb5df;">
+                              <a href="<%= @server_url %>/inventory?product=all&amp;utm_source=percent_checkin&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank"><%= @data.checking_in_pct %>% </a>
+                            </b>
+
+                            <p class="summary-title" style="font-size: 80%; font-weight: bold; margin: 5px; padding: 0px;">
+                              <a href="<%= @server_url %>/inventory?product=all&amp;utm_source=percent_checkin&amp;utm_medium=email&amp;utm_campaign=WeeklyEmail" style="color:#ffffff;text-decoration:none" target="_blank">Hosts
+                                Checking In</a></p>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
                   </td>
                 </tr>
-                </tbody>
               </table>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div id="footer">
-              <!-- FOOTER -->
-              <table class="footer-table footer" style="background-color: #fafafa; border: 0; min-width: 640px !important; padding: 40px 0 80px; width: 640px;">
-                <tbody>
-                <tr>
-                  <td align="center">
-                    <font face="'Arimo', Arial, sans-serif" style="font-size:12px;color:#333333">
-                      Copyright © 2016 Red Hat, All rights reserved.<br>
-                      <a href="<%=@email_settings_url%>" style="color:#333333" target="_blank">Update email preferences</a>
-                    </font>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </td>
-  </tr>
-  </tbody>
-</table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div id="footer">
+                <!-- FOOTER -->
+                <table class="footer-table footer" style="background-color: #fafafa; border: 0; min-width: 640px !important; padding: 40px 0 80px; width: 640px;">
+                  <tbody>
+                  <tr>
+                    <td align="center">
+                      <font face="'Arimo', Arial, sans-serif" style="font-size:12px;color:#333333">
+                        Copyright © 2018 Red Hat, All rights reserved.<br>
+                        <a href="<%= @email_settings_url %>" style="color:#333333" target="_blank">Update email
+                          preferences</a>
+                      </font>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
 </body>
+</html>
