@@ -53,8 +53,32 @@
             InsightsConfigProvider.setGettingStartedLink('https://access.redhat.com/insights/getting-started/satellite/6/');
             InsightsConfigProvider.setAllowExport(true);
             InsightsConfigProvider.setOverviewKey('overview-satellite6');
-            InsightsConfigProvider.setPlannerEnabled(true);
-
+            InsightsConfigProvider.setPlannerEnabled(true);    
+            var initInjector = angular.injector(['ng']);
+            var $http = initInjector.get('$http');
+            //TODO fix hard coded values for the ansibleRunner stuff
+            InsightsConfigProvider.setAnsibleRunner(function ($location, planId, button) {
+                if (button === "run") {
+                    var data = {
+                        'job_template_id' : 'Ansible: Run Insights maintenance plan',
+                        'inputs' : { 
+                          'organization_id' : REDHAT_ACCESS_SETTINGS.Insights.org_id,
+                          'plan_id' : planId
+                        }
+                      };
+                    $http.post('/api/v2/job_invocations/', data)
+                    .success(function (response, status, headers) {
+                        window.location = '/job_invocations/'+response.id;
+                    })
+                    .error(function (response, status, header) {
+                        alert("failed to create job;");
+                    });
+                  
+                } else if (button === "customize") {
+                    window.location = "/job_invocations/new?template_id=" + REDHAT_ACCESS_SETTINGS.Insights.AnsibleRunnerTmplId + "&plan_id=" +planId;
+                    //TODO - need to set ansibleRunnerTmplId in app/views/redhat_access/analytics_dashboard/index.html.erb
+                }
+            });
         }
     ]).value('SAT_CONFIG', {
         enableBasicAuth: REDHAT_ACCESS_SETTINGS.Insights.allowBasicAuth,
