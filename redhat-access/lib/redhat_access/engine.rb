@@ -231,6 +231,7 @@ module RedhatAccess
 
     config.to_prepare do
       ::Organization.send :include, RedhatAccess::Concerns::OrganizationExtensions
+      ::Host::Managed.send :include, RedhatAccess::Concerns::HostManagedExtensions
     end
   end
 end
