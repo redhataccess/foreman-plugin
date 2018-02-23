@@ -171,7 +171,8 @@ module RedhatAccess
         end
 
         unless sam_deployment?
-          sub_menu :top_menu, :redhat_access_top_menu, :caption => N_('Red Hat Insights') do
+          sub_menu :top_menu, :redhat_access_top_menu, :caption => N_('Insights'),
+                                                       :icon => 'pficon pficon-storage-domain' do
             rha_menu :top_menu,
                      :rhai_dashboard,
                      :caption => N_('Overview'),
