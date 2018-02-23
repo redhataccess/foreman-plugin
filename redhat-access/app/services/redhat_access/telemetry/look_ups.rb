@@ -43,6 +43,10 @@ module RedhatAccess
         end
       end
 
+      def insights_api_host
+        REDHAT_ACCESS_CONFIG[:telemetry_api_host]
+      end
+
       def current_organization
         Organization.current || Organization.find_by_id(session[:organization_id]) if session[:organization_id]
       end
