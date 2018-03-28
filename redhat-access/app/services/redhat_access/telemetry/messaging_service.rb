@@ -154,9 +154,6 @@ module RedhatAccess
         map
       end
 
-      def user_hash_to_login(user_hash)
-        @user_map[user_hash]
-      end
 
       def http_request(options, add_user_header=false)
         unless options[:params]
@@ -176,12 +173,6 @@ module RedhatAccess
 
       end
 
-      def handle_errors(http_code)
-        return if http_code == 200 or http_code == 201
-        case http_code
-          when 401
-        end
-      end
 
       def new_api_client(add_user_header)
         options = get_http_options(add_user_header)

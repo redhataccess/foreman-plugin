@@ -8,7 +8,7 @@ module RedhatAccess
       #@@log_files = ['/var/log/foreman/production.log','/var/log/foreman/delayed_job.log','/var/log/foreman/jobs-startup.log']
       @@log_files = REDHAT_ACCESS_CONFIG[:diagnostic_logs]
 
-      def index
+      def logs
         #
         # This REST hack of using index for both list and specific resource get
         # is being forced by the current UI design
@@ -38,7 +38,7 @@ module RedhatAccess
 
 
       def permission_denied
-        render :template => "katello/common/403"
+        render status: 403 , json: {:message => 'Permission denied.'}
       end
 
       def api_version

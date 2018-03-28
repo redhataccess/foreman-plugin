@@ -120,6 +120,8 @@ module RedhatAccess
           permission :strata_api,{:"redhat_access/api/strata_proxy" => [:call]}, :public => true
 
           # Logs require special permissions
+          #These are here for legacy and do not enable anything (only super admin user should have access to the logs)
+          #The roles are deliberately mappped to unused controller action
           permission :view_log_viewer, {:"redhat_access/logviewer" => [:index]}
           permission :logs, {:"redhat_access/logs" => [:index]}
 
@@ -149,7 +151,7 @@ module RedhatAccess
           menu :header_menu,
                :LogViewer,
                :url => '/redhat_access/logviewer',
-               :url_hash => {:controller => :"redhat_access/logs", :action => :index},
+               :url_hash => {:controller => :"redhat_access/logs", :action => :logs}, 
                :engine => RedhatAccess::Engine,
                :caption => N_('Logs'),
                :turbolinks => false
