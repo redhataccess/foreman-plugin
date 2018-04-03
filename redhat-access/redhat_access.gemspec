@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Lindani Phiri"]
   s.email       = ["lphiri@redhat.com"]
   s.homepage    = "http://www.lphiri.redhat.com"
+  s.license     = 'GPLv3'
   s.summary     = "Plugin to add Redhat Access to Foreman"
   s.description = "This plugin adds Red Hat Access knowledge base search, case management and diagnostics to Foreman"
 
