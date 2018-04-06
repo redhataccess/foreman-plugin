@@ -8,6 +8,6 @@ class CreateRedhatAccessTelemetryConfigurations < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :redhat_access_telemetry_configurations, :organization_id
+    add_index :redhat_access_telemetry_configurations, :organization_id, :name => 'ratc_organization_id'
   end
 end
