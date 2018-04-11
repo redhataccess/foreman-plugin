@@ -44,22 +44,6 @@ module RedhatAccess
       end
     end
 
-    # Precompile any JS or CSS files under app/assets/
-    # If requiring files from each other, list them explicitly here to avoid precompiling the same
-    # content twice.
-    assets_to_precompile = [
-        'redhat_access/application.js',
-        'redhat_access/application.css',
-        'insights/application.js',
-        'insights/application.css'
-    ]
-    initializer 'redhat_access.assets.precompile' do |app|
-      app.config.assets.precompile += assets_to_precompile
-    end
-    initializer 'redhat_access.configure_assets', :group => :assets do
-      SETTINGS[:redhat_access] = {:assets => {:precompile => assets_to_precompile}}
-    end
-
     initializer :security_initialization do |app|
       app.config.filter_parameters << :authToken
     end
@@ -108,6 +92,12 @@ module RedhatAccess
         requires_foreman '>= 1.15'
         #requires_foreman_plugin 'katello', '> 3.0.0'
 
+        precompile_assets([
+          'redhat_access/application.js',
+          'redhat_access/application.css',
+          'insights/application.js',
+          'insights/application.css'
+        ])
 
         # permission section
         security_block :redhat_access_security do
@@ -151,7 +141,7 @@ module RedhatAccess
           menu :header_menu,
                :LogViewer,
                :url => '/redhat_access/logviewer',
-               :url_hash => {:controller => :"redhat_access/logs", :action => :logs}, 
+               :url_hash => {:controller => :"redhat_access/logs", :action => :logs},
                :engine => RedhatAccess::Engine,
                :caption => N_('Logs'),
                :turbolinks => false
