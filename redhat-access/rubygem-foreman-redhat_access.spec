@@ -124,6 +124,9 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildro
 
 
 %changelog
+* Wed Apr 11 2018 Lindani Phiri <lindani@redhat.com> - 2.1.3-1
+- Use new style assets compile
+
 * Wed Apr 11 2018 Lindani Phiri <lindani@redhat.com> - 2.1.2-1
 - Add default config file
 
