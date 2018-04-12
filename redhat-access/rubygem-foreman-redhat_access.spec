@@ -123,7 +123,11 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildro
 
 
 
-%changelog
+%changelog* 
+
+* Thur Apr 12 2018 Lindani Phiri <lindani@redhat.com> - 2.1.4-1
+- Fix Email Poller start
+
 * Wed Apr 11 2018 Lindani Phiri <lindani@redhat.com> - 2.1.3-1
 - Use new style assets compile
 
