@@ -18,7 +18,10 @@ module Actions
               params = {:mode => :recurring,
                         :input_type => :cronline,
                         :cronline => "0 0 * * 6"}
-              @triggered_action = ForemanTasks::Triggering.new_from_params(params).trigger(self)
+              triggering = ForemanTasks::Triggering.new_from_params(params)
+              triggering.save!
+              triggering.reload
+              @triggered_action = triggering.trigger(self)
             end
           end
         rescue Dynflow::Coordinator::LockError
