@@ -89,7 +89,7 @@ module RedhatAccess
             # ldebug('Org manifest not found or invalid in get_branch_id')
             raise(RecordNotFound, 'Branch ID not found for organization')
           else
-            branch_id =  owner['uuid']
+            branch_id =  "#{Digest::SHA1.hexdigest(Setting[:foreman_url])}-#{owner['uuid']}"
           end
         else
           raise(RecordNotFound, 'Organization not found or invalid')
