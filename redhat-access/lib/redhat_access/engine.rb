@@ -126,8 +126,8 @@ module RedhatAccess
         role "Red Hat Access Logs", [:logs, :view_log_viewer]
         unless sam_deployment?
           #Need to be kept in sync with db/seeds.d/20-update-insights-roles
-          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view]
-          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
+          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view, :view_hosts]
+          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations, :view_hosts]
         end
         add_all_permissions_to_default_roles
         # menus
