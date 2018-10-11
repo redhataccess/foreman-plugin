@@ -131,37 +131,6 @@ module RedhatAccess
         end
         add_all_permissions_to_default_roles
         # menus
-        sub_menu :header_menu, :redhat_access_menu, :caption => N_('Red Hat Access') do
-          menu :header_menu,
-               :Search,
-               :url => '/redhat_access/search',
-               :url_hash => {:controller => :"redhat_access/search", :action => :index},
-               :engine => RedhatAccess::Engine,
-               :turbolinks => false
-          menu :header_menu,
-               :LogViewer,
-               :url => '/redhat_access/logviewer',
-               :url_hash => {:controller => :"redhat_access/logs", :action => :logs},
-               :engine => RedhatAccess::Engine,
-               :caption => N_('Logs'),
-               :turbolinks => false
-          divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
-          menu :header_menu,
-               :mycases,
-               :url => '/redhat_access/case/list',
-               :url_hash => {:controller => :"redhat_access/cases", :action => :index},
-               :engine => RedhatAccess::Engine,
-               :caption => N_('My Cases'),
-               :turbolinks => false
-
-          menu :header_menu, :new_cases, :caption => N_('Open New Case'),
-               :url => '/redhat_access/case/new',
-               :url_hash => {:controller => :"redhat_access/cases", :action => :create},
-               :engine => RedhatAccess::Engine,
-               :turbolinks => false
-
-        end
-
         unless sam_deployment?
           sub_menu :top_menu, :redhat_access_top_menu, :caption => N_('Insights'),
                                                        :icon => 'pficon pficon-storage-domain' do
@@ -214,6 +183,36 @@ module RedhatAccess
                      :url_hash => {:controller => :"redhat_access/analytics_dashboard", :action => :index},
                      :engine => RedhatAccess::Engine,
                      :turbolinks => false
+          end
+          sub_menu :top_menu, :redhat_access_menu, :caption => N_('Access'), :icon => 'fa fa-phone' do
+            menu :top_menu,
+                 :Search,
+                 :url => '/redhat_access/search',
+                 :url_hash => {:controller => :"redhat_access/search", :action => :index},
+                 :engine => RedhatAccess::Engine,
+                 :turbolinks => false
+            menu :top_menu,
+                 :LogViewer,
+                 :url => '/redhat_access/logviewer',
+                 :url_hash => {:controller => :"redhat_access/logs", :action => :logs},
+                 :engine => RedhatAccess::Engine,
+                 :caption => N_('Logs'),
+                 :turbolinks => false
+            divider :top_menu, :parent => :redhat_access_menu, :caption => N_('Support')
+            menu :top_menu,
+                 :mycases,
+                 :url => '/redhat_access/case/list',
+                 :url_hash => {:controller => :"redhat_access/cases", :action => :index},
+                 :engine => RedhatAccess::Engine,
+                 :caption => N_('My Cases'),
+                 :turbolinks => false
+
+            menu :top_menu, :new_cases, :caption => N_('Open New Case'),
+                 :url => '/redhat_access/case/new',
+                 :url_hash => {:controller => :"redhat_access/cases", :action => :create},
+                 :engine => RedhatAccess::Engine,
+                 :turbolinks => false
+
           end
           widget 'insights_issues_widget', :name => 'Red Hat Insights Actions', :sizey => 1, :sizex => 6
           widget 'insights_risk_widget', :name => 'Red Hat Insights Risk Summary', :sizey => 1, :sizex => 6
