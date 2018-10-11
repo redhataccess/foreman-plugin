@@ -63,7 +63,7 @@ module RedhatAccess
          unless content_hdr.nil?
             headers['content-type'] = content_hdr
          end
-         headers['Authorization'] = env['HTTP_AUTHORIZATION'] if env['HTTP_AUTHORIZATION']
+         headers['Authorization'] = request.env['HTTP_AUTHORIZATION'] if request.env['HTTP_AUTHORIZATION']
          Rails.logger.debug("User agent for telemetry is #{get_http_user_agent}")
          strata_host = 'https://api.' + REDHAT_ACCESS_CONFIG[:strata_host]
          return RedhatAccess::Telemetry::PortalClient.new(strata_host,
