@@ -89,7 +89,7 @@ module RedhatAccess
           Foreman::Plugin.installed?('foreman_sam')
         end
 
-        requires_foreman '>= 1.15'
+        requires_foreman '>= 1.18'
         #requires_foreman_plugin 'katello', '> 3.0.0'
 
         precompile_assets([
