@@ -145,10 +145,10 @@ module RedhatAccess
       end
 
       def get_file_data params
-        return {
-          :file => params[:file],
-          :filename => params[:file].original_filename
-        }
+        data            = {}
+        data[:file]     = params[:file]
+        data[:metadata] = params[:metadata] if params[:metadata]  # include the metadata part if present
+        return data
       end
 
       def add_branch_to_params(params)

@@ -15,7 +15,7 @@
 %global scl_rake /usr/bin/%{?scl:%{scl_prefix}}rake
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 2.0.13
+Version: 2.0.14
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -124,6 +124,9 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildro
 
 
 %changelog
+
+* Thu Feb 7 2019 Rex White <rewhite@redhat.com> - 2.0.14-1
+- BZ 1656478
 
 * Wed Sep 13 2017 Lindani Phiri <lindani@redhat.com> - 2.0.6-1
 - BZ 1485929
