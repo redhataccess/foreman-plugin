@@ -123,7 +123,10 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildro
 
 
 
-%changelog* 
+%changelog*
+
+* Thu Feb 7 2019 Rex White <rewhite@redhat.com> - 2.1.7-1
+- BZ 1656478
 
 * Thur Apr 12 2018 Lindani Phiri <lindani@redhat.com> - 2.1.4-1
 - Fix Email Poller start
