@@ -33,8 +33,8 @@ module RedhatAccess
       end
 
       def is_org_selected?
-        Rails.logger.debug("Org selected ? #{current_organization.nil?}")
-        current_organization.nil? ? false : true
+        Rails.logger.debug("Org selected ? #{current_organization_object.nil?}")
+        current_organization_object.nil? ? false : true
       end
 
       def get_telemetry_config(org)
@@ -47,7 +47,7 @@ module RedhatAccess
         REDHAT_ACCESS_CONFIG[:telemetry_api_host]
       end
 
-      def current_organization
+      def current_organization_object
         Organization.current || Organization.find_by_id(session[:organization_id]) if session[:organization_id]
       end
 
