@@ -26,7 +26,7 @@ module RedhatAccess
       end
 
       def check_telemetry_enabled
-        render_telemetry_off unless telemetry_enabled?(current_organization)
+        render_telemetry_off unless telemetry_enabled?(current_organization_object)
       end
 
       def render_telemetry_off
@@ -40,7 +40,7 @@ module RedhatAccess
       end
 
       def get_auth_opts(creds)
-        return get_ssl_options_for_org(current_organization ,nil)
+        return get_ssl_options_for_org(current_organization_object, nil)
       end
 
       def index
@@ -51,7 +51,7 @@ module RedhatAccess
       # # Returns an array of the machine IDs that this user has access to
       def get_machines
         #TODO err out if org is not selected
-        machines = get_content_hosts(current_organization)
+        machines = get_content_hosts(current_organization_object)
         if machines.empty?
           machines = ['NULL_SET']
         end
@@ -60,7 +60,7 @@ module RedhatAccess
 
 
       def get_current_organization
-          current_organization
+          current_organization_object
       end
 
       def connection_status
@@ -162,7 +162,7 @@ module RedhatAccess
 
 
       def get_branch_id
-        get_branch_id_for_org(current_organization)
+        get_branch_id_for_org(current_organization_object)
       end
 
       def get_api_client
