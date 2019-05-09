@@ -51,9 +51,14 @@ module RedhatAccess
         else
           resource = "uploads/#{params[:id]}"
         end
+        if request.format.json?
+          original_payload = original_payload.to_json
+        end
         if params[:file]
+          #Overwrite payload if sending a file
           original_payload = get_file_data(params)
         end
+        
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
         res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
