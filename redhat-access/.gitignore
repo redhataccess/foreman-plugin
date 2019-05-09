@@ -9,6 +9,7 @@ test/dummy/.sass-cache
 public/*
 *.sw?
 .idea
+../idea
 config/config.yml
 *~
 *#
