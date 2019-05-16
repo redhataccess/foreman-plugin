@@ -108,9 +108,14 @@ module RedhatAccess
           original_payload = request.body.read
         end
         resource = params[:path] == nil ? "/" : params[:path]
+
         if params[:file]
           original_payload = get_file_data(params)
+        elsif request.format.json? && request.patch? && original_payload
+          # because rails behaves stupidly for http PATCH:
+          original_payload = original_payload.to_json unless original_payload.is_a? String
         end
+
         client = get_api_client
         res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
         #401 erros means our proxy is not configured right.
