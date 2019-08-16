@@ -33,8 +33,8 @@ module RedhatAccess
       end
 
       def is_org_selected?
-        Rails.logger.debug("Org selected ? #{current_organization_object.nil?}")
-        current_organization_object.nil? ? false : true
+        Rails.logger.debug("Org selected ? #{current_organization.nil?}")
+        current_organization.nil? ? false : true
       end
 
       def get_telemetry_config(org)
@@ -43,11 +43,7 @@ module RedhatAccess
         end
       end
 
-      def insights_api_host
-        REDHAT_ACCESS_CONFIG[:telemetry_api_host]
-      end
-
-      def current_organization_object
+      def current_organization
         Organization.current || Organization.find_by_id(session[:organization_id]) if session[:organization_id]
       end
 
@@ -210,15 +206,6 @@ module RedhatAccess
         "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
       end
 
-      # timeout for telemetry api operations
-      def get_tapi_timeout
-        REDHAT_ACCESS_CONFIG[:telemetry_api_timeout_s] || 60
-      end
-
-      # timeout for telemetry uploads
-      def get_upload_timeout
-        REDHAT_ACCESS_CONFIG[:telemetry_upload_timeout_s] || 120
-      end
 
       def get_http_options(include_user_id = false)
         headers = {}

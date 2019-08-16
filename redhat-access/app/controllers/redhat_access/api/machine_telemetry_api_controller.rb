@@ -7,13 +7,13 @@ module RedhatAccess
   module Api
     class MachineTelemetryApiController < TelemetryApiController
 
-      skip_before_action :authorize
-      skip_before_action :require_login
-      skip_before_action :session_expiry
-      skip_before_action :verify_authenticity_token
-      skip_before_action :check_telemetry_enabled
-      before_action :telemetry_auth
-      before_action :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload]
+      skip_before_filter :authorize
+      skip_before_filter :require_login
+      skip_before_filter :session_expiry
+      skip_before_filter :verify_authenticity_token
+      skip_before_filter :check_telemetry_enabled
+      before_filter :telemetry_auth
+      before_filter :ensure_telemetry_enabled, :only => [:proxy, :proxy_upload]
 
       def telemetry_auth
         authenticate_client
@@ -36,7 +36,7 @@ module RedhatAccess
 
       def api_connection_test
         client = get_api_client
-        res = client.call_tapi('GET', '/', nil, nil, {timeout: get_tapi_timeout})
+        res = client.call_tapi('GET', '/', nil, nil, nil)
         Rails.logger.debug(res[:data])
         render status: res[:code], json: {}
       end
@@ -61,7 +61,7 @@ module RedhatAccess
         
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, {timeout: get_upload_timeout}, use_subsets)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
         render status: res[:code] , json: res[:data]
       end
 

@@ -11,7 +11,7 @@ module RedhatAccess
 
 
 
-      before_action :check_telemetry_enabled, :only => [:proxy]
+      before_filter :check_telemetry_enabled, :only => [:proxy]
 
 
       def action_permission
@@ -26,7 +26,7 @@ module RedhatAccess
       end
 
       def check_telemetry_enabled
-        render_telemetry_off unless telemetry_enabled?(current_organization_object)
+        render_telemetry_off unless telemetry_enabled?(current_organization)
       end
 
       def render_telemetry_off
@@ -40,7 +40,7 @@ module RedhatAccess
       end
 
       def get_auth_opts(creds)
-        return get_ssl_options_for_org(current_organization_object, nil)
+        return get_ssl_options_for_org(current_organization ,nil)
       end
 
       def index
@@ -51,21 +51,21 @@ module RedhatAccess
       # # Returns an array of the machine IDs that this user has access to
       def get_machines
         #TODO err out if org is not selected
-        machines = get_content_hosts(current_organization_object)
+        machines = get_content_hosts(current_organization)
         if machines.empty?
           machines = ['NULL_SET']
-        end
+        end 
         machines.sort
       end
 
 
       def get_current_organization
-          current_organization_object
+          current_organization
       end
 
       def connection_status
         client = get_api_client
-        res = client.call_tapi('GET', 'me', nil, nil, {timeout: get_tapi_timeout})
+        res = client.call_tapi('GET', 'me', nil, nil, nil)
         Rails.logger.debug(res[:data])
         case res[:code]
         when 200
@@ -117,7 +117,7 @@ module RedhatAccess
         end
 
         client = get_api_client
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, {timeout: get_tapi_timeout}, use_subsets)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
         resp_data = res[:data]
@@ -167,7 +167,7 @@ module RedhatAccess
 
 
       def get_branch_id
-        get_branch_id_for_org(current_organization_object)
+        get_branch_id_for_org(current_organization)
       end
 
       def get_api_client

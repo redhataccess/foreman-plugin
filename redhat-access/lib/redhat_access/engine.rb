@@ -44,6 +44,22 @@ module RedhatAccess
       end
     end
 
+    # Precompile any JS or CSS files under app/assets/
+    # If requiring files from each other, list them explicitly here to avoid precompiling the same
+    # content twice.
+    assets_to_precompile = [
+        'redhat_access/application.js',
+        'redhat_access/application.css',
+        'insights/application.js',
+        'insights/application.css'
+    ]
+    initializer 'redhat_access.assets.precompile' do |app|
+      app.config.assets.precompile += assets_to_precompile
+    end
+    initializer 'redhat_access.configure_assets', :group => :assets do
+      SETTINGS[:redhat_access] = {:assets => {:precompile => assets_to_precompile}}
+    end
+
     initializer :security_initialization do |app|
       app.config.filter_parameters << :authToken
     end
@@ -89,15 +105,9 @@ module RedhatAccess
           Foreman::Plugin.installed?('foreman_sam')
         end
 
-        requires_foreman '>= 1.18'
+        requires_foreman '>= 1.15'
         #requires_foreman_plugin 'katello', '> 3.0.0'
 
-        precompile_assets([
-          'redhat_access/application.js',
-          'redhat_access/application.css',
-          'insights/application.js',
-          'insights/application.css'
-        ])
 
         # permission section
         security_block :redhat_access_security do
@@ -126,14 +136,44 @@ module RedhatAccess
         role "Red Hat Access Logs", [:logs, :view_log_viewer]
         unless sam_deployment?
           #Need to be kept in sync with db/seeds.d/20-update-insights-roles
-          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view, :view_hosts]
-          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations, :view_hosts]
+          role "Access Insights Viewer", [:rh_telemetry_api, :rh_telemetry_view]
+          role "Access Insights Admin", [:rh_telemetry_api, :rh_telemetry_view, :rh_telemetry_configurations]
         end
         add_all_permissions_to_default_roles
         # menus
+        sub_menu :header_menu, :redhat_access_menu, :caption => N_('Red Hat Access') do
+          menu :header_menu,
+               :Search,
+               :url => '/redhat_access/search',
+               :url_hash => {:controller => :"redhat_access/search", :action => :index},
+               :engine => RedhatAccess::Engine,
+               :turbolinks => false
+          menu :header_menu,
+               :LogViewer,
+               :url => '/redhat_access/logviewer',
+               :url_hash => {:controller => :"redhat_access/logs", :action => :logs}, 
+               :engine => RedhatAccess::Engine,
+               :caption => N_('Logs'),
+               :turbolinks => false
+          divider :header_menu, :parent => :redhat_access_menu, :caption => N_('Support')
+          menu :header_menu,
+               :mycases,
+               :url => '/redhat_access/case/list',
+               :url_hash => {:controller => :"redhat_access/cases", :action => :index},
+               :engine => RedhatAccess::Engine,
+               :caption => N_('My Cases'),
+               :turbolinks => false
+
+          menu :header_menu, :new_cases, :caption => N_('Open New Case'),
+               :url => '/redhat_access/case/new',
+               :url_hash => {:controller => :"redhat_access/cases", :action => :create},
+               :engine => RedhatAccess::Engine,
+               :turbolinks => false
+
+        end
+
         unless sam_deployment?
-          sub_menu :top_menu, :redhat_access_top_menu, :caption => N_('Insights'),
-                                                       :icon => 'pficon pficon-storage-domain' do
+          sub_menu :top_menu, :redhat_access_top_menu, :caption => N_('Red Hat Insights') do
             rha_menu :top_menu,
                      :rhai_dashboard,
                      :caption => N_('Overview'),
@@ -192,7 +232,6 @@ module RedhatAccess
 
     config.to_prepare do
       ::Organization.send :include, RedhatAccess::Concerns::OrganizationExtensions
-      ::Host::Managed.send :include, RedhatAccess::Concerns::HostManagedExtensions
     end
   end
 end

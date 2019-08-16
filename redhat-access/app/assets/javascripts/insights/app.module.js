@@ -54,41 +54,7 @@
             InsightsConfigProvider.setAllowExport(true);
             InsightsConfigProvider.setOverviewKey('overview-satellite6');
             InsightsConfigProvider.setPlannerEnabled(true);
-            var initInjector = angular.injector(['ng']);
-            var $http = initInjector.get('$http');
-            $http.defaults.headers.common = {
-                'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-            };
-            InsightsConfigProvider.setAnsibleRunner(function ($location, planId, button) {
-                var ansibleRunInputs = {
-                  'organization_id' : REDHAT_ACCESS_SETTINGS.Insights.org_id,
-                  'plan_id' : planId
-                }
-                var ansibleFeatureName = 'ansible_run_insights_plan'
 
-                if (button === "run") {
-                    var data = {
-                      'job_invocation' : {
-                        'feature' : ansibleFeatureName,
-                        'host_ids' : 'plan_id=' + ansibleRunInputs['plan_id'],
-                        'inputs' : ansibleRunInputs
-                      }
-                    };
-                    $http.post('/api/v2/job_invocations/', data)
-                    .success(function (response, status, headers) {
-                        window.location = '/job_invocations/'+response.id;
-                    })
-                    .error(function (response, status, header) {
-                        alert("Failed to create job. Ensure your systems are registered in Foreman");
-                    });
-
-                } else if (button === "customize") {
-                    window.location = "/job_invocations/new?feature=" + ansibleFeatureName +
-                      "&host_ids=" + 'plan_id=' + ansibleRunInputs['plan_id'] +
-                      "&inputs[plan_id]=" + ansibleRunInputs['plan_id'] +
-                      "&inputs[organization_id]=" + ansibleRunInputs['organization_id'];
-                }
-            });
         }
     ]).value('SAT_CONFIG', {
         enableBasicAuth: REDHAT_ACCESS_SETTINGS.Insights.allowBasicAuth,

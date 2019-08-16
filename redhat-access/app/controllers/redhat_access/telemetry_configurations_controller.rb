@@ -19,7 +19,7 @@ module RedhatAccess
         else
           render json: {:error=>"Invalid parameters"}.to_json, status: 400
         end
-          rescue => e
+          rescue=>e
           Rails.logger.info(e)
           render json: {:error=>"Error processing update"}.to_json, status: 500
         end
