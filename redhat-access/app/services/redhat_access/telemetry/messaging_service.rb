@@ -164,7 +164,7 @@ module RedhatAccess
                                                         #{:branch_id => @branch_id}.merge(options[:params]),
                                                         options[:params],
                                                         options[:payload],
-                                                        nil,
+                                                        {timeout: get_tapi_timeout},
                                                         options[:use_subsets])
         if res.key?(:error)
           raise res[:error]

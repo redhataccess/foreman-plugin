@@ -67,7 +67,7 @@ module.exports = function(grunt) {
         },
         copy: {
             js: {
-                src: 'node_modules/insights-frontend/js/insights.js',
+                src: 'node_modules/insights-frontend/js/insights.unmin.js',
                 dest: 'vendor/assets/javascripts/telemetry/insights.js'
             },
             css: {

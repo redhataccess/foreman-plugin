@@ -60,6 +60,8 @@
             REDHAT_ACCESS_SETTINGS.Insights.canUnregisterSystems = <%= can_unregister_system(User.current) %>;
             REDHAT_ACCESS_SETTINGS.Insights.canIgnoreRules = <%= can_mask_rules(User.current) %>;
             REDHAT_ACCESS_SETTINGS.currentLocale = '<%= (I18n.locale)[0..1] %>';
+            REDHAT_ACCESS_SETTINGS.Insights.org_id = <%= current_organization_object.id%>;
+            REDHAT_ACCESS_SETTINGS.Insights.AnsibleRunnerTmplId = 1 ; //TODO fix this
         <%end%>
         <%= javascript_include_tag "insights/application" %>
     <% end %>

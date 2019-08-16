@@ -29,7 +29,7 @@ Requires: katello >= 3.4.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.1.0
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.1.5
 Requires: redhat-access-insights-puppet >= 0.0.9
 
 
@@ -124,6 +124,30 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildro
 
 
 %changelog
+
+* Fri Jul 12 2019 Rex White <rexwhite@redhat.com> 2.2.8-1
+- BZ 1642194: Added config items for upload and tapi request timeouts
+
+* Thu Feb 7 2019 Rex White <rewhite@redhat.com> - 2.2.1-1
+- BZ 1656478
+
+* Thur Apr 12 2018 Lindani Phiri <lindani@redhat.com> - 2.1.4-1
+- Fix Email Poller start
+
+* Wed Apr 11 2018 Lindani Phiri <lindani@redhat.com> - 2.1.3-1
+- Use new style assets compile
+
+* Wed Apr 11 2018 Lindani Phiri <lindani@redhat.com> - 2.1.2-1
+- Add default config file
+
+* Tue Apr 10 2018 Lindani Phiri <lindani@redhat.com> - 2.1.1-1
+- Update licence
+- Limit migration name length
+
+
+* Wed Mar 28 2018 Lindani Phiri <lindani@redhat.com> - 2.1.0-1
+- Ansible Fix It
+- Rails 5 compatibility updates
 
 * Thu Feb 7 2019 Rex White <rewhite@redhat.com> - 2.0.14-1
 - BZ 1656478

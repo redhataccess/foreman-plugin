@@ -1,4 +1,4 @@
-class CreateRedhatAccessTelemetryConfigurations < ActiveRecord::Migration
+class CreateRedhatAccessTelemetryConfigurations < ActiveRecord::Migration[4.2]
   def change
     create_table :redhat_access_telemetry_configurations do |t|
       t.string :portal_user
@@ -8,6 +8,6 @@ class CreateRedhatAccessTelemetryConfigurations < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :redhat_access_telemetry_configurations, :organization_id
+    add_index :redhat_access_telemetry_configurations, :organization_id, :name => 'ratc_organization_id'
   end
 end

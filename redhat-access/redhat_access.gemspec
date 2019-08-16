@@ -9,13 +9,14 @@ Gem::Specification.new do |s|
   s.version     = RedhatAccess::VERSION
   s.authors     = ["Lindani Phiri"]
   s.email       = ["lphiri@redhat.com"]
-  s.homepage    = "http://www.lphiri.redhat.com"
+  s.homepage    = "https://github.com/redhataccess/foreman-plugin"
+  s.license     = 'GPLv3'
   s.summary     = "Plugin to add Redhat Access to Foreman"
   s.description = "This plugin adds Red Hat Access knowledge base search, case management and diagnostics to Foreman"
 
   s.files = Dir["{app,config,db,lib,vendor,public,script,ca,locale}/**/*"] + ["LICENSE.txt", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
   s.test_files = Dir["test/**/*"]
-  s.add_dependency "redhat_access_lib" , ">=1.1.0"
+  s.add_dependency "redhat_access_lib" , ">=1.1.5"
   s.add_dependency "angular-rails-templates", ">=0.0.4"
 
 end
