@@ -231,6 +231,22 @@ module RedhatAccess
          :headers => headers}
       end
 
+      # global use_subsets flag - defaults to false to suppress use of subsets to address scalability problems
+      # (subset and branch_id are equivalent for satellite)
+      def use_subsets?
+        REDHAT_ACCESS_CONFIG[:use_subsets] || false
+      end
+
+      # timeout for telemetry api operations
+      def get_tapi_timeout
+        REDHAT_ACCESS_CONFIG[:telemetry_api_timeout_s] || 60
+      end
+
+      # timeout for telemetry uploads
+      def get_upload_timeout
+        REDHAT_ACCESS_CONFIG[:telemetry_upload_timeout_s] || 120
+      end
+
       def user_login_to_hash(login)
         Digest::SHA1.hexdigest(login)
       end

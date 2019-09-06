@@ -20,6 +20,11 @@ module RedhatAccess
         @context = context
       end
 
+      # intercept call_tapi() so we can override use of subsets
+      def call_tapi(original_method, resource, original_params, original_payload, extra, use_subsets = true)
+        super(original_method, resource, original_params, original_payload, extra, use_subsets? && use_subsets)
+      end
+
       # Returns the branch id of the current org/account
       def get_branch_id
         organization = get_current_organization
