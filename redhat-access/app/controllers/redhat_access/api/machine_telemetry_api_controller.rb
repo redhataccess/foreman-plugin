@@ -36,7 +36,7 @@ module RedhatAccess
 
       def api_connection_test
         client = get_api_client
-        res = client.call_tapi('GET', '/', nil, nil, nil)
+        res = client.call_tapi('GET', '/', nil, nil, {timeout: get_tapi_timeout})
         Rails.logger.debug(res[:data])
         render status: res[:code], json: {}
       end
@@ -61,7 +61,7 @@ module RedhatAccess
         
         client = get_api_client
         Rails.logger.debug("Proxy upload original_payload : #{original_payload}")
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, {timeout: get_upload_timeout}, use_subsets)
         render status: res[:code] , json: res[:data]
       end
 

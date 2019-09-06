@@ -15,7 +15,7 @@
 %global scl_rake /usr/bin/%{?scl:%{scl_prefix}}rake
 
 Name: %{?scl_prefix}rubygem-foreman-%{gem_name}
-Version: 2.2.7
+Version: 2.2.8
 Release: 1%{?dist}
 Summary: Foreman engine to access Red Hat knowledge base and manage support cases.
 Group: Development/Languages
@@ -29,7 +29,7 @@ Requires: katello >= 3.4.0
 
 Requires: %{?scl_prefix_ruby}ruby(rubygems)
 Requires: %{?scl_prefix}rubygem(angular-rails-templates) >= 0.0.4
-Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.1.0
+Requires: %{?scl_prefix}rubygem-redhat_access_lib >= 1.1.5
 Requires: redhat-access-insights-puppet >= 0.0.9
 
 
@@ -124,6 +124,9 @@ cp -pa $RPM_BUILD_DIR/%{gem_name}-%{version}/config/config.yml.example %{buildro
 
 
 %changelog*
+
+* Fir Jul 12 2019 Rex White <rexwhite@redhat.com> 2.2.8-1
+- BZ 1642194: Added config items for upload and tapi request timeouts
 
 * Thu Feb 7 2019 Rex White <rewhite@redhat.com> - 2.2.1-1
 - BZ 1656478
