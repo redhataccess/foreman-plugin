@@ -8,6 +8,7 @@
 :telemetry_upload_host : "https://cert-api.access.redhat.com"
 :telemetry_api_host : "https://cert-api.access.redhat.com"
 :telemetry_ssl_verify_peer : true
+:use_subsets : false
 
 :diagnostic_logs :
   - /var/log/foreman/production.log

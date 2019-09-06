@@ -210,7 +210,6 @@ module RedhatAccess
         "#{get_plugin_parent_name}/#{get_plugin_parent_version};#{get_rha_plugin_name}/#{get_rha_plugin_version}"
       end
 
-
       def get_http_options(include_user_id = false)
         headers = {}
         if include_user_id && User.current
@@ -220,6 +219,22 @@ module RedhatAccess
          :http_proxy => get_portal_http_proxy,
          :user_agent => get_http_user_agent,
          :headers => headers}
+      end
+
+      # global use_subsets flag - defaults to false to suppress use of subsets to address scalability problems
+      # (subset and branch_id are equivalent for satellite)
+      def use_subsets?
+        REDHAT_ACCESS_CONFIG[:use_subsets] || false
+      end
+
+      # timeout for telemetry api operations
+      def get_tapi_timeout
+        REDHAT_ACCESS_CONFIG[:telemetry_api_timeout_s] || 60
+      end
+
+      # timeout for telemetry uploads
+      def get_upload_timeout
+        REDHAT_ACCESS_CONFIG[:telemetry_upload_timeout_s] || 120
       end
 
       def user_login_to_hash(login)
