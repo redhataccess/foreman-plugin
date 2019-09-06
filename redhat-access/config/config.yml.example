@@ -6,7 +6,9 @@
 
 :enable_telemetry_basic_auth : false
 :telemetry_upload_host : "https://cert-api.access.redhat.com"
+# :telemetry_upload_timeout_s : 120
 :telemetry_api_host : "https://cert-api.access.redhat.com"
+# :telemetry_api_timeout_s : 60
 :telemetry_ssl_verify_peer : true
 :use_subsets : false
 

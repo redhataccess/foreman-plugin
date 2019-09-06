@@ -65,7 +65,7 @@ module RedhatAccess
 
       def connection_status
         client = get_api_client
-        res = client.call_tapi('GET', 'me', nil, nil, nil)
+        res = client.call_tapi('GET', 'me', nil, nil, {timeout: get_tapi_timeout})
         Rails.logger.debug(res[:data])
         case res[:code]
         when 200
@@ -117,7 +117,7 @@ module RedhatAccess
         end
 
         client = get_api_client
-        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, nil, use_subsets)
+        res = client.call_tapi(original_method, URI.escape(resource), original_params, original_payload, {timeout: get_tapi_timeout}, use_subsets)
         #401 erros means our proxy is not configured right.
         #Change it to 502 to distinguish with local applications 401 errors
         resp_data = res[:data]
