@@ -1,5 +1,12 @@
 Release contents for v2.2 branch (satellite 6.5)
 
+- v2.2.9
+  * [BZ1719175](https://bugzilla.redhat.com/show_bug.cgi?id=1719175) - Proxy password with special character "?" fails for insights communication
+
+- v2.2.8
+  * [BZ1642194](https://bugzilla.redhat.com/show_bug.cgi?id=1642194) - Proxied upload timeout
+  * Use branch_id instead of creating subsets
+  
 - v2.2.7
   * [BZ1712554](https://bugzilla.redhat.com/show_bug.cgi?id=1712554) - Red Hat Insights inventory broken for large environments
 

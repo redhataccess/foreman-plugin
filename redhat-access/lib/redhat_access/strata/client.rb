@@ -2,6 +2,7 @@ require 'redhat_access_lib'
 require 'base64'
 module RedhatAccess::Strata
   class Client
+    include Katello::Util::HttpProxy
     attr_reader :api
     def initialize(token)
       username = ""
@@ -22,18 +23,9 @@ module RedhatAccess::Strata
     end
 
     def get_portal_http_proxy
-      proxy = nil
-      if Katello.config.cdn_proxy && Katello.config.cdn_proxy.host
-        proxy_config = Katello.config.cdn_proxy
-        uri = URI('')
-        uri.scheme = URI.parse(proxy_config.host).scheme
-        uri.host = URI.parse(proxy_config.host).host
-        uri.port = proxy_config.port
-        uri.user = proxy_config.user
-        uri.password = proxy_config.password
-        proxy = uri.to_s
-      end
-      return proxy
+      # switching to Katello::Util::HttpProxy's proxy_uri, which has a workaround for rest-client's poor handling
+      # of special characters in proxy passwords (see https://github.com/Katello/katello/commit/bea53437509f68ceeff0eabfde88f69810876307)
+      proxy_uri
     end
   end
 end
