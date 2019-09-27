@@ -7,12 +7,13 @@ require "redhat_access/version"
 Gem::Specification.new do |s|
   s.name        = "redhat_access"
   s.version     = RedhatAccess::VERSION
-  s.authors     = ["Lindani Phiri"]
+  s.authors     = ["Lindani Phiri", "Rex White"]
   s.email       = ["lphiri@redhat.com"]
   s.homepage    = "https://github.com/redhataccess/foreman-plugin"
   s.license     = 'GPLv3'
   s.summary     = "Plugin to add Redhat Access to Foreman"
   s.description = "This plugin adds Red Hat Access knowledge base search, case management and diagnostics to Foreman"
+  s.metadata    = {"changelog_uri" => "https://github.com/redhataccess/foreman-plugin/blob/master/redhat-access/releases.md"}
 
   s.files = Dir["{app,config,db,lib,vendor,public,script,ca,locale}/**/*"] + ["LICENSE.txt", "Rakefile", "README.rdoc", "redhat_access.gemspec", "Gemfile"]
   s.test_files = Dir["test/**/*"]
