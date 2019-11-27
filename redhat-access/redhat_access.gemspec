@@ -19,5 +19,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
   s.add_dependency "redhat_access_lib" , ">=1.1.5"
   s.add_dependency "angular-rails-templates", ">=0.0.4"
+  s.add_dependency "foreman-tasks"
+  s.add_dependency "katello"
 
 end
