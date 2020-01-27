@@ -1,3 +1,3 @@
 module RedhatAccess
-  VERSION = "2.2.9"
+  VERSION = "2.2.10"
 end

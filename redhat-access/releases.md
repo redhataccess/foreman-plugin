@@ -1,5 +1,7 @@
 Release contents for v2.2 branch (satellite 6.5)
 
+- v2.2.10 [BZ1719175](https://bugzilla.redhat.com/show_bug.cgi?id=1719175) - Round 2: fixed satellite 6.6 issues
+
 - v2.2.9
   * [BZ1719175](https://bugzilla.redhat.com/show_bug.cgi?id=1719175) - Proxy password with special character "?" fails for insights communication
 
