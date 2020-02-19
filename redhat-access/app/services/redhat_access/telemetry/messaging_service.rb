@@ -161,7 +161,7 @@ module RedhatAccess
         end
         res = new_api_client(add_user_header).call_tapi(options[:method],
                                                         URI.escape(options[:resource]),
-                                                        #{:branch_id => @branch_id}.merge(options[:params]),
+                                                        # {:branch_id => @branch_id}.merge(options[:params]),
                                                         options[:params],
                                                         options[:payload],
                                                         {timeout: get_tapi_timeout},
