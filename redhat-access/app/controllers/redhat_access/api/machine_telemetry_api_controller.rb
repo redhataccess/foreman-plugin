@@ -171,15 +171,32 @@ module RedhatAccess
                      }]
         end
 
-        # We're also leaving these out....
-
-        # # get parameters - perhaps we should only include parameter.searchable_value == true?
-        # host.host_inherited_params_objects.each do |parameter|
-        #   labels += [{
-        #                  :namespace => "SatelliteParameter",
-        #                  :key => parameter.name,
-        #                  :value => parameter.value
-        #              }]
+        # get parameters - perhaps we should only include parameter.searchable_value == true?
+        include_parameter_tags = get_include_parameter_tags # true, false or list
+        if include_parameter_tags
+          host.host_inherited_params_objects.each do |parameter|
+            # check to see if parameter.name is in list (if it *is* a list...)
+            if include_parameter_tags.respond_to?(:none?)
+              # skip tag if no match in list
+              next if include_parameter_tags.none? do |pattern|
+                begin
+                  parameter.name.match?(pattern)
+                rescue RegexpError => e
+                  Rails.logger.debug("Skipping bad parameter expression: #{e}")
+                  # remove the bad pattern from the list so we don't keep iterating over it
+                  include_parameter_tags.delete(pattern)
+                  next
+                end
+              end
+            end
+            # add tag to list of labels
+            labels += [{
+                           :namespace => "SatelliteParameter",
+                           :key => parameter.name,
+                           :value => parameter.value
+                       }]
+          end
+        end
 
         return labels
       end

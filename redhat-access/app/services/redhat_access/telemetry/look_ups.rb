@@ -250,6 +250,11 @@ module RedhatAccess
         REDHAT_ACCESS_CONFIG[:telemetry_upload_timeout_s] || 120
       end
 
+      # list of parameters to include as tags (or 'true' for all of them)
+      def get_include_parameter_tags
+        REDHAT_ACCESS_CONFIG[:include_parameter_tags] || false
+      end
+
       def user_login_to_hash(login)
         Digest::SHA1.hexdigest(login)
       end
