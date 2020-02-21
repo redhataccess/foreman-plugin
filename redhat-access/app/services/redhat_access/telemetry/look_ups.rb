@@ -168,8 +168,13 @@ module RedhatAccess
         get_branch_id_for_org org
       end
 
-      def get_organization(uuid)
-        system = get_content_host(uuid)
+      def get_organization(uuid_or_host)
+        # this takes either a host object or a uuid string
+        if uuid_or_host.is_a?(::Host::Managed)
+          return uuid_or_host.nil? ? nil : uuid_or_host.organization
+        end
+
+        system = get_content_host(uuid_or_host)
         system.nil? ? nil : system.organization
       end
 
@@ -191,12 +196,18 @@ module RedhatAccess
         end
       end
 
+      def get_foreman_instance_id
+        Foreman.respond_to?(:instance_id) ? Foreman.instance_id : nil
+      end
+
       def get_portal_http_proxy
         proxy = nil
         if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
           proxy_config = SETTINGS[:katello][:cdn_proxy]
           scheme = URI.parse(proxy_config[:host]).scheme
           uri = URI('')
+          # Ruby's uri parser doesn't handle encoded characters so Katello added two new schemes to handle proxy
+          # passwords.  See https://github.com/Katello/katello/blob/master/app/lib/katello/util/proxy_uri.rb
           uri.scheme = 'proxy' if scheme == 'http'
           uri.scheme = 'proxys' if scheme == 'https'
           uri.host = URI.parse(proxy_config[:host]).host
@@ -237,6 +248,11 @@ module RedhatAccess
       # timeout for telemetry uploads
       def get_upload_timeout
         REDHAT_ACCESS_CONFIG[:telemetry_upload_timeout_s] || 120
+      end
+
+      # list of parameters to include as tags (or 'true' for all of them)
+      def get_include_parameter_tags
+        REDHAT_ACCESS_CONFIG[:include_parameter_tags] || false
       end
 
       def user_login_to_hash(login)
