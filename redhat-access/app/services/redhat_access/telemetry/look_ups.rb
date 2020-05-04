@@ -201,22 +201,36 @@ module RedhatAccess
       end
 
       def get_portal_http_proxy
-        proxy = nil
-        if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
-          proxy_config = SETTINGS[:katello][:cdn_proxy]
-          scheme = URI.parse(proxy_config[:host]).scheme
-          uri = URI('')
-          # Ruby's uri parser doesn't handle encoded characters so Katello added two new schemes to handle proxy
-          # passwords.  See https://github.com/Katello/katello/blob/master/app/lib/katello/util/proxy_uri.rb
-          uri.scheme = 'proxy' if scheme == 'http'
-          uri.scheme = 'proxys' if scheme == 'https'
-          uri.host = URI.parse(proxy_config[:host]).host
-          uri.port = proxy_config[:port] if proxy_config[:port]
-          uri.user =  CGI.escape(proxy_config[:user]) if proxy_config[:user]
-          uri.password = CGI.escape(proxy_config[:password]) if proxy_config[:password]
-          proxy = uri.to_s
+        begin
+          @http_proxy_string ||=
+              begin
+                if Setting[:content_default_http_proxy]
+                  HttpProxy.unscoped.find_by(name: Setting[:content_default_http_proxy])&.full_url
+                end
+              end
+
+          if @http_proxy_string.blank?
+            if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
+              proxy_config = SETTINGS[:katello][:cdn_proxy]
+              scheme = URI.parse(proxy_config[:host]).scheme
+              uri = URI('')
+              # Ruby's uri parser doesn't handle encoded characters so Katello added two new schemes to handle proxy
+              # passwords.  See https://github.com/Katello/katello/blob/master/app/lib/katello/util/proxy_uri.rb
+              uri.scheme = 'proxy' if scheme == 'http'
+              uri.scheme = 'proxys' if scheme == 'https'
+              uri.host = URI.parse(proxy_config[:host]).host
+              uri.port = proxy_config[:port] if proxy_config[:port]
+              uri.user =  CGI.escape(proxy_config[:user]) if proxy_config[:user]
+              uri.password = CGI.escape(proxy_config[:password]) if proxy_config[:password]
+              @http_proxy_string = uri.to_s
+            end
+          end
+          Rails.logger.debug("Insights proxy url = #{@http_proxy_string}")
+          @http_proxy_string
+        rescue => error
+          Rails.logger.debug("Something bad happened trying to get the proxy url: #{error}")
+          return nil
         end
-        proxy
       end
 
       def get_http_user_agent
