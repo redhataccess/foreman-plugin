@@ -1,5 +1,8 @@
 Release contents
 
+- v2.2.12
+  * [BZ1825930](https://bugzilla.redhat.com/show_bug.cgi?id=1825930) - RedHat Insights client proxying stopped working due to missing proxy
+
 - v2.2.11
   * [BZ1803846](https://bugzilla.redhat.com/show_bug.cgi?id=1803846)
   * Add tags to branch_info metadata for location, organization, Host Groups, Host Collections, and parameters (optional)
