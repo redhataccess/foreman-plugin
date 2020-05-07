@@ -204,32 +204,47 @@ module RedhatAccess
         begin
           @http_proxy_string ||=
               begin
-                if Setting[:content_default_http_proxy]
-                  HttpProxy.unscoped.find_by(name: Setting[:content_default_http_proxy])&.full_url
+                proxy_uri = URI('')
+
+                if Setting[:content_default_http_proxy].present?
+                  proxy_config = HttpProxy.default_global_content_proxy
+                  proxy_uri = URI(proxy_config&.url)
+                  if proxy_config&.username.present?
+                    proxy_uri.user = CGI.escape(proxy_config&.username)
+                    if proxy_config&.password.present?
+                      proxy_uri.password = CGI.escape(proxy_config&.password)
+                    end
+                  end
                 end
+
+                if proxy_uri.to_s.blank?
+                  if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
+                    proxy_config = SETTINGS[:katello][:cdn_proxy]
+                    proxy_uri.scheme = URI.parse(proxy_config[:host]).scheme
+                    proxy_uri.host = URI.parse(proxy_config[:host]).host
+                    proxy_uri.port = proxy_config[:port] if proxy_config[:port]
+                    if proxy_config[:user].present?
+                      proxy_uri.user =  CGI.escape(proxy_config[:user]) if proxy_config[:user]
+                      if proxy_config[:password].present?
+                        proxy_uri.password = CGI.escape(proxy_config[:password])
+                      end
+                    end
+                  end
+                end
+
+                # Ruby's uri parser doesn't handle encoded characters so Katello added two new schemes to handle proxy
+                # passwords.  See https://github.com/Katello/katello/blob/master/app/lib/katello/util/proxy_uri.rb
+                proxy_uri.scheme = 'proxy' if proxy_uri.scheme == 'http'
+                proxy_uri.scheme = 'proxys' if proxy_uri.scheme == 'https'
+
+                proxy_uri.to_s
               end
 
-          if @http_proxy_string.blank?
-            if SETTINGS[:katello][:cdn_proxy] && SETTINGS[:katello][:cdn_proxy][:host]
-              proxy_config = SETTINGS[:katello][:cdn_proxy]
-              scheme = URI.parse(proxy_config[:host]).scheme
-              uri = URI('')
-              # Ruby's uri parser doesn't handle encoded characters so Katello added two new schemes to handle proxy
-              # passwords.  See https://github.com/Katello/katello/blob/master/app/lib/katello/util/proxy_uri.rb
-              uri.scheme = 'proxy' if scheme == 'http'
-              uri.scheme = 'proxys' if scheme == 'https'
-              uri.host = URI.parse(proxy_config[:host]).host
-              uri.port = proxy_config[:port] if proxy_config[:port]
-              uri.user =  CGI.escape(proxy_config[:user]) if proxy_config[:user]
-              uri.password = CGI.escape(proxy_config[:password]) if proxy_config[:password]
-              @http_proxy_string = uri.to_s
-            end
-          end
           Rails.logger.debug("Insights proxy url = #{@http_proxy_string}")
           @http_proxy_string
-        rescue => error
-          Rails.logger.debug("Something bad happened trying to get the proxy url: #{error}")
-          return nil
+        rescue
+          Rails.logger.debug("insights plugin: Something bad happened trying to get the proxy url")
+          raise
         end
       end
 

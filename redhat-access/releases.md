@@ -1,5 +1,8 @@
 Release contents
 
+- v2.2.13
+  * Fixed a CGI.escape issue with proxy passwords in v2.2.12
+  
 - v2.2.12
   * [BZ1825930](https://bugzilla.redhat.com/show_bug.cgi?id=1825930) - RedHat Insights client proxying stopped working due to missing proxy
 
