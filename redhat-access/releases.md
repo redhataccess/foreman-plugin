@@ -1,5 +1,8 @@
 Release contents
 
+- v2.2.14
+  * Added x_rh_insights_request_id to copied proxy response header
+  
 - v2.2.13
   * Fixed a CGI.escape issue with proxy passwords in v2.2.12
   
