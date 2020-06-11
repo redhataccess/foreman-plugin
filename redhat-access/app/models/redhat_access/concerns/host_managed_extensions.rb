@@ -12,7 +12,7 @@ module RedhatAccess
         def search_by_plan_id(key, operator, value)
           insights_plan_runner = ForemanAnsible::InsightsPlanRunner.new(Organization.current, value.to_i)
           hostname_rules_relation = insights_plan_runner.hostname_rules(insights_plan_runner.playbook)
-          host_ids = Host::Managed.where(:name => hostname_rules_relation.keys).pluck(:id)
+          host_ids = Host::Managed.where(:name => hostname_rules_relation.keys.map{|h| h.downcase}).pluck(:id)
           { :conditions => " hosts.id IN(#{host_ids.join(',')})" }
         end
       end
