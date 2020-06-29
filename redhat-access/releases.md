@@ -1,5 +1,8 @@
 Release contents
 
+- v2.2.15
+  * [PR #40](https://github.com/redhataccess/foreman-plugin/pull/40) - Handle host lookup for uppercase hostnames
+  
 - v2.2.14
   * Added x_rh_insights_request_id to copied proxy response header
   
