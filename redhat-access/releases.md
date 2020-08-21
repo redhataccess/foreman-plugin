@@ -1,5 +1,8 @@
 Release contents
 
+- v2.2.16
+  * [BZ1611621](https://bugzilla.redhat.com/show_bug.cgi?id=1611621) - Improve disconnected mode support
+  
 - v2.2.15
   * [PR #40](https://github.com/redhataccess/foreman-plugin/pull/40) - Handle host lookup for uppercase hostnames
   
