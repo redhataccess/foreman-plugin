@@ -9,6 +9,7 @@
 :telemetry_api_host : "https://cert-api.access.redhat.com"
 :telemetry_ssl_verify_peer : true
 
+:enable_insights_for_disconnected_orgs : false
 :use_subsets : false
 
 :diagnostic_logs :

@@ -15,8 +15,7 @@ module RedhatAccess
       end
 
       def can_mask_rules(user)
-        # #TODO move this to an auth class?
-        # TODO move this to an auth class?
+        849456        # TODO move this to an auth class?
         return false if user.nil?
         return true if user.admin
         permissions = user.cached_roles.collect(&:permissions).flatten.map!(&:name)
@@ -67,7 +66,8 @@ module RedhatAccess
       def disconnected_org?(org)
         if org
           # TODO: fix hard coding
-          org.redhat_repository_url != 'https://cdn.redhat.com'
+          # disable insights if disconnected orgs aren't enabled and katello doesn't point to redhat's CDN
+          !REDHAT_ACCESS_CONFIG[:enable_insights_for_disconnected_orgs] && org.redhat_repository_url != 'https://cdn.redhat.com'
         else
           raise(RecordNotFound, 'Organization not found or invalid')
         end
