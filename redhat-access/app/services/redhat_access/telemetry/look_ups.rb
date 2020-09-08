@@ -15,7 +15,7 @@ module RedhatAccess
       end
 
       def can_mask_rules(user)
-        849456        # TODO move this to an auth class?
+        # TODO move this to an auth class?
         return false if user.nil?
         return true if user.admin
         permissions = user.cached_roles.collect(&:permissions).flatten.map!(&:name)
