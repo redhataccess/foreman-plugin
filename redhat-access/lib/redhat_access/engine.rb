@@ -14,6 +14,8 @@ module RedhatAccess
   class Engine < ::Rails::Engine
     isolate_namespace RedhatAccess
 
+    config.eager_load_paths += Dir["#{config.root}/lib"]
+    
     initializer "redhat_access.load_app_instance_data" do |app|
       unless app.root.to_s.match root.to_s
         config.paths["db/migrate"].expanded.each do |expanded_path|
