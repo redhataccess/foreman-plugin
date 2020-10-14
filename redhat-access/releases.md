@@ -1,5 +1,8 @@
 Release contents
 
+- v2.2.18
+  * [PR #4](https://github.com/redhataccess/foreman-plugin/pull/54) - Convert to SCSS files for proper import
+
 - v2.2.17
   * [PR #51](https://github.com/redhataccess/foreman-plugin/pull/51) - Fixes css import build issue
   
