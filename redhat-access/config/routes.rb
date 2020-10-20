@@ -17,7 +17,6 @@ RedhatAccess::Engine.routes.draw do
       post  '/uploads/(:id)',       to: 'api/machine_telemetry_api#proxy_upload'
       get '/view/api/:v/me' ,   to: 'api/telemetry_api#connection_status', :constraints => {:v =>/(v[0-9]|latest)/}
       match '/view/api/:path',      to: 'api/telemetry_api#proxy', :constraints => {:path => /.*/} ,via: [:get, :post, :delete,:put, :patch]
-      match '/:path',               to: 'api/machine_telemetry_api#proxy', :constraints => {:path => /.*/}, via: [:get, :post, :delete,:put, :patch]
     end
     get 'insights', to: 'analytics_dashboard#index'
     get 'analytics_configuration', to: 'telemetry_configuration#index'
