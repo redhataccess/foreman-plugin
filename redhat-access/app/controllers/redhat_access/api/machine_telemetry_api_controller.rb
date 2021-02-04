@@ -65,31 +65,6 @@ module RedhatAccess
         render status: res[:code], json: res[:data]
       end
 
-      def get_branch_info
-        uuid = User.current.login
-        begin
-          org = get_organization(uuid)
-          labels = get_labels_for_host(uuid)
-          major, minor, build = get_plugin_parent_version.scan(/\d+/)
-          client_id = {:remote_leaf => uuid,
-                       :remote_branch => get_branch_id_for_org(org),
-                       :display_name => org.name,
-                       :hostname => request.host,
-                       :product => {:type => get_plugin_parent_name,
-                                    :major_version => major,
-                                    :minor_version => minor
-                       },
-                       :organization_id => org.id,
-                       :satellite_instance_id => get_foreman_instance_id,
-                       :labels => labels
-          }
-          render :json => client_id.to_json
-        rescue RedhatAccess::Telemetry::LookUps::RecordNotFound => e
-          http_error_response(e.message, 400)
-        end
-      end
-
-
       protected
 
       def use_subsets
@@ -109,96 +84,6 @@ module RedhatAccess
         base_user_agent = super
         client_user_agent = request.env['HTTP_USER_AGENT']
         "#{base_user_agent};#{client_user_agent}"
-      end
-
-
-      def get_branch_id
-        get_branch_id_for_uuid(User.current.login)
-      end
-
-      def get_labels_for_host(uuid)
-        host = get_content_host(uuid)
-        org = get_organization(host)
-
-        # get organization
-        labels = [{
-                      :namespace => "Satellite",
-                      :key => "Organization",
-                      :value => org.name
-                  }]
-
-        # get locations - one tag for each location element
-        location = host.location
-        unless location.nil?
-          location.title.split('/').each do |title|
-            labels += [{
-                           :namespace => "Satellite",
-                           :key => "Location",
-                           :value => title
-                       }]
-          end
-        end
-
-        # get hostgroup and config groups
-        hostgroup = host.hostgroup_id.nil? ? nil : ::Hostgroup.unscoped.find(host.hostgroup_id)
-        unless hostgroup.nil?
-          hostgroup.title.split('/').each do |title|
-            labels += [{
-                           :namespace => "Satellite",
-                           :key => "Host Group",
-                           :value => title
-                       }]
-          end
-
-          # We're leaving these out for the moment....
-
-          # # seems like this is missing parent config groups...
-          # hostgroup.all_config_groups.each do |config_group|
-          #   labels += [{
-          #                  :namespace => "Satellite",
-          #                  :key => "Config Group",
-          #                  :value => config_group.name
-          #              }]
-          # end
-        end
-
-        # get host_collections
-        host.host_collections.each do |collection|
-          labels += [{
-                         :namespace => "Satellite",
-                         :key => "Host Collection",
-                         :value => collection.name
-                     }]
-        end
-
-        # get parameters - perhaps we should only include parameter.searchable_value == true?
-        include_parameter_tags = get_include_parameter_tags # true, false or list
-        if include_parameter_tags
-          host.host_inherited_params_objects.each do |parameter|
-            # check to see if parameter.name is in list (if it *is* a list...)
-            if include_parameter_tags.respond_to?(:none?)
-              # skip tag if no match in list
-              next if include_parameter_tags.none? do |pattern|
-                begin
-                  parameter.name.match?(pattern)
-                rescue RegexpError => e
-                  Rails.logger.debug("Skipping bad parameter expression: #{e}")
-                  # remove the bad pattern from the list so we don't keep iterating over it
-                  include_parameter_tags.delete(pattern)
-                  next
-                end
-              end
-            end
-            # add tag to list of labels
-            labels += [{
-                           :namespace => "SatelliteParameter",
-                           :key => parameter.name,
-                           :value => parameter.value
-                       }]
-          end
-        end
-
-        return labels
       end
     end
   end

@@ -196,10 +196,6 @@ module RedhatAccess
         end
       end
 
-      def get_foreman_instance_id
-        Foreman.respond_to?(:instance_id) ? Foreman.instance_id : nil
-      end
-
       def get_portal_http_proxy
         begin
           @http_proxy_string ||=
@@ -277,11 +273,6 @@ module RedhatAccess
       # timeout for telemetry uploads
       def get_upload_timeout
         REDHAT_ACCESS_CONFIG[:telemetry_upload_timeout_s] || 120
-      end
-
-      # list of parameters to include as tags (or 'true' for all of them)
-      def get_include_parameter_tags
-        REDHAT_ACCESS_CONFIG[:include_parameter_tags] || false
       end
 
       def user_login_to_hash(login)
