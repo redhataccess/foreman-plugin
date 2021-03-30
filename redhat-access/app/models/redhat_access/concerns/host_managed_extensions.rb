@@ -14,7 +14,8 @@ module RedhatAccess
           hostname_rules_relation = insights_plan_runner.hostname_rules(insights_plan_runner.playbook)
           hostnames = hostname_rules_relation.keys.map{|h| h.downcase}
           hostnames.map! { |hname| hname.split('.').first } if Setting[:use_shortname_for_vms]
-          { :conditions => (hostnames.empty? ? ' 0 = 1' : " hosts.name IN(#{hostnames.join(',')})") }
+          conditions = hostnames.empty? ? ' 0 = 1' : sanitize_sql_array([' hosts.name IN (?)', hostnames])
+          { :conditions => conditions }
         end
       end
     end
