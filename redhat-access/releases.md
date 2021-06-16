@@ -1,5 +1,16 @@
 Release contents
 
+- v2.2.20
+  * [PR #59](https://github.com/redhataccess/foreman-plugin/pull/59) - Escape host names properly for plan search
+
+- v2.2.19
+  * [PR #58](https://github.com/redhataccess/foreman-plugin/pull/58) - Fix filtering Hosts by plan_id for shortnames
+  * [PR #56](https://github.com/redhataccess/foreman-plugin/pull/56) - Remove endpoints for proxying payload
+
+- v2.8.1 
+  * [BZ1897213](https://bugzilla.redhat.com/show_bug.cgi?id=1897213) - Insights planner cannot be deleted
+  * Fixed corrupted Insights front-end css file
+
 - v2.2.18
   * [PR #4](https://github.com/redhataccess/foreman-plugin/pull/54) - Convert to SCSS files for proper import
 
